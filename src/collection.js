@@ -2,7 +2,6 @@ import React from 'react';
 import './collection.css';
 
 /*컬렉션 상단바*/
-//djfkdjfkd
 
 const Top = () => {
   return(
