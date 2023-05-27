@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './Home'; // app.js 가 여기에 임포트 되어서 앱 컴포넌트를 루트에 렌더링!
+import App from './mypage'; // app.js 가 여기에 임포트 되어서 앱 컴포넌트를 루트에 렌더링!
 import reportWebVitals from './reportWebVitals';
 
 
