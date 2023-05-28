@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Collection from './Collection';
+import Collection from './collection';
 import AddWrite from './AddWrite';
-import Chatting from './Chatting';
-import Mypage from './Mypage';
+import Chatting from './chatting';
+import Mypage from './mypage';
 
 
 const Home = () => {
