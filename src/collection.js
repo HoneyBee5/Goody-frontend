@@ -2,7 +2,6 @@ import React from 'react';
 import './collection.css';
 
 /*컬렉션 상단바*/
-//djfkdjfkd
 
 const Top = () => {
   return(
@@ -97,7 +96,7 @@ const Bottom = () => {
   );
 };
 
-function App() {
+function Collection() {
   return (
     <div>
       <Top/>
@@ -108,4 +107,4 @@ function App() {
   );
 }
 
-export default App;
+export default Collection;
