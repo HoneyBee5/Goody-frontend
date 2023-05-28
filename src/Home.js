@@ -1,18 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Collection from './collection';
+import Collection from './Collection';
+import AddWrite from './AddWrite';
+import Chatting from './Chatting';
+import Mypage from './Mypage';
+
 
 const Home = () => {
   return (
 <>
-        {/* 액션바 */}
-        <div className='flex'>
-          <div className='w-full flex justify-center py-6'>
-            <img className='' src="img/GOODY.png" alt='구디' width={'150px'} />
-          </div>
-          <button className='absolute right-0 h-20 p-4'><img src="img/Search.png" alt='검색' width={'35px'} height={'35px'} /></button>
-        </div>
-
+        <Home_ActionBar />
 
         {/* 메인 이미지 */}
         <div className='w-full h-60 box-content flex justify-center items-center'>
@@ -68,36 +65,52 @@ const Home = () => {
           </div>
         </div>
 
-
-        {/* 네비게이션 */}
-        <div className='bg-white fixed w-full h-16 bottom-0'>
-          <div>
-            <Link to="/" className='w-1/5 h-16 font-extrabold'> 홈 </Link>
-            <Link to="/collection" className='w-1/5 h-16 font-extrabold'> 컬렉션 </Link>
-            <Link to="/collection" className='w-1/5 h-16 font-extrabold text-2xl'> + </Link>
-            <Link to="/chatting" className='w-1/5 h-16 font-extrabold'> 채팅 </Link>
-            <Link to="/mypage" className='w-1/5 h-16 font-extrabold'> MY </Link>
-            {/* <button className='w-1/5 h-16 font-extrabold text-2xl'> + </button>
-            <button className='w-1/5 h-16 font-extrabold'> 채팅 </button>
-            <button className='w-1/5 h-16 font-extrabold'> MY </button> */}
-          </div>
-        </div>
+    <Nav/>
 </>
   );
 };
 
+// 액션바
+const Home_ActionBar = () => {
+  return (
+     <div className='flex'>
+     <div className='w-full flex justify-center py-6'>
+       <img className='' src="img/GOODY.png" alt='구디' width={'150px'} />
+     </div>
+     <button className='absolute right-0 h-20 p-4'><img src="img/Search.png" alt='검색' width={'35px'} height={'35px'} /></button>
+   </div>
+  )
+}
+
+// 네비게이션
+const Nav = () => {
+  return (
+    <div className='bg-white fixed w-full h-16 bottom-0'>
+    <div>
+      <button className='w-1/5 h-16 font-extrabold'><Link to="/"> 홈 </Link></button>  
+      <button className='w-1/5 h-16 font-extrabold'> <Link to="/collection"> 컬렉션 </Link></button>  
+      <button  className='w-1/5 h-16 font-extrabold text-2xl'> <Link to="/addWrite"> + </Link></button>  
+      <button className='w-1/5 h-16 font-extrabold'> <Link to="/chatting"> 채팅 </Link></button>  
+      <button className='w-1/5 h-16 font-extrabold'> <Link to="/mypage"> MY </Link></button>  
+    </div>
+  </div>
+  )
+}
+
+// 라우터 연결 ( 페이지 연결 )
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
-        <Route path="/collection" element={<Collection />} />
-        <Route path="/chatting" element={<chatting />} />
-        <Route path="/mypage" element={<mypage />} />
+        <Route path="/addWrite" element={<AddWrite />} />
+        <Route path="/chatting" element={<Chatting />} />
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/" element={<Home />} /> {/* Home 컴포넌트가 첫 화면으로 나타남 */}
       </Routes>
     </Router>
   );
 };
 
+export { Nav }; // Nav 컴포넌트를 내보냅니다.
 export default App;

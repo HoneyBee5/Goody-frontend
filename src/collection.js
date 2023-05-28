@@ -1,23 +1,10 @@
 import React from 'react';
 import './collection.css';
+import { Nav } from './Home';
+import { ActionBar } from './ActionBar';
 
-/*컬렉션 상단바*/
-
-const Top = () => {
-  return(
-    <div className="topBar">
-      <div 
-        style={{
-          color: 'white', 
-          marginLeft: '20px', 
-          fontWeight: 'bold',
-          fontSize: '20px'
-        }}>
-      컬렉션
-      </div>
-    </div>
-  );
-};
+// 액션바 이름
+const actionBarName = "컬렉션";
 
 /*사진 배열*/
 const SquareGrid = () => {
@@ -89,20 +76,14 @@ const CircleBtn = () => {
   )
 };
 
-const Bottom = () => {
-  return(
-    <div className="bottomBar">
-    </div>
-  );
-};
 
 function Collection() {
   return (
     <div>
-      <Top/>
+      <ActionBar actionBarName={actionBarName} />
       <SquareGrid/>
       <CircleBtn/>
-      <Bottom/>
+      <Nav/>
     </div>
   );
 }
