@@ -1,0 +1,33 @@
+/*상단바*/
+.mypage_top{ 
+    background-color: rgb(239, 184, 44);
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 5%;
+    position: fixed;
+    top:0;
+    z-index: 9999;
+}
+/*상단바에 겹치지 않도록*/
+.margin_top{
+    margin-top: 60px;
+}
+/*프로필 수정 버튼*/
+.profile{
+
+    border-radius: 50px;
+    font-size: 0.5rem;
+    font-weight: bolder;
+    background-Color: rgb(239, 184, 44); 
+    height:2rem;
+    width:5rem;
+}
+/*키워드 폰트*/
+.keyword {
+    padding-top: 0.4rem;
+    font-size:0.7rem;
+}
