@@ -74,9 +74,12 @@ const Home = () => {
           <div>
             <Link to="/" className='w-1/5 h-16 font-extrabold'> 홈 </Link>
             <Link to="/collection" className='w-1/5 h-16 font-extrabold'> 컬렉션 </Link>
-            <button className='w-1/5 h-16 font-extrabold text-2xl'> + </button>
+            <Link to="/collection" className='w-1/5 h-16 font-extrabold text-2xl'> + </Link>
+            <Link to="/chatting" className='w-1/5 h-16 font-extrabold'> 채팅 </Link>
+            <Link to="/mypage" className='w-1/5 h-16 font-extrabold'> MY </Link>
+            {/* <button className='w-1/5 h-16 font-extrabold text-2xl'> + </button>
             <button className='w-1/5 h-16 font-extrabold'> 채팅 </button>
-            <button className='w-1/5 h-16 font-extrabold'> MY </button>
+            <button className='w-1/5 h-16 font-extrabold'> MY </button> */}
           </div>
         </div>
 </>
@@ -89,6 +92,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
+        <Route path="/collection" element={<Collection />} />
+        <Route path="/chatting" element={<chatting />} />
+        <Route path="/mypage" element={<mypage />} />
       </Routes>
     </Router>
   );
