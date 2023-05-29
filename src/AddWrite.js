@@ -45,9 +45,7 @@ const AddWrite = () => {
 
   const SelectBox = (props) => {
     return (
-      <select
-        className="m-0 m1-4 sm:m1-20 w-full sm:flex-row h-10 sm:h-16"
-      >
+      <select className="w-full sm:flex-row h-10 sm:h-16">
         {props.options.map((option) => (
           <option
             value={option.value}
@@ -86,17 +84,15 @@ const AddWrite = () => {
     };
 
     return (
-      <div className='mb-5'>
+      <div className='mb-8'>
         <input
           type="text"
           value={text === '' ? placeholder : text}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur} // 오타 수정
+          className='w-32 border border-black 100 ml-2 text-right'
       
-          style={{
-            textAlign: 'right',
-          }}
         />
       </div>
     )
@@ -112,18 +108,12 @@ const AddWrite = () => {
     };
 
     return (
-      <div>
+      <div className='w-290 h-30 ml-2'>
         <input
           type="text"
           value={text}
           onChange={handleChange}
           placeholder='글 제목'
-
-          style={{
-            width: '290px',
-            height: '30px',
-            marginLeft: '20px'
-          }}
         />
       </div>
     )
@@ -143,31 +133,21 @@ const AddWrite = () => {
     };
 
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className='flex mr-12 h-30 mt-5 mb-5 ml-2 items-center'>
         <input
           type="text"
           value={text}
           onChange={handleChange}
           placeholder='￦ 가격'
-
-          style={{
-            width: '290px',
-            height: '30px',
-            marginTop: '-1px',
-            marginLeft: '20px'
-          }}
+          className='w-full'
         />
 
         {/* 나눔 체크 박스  */}
-        <label className="Check_label">
+        <label className="Check_label mr-[-40px]">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleCheckboxChange}
-
-            style={{
-              marginLeft: '-60px',
-            }}
           />
         나눔
         </label>
@@ -190,8 +170,8 @@ const AddWrite = () => {
           type="text"
           value={text}
           onChange={handleChange}
-          placeholder='게시글 내용을 작성해주세요.'
-          className="explain-text  sm:w-150 h-60 sm:h-80 mt-1 ml-4"
+          placeholder=' 설명'
+          className="explain-text  sm:w-150 h-60 sm:h-80 mt-1 ml-2 mr-4"
            /*placeholder 글씨 크기는 css에서 수정*/
         />
       </div>
@@ -211,13 +191,14 @@ const AddWrite = () => {
       <Square />
 
       {/* SELECTBOX 컴포넌트를 화면에 렌더링 */}
-      <SelectBox options={OPTIONS1} defaultValue="banana" />
-      <SelectBox options={OPTIONS2} defaultValue="banana" />
-      <SelectBox options={OPTIONS3} defaultValue="banana" />
+      <SelectBox options={OPTIONS1} />
+      <SelectBox options={OPTIONS2} />
+      <SelectBox options={OPTIONS3} />
 
       {/* 라디오 버튼 화면에 렌더링 */}
 
-      <div className="radio-container">
+      <div className="radio-container ml-2 mt-12 mb-5">  
+                                      {/* 라디오버튼과 텍스트의 마진 */}
         <label>
           <input
             type="radio"
@@ -225,16 +206,11 @@ const AddWrite = () => {
             value="option1"
             checked={selectedRadio === 'option1'}
             onChange={handleRadioChange}
-
-            style={{
-              margin: '20px', /*라디오버튼과 텍스트의 마진*/
-              marginTop: '20px',
-            }}
           />
           인원수
         </label>
 
-        <label>
+        <label className='ml-20'>
           <input
             type="radio"
             name="radioGroup"
@@ -242,10 +218,6 @@ const AddWrite = () => {
             checked={selectedRadio === 'option2'}
             onChange={handleRadioChange}
 
-            style={{
-              margin: '20px', /*라디오버튼과 텍스트의 마진*/
-              marginLeft: '60px'/*인원수 버튼과 추가인원 버튼의 마진*/
-            }}
           />
           추가인원
         </label>
