@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Collection from './Collection';
+import Collection from './collection';
 import AddWrite from './AddWrite';
-import Chatting from './Chatting';
-import Mypage from './Mypage';
+import Chatting from './chatting';
+import Mypage from './mypage';
 
 
 const Home = () => {
@@ -30,7 +30,7 @@ const Home = () => {
           </div>
         </div>
         <hr />
-
+        
 
         {/* 최근 업로드 */}
         <h3 className='font-extrabold mt-5 ml-5'> 최근 업로드 </h3>
