@@ -53,15 +53,22 @@ const SquareGrid = () => {
   );
 };
 
-<div className="flex m-8">
-  <button img src='img\plusButton.png'></button>
-</div>
+const PlusBtn = () => {
+  return (
+    <div className="flex justify-end">
+       <button className='mr-5'>
+        <img className='' src="/img/plusButton.png" alt='플러스' width={'80px'} />
+       </button>
+    </div>
+  );
+};
 
 function Collection() {
   return (
     <div>
       <ActionBar actionBarName={actionBarName} />
       <SquareGrid/>
+      <PlusBtn/>
       <Nav/>
     </div>
   );

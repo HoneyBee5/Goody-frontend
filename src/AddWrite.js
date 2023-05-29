@@ -11,7 +11,7 @@ const AddWrite = () => {
   /*사진 올리는 박스*/
   const Square = () => {
     return (
-      <button className="photo w-20 h-20 m-5 flex items-center justify-center rounded-1g  border border-black">
+      <button className="photo w-32 h-32 m-5 ml-3 flex items-center justify-center rounded-lg border border-black">
         <div className="PhotoText rounded-1g">사진</div>
       </button>
     );
@@ -63,6 +63,7 @@ const AddWrite = () => {
 
   
   const Member = () => {
+    
     const [text, setText] = useState('');
     const placeholder = ' (명) ';
 
@@ -85,7 +86,7 @@ const AddWrite = () => {
     };
 
     return (
-      <div>
+      <div className='mb-5'>
         <input
           type="text"
           value={text === '' ? placeholder : text}
@@ -94,16 +95,13 @@ const AddWrite = () => {
           onBlur={handleBlur} // 오타 수정
       
           style={{
-            width: '150px',
-            height: '20px',
-            marginLeft: '20px',
-            marginBottom: '40px',
             textAlign: 'right',
           }}
         />
       </div>
     )
   };
+
 
   /*글제목 작성*/
   const TextBox = () => {
@@ -187,20 +185,14 @@ const AddWrite = () => {
     };
 
     return (
-      <div className="Div_explainText">
-        <input
+      <div className="Div_explainText flex flex-col">
+        <textarea
           type="text"
           value={text}
           onChange={handleChange}
           placeholder='게시글 내용을 작성해주세요.'
-          className="explain-text" /*placeholder 글씨 크기는 css에서 수정*/
-
-          style={{
-            width: '290px',
-            height: '250px',
-            marginTop: '-1px',
-            marginLeft: '20px',
-          }}
+          className="explain-text  sm:w-150 h-60 sm:h-80 mt-1 ml-4"
+           /*placeholder 글씨 크기는 css에서 수정*/
         />
       </div>
     )
