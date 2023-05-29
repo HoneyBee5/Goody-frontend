@@ -207,10 +207,10 @@ const AddWrite = () => {
             checked={selectedRadio === 'option1'}
             onChange={handleRadioChange}
           />
-          인원수
+           인원수
         </label>
 
-        <label className='ml-20'>
+        <label className='fixe fixe-cols ml-20'>
           <input
             type="radio"
             name="radioGroup"
@@ -219,7 +219,7 @@ const AddWrite = () => {
             onChange={handleRadioChange}
 
           />
-          추가인원
+           추가인원
         </label>
       </div>
 
