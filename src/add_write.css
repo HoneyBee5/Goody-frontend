@@ -1,15 +1,15 @@
 
-.photo {
+/* /* .photo {
     width: 90px;
     height: 80px;
     margin: 20px;
     display: flex;
     border-radius: 10px;
     margin-bottom: 40px; /*아래 콤보 박스와 공백 띄우기*/
-    align-items: center; /*내부 아이템 가운데 정렬*/
-    justify-content: center; /*내부 아이템 가운데 정렬*/
-    border: 1px solid black; 
-  }
+    /*align-items: center; /*내부 아이템 가운데 정렬*/
+    /*justify-content: center; /*내부 아이템 가운데 정렬*/
+    /*border: 1px solid black; 
+  }  */
   
   .radio-container {
     margin-top: 20px;

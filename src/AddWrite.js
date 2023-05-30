@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ActionBar } from './ActionBar';
+import { Nav } from './Home';
 import './add_write.css';
 
 // 액션바 이름
@@ -10,59 +11,43 @@ const AddWrite = () => {
   /*사진 올리는 박스*/
   const Square = () => {
     return (
-      <div className="photo">
-        <div className="PhotoText">사진</div>
-      </div>
-    );
-  };
-
-  /*사진 띄워주기*/
-  const PHOTO = () => {
-    return (
-      <>
-        <Square></Square>
-      </>
+      <button className="photo w-20 h-20 m-5 flex items-center justify-center rounded-1g  border border-black">
+        <div className="PhotoText rounded-1g">사진</div>
+      </button>
     );
   };
 
   /*셀렉트 박스 선택*/
   const OPTIONS1 = [
-    { value: "apple", name: "카테고리" },
-    { value: "banana", name: "연예인" },
-    { value: "banana", name: "스포츠" },
-    { value: "orange", name: "영화" },
-    { value: "orange", name: "게임" },
-    { value: "orange", name: "애니 / 만화" },
+    { value: "1", name: "카테고리" },
+    { value: "2", name: "연예인" },
+    { value: "3", name: "스포츠" },
+    { value: "4", name: "영화" },
+    { value: "5", name: "게임" },
+    { value: "6", name: "애니 / 만화" },
   ];
 
   const OPTIONS2 = [
-    { value: "apple", name: "거래종류" },
-    { value: "banana", name: "팔아요 / 구해요" },
-    { value: "orange", name: "교환해요" },
-    { value: "orange", name: "나눔해요" },
-    { value: "orange", name: "같이해요" },
+    { value: "1", name: "거래종류" },
+    { value: "2", name: "팔아요 / 구해요" },
+    { value: "3", name: "교환해요" },
+    { value: "4", name: "나눔해요" },
+    { value: "5", name: "같이해요" },
   ];
 
   const OPTIONS3 = [
-    { value: "apple", name: "상태등급" },
-    { value: "banana", name: "A" },
-    { value: "orange", name: "B" },
-    { value: "banana", name: "C" },
-    { value: "orange", name: "D" },
+    { value: "1", name: "상태등급" },
+    { value: "2", name: "A" },
+    { value: "3", name: "B" },
+    { value: "4", name: "C" },
+    { value: "5", name: "D" },
   ];
 
   const SelectBox = (props) => {
     return (
       <select
-        style={{
-          margin: '-1px',
-          marginLeft: '20px',
-          width: '300px',
-          height: '40px',
-          display: 'block',
-        }}
+        className="m-0 m1-4 sm:m1-20 w-full sm:flex-row h-10 sm:h-16"
       >
-
         {props.options.map((option) => (
           <option
             value={option.value}
@@ -76,6 +61,7 @@ const AddWrite = () => {
     );
   };
 
+  
   const Member = () => {
     const [text, setText] = useState('');
     const placeholder = ' (명) ';
@@ -185,7 +171,7 @@ const AddWrite = () => {
               marginLeft: '-60px',
             }}
           />
-          나눔
+        나눔
         </label>
 
       </div>
@@ -230,7 +216,7 @@ const AddWrite = () => {
 
       <ActionBar actionBarName={actionBarName} />
       {/* /*return 구문에서 PHOTO 컴포넌트 화면에 렌더링*/}
-      <PHOTO />
+      <Square />
 
       {/* SELECTBOX 컴포넌트를 화면에 렌더링 */}
       <SelectBox options={OPTIONS1} defaultValue="banana" />
@@ -277,7 +263,7 @@ const AddWrite = () => {
       <TextBox />
       <PriceText />
       <ExplainText />
-
+      <Nav />
     </div>
   );
 };
