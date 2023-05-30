@@ -5,7 +5,7 @@ import { ActionBar } from './ActionBar';
 
 // 액션바 이름
 const actionBarName = "컬렉션";
-
+//추가 수정
 /*사진 배열*/
 const SquareGrid = () => {
   const squares = [
