@@ -19,7 +19,6 @@ const SquareGrid = () => {
     {id:8, color:'#efb82c'},
     {id:9, color:'#efb82c'},
     {id:9, color:'#efb82c'},
-    {id:9, color:'#efb82c'},
 
   ];
 

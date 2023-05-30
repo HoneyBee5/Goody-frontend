@@ -43,6 +43,7 @@ const AddWrite = () => {
     { value: "5", name: "D" },
   ];
 
+  /*드롭다운 보일때 크기도 수정하기*/
   const SelectBox = (props) => {
     return (
       <select className="w-full sm:flex-row h-10 sm:h-16">
@@ -108,7 +109,7 @@ const AddWrite = () => {
     };
 
     return (
-      <div className='w-290 h-30 ml-2'>
+      <div className='w-290 h-30 ml-2 '>
         <input
           type="text"
           value={text}
