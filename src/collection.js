@@ -9,17 +9,22 @@ const actionBarName = "컬렉션";
 /*사진 배열*/
 const SquareGrid = () => {
   const squares = [
-    {id:1, color:'#efb82c'},    
-    {id:2, color:'#efb82c'},
-    {id:3, color:'#efb82c'},
-    {id:4, color:'#efb82c'},
-    {id:5, color:'#efb82c'},
-    {id:6, color:'#efb82c'},
-    {id:7, color:'#efb82c'},
-    {id:8, color:'#efb82c'},
-    {id:9, color:'#efb82c'},
-    {id:9, color:'#efb82c'},
-    {id:9, color:'#efb82c'},
+    {id:1, color:'#f1c40f'},    
+    {id:2, color:'#f1c40f'},
+    {id:3, color:'#f1c40f'},
+    {id:4, color:'#f1c40f'},
+    {id:5, color:'#f1c40f'},
+    {id:6, color:'#f1c40f'},
+    {id:7, color:'#f1c40f'},
+    {id:8, color:'#f1c40f'},
+    {id:9, color:'#f1c40f'},
+    {id:9, color:'#f1c40f'},
+    {id:9, color:'#f1c40f'},
+    {id:10, color:'#f1c40f'},   
+    {id:10, color:'#f1c40f'},   
+    {id:10, color:'#f1c40f'},   
+    {id:10, color:'#f1c40f'},   
+    {id:10, color:'#f1c40f'},   
 
   ];
 
@@ -34,18 +39,14 @@ const SquareGrid = () => {
   };
 
   /*현재는 한 줄에 사진 3개까지만 보이게 해둠*/
-  const chunkedSquares = chunk(squares, 3);
+  const chunkedSquares = chunk(squares, 1);
 
   return ( 
-    <div className="flex flex-wrap grid gap-3 grid-cols-3 ml-4  justify-center">
+    <div className="grid gap-3 grid-cols-3 ml-4  justify-center">
       {chunkedSquares.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex flex-wrap justify-start ">
+        <div key={rowIndex} className="">
           {row.map((square) => (
-              <button
-                key={square.id}
-                className=  
-                "m-2 mt-7 inline-block w-20 h-20 rounded-lg bg-yellow-500 shadow-md"
-              ></button>
+              <button key={square.id} className="m-2 mt-7 w-20 h-20 rounded-lg bg-[#f1c40f] shadow-md"></button>
           ))}
         </div>
       ))}
@@ -53,15 +54,23 @@ const SquareGrid = () => {
   );
 };
 
-<div className="flex m-8">
-  <button img src='img\plusButton.png'></button>
-</div>
+const PlusBtn = () => {
+  return (
+    <div className='fixed bottom-16 right-4'>
+      <button>
+        <img src="/img/plusButton.png" alt='플러스' width={'50px'} />
+      </button>
+    </div>
+  );
+};
+
 
 function Collection() {
   return (
     <div>
       <ActionBar actionBarName={actionBarName} />
       <SquareGrid/>
+      <PlusBtn/>
       <Nav/>
     </div>
   );
