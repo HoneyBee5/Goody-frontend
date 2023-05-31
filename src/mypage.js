@@ -37,7 +37,7 @@ const Mypage = () => {
         </div>
 
         <div className="rounded-lg">
-          <button className="profile">프로필수정</button>
+          <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-full text-xs">프로필수정</button>
         </div>
       </div>
 
@@ -56,9 +56,9 @@ const Mypage = () => {
             키워드
           </div>
         </div>
-        <div className="keyword"># {keyword1}</div>
-        <div className="keyword"># {keyword2}</div>
-        <div className="keyword"># {keyword3}</div>
+        <div className="pt-1 text-xs"># {keyword1}</div>
+        <div className="pt-1 text-xs"># {keyword2}</div>
+        <div className="pt-1 text-xs"># {keyword3}</div>
       </div>
 
       {/* 버튼 */}

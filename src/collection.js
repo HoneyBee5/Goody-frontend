@@ -5,7 +5,6 @@ import { ActionBar } from './ActionBar';
 
 // 액션바 이름
 const actionBarName = "컬렉션";
-//추가 수정
 /*사진 배열*/
 const SquareGrid = () => {
   const squares = [
@@ -18,7 +17,7 @@ const SquareGrid = () => {
     {id:7, color:'#efb82c'},
     {id:8, color:'#efb82c'},
     {id:9, color:'#efb82c'},
-    {id:9, color:'#efb82c'},
+    {id:10, color:'#efb82c'},
 
   ];
 
@@ -33,7 +32,7 @@ const SquareGrid = () => {
   };
 
   /*현재는 한 줄에 사진 3개까지만 보이게 해둠*/
-  const chunkedSquares = chunk(squares, 3);
+  const chunkedSquares = chunk(squares, 1);
 
   return ( 
     <div className="flex flex-wrap grid gap-3 grid-cols-3 ml-4  justify-center">
