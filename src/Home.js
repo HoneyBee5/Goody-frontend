@@ -6,6 +6,7 @@ import Chatting from './chatting';
 import Mypage from './mypage';
 
 
+
 const Home = () => {
   return (
 <>
@@ -59,7 +60,7 @@ const Home = () => {
           <div>
             <img width={'50px'} src='img\item_yellow.png' alt='아이템3'></img>
           </div>
-          <div className='ml-3'>
+          <div className='ml-3  mb-20'>
             <p className='font-bold'>상품이름</p>
             <p className='font-bold'>가격</p>
           </div>
