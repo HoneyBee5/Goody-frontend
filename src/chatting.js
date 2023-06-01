@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.css';
-import './mypage.css';
 import { Nav } from './Home';
 import { ActionBar } from './ActionBar';
 

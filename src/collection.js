@@ -20,12 +20,6 @@ const SquareGrid = () => {
     {id:9, color:'#f1c40f'},
     {id:9, color:'#f1c40f'},
     {id:9, color:'#f1c40f'},
-    {id:10, color:'#f1c40f'},   
-    {id:10, color:'#f1c40f'},   
-    {id:10, color:'#f1c40f'},   
-    {id:10, color:'#f1c40f'},   
-    {id:10, color:'#f1c40f'},   
-
   ];
 
   /*사진이 한 줄에 3개 이상이면 다음 줄에 뜨게 해줌*/

@@ -5,12 +5,13 @@ import AddWrite from './AddWrite';
 import Chatting from './chatting';
 import Mypage from './mypage';
 
-
+const product_name = "상품이름";
+const product_price = "가격";
 
 const Home = () => {
   return (
 <>
-        <Home_ActionBar />
+        <HomeActionBar />
 
         {/* 메인 이미지 */}
         <div className='w-full h-60 box-content flex justify-center items-center'>
@@ -35,44 +36,33 @@ const Home = () => {
 
         {/* 최근 업로드 */}
         <h3 className='font-extrabold mt-5 ml-5'> 최근 업로드 </h3>
-
-        <div className='flex m-5'>
-          <div>
-            <img width={'50px'} src='img\item_yellow.png' alt='아이템1'></img>
-          </div>
-          <div className='ml-3'>
-            <p className='font-bold'>상품이름</p>
-            <p className='font-bold'>가격</p>
-          </div>
-        </div>
-
-        <div className='flex m-5'>
-          <div>
-            <img width={'50px'} src='img\item_gray.png' alt='아이템2'></img>
-          </div>
-          <div className='ml-3'>
-            <p className='font-bold'>상품이름</p>
-            <p className='font-bold'>가격</p>
-          </div>
-        </div>
-
-        <div className='flex m-5'>
-          <div>
-            <img width={'50px'} src='img\item_yellow.png' alt='아이템3'></img>
-          </div>
-          <div className='ml-3  mb-20'>
-            <p className='font-bold'>상품이름</p>
-            <p className='font-bold'>가격</p>
-          </div>
-        </div>
+      <Product/>
+      <Product/>
+      <Product/>
 
     <Nav/>
 </>
   );
 };
 
+// 상품 컴포넌트
+const Product = () => {
+  return (
+    <div className='flex m-5'>
+          <div>
+            <img width={'50px'} src='img\item_yellow.png' alt='아이템1'></img>
+          </div>
+          <div className='ml-3'>
+            <p className='font-bold'>{product_name}</p>
+            <p className='font-bold'>{product_price}</p>
+          </div>
+        </div>
+  )
+}
+
+
 // 액션바
-const Home_ActionBar = () => {
+const HomeActionBar = () => {
   return (
      <div className='flex'>
      <div className='w-full flex justify-center py-6'>
