@@ -11,7 +11,7 @@ const AddWrite = () => {
   /*사진 올리는 박스*/
   const Square = () => {
     return (
-      <button className="photo w-20 h-20 m-5 flex items-center justify-center rounded-1g  border border-black">
+      <button className="photo w-32 h-32 m-5 ml-3 flex items-center justify-center rounded-lg border border-black">
         <div className="PhotoText rounded-1g">사진</div>
       </button>
     );
@@ -43,11 +43,10 @@ const AddWrite = () => {
     { value: "5", name: "D" },
   ];
 
+  /*드롭다운 보일때 크기도 수정하기*/
   const SelectBox = (props) => {
     return (
-      <select
-        className="m-0 m1-4 sm:m1-20 w-full sm:flex-row h-10 sm:h-16"
-      >
+      <select className="w-full sm:flex-row h-10 sm:h-16">
         {props.options.map((option) => (
           <option
             value={option.value}
@@ -63,6 +62,7 @@ const AddWrite = () => {
 
   
   const Member = () => {
+    
     const [text, setText] = useState('');
     const placeholder = ' (명) ';
 
@@ -85,25 +85,20 @@ const AddWrite = () => {
     };
 
     return (
-      <div>
+      <div className='mb-8'>
         <input
           type="text"
           value={text === '' ? placeholder : text}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur} // 오타 수정
+          className='w-32 border border-black 100 ml-2 text-right'
       
-          style={{
-            width: '150px',
-            height: '20px',
-            marginLeft: '20px',
-            marginBottom: '40px',
-            textAlign: 'right',
-          }}
         />
       </div>
     )
   };
+
 
   /*글제목 작성*/
   const TextBox = () => {
@@ -114,18 +109,12 @@ const AddWrite = () => {
     };
 
     return (
-      <div>
+      <div className='w-290 h-30 ml-2 '>
         <input
           type="text"
           value={text}
           onChange={handleChange}
           placeholder='글 제목'
-
-          style={{
-            width: '290px',
-            height: '30px',
-            marginLeft: '20px'
-          }}
         />
       </div>
     )
@@ -145,35 +134,50 @@ const AddWrite = () => {
     };
 
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className='flex mr-12 h-30 mt-5 mb-5 ml-2 items-center'>
         <input
           type="text"
           value={text}
           onChange={handleChange}
           placeholder='￦ 가격'
-
-          style={{
-            width: '290px',
-            height: '30px',
-            marginTop: '-1px',
-            marginLeft: '20px'
-          }}
+          className='w-full'
         />
 
         {/* 나눔 체크 박스  */}
-        <label className="Check_label">
+        <label className="Check_label mr-[-40px]">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleCheckboxChange}
-
-            style={{
-              marginLeft: '-60px',
-            }}
           />
         나눔
         </label>
 
+      </div>
+    );
+  };
+
+  const Hashtag = () => {
+    const [text, setText] = useState('');
+
+    const handleChange = (event) => {
+      setText(event.target.value);
+    };
+
+    return (
+      <div className='w-290 h-30 m-2 mb-3 flex justify-between'>
+        <div className='w-50'>
+          <input
+            type="text"
+            value={text}
+            onChange={handleChange}
+            placeholder='# 해시태그'
+          />
+        </div>
+        
+        <div className='textWrite w-150 mr-0'>
+          #아이돌 #방탄소년단 #판매중 #포카
+        </div>
       </div>
     );
   };
@@ -187,20 +191,14 @@ const AddWrite = () => {
     };
 
     return (
-      <div className="Div_explainText">
-        <input
+      <div className="Div_explainText flex flex-col">
+        <textarea
           type="text"
           value={text}
           onChange={handleChange}
-          placeholder='게시글 내용을 작성해주세요.'
-          className="explain-text" /*placeholder 글씨 크기는 css에서 수정*/
-
-          style={{
-            width: '290px',
-            height: '250px',
-            marginTop: '-1px',
-            marginLeft: '20px',
-          }}
+          placeholder=' 설명'
+          className="explain-text  sm:w-150 h-60 sm:h-80 mt-1 ml-2 mr-4"
+           /*placeholder 글씨 크기는 css에서 수정*/
         />
       </div>
     )
@@ -219,13 +217,14 @@ const AddWrite = () => {
       <Square />
 
       {/* SELECTBOX 컴포넌트를 화면에 렌더링 */}
-      <SelectBox options={OPTIONS1} defaultValue="banana" />
-      <SelectBox options={OPTIONS2} defaultValue="banana" />
-      <SelectBox options={OPTIONS3} defaultValue="banana" />
+      <SelectBox options={OPTIONS1} />
+      <SelectBox options={OPTIONS2} />
+      <SelectBox options={OPTIONS3} />
 
       {/* 라디오 버튼 화면에 렌더링 */}
 
-      <div className="radio-container">
+      <div className="radio-container ml-2 mt-12 mb-5">  
+                                      {/* 라디오버튼과 텍스트의 마진 */}
         <label>
           <input
             type="radio"
@@ -233,16 +232,11 @@ const AddWrite = () => {
             value="option1"
             checked={selectedRadio === 'option1'}
             onChange={handleRadioChange}
-
-            style={{
-              margin: '20px', /*라디오버튼과 텍스트의 마진*/
-              marginTop: '20px',
-            }}
           />
-          인원수
+           인원수
         </label>
 
-        <label>
+        <label className='fixe fixe-cols ml-20'>
           <input
             type="radio"
             name="radioGroup"
@@ -250,18 +244,15 @@ const AddWrite = () => {
             checked={selectedRadio === 'option2'}
             onChange={handleRadioChange}
 
-            style={{
-              margin: '20px', /*라디오버튼과 텍스트의 마진*/
-              marginLeft: '60px'/*인원수 버튼과 추가인원 버튼의 마진*/
-            }}
           />
-          추가인원
+           추가인원
         </label>
       </div>
 
       <Member />
       <TextBox />
       <PriceText />
+      <Hashtag/>
       <ExplainText />
       <Nav />
     </div>

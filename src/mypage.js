@@ -9,9 +9,6 @@ const Mypage = () => {
   /* 값을 받아올 변수들 */
   const id = '닉네임';
   const explain = '자기소개';
-  // const keyword1 = '친절해요';
-  // const keyword2 = '믿어도 돼요';
-  // const keyword3 = '상품 상태가 좋아요';
 
   return (
     <>
@@ -33,25 +30,6 @@ const Mypage = () => {
         </div>
       </div>
 
-      {/* 키워드 */}
-      {/* <div className="pt-5 pl-5 pr-5 pb-7">
-        <div className="pb-3">
-          <div
-            style={{
-              backgroundColor: 'rgb(239, 184, 44)',
-              fontSize: '0.7rem',
-              textAlign: 'center',
-              fontWeight: 'bolder',
-            }}
-            className="w-20 p-0.5 rounded"
-          >
-            키워드
-          </div>
-        </div>
-        <div className="pt-1 text-xs"># {keyword1}</div>
-        <div className="pt-1 text-xs"># {keyword2}</div>
-        <div className="pt-1 text-xs"># {keyword3}</div>
-      </div> */}
 
       {/* 버튼 */}
       <div className="border pr-5 pl-5 pt-7 pb-7">
