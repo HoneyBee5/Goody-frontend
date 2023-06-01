@@ -157,6 +157,37 @@ const AddWrite = () => {
     );
   };
 
+  const Hashtag = () => {
+    const [text, setText] = useState('');
+
+    const handleChange = (event) => {
+      setText(event.target.value);
+    };
+
+    return (
+      <div className='w-290 h-30 m-2 mb-3 flex justify-between'>
+        <div className='w-50'>
+          <input
+            type="text"
+            value={text}
+            onChange={handleChange}
+            placeholder='# 해시태그'
+          />
+        </div>
+        
+        <div className='w-150 mr-20 bg-gray-200'>
+          입력된 태그 
+          입력된 태그 
+          입력된 태그 
+          입력된 태그 
+          입력된 태그 
+          입력된 태그 
+
+        </div>
+      </div>
+    );
+  };
+
   /*가격 작성*/
   const ExplainText = () => {
     const [text, setText] = useState('');
@@ -227,6 +258,7 @@ const AddWrite = () => {
       <Member />
       <TextBox />
       <PriceText />
+      <Hashtag/>
       <ExplainText />
       <Nav />
     </div>

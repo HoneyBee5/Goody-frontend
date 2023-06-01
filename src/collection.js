@@ -35,15 +35,11 @@ const SquareGrid = () => {
   const chunkedSquares = chunk(squares, 1);
 
   return ( 
-    <div className="flex flex-wrap grid gap-3 grid-cols-3 ml-4  justify-center">
+    <div className="grid gap-3 grid-cols-3 ml-4  justify-center">
       {chunkedSquares.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex flex-wrap justify-start ">
+        <div key={rowIndex} className="">
           {row.map((square) => (
-              <button
-                key={square.id}
-                className=  
-                "m-2 mt-7 inline-block w-20 h-20 rounded-lg bg-yellow-500 shadow-md"
-              ></button>
+              <button key={square.id} className="m-2 mt-7 w-20 h-20 rounded-lg bg-[#f1c40f] shadow-md"></button>
           ))}
         </div>
       ))}
@@ -53,10 +49,10 @@ const SquareGrid = () => {
 
 const PlusBtn = () => {
   return (
-    <div className="flex justify-end">
-       <button className='mr-5'>
-        <img className='' src="/img/plusButton.png" alt='플러스' width={'80px'} />
-       </button>
+    <div className='fixed bottom-16 right-4'>
+      <button>
+        <img src="/img/plusButton.png" alt='플러스' width={'50px'} />
+      </button>
     </div>
   );
 };
