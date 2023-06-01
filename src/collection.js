@@ -5,10 +5,10 @@ import { ActionBar } from './ActionBar';
 
 // 액션바 이름
 const actionBarName = "컬렉션";
-
 /*사진 배열*/
 const SquareGrid = () => {
   const squares = [
+
     {id:1, color:'#f1c40f'},    
     {id:2, color:'#f1c40f'},
     {id:3, color:'#f1c40f'},
@@ -57,7 +57,6 @@ const PlusBtn = () => {
     </div>
   );
 };
-
 
 function Collection() {
   return (

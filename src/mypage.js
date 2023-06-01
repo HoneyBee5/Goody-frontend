@@ -25,6 +25,7 @@ const Mypage = () => {
           <p className='text-sm'>{explain}</p>
         </div>
 
+
         <div className="flex items-center">
           <button className="bg-[#f1c40f] text-white font-bold py-2 px-4 rounded-xl">수정</button>
         </div>
