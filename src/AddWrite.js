@@ -175,14 +175,8 @@ const AddWrite = () => {
           />
         </div>
         
-        <div className='w-150 mr-20 bg-gray-200'>
-          입력된 태그 
-          입력된 태그 
-          입력된 태그 
-          입력된 태그 
-          입력된 태그 
-          입력된 태그 
-
+        <div className='textWrite w-150 mr-0'>
+          #아이돌 #방탄소년단 #판매중 #포카
         </div>
       </div>
     );
