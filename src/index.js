@@ -11,5 +11,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
 /*  위의 앱 컴포넌트를 루트에 렌더링 */
 

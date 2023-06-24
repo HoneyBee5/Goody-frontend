@@ -1,5 +1,12 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
+ActionBar.propTypes = {
+  actionBarName: PropTypes.string.isRequired,
+};
+
+
 const ActionBar = ({ actionBarName }) => {
   return (
     <div className="w-full h-14 bg-[#f1c40f] ">
