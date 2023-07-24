@@ -5,13 +5,6 @@ import './add_write.css';
 
 import PropTypes from 'prop-types';
 
-
-AddWrite.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  defaultValue: PropTypes.string,
-};
-
-
 // 액션바 이름
 const actionBarName = "글 작성";
 
@@ -267,5 +260,11 @@ const AddWrite = () => {
     </div>
   );
 };
+
+AddWrite.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  defaultValue: PropTypes.string,
+};
+
 
 export default AddWrite;
