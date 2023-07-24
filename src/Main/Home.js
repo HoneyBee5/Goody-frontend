@@ -1,9 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Collection from './collection';
-import AddWrite from './AddWrite';
-import Chatting from './chatting';
-import Mypage from './mypage';
+import { Nav } from '../Component/Nav';
 
 const product_name = "상품이름";
 const product_price = "가격";
@@ -44,6 +40,8 @@ const Home = () => {
 </>
   );
 };
+export default Home;
+
 
 // 상품 컴포넌트
 const Product = () => {
@@ -60,7 +58,6 @@ const Product = () => {
   )
 }
 
-
 // 액션바
 const HomeActionBar = () => {
   return (
@@ -73,35 +70,3 @@ const HomeActionBar = () => {
   )
 }
 
-// 네비게이션
-const Nav = () => {
-  return (
-    <div className='bg-white fixed w-full h-16 bottom-0'>
-    <div>
-      <button className='w-1/5 h-16 font-extrabold'><Link to="/"> 홈 </Link></button>  
-      <button className='w-1/5 h-16 font-extrabold'> <Link to="/collection"> 컬렉션 </Link></button>  
-      <button  className='w-1/5 h-16 font-extrabold text-2xl'> <Link to="/addWrite"> + </Link></button>  
-      <button className='w-1/5 h-16 font-extrabold'> <Link to="/chatting"> 채팅 </Link></button>  
-      <button className='w-1/5 h-16 font-extrabold'> <Link to="/mypage"> MY </Link></button>  
-    </div>
-  </div>
-  )
-}
-
-// 라우터 연결 ( 페이지 연결 )
-const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/collection" element={<Collection />} />
-        <Route path="/addWrite" element={<AddWrite />} />
-        <Route path="/chatting" element={<Chatting />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/" element={<Home />} /> {/* Home 컴포넌트가 첫 화면으로 나타남 */}
-      </Routes>
-    </Router>
-  );
-};
-
-export { Nav }; // Nav 컴포넌트를 내보냅니다.
-export default App;

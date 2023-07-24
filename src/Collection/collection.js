@@ -1,7 +1,7 @@
 import React from 'react';
 import './collection.css';
-import { Nav } from './Home';
-import { ActionBar } from './ActionBar';
+import { Nav } from '../Component/Nav';
+import { ActionBar } from '../Component/ActionBar';
 
 // 액션바 이름
 const actionBarName = "컬렉션";
