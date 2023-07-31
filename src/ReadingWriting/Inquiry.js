@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 
 {/*상단*/}
@@ -97,6 +98,7 @@ const Dropdown = ({ label, items }) => {
           transition: 'height 0.3s',
           position: 'absolute',
           zIndex: isOpen ? 1 : 0,
+          backgroundColor: 'white', 
         }}
       >
 
@@ -242,7 +244,9 @@ const SquareGrid = () => {
     <div className="grid gap-3 grid-cols-2 ml-4 justify-center" style={{marginTop:'-45px'}}>
      
       {chunkedSquares.map((row, rowIndex) => (
+        
         <div key={rowIndex} >
+          <Link to="/Sightseeing">
           {row.map((square) => (
             <button key={square.id}
               className="m-2 mt-20 w-44 h-40 bg-[#e6e6e6] shadow-md"  
@@ -251,6 +255,7 @@ const SquareGrid = () => {
               <img src='img\Calldib.png' style={{width:'30px', marginLeft:'135px', marginTop:'-70px'}}></img>
             </button>
           ))}
+          </Link>
           <button>
           <div
             className='ml-2 mt-2 w-44 h-25'
