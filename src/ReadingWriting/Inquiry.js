@@ -39,8 +39,18 @@ const Search = () => {
                     borderRadius: '5px',
                     display: 'flex',
                     alignItems: 'center',
-                    backgroundColor:'#e6e6e6'
                 }}>
+
+                  <img src='img\Bar.png' 
+                    style={{  
+                      height:'6px',
+                      marginTop:'30px',
+                      width: '310px',
+                      marginLeft:'',
+                      display: 'flex',
+                      alignItems: 'center',}}
+                  ></img>
+               
 
                 <input
                     type="text"
@@ -49,13 +59,13 @@ const Search = () => {
                     onChange={handleChange}
                     placeholder='검색어를 입력해주세요.'
                     className=' outline-none border-0 focus:outline-none'
-                    style={{ width:'300px', border: 'none', padding: '0 8px', background: 'transparent' }}
+                    style={{ width:'300px', marginLeft:'-315px', marginTop:'-5px',border: 'none', padding: '0 8px', background: 'transparent' }}
                     />
 
                 {/*돋보기*/}
-                <div style={{marginLeft:'10px', marginBottom:'-5px'}}>
+                <div style={{marginLeft:'20px', marginBottom:'-7px'}}>
                     <button>
-                        <img src="img/Search2.png" alt='검색' width={'25px'} height={'25px'} 
+                        <img src="img/Search2.png" alt='검색' width={'30px'} height={'30px'} 
                             className=''/>
                     </button>                
                 </div>
@@ -98,7 +108,7 @@ const Dropdown = ({ label, items }) => {
           transition: 'height 0.3s',
           position: 'absolute',
           zIndex: isOpen ? 1 : 0,
-          backgroundColor: 'white', 
+          backgroundColor:'#ffffff' //드롭박스 내부 투명/불투명
         }}
       >
 
@@ -267,7 +277,7 @@ const SquareGrid = () => {
             <label className='whitespace-pre-line'>꿀벌오소리 벌꿀오소리...{'\n'}</label>
             <label className=''>20,000원</label>            
             <label className='fixe ml-11'>3시간전</label>
-            <div className='w-16 ml-1 mt-3 border border-[#b4b4b4]'>판매해요</div>
+            <div className='w-16 ml-1 mt-3 border border-[#FFD52B]'>판매해요</div>
           </div>
           </button>
           </div>

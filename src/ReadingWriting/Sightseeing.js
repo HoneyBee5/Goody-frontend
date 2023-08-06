@@ -1,14 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Nav } from '../Component/Nav';
+import { Link } from 'react-router-dom';
 
 const Image = () => {
     
   return (
       <div className="PhotoText rounded-1g border border-black bg-black h-260" 
         style={{
-          height: "300px"
-        }}>사진
+          height: "300px",
+        }}>
+          <div style={{marginLeft:'370px', marginTop:20}}>
+          <Link to="/Inquiry">
+            <button>
+              <img src="img\backClose.png" style={{ width: '20px', height: '20px'}}/>
+            </button>
+            </Link>
+          </div>
       </div>
   );
 };
@@ -54,12 +62,10 @@ const Title = () => {
           display:'flex',
           position: 'fixed',
           width: '330px',
-          height: '70px'
+          height: '70px',
+          marginTop:'20px'
         }}>
         <label style={{fontWeight:'bold', fontSize: 20}}>브루노마스 콘서트 동행 구해요.</label>
-      </div>
-
-      <div className='mt-10 display:flex'>
 
         {/*찜*/}
         <div className="fixed right-10 display:flex ">
@@ -68,12 +74,11 @@ const Title = () => {
 
         {/*찜개수*/}
         <div>
-          <label style={{position:'fixed' ,fontSize: 20, marginTop:2, color:'orange', right:17}}>11</label>
+          <label style={{position:'fixed' ,fontSize: 20, marginTop:1, color:'orange', right:17}}>11</label>
         </div>
-      
-      </div>
+          </div>
+          </div>
 
-    </div>
   );
 };
 
@@ -142,17 +147,18 @@ const Content = () => {
 const TotNum = () => {
   return (
 
+    <div>
+      
     <div style={{
-      position: 'fixed', 
       display: 'flex',
       marginLeft:12,
       zIndex: 999,
-      marginTop: '155px',
       // bottom: 'calc(6vh - 1px + 140px)',
-      justifyItems: 'center'
+      justifyItems: 'center',
+      marginTop:'180px'
       }}>
-
       <label>모집인원수: ?명</label>
+    </div>
     </div>
 
   );
@@ -164,7 +170,7 @@ const Purchase = () => {
 
       {/*라인*/}
       <div style={{ 
-        marginTop:200,
+        marginTop:10,
         border: '1px solid #b4b4b4',
       }}>
       </div>
@@ -172,7 +178,7 @@ const Purchase = () => {
       <div className='h-20 md:border-0 ml-4 mt-2'style={{display: 'flex', alignItems: 'center' }}> 
 
         {/*찜버튼*/}
-        <button  style={{ display: 'inline-block',marginTop: '-25px'}}>
+        <button  style={{ display: 'inline-block',marginTop: '-30px'}}>
           <img src="img\Like.png" className='w-11'></img>
         </button>
           
@@ -181,14 +187,14 @@ const Purchase = () => {
           width:'3px', 
           height:'40px', 
           backgroundColor:'#E6E6E6', 
-          marginTop:'-20px',
+          marginTop:'-25px',
           marginLeft:'10px' }}>
         </div>  
 
         {/*가격*/}
         <div style={{
           marginLeft:'20px',
-          marginTop: '-20px'}}>
+          marginTop: '-25px'}}>
           <label>000원</label>
         </div>
 

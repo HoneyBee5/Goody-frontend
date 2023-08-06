@@ -9,14 +9,26 @@ const actionBarName = "";
 
 const AddWrite = () => {
 
+  const [selectedOption1, setSelectedOption1] = useState(null);
+  const [selectedOption2, setSelectedOption2] = useState(null);
+  const [selectedOption3, setSelectedOption3] = useState(null);
+
+
   /*사진 올리는 박스*/
   const Square = () => {
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      console.log(file);
+    };
+  
     return (
-      <button className="photo w-32 h-32 mt-10 m-5 ml-3 flex items-center justify-center rounded-lg border border-black">
+      <label htmlFor="fileInput" className="photo w-32 h-32 mt-10 m-5 ml-3 flex items-center justify-center rounded-lg border border-black">
         <div className="PhotoText rounded-1g">사진</div>
-      </button>
+        <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
+      </label>
     );
   };
+
 
   /*셀렉트 박스 선택*/
   const OPTIONS1 = [
@@ -44,58 +56,52 @@ const AddWrite = () => {
     { value: "5", name: "D" },
   ];
 
+
   /*드롭다운 보일때 크기도 수정하기*/
+  const SelectBox = (props) => {
+    const { options, selectedOption, setSelectedOption } = props;
 
-const SelectBox = (props) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+    const handleSelectChange = (event) => {
+      setSelectedOption(event.target.value);
+    };
 
-  const handleSelectChange = (event) => {
-    const optionValue = event.target.value;
-    if (selectedOption === "2" && optionValue === "2") {
-      setSelectedOption(null);
-    } else {
-      setSelectedOption(optionValue);
-    }
-  };
-  
-
-    const modifiedOptions = props.options.map((option) => {
-      if (selectedOption === "2" && option.value === "7") {
-        return { value: option.value, name: "남자" };
-      } else if (selectedOption === "2" && option.value === "8") {
-        return { value: option.value, name: "여자" };
-      } else {
-        return option;
-      }
-    });
-  
+    
     return (
-      <>
-        <select
-          className="w-full sm:flex-row h-10 sm:h-16"
-          onChange={handleSelectChange}
-          value={selectedOption || ""}
-        >
-          {modifiedOptions.map((option) => (
+      <div className="w-full sm:flex-row h-10 sm:h-16 my-3">
+        {(selectedOption === "2" && props.options === OPTIONS1) || selectedOption === "8" ? (
+          <select
+            className="w-full sm:flex-row h-10 sm:h-16 p-2"
+            value={selectedOption || ""}
+            onChange={handleSelectChange}
+          >
+            <option value="7">남자배우</option>
+            <option value="8">여자배우</option>
+          </select>
+        ) : (
+          <select
+            className="w-full sm:flex-row h-10 sm:h-16 p-2"
+            onChange={handleSelectChange}
+            value={selectedOption || ''}
+            >
+          {options.map((option) => (
             <option value={option.value} key={option.value}>
-              {selectedOption === "2" && option.value === "2" ? "연예인" : option.name}
-            </option>
-          ))}
-
-          {modifiedOptions.map((option) => (
-            <option value={option.value} key={option.value}>
-              {selectedOption === "2" && option.value === "7" ? "연예인" : option.name}
-            </option>
-          ))}
-
-          <option value="7" name="남">남자</option>
-          <option value="8" name="여">여자</option>
-
-        </select>
-      </>
+            {option.name}
+              </option>
+            ))}
+          </select>
+        )}
+        {/* Show the selected option as text */}
+        {selectedOption === "7" && selectedOption !== "2" && selectedOption !== "8" && ""}
+        {selectedOption === "8" && ""}
+      </div>
     );
   };
 
+  SelectBox.propTypes = {
+    options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string, name: PropTypes.string })).isRequired,
+    selectedOption: PropTypes.string,
+    setSelectedOption: PropTypes.func,
+  };
 
   const Member = ( ) => {
     
@@ -143,10 +149,9 @@ const SelectBox = (props) => {
     return (
 
     <div >
-
-        <div style={{ marginTop: '10px', display: 'flex'}}> 
-          <div className='mb-8'style={{ display: 'flex', alignItems: 'center', marginLeft:3}}>         
-            <label style={{margin:'5px'}}>
+        <div style={{ marginTop: '10px', display: 'flex' }}> 
+        <div className='mb-8' style={{ display: 'flex', alignItems: 'center', marginLeft: '10px'}}>         
+        <label style={{ margin: '5px' }}>
               <input
                 type="radio"
                 name="radioGroup"
@@ -154,7 +159,7 @@ const SelectBox = (props) => {
                 checked={selectedRadio === 'option1'}
                 onChange={handleRadioChange}
               />
-              인원수
+              &nbsp;&nbsp;인원수
             </label>
           </div>
 
@@ -167,12 +172,12 @@ const SelectBox = (props) => {
                 checked={selectedRadio === 'option2'}
                 onChange={handleRadioChange}
               />
-              추가인원
+              &nbsp;&nbsp;추가인원
             </label>
         </div>
       </div>
 
-      <div style={{ height: 30, display: 'flex', marginTop:-12 }}>
+      <div style={{ height: 30, display: 'flex', marginTop:-12, marginLeft:'5px'}}>
 
         <input
           type="text"
@@ -181,7 +186,9 @@ const SelectBox = (props) => {
           onFocus={handleFocus}
           onBlur={handleBlur}
           className={`border border-black 100 ml-2 text-right ${boxWidth}`}
+          style={{borderRadius:5}}
         />
+
 
         {/*추가버튼*/}
         {selectedRadio === 'option2' && (
@@ -253,31 +260,39 @@ const SelectBox = (props) => {
     };
 
     return (
-      <div className='flex mr-12 h-30 mt-5 mb-5 ml-2 items-center'>
+      <div className='flex mr-12 h-30 mt-5 mb-5 ml-3 items-center'>
+  
         <input
           type="text"
           value={text}
           onChange={handleChange}
           placeholder='￦ 가격'
-          className="w-full outline-none border-0 focus:outline-none"
+          className="w-full outline-none border-0 mr-10 focus:outline-none"
 
         />
 
         {/* 나눔 체크 박스  */}
-        <label className="Check_label mr-[-40px]">
-          <input
-            type="checkbox"
-            checked={isChecked}
-            onChange={handleCheckboxChange}
-          />
-        나눔
-        </label>
+        <div style={{ marginLeft:'10px'}}>
 
+          <div className='ml-17 flex'>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+
+            <div className='ml-3 mr-[-14px]'>
+            <label className="Check_label mr-[-35px] flex">나눔</label>
+            </div>
+                     
+          </div>
+       
+        </div>
       </div>
     );
   };
 
-  /*가격 작성*/
+  /*설명 작성*/
   const ExplainText = () => {
     const [text, setText] = useState('');
 
@@ -294,8 +309,7 @@ const SelectBox = (props) => {
           placeholder=' 설명'
           className="explain-text  sm:w-150 h-60 h-43 mt-1 ml-2 mr-4 
                      outline-none border-0 focus:outline-none"
-           /*placeholder 글씨 크기는 css에서 수정*/
-        />
+           />
       </div>
     )
   };
@@ -310,38 +324,45 @@ const SelectBox = (props) => {
   const Check = () => {
     return (
 
-      <div style={{
-              position: 'fixed', 
-              display: 'flex', 
-              zIndex: 999,
-              bottom: 'calc(7vh - 40px)',
-              justifyItems: 'center'
-            }}>
+    //   <div style={{
+    //           position: 'fixed', 
+    //           display: 'flex', 
+    //           zIndex: 999,
+    //           bottom: 'calc(7vh - 40px)',
+    //           justifyItems: 'center'
+    //         }}>
 
-        <button>
-          <img src='img\DeleteBtn.png' 
-          style={{
-            width:180,
-            height:40,
-            marginLeft:15,
-          }}>
-          </img>
-        </button>
+    //     <button>
+    //       <img src='img\DeleteBtn.png' 
+    //       style={{
+    //         width:180,
+    //         height:40,
+    //         marginLeft:15,
+    //       }}>
+    //       </img>
+    //     </button>
 
-        <button>
-          <img src='img\AddBtn.png' 
-          style={{
-            width:180,
-            height:40,
-            marginLeft: 20,
-          }}>
-          </img>
-        </button>
+    //     <button>
+    //       <img src='img\AddBtn.png' 
+    //       style={{
+    //         width:180,
+    //         height:40,
+    //         marginLeft: 20,
+    //       }}>
+    //       </img>
+    //     </button>
 
-    </div>
+    // </div>
   
+<div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'40px'}}>
+      <button>
+        <img src='img\registerBtn.png'></img>
+      </button>
+    </div>
     );
   };
+
+  
 
 
   return (
@@ -352,10 +373,9 @@ const SelectBox = (props) => {
       <Square />
 
       {/* SELECTBOX 컴포넌트를 화면에 렌더링 */}
-      <SelectBox options={OPTIONS1} />
-      <SelectBox options={OPTIONS2} />
-      <SelectBox options={OPTIONS3} />
-
+      <SelectBox options={OPTIONS1} selectedOption={selectedOption1} setSelectedOption={setSelectedOption1} />
+      <SelectBox options={OPTIONS2} selectedOption={selectedOption2} setSelectedOption={setSelectedOption2} />
+      <SelectBox options={OPTIONS3} selectedOption={selectedOption3} setSelectedOption={setSelectedOption3} />
       {/* 라디오 버튼 화면에 렌더링 */}
 
       <Member/>
