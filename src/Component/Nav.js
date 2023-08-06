@@ -10,7 +10,7 @@ const Nav = () => {
         <button className='w-8 mx-6 mt-2'><Link to="/collection"> <img src='img/collection_gray.png'></img> </Link></button>  
         <button className='w-8 mx-6 mt-2'><Link to="/addWrite"><img src='img/write_gray.png'></img> </Link></button>  
         <button className='w-7 mx-6 mt-2'><Link to="/chatting"><img src='img/chat_gray.png'></img> </Link></button>  
-        <button className='w-8 mx-6 mt-2'><Link to="/mypage"><img src='img/my_gray.png'></img> </Link></button>  
+        <button className='w-8 mx-6 mt-2'><Link to="/mypage"><img src='img/my_gray.png'></img> </Link></button>   
       </div>
     </div>
     )
