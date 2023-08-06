@@ -10,8 +10,6 @@ const FavoriteList = () => {
     return (
         <>
         <ActionBarClose actionBarName={actionBarName} />
-        
-
         <Item_width />
         </>
       );

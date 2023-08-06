@@ -23,7 +23,7 @@ const ActionBar = () => {
       <div style={{ position: 'absolute',right:65, top:25 }}>
         <Link to="/collection">
         <button>
-          <img src="img\backClose.png" style={{ width: '25px', height: '25px' }} />
+          <img src="img\Close.png" style={{ width: '30px', height: '30px' }} />
         </button>
         </Link>
       </div>
@@ -111,7 +111,6 @@ const Calendar = () => {
 const Explain = () => {
   return (
     <div style={{
-      width: '100%',
       height: '320px', 
       marginTop:90,
       // border: '1px solid #b4b4b4',
