@@ -19,8 +19,8 @@ function Collection() {
         <div className='w-full flex justify-center'>
           <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'150px'} />
         </div>
-        <button className='absolute right-14 h-20 p-4'><img src="img/Search.png" alt='검색' width={'30px'} height={'30px'} /></button>
-        <button className='absolute right-0 h-20 p-4'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'30px'} height={'30px'} /></Link></button>
+        <button className='absolute right-14 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><img src="img/Search.png" alt='검색' width={'30px'} height={'30px'} /></button>
+        <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'30px'} height={'30px'} /></Link></button>
       </div>
       <SquareGrid/>
       <PlusBtn />

@@ -10,19 +10,17 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 
-
-
 // 액션바
 const HomeActionBar = ({ children, imageSrc }) => {
   return (
-      <div className='flex '>
+      <div className='flex'>
         <img className='relative' src={imageSrc} alt='구디' />
-        <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'150px'} />
+        <img className='absolute mt-7 left-7 ' src="img/SmallLogo.png" alt='구디' width={'150px'} />
 
-        <button className='absolute right-14 h-20 p-4'>
+        <button className='absolute right-14 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
           <img src="img/Search.png" alt='검색' width={'30px'} height={'30px'} />
         </button>
-        <button className='absolute right-0 h-20 p-4'>
+        <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)] '>
           <Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'30px'} height={'30px'} /></Link>
         </button>
       
@@ -31,7 +29,6 @@ const HomeActionBar = ({ children, imageSrc }) => {
         )}</div></div>
   );
 };
-
 
 export { HomeActionBar };
 
@@ -71,6 +68,41 @@ const theme = createTheme({
     },
   },
 });
+
+// // 이미지 넘기기
+// var prev = document.getElementById('prev');
+// var next = document.getElementById('next');
+// var dot = document.getElementsByClassName('dot');
+// var con = document.getElementById('con');
+// var thisIndex = 0;
+// var previousIndex = 0;
+// var imageWidth = 1440;
+
+// function navigateTo(data) {
+//   thisIndex += data;
+//   con.style.transform = `translateX(-${thisIndex * imageWidth}px)`;
+
+//   // Navigation buttons
+//   if (thisIndex === 0) {
+//     prev.classList.add('hidden');
+//   } else {
+//     prev.classList.remove('hidden');
+//   }
+
+//   if (thisIndex === 2) {
+//     next.classList.add('hidden');
+//   } else {
+//     next.classList.remove('hidden');
+//   }
+
+//   // Indicator
+//   dot[thisIndex].classList.add('dot_active');
+//   dot[previousIndex].classList.remove('dot_active');
+
+//   // Update previous index
+//   previousIndex = thisIndex;
+// }
+
 
 const Home = () => {
   return (

@@ -2,7 +2,8 @@ import React from 'react';
 
 const Item_width = () => {
     return (
-        <div className='flex m-5'>
+      <>
+        <div className='flex mt-7 ml-5 mb-5'>
         <div>
           <img width={'100px'} src='img\item_yellow.png' alt='아이템1'></img>
         </div>
@@ -12,11 +13,10 @@ const Item_width = () => {
           <p className=''>판매시간</p>
           <p className=''>거래상태</p>
         </div>
-      </div>
+
+      </div> <hr/></>
     );
   };
-  
-
   
   export { Item_width };
   

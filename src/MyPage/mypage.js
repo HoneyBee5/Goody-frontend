@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { HomeActionBar } from '../Main/Home';
+import { Link } from 'react-router-dom';
 
 // 카드 컴포넌트
 const ExpandMore = styled((props) => {
@@ -36,27 +37,11 @@ const RecipeReviewCard = () => {
     <div className='ml-7 '>
     <Card style={{ width: 355, backgroundColor: grey[100], borderRadius: 16}}>
 
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
-            G
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-          </IconButton>
-        }
-        
-        title={
-          <Typography variant="h7" style={{ fontWeight: 'bold' }}>
-            사용자 이름
-          </Typography>
-        }
-        subheader={
-          <Typography variant="subtitle1" style={{ fontWeight: '' }}>
-            사용자 등급
-          </Typography>
-        }
+    <CardHeader
+        avatar={<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe"> G </Avatar>}
+        action={<IconButton aria-label="settings"></IconButton>}
+        title={<Typography variant="h7" style={{ fontWeight: 'bold' }}> 사용자 이름 </Typography> }
+        subheader={<Typography variant="subtitle1" style={{ fontWeight: '' }}>사용자 등급 </Typography> }
       />
      
       <CardActions disableSpacing>
@@ -97,25 +82,25 @@ const Mypage = () => {
 
         <span className="font-extrabold p-2 text-gray-400 text-sm">사용이력</span>
 
-        <div className="flex pb-2 mt-2">
-          <button className="flex p-2 items-center">
+        <div className="flex pb-2 mt-2"><Link to="/reviewlist">
+          <button className="flex p-2 items-center"> 
             <img src="img/Icon_List.png" alt="리뷰 목록" className="h-6 w-6 mr-5" />
             <span className="font-extrabold">리뷰 목록</span>
-          </button>
+          </button></Link>
         </div>
 
-        <div className="flex pb-2">
+        <div className="flex pb-2"><Link to="/purchaselist">
           <button className="flex p-2 items-center">
             <img src="img/Icon_Purchase.png" alt="구매 참여 목록" className="h-6 w-6 mr-5" />
             <span className="font-extrabold">구매 & 참여 목록</span>
-          </button>
+          </button></Link>
         </div>
 
-        <div className="flex pb-2 mb-5">
-          <button className="flex p-2 items-center">
+        <div className="flex pb-2 mb-5"><Link to="/favoritelist">
+          <button className="flex p-2 items-center"> 
             <img src="img/Icon_Favorite.png" alt="찜 목록" className="h-6 w-6 mr-5" />
             <span className="font-extrabold">찜 목록</span>
-          </button>
+          </button></Link>
         </div>
 
 
