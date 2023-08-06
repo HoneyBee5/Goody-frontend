@@ -41,12 +41,13 @@ const SquareGrid = () => {
       {chunkedSquares.map((row, rowIndex) => (
         <div key={rowIndex} className="">
           {row.map((square) => (
-                        <Link to="/collectionDetail" key={square.id}>
+            <Link to="/collectionDetail" key={square.id}>
 
-            <button key={square.id} 
-              className="m-2 mt-2 w-24 h-28 bg-[white] shadow-md"
-              style={{ clipPath: hexagonClipPath, transform: "rotate(90deg)" }} // Rotate the hexagon by 90 degrees
-            ></button>            </Link>
+              <button key={square.id}
+                className="m-2 mt-2 w-24 h-28 bg-[white]"
+                style={{ clipPath: hexagonClipPath, transform: "rotate(90deg)" }} // Rotate the hexagon by 90 degrees
+              ></button>
+            </Link>
 
           ))}
         </div>
@@ -60,15 +61,13 @@ const SquareGrid = () => {
 const PlusBtn = () => {
   return (
     <Link to="/collectionWrite">
-    <button>
-      <img src="/img/collection_plusButton.png" alt='플러스' width={'70px'} className='' />
-    </button>
+      <button className='right-3 bottom-24 absolute'>
+        <img src="/img/collection_plusButton.png" alt='플러스' width={'70px'} className='' />
+      </button>
     </Link>
 
   );
 };
-
-
 
 
 function Collection() {
@@ -79,6 +78,7 @@ function Collection() {
     backgroundPosition: "center",
     width: "100%",
     height: "100vh",
+    position: "relative", // Add this line to set the relative position
   };
 
   return (
@@ -88,13 +88,14 @@ function Collection() {
           <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'150px'} />
         </div>
         <Link to="/Inspect">
-        <button className='absolute right-14 h-20 p-4'><img src="img/Search.png" alt='검색' width={'30px'} height={'30px'} /></button>
+          <button className='absolute right-14 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><img src="img/Search.png" alt='검색' width={'30px'} height={'30px'} /></button>
         </Link>
-        <button className='absolute right-0 h-20 p-4'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'30px'} height={'30px'} /></Link></button>
+        <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'30px'} height={'30px'} />
+        </Link></button>
       </div>
-      <SquareGrid/>
-      <PlusBtn/>
-      <Nav/>
+      <SquareGrid />
+      <PlusBtn />
+      <Nav />
     </div>
   );
 }

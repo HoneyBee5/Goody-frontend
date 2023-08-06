@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Nav } from '../Component/Nav';
 import { Link } from 'react-router-dom';
 
 const Image = () => {
@@ -13,7 +12,7 @@ const Image = () => {
           <div style={{marginLeft:'370px', marginTop:20}}>
           <Link to="/Inquiry">
             <button>
-              <img src="img\backClose.png" style={{ width: '20px', height: '20px'}}/>
+              <img src="img\Close.png" style={{ width: '20px', height: '20px'}}/>
             </button>
             </Link>
           </div>
@@ -168,12 +167,7 @@ const Purchase = () => {
   return (
     <div>
 
-      {/*라인*/}
-      <div style={{ 
-        marginTop:10,
-        border: '1px solid #b4b4b4',
-      }}>
-      </div>
+      <hr/>
       
       <div className='h-20 md:border-0 ml-4 mt-2'style={{display: 'flex', alignItems: 'center' }}> 
 
@@ -234,7 +228,6 @@ function Sightseeing() {
       <Content /> {/*게시글내용*/}
       <TotNum /> {/*모집인원*/}
       <Purchase /> {/*찜, 가격, 구매하기*/}
-      <Nav /> 
      </div>
 
   );
