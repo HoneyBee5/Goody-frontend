@@ -58,7 +58,7 @@ const Title = () => {
       {/*제목*/}
       <div 
         style={{
-          marginLeft:10,
+          marginLeft:12,
           display:'flex',
           position: 'fixed',
           width: '330px',

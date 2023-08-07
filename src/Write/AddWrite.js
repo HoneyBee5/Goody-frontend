@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { ActionBar } from '../Component/ActionBar';
 import './AddWrite.css';
-
+import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 
 // 액션바 이름
-const actionBarName = "";
+const actionBarName = "글 작성";
 
 const AddWrite = () => {
 
@@ -22,7 +22,7 @@ const AddWrite = () => {
     };
   
     return (
-      <label htmlFor="fileInput" className="photo w-32 h-32 mt-10 m-5 ml-3 flex items-center justify-center rounded-lg border border-black">
+      <label htmlFor="fileInput" className="photo w-32 h-32 mt-10 m-5 ml-3 flex items-center justify-center rounded-lg border border-gray-500">
         <div className="PhotoText rounded-1g">사진</div>
         <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
       </label>
@@ -70,7 +70,7 @@ const AddWrite = () => {
       <div className="w-full sm:flex-row h-10 sm:h-16 my-3">
         {(selectedOption === "2" && props.options === OPTIONS1) || selectedOption === "8" ? (
           <select
-            className="w-full sm:flex-row h-10 sm:h-16 p-2"
+            className="w-11/12 sm:flex-row h-10 sm:h-16 p-2  ml-2"
             value={selectedOption || ""}
             onChange={handleSelectChange}
           >
@@ -79,7 +79,7 @@ const AddWrite = () => {
           </select>
         ) : (
           <select
-            className="w-full sm:flex-row h-10 sm:h-16 p-2"
+            className="w-11/12 sm:flex-row h-10 sm:h-16 p-2 ml-2"
             onChange={handleSelectChange}
             value={selectedOption || ''}
             >
@@ -177,7 +177,7 @@ const AddWrite = () => {
         </div>
       </div>
 
-      <div style={{ height: 30, display: 'flex', marginTop:-12, marginLeft:'5px'}}>
+      <div style={{ height: 30, display: 'flex', marginTop:-12, marginLeft:'5px', marginBottom:'20px'}}>
 
         <input
           type="text"
@@ -185,7 +185,7 @@ const AddWrite = () => {
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className={`border border-black 100 ml-2 text-right ${boxWidth}`}
+          className={`border border-gray-500  ml-2 text-right ${boxWidth}`}
           style={{borderRadius:5}}
         />
 
@@ -233,11 +233,10 @@ const AddWrite = () => {
     };
 
     return (
-      <div className='w-290 h-30 ml-2 mt-5 '>
+      <div className=' h-30 ml-4 my-5 '>
         <input
           type="text"
           value={text}
-          maxLength={20}
           onChange={handleChange}
           placeholder='글 제목'
           className="outline-none border-0 focus:outline-none"
@@ -267,7 +266,7 @@ const AddWrite = () => {
           value={text}
           onChange={handleChange}
           placeholder='￦ 가격'
-          className="w-full outline-none border-0 mr-10 focus:outline-none"
+          className="outline-none border-0 mr-40 focus:outline-none"
 
         />
 
@@ -295,24 +294,26 @@ const AddWrite = () => {
   /*설명 작성*/
   const ExplainText = () => {
     const [text, setText] = useState('');
-
+  
     const handleChange = (event) => {
       setText(event.target.value);
     };
-
+  
     return (
-      <div className="Div_explainText flex flex-col">
+      <div className="Div_explainText flex flex-col m-3">
         <textarea
           type="text"
           value={text}
           onChange={handleChange}
-          placeholder=' 설명'
-          className="explain-text  sm:w-150 h-60 h-43 mt-1 ml-2 mr-4 
-                     outline-none border-0 focus:outline-none"
-           />
+          placeholder='설명'
+          rows={text.split('\n').length} // 엔터를 누를 때마다 행의 개수에 따라 크기가 조정됨
+          style={{ minHeight: '120px', resize: 'none' }} // 최소 높이 및 크기 조정 비활성화
+          className=""
+        />
       </div>
     )
   };
+  
 
   const [selectedRadio, setSelectedRadio] = useState('');
 
@@ -354,7 +355,7 @@ const AddWrite = () => {
 
     // </div>
   
-<div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'40px'}}>
+<div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'0px', marginBottom:'75px'}}>
       <button>
         <img src='img\registerBtn.png'></img>
       </button>
@@ -371,18 +372,19 @@ const AddWrite = () => {
       <ActionBar actionBarName={actionBarName} />
       {/* /*return 구문에서 PHOTO 컴포넌트 화면에 렌더링*/}
       <Square />
-
+      <hr/>
       {/* SELECTBOX 컴포넌트를 화면에 렌더링 */}
-      <SelectBox options={OPTIONS1} selectedOption={selectedOption1} setSelectedOption={setSelectedOption1} />
-      <SelectBox options={OPTIONS2} selectedOption={selectedOption2} setSelectedOption={setSelectedOption2} />
-      <SelectBox options={OPTIONS3} selectedOption={selectedOption3} setSelectedOption={setSelectedOption3} />
+      <SelectBox options={OPTIONS1} selectedOption={selectedOption1} setSelectedOption={setSelectedOption1} /><hr/>
+      <SelectBox options={OPTIONS2} selectedOption={selectedOption2} setSelectedOption={setSelectedOption2} /><hr/>
+      <SelectBox options={OPTIONS3} selectedOption={selectedOption3} setSelectedOption={setSelectedOption3} /><hr/>
       {/* 라디오 버튼 화면에 렌더링 */}
 
-      <Member/>
-      <TextBox />
-      <PriceText />
-      <ExplainText />
+      <Member/> <hr/>
+      <TextBox /> <hr/>
+      <PriceText /> <hr/>
+      <ExplainText /> 
       <Check />
+      <Nav/>
     </div>
   );
 };

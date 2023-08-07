@@ -20,11 +20,11 @@ const ActionBar = () => {
     <div className="w-full h-14 relative">
       <img src="img\ActionBar.png" className="absolute" />
 
-      <div style={{ position: 'absolute',right:65, top:25 }}>
+      <div style={{ position: 'absolute', right:65, top:25 }}>
         <Link to="/collection">
-        <button>
-          <img src="img\backClose.png" style={{ width: '25px', height: '25px' }} />
-        </button>
+          <button>
+            <img src="img\backClose.png" style={{ width: '25px', height: '25px' }} />
+          </button>
         </Link>
       </div>
 
@@ -48,9 +48,8 @@ const ActionBar = () => {
             </div>
           </div>
         )}
+      </div>
     </div>
-    </div>
-
   );
 };
 
