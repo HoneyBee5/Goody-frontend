@@ -31,8 +31,6 @@ const SquareGrid = () => {
     }, []);
   };
 
-
-
   /*현재는 한 줄에 사진 3개까지만 보이게 해둠*/
   const chunkedSquares = chunk(squares, 1);
 
