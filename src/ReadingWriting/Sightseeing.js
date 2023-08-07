@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import './Sightseeing.css'; 
+
 
 const Image = () => {
     
@@ -52,38 +56,33 @@ const Profile = () => {
 
 const Title = () => {
   return (
-    <div>
+    <div style={{display:'flex'}}>
 
       {/*제목*/}
       <div 
         style={{
-          marginLeft:10,
+          marginLeft:12,
           display:'flex',
-          position: 'fixed',
-          width: '330px',
+          width: '350px',
           height: '70px',
-          marginTop:'20px'
+          marginTop:'25px',
         }}>
-        <label style={{fontWeight:'bold', fontSize: 20}}>브루노마스 콘서트 동행 구해요.</label>
+
+        <label style={{fontWeight:'bold', fontSize: 20}}>브루노마스 콘서트 동행 구해요</label>
+        </div>
 
         {/*찜*/}
-        <div className="fixed right-10 display:flex ">
-          <img src="img\Like.png" className="fixed w-7 md:w-20 xl:w-30 right-10 display:flex"></img>
+        <div style={{alignItems:'center', display:'flex', marginTop:'-18px', marginRight:'10px'}}>
+          <img src="img\Like.png" className="w-7 md:w-20 xl:w-30 right-10"></img>
+              <label style={{ fontSize: 19, color: 'orange', right: 17,marginTop:5}}>11</label>
         </div>
-
-        {/*찜개수*/}
-        <div>
-          <label style={{position:'fixed' ,fontSize: 20, marginTop:1, color:'orange', right:17}}>11</label>
-        </div>
-          </div>
-          </div>
-
+      </div>
   );
 };
 
 const Tag = () => {
   return (
-    <div className='mt-20 h-10 w-300 display-flex'>
+    <div className='mt-1 h-10 w-300 display-flex'>
       
       <div style={{
         width: '5.5rem',
@@ -154,7 +153,7 @@ const TotNum = () => {
       zIndex: 999,
       // bottom: 'calc(6vh - 1px + 140px)',
       justifyItems: 'center',
-      marginTop:'180px'
+      marginTop:'220px'
       }}>
       <label>모집인원수: ?명</label>
     </div>
@@ -164,16 +163,31 @@ const TotNum = () => {
 };
 
 const Purchase = () => {
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(11); // Initial like count
+
+  const handleLikeClick = () => {
+    setLiked(!liked);
+    if (!liked) {
+      setLikeCount(likeCount + 1); // Increment the like count
+    }
+  };
+
   return (
-    <div>
+    <div style={{
+      position: 'fixed',
+      bottom: -15,
+      width: '100%',
+      backgroundColor: 'white',
+    }}>
 
       <hr/>
       
-      <div className='h-20 md:border-0 ml-4 mt-2'style={{display: 'flex', alignItems: 'center' }}> 
+      <div className='h-20 md:border-0 ml-4 mt-2'style={{display: 'flex', alignItems: 'center',}}> 
 
         {/*찜버튼*/}
-        <button  style={{ display: 'inline-block',marginTop: '-30px'}}>
-          <img src="img\Like.png" className='w-11'></img>
+        <button style={{ display: 'inline-block', marginTop: '-23px', marginRight:3 }} onClick={handleLikeClick}>
+          <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''}`} size="lg" />
         </button>
           
         {/*세로라인*/}

@@ -1,58 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { ActionBarDot } from '../Component/ActionBarDot';
 
-
-const ActionBar = () => {
-  const [showOptions, setShowOptions] = useState(false);
-
-  const handleDdongButtonClick = () => {
-    setShowOptions((prevShowOptions) => !prevShowOptions);
-  };
-
-  const handleOptionClick = (option) => {
-    console.log(`Selected option: ${option}`);
-    setShowOptions(false); // Close the options after selecting an option
-  };
-
-  return (
-    <div className="w-full h-14 relative">
-      <img src="img\ActionBar.png" className="absolute" />
-
-      <div style={{ position: 'absolute',right:65, top:25 }}>
-        <Link to="/collection">
-        <button>
-          <img src="img\Close.png" style={{ width: '30px', height: '30px' }} />
-        </button>
-        </Link>
-      </div>
-
-      <div style={{ position: 'absolute', right: 35, top: 23 }}>
-        <button onClick={handleDdongButtonClick}>
-          <img src="img\Ddong.png" style={{ width: '7px', height: '30px' }} />
-        </button>
-
-          {showOptions && (
-          <div style={{ position: 'absolute', right:20, top: -3, backgroundColor: '#ffffff', border: '1px solid #575757', borderRadius: '5px', padding: '5px', zIndex: 1 }}>
-            <div style={{display: 'block' }} onClick={() => handleOptionClick('수정')}>
-              <Link to="/collectionWrite">
-                <button style={{width:'35px'}}>수정</button>
-              </Link>
-            </div>
-            
-            <div style={{ display: 'block', marginTop: '5px' }} onClick={() => handleOptionClick('삭제')}>
-              <Link to="/collection">
-                <button>삭제</button>
-              </Link>
-            </div>
-          </div>
-        )}
-    </div>
-    </div>
-
-  );
-};
+const actionBarName = "컬렉션";
 
 const Image = () => {
   return (
@@ -63,7 +14,6 @@ const Image = () => {
       </div>
   );
 };
-
 
 {/*제목*/}
 const Title = () => {
@@ -86,11 +36,7 @@ const Calendar = () => {
 
       {/*달력img*/}
       <div className="display:flex mr-2">
-        <img src='img\Calendar.png' 
-          style={{
-          width:'40px',
-          height:'25px',
-        }}></img>
+      <img src='img\Calendar.png' className="h-7 w-10" />
       </div>
 
       {/*날짜*/}
@@ -153,7 +99,7 @@ function CollectionDetail() {
   return (
 
     <div>
-      <ActionBar />
+      <ActionBarDot actionBarName={actionBarName} />
       <Image />
       <Title />
       <Calendar />

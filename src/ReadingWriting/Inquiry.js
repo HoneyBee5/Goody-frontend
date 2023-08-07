@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import './Inquiry.css'; 
 
 
 {/*상단*/ }
@@ -226,40 +230,53 @@ const SquareGrid = () => {
   };
 
   /*한 줄에 상품 2개까지만 보이게 해둠*/
+
   const chunkedSquares = chunk(squares, 1);
 
+  const [likedSquares, setLikedSquares] = useState([]);
 
+  const handleLikeClick = (squareId) => {
+    if (likedSquares.includes(squareId)) {
+      setLikedSquares(likedSquares.filter(id => id !== squareId));
+    } else {
+      setLikedSquares([...likedSquares, squareId]);
+    }
+  };
   return (
     <div className="grid gap-3 grid-cols-2 ml-4 justify-center" style={{ marginTop: '-45px' }}>
-
       {chunkedSquares.map((row, rowIndex) => (
-
-        <div key={rowIndex} >
-          <Link to="/Sightseeing">
-            {row.map((square) => (
-              <button key={square.id}
-                className="m-2 mt-20 w-44 h-40 bg-[#e6e6e6] shadow-md"
-                style={{ borderRadius: '10px', marginLeft: '-0px' }}
-              >
-                <img src='img\Calldib.png' style={{ width: '30px', marginLeft: '135px', marginTop: '-70px' }}></img>
-              </button>
-            ))}
-          </Link>
+        <div key={rowIndex}>
+          {row.map((square) => (
+             <button key={square.id} onClick={() => handleLikeClick(square.id)} 
+             className="m-2 mt-20 w-44 h-40 bg-[#e6e6e6] shadow-md"
+             style={{ borderRadius: '10px', marginLeft: '-0px' }}
+           >
+              <FontAwesomeIcon 
+                icon={likedSquares.includes(square.id) ? faHeartSolid : faHeartRegular}
+                className={`heart-icon mb-28 ml-32 ${likedSquares.includes(square.id) ? 'text-color' : ''}`}
+                size="lg"
+              />
+            </button>
+          ))}
           <button>
+
+            
             <div
               className='ml-2 mt-2 w-44 h-25'
               style={{
                 marginBottom: '-58px', borderRadius: '5px', marginLeft: '-0px'
-              }}
-            >
+              }}>
 
-              {/*예시 입력값*/}
-              <label className='whitespace-pre-line'>꿀벌오소리 벌꿀오소리...{'\n'}</label>
-              <label className=''>20,000원</label>
+              <Link to="/Sightseeing">
+              <label className='whitespace-pre-line' style={{fontWeight:'bold'}}>꿀벌오소리 벌꿀오소리...{'\n'}</label>
+              <label style={{fontWeight:'bold'}}>20,000원</label>
               <label className='fixe ml-11'>3시간전</label>
-              <div className='w-20 ml-1 mt-3 border rounded-lg border-[#B4B4B4] p-1 text-sm'>판매해요</div>
+              <div className='w-20 ml-1 mt-3 border rounded-lg border-[#B4B4B4] p-1 text-sm'>거래상태</div>
+              </Link>
+
             </div>
           </button>
+       
         </div>
       ))}
     </div>

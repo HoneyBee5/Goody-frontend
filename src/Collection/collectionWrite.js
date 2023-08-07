@@ -1,66 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { ActionBarDot } from '../Component/ActionBarDot';
 
 // 액션바 이름
-const ActionBar = () => {
-  const [showOptions, setShowOptions] = useState(false);
-
-  const handleDdongButtonClick = () => {
-    setShowOptions((prevShowOptions) => !prevShowOptions);
-  };
-
-  const handleOptionClick = (option) => {
-    console.log(`Selected option: ${option}`);
-    setShowOptions(false); // Close the options after selecting an option
-  };
-
-
-  useEffect(() => {
-    const defaultOpenElement = document.getElementById('defaultOpen');
-    if (defaultOpenElement) {
-      defaultOpenElement.click();
-    }
-  }, []);
-  
-  const navigate = useNavigate();
-
-  const handleBack = () => {
-    navigate(-1); // 이전 페이지로 이동하는 함수
-  };
-
-  return (
-    <div className="w-full h-14 relative">
-      <img src="img\ActionBar.png" className="absolute" />
-
-      <div style={{ position: 'absolute',right:55, top:20 }}>
-        <button onClick={handleBack}>
-          <img src="img\Close.png" style={{  width: '35px', height: '35px'  }} className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' />
-        </button>
-
-      </div>
-
-      <div style={{ position: 'absolute', right: 15, top: 20 }}>
-        <button onClick={handleDdongButtonClick}>
-          <img src="img\dot.png" style={{  width: '35px', height: '35px' }}  className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' />
-        </button>
-
-          {showOptions && (
-          <div style={{ position: 'absolute', right:20, top: -3, backgroundColor: '#ffffff', border: '1px solid #575757', borderRadius: '5px', padding: '5px', zIndex: 1 }} >
-
-            <div style={{ display: 'block', marginTop: '5px' }} onClick={() => handleOptionClick('삭제')} >
-              <Link to="/collection">
-              <button style={{width:'35px'}}>삭제</button>
-              </Link>
-            </div>
-          </div>
-        )}
-    </div>
-    </div>
-
-  );
-};
+const actionBarName = "컬렉션 작성";
 
 const Square = () => {
   const handleFileChange = (event) => {
@@ -149,7 +93,7 @@ function CollectionWrtie() {
 
     <div>
 
-      <ActionBar />
+      <ActionBarDot actionBarName={actionBarName} />
       <Square />
       <Title />
       <ExplainText />
