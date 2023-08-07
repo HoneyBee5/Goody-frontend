@@ -15,7 +15,6 @@ const Image = () => {
   );
 };
 
-
 {/*제목*/}
 const Title = () => {
   return (
@@ -37,11 +36,7 @@ const Calendar = () => {
 
       {/*달력img*/}
       <div className="display:flex mr-2">
-        <img src='img\Calendar.png' 
-          style={{
-          width:'40px',
-          height:'25px',
-        }}></img>
+      <img src='img\Calendar.png' className="h-7 w-10" />
       </div>
 
       {/*날짜*/}
