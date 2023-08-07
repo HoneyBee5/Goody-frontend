@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ActionBarDot } from '../Component/ActionBarDot';
 
 // 액션바 이름
-const actionBarName = "";
+const actionBarName = "컬렉션 작성";
 
 const Square = () => {
   const handleFileChange = (event) => {
