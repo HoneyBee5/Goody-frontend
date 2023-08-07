@@ -1,7 +1,8 @@
-import React, { useState } from 'react'; // useState를 import하여 상태를 관리합니다.
+import React, { useState, useEffect } from 'react';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Top = () => {
@@ -12,17 +13,28 @@ const Top = () => {
     setText(event.target.value); // input 요소의 값을 변경할 때마다 text 변수를 업데이트합니다.
   };
 
- 
+  useEffect(() => {
+    const defaultOpenElement = document.getElementById('defaultOpen');
+    if (defaultOpenElement) {
+      defaultOpenElement.click();
+    }
+  }, []);
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // 이전 페이지로 이동하는 함수
+  };
   return (
     <div>
 
-    <div className='mt-14 mr-5 flex justify-end'>
+    <div className='mt-10 mr-5 flex justify-end'>
           <button>
-            <img src='img\close.png' style={{width: 15}} alt='Close' />
+            <img src='img\Close.png' style={{width: '35px'}} alt='Close' className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' onClick={handleBack} />
           </button>
       </div>
      
-     <div style={{marginTop:'50px', marginLeft:'20px'}}>
+     <div style={{marginTop:'40px', marginLeft:'20px'}}>
       <label style={{fontSize:'25px'}}>무엇을 찾으시나요 ?</label>
      </div>
 
@@ -50,7 +62,7 @@ const Top = () => {
       </div>
 
       <div style={{marginTop:'40px'}}>
-        <img src="img/Top10.png" style={{width:'300px'}}></img>
+        <img src="img/Top10.png" style={{width:'340px'}}></img>
       </div>
 
       <div style={{marginTop:'60px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
