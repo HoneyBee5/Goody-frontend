@@ -39,8 +39,7 @@ const SquareGrid = () => {
       {chunkedSquares.map((row, rowIndex) => (
         <div key={rowIndex} className="">
           {row.map((square) => (
-            <Link to="/collectionDetail" key={square.id}>
-
+            <Link to="/collectionDetail2" className="link-with-animation" key={square.id}>
               <button key={square.id}
                 className="m-2 mt-2 w-24 h-28 bg-[white]"
                 style={{ clipPath: hexagonClipPath, transform: "rotate(90deg)" }} // Rotate the hexagon by 90 degrees
@@ -58,7 +57,7 @@ const SquareGrid = () => {
 // 플로팅 버튼
 const PlusBtn = () => {
   return (
-    <Link to="/collectionWrite">
+    <Link to="/collectionWrite2">
       <button className='right-3 bottom-24 absolute'>
         <img src="/img/collection_plusButton.png" alt='플러스' width={'70px'} className='' />
       </button>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const ActionBarDot = ({ actionBarName }) => {
+
+
+const ActionBarModify = () => {
     const [showOptions, setShowOptions] = useState(false);
 
   const handleDdongButtonClick = () => {
@@ -15,20 +16,21 @@ const ActionBarDot = ({ actionBarName }) => {
   };
 
   return (
-    <div className="w-full h-16 relative">
-      <img src="img\ActionBar.png" className="absolute" />
+    <div className="w-full h-[577px] relative">
 
-      <div style={{ position: 'absolute', right:65, top:25 }}>
+        <img src='img/newjeans.png' className="h-full object-contain" />
+        
+      <div style={{ position: 'absolute', right:50, top:28 }}>
         <Link to="/collection">
         <button>
-          <img src="img\Close.png" style={{ width: '30px', height: '30px' }} />
+          <img src="img\blackClose.png" style={{ width: '22px', height: '22px' }} />
         </button>
         </Link>
       </div>
 
-      <div style={{ position: 'absolute', right: 35, top: 28 }}>
+      <div style={{ position: 'absolute', right: 20, top: 25 }}>
         <button onClick={handleDdongButtonClick}>
-          <img src="img\Ddong.png" style={{ width: '5px', height: '25px' }} />
+          <img src="img\blackDdong.png" style={{ width: '5px', height: '25px' }} />
         </button>
 
           {showOptions && (
@@ -47,15 +49,10 @@ const ActionBarDot = ({ actionBarName }) => {
           </div>
         )}
       </div>
-      <p id="actionBar_name" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] font-bold text-white p-5 ml-2 text-xl absolute '>
-        {actionBarName}
-      </p>
     </div>
   );
 };
+
   
-  ActionBarDot.propTypes = {
-    actionBarName: PropTypes.string.isRequired,
-  };
   
-  export { ActionBarDot };
+  export { ActionBarModify };
