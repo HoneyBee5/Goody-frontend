@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ActionBarDot } from '../Component/ActionBarDot';
 import { Link } from 'react-router-dom';
 
-const actionBarName = "";
+const actionBarName = "컬렉션 작성";
 
 const Title = () => {
 
