@@ -1,6 +1,11 @@
 // App.js 파일
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Chatdetails  from '../Chatting/chatdetails';
+import Address  from '../Chatting/address';
+import Review from '../Chatting/review';
+import Honeyhome from '../Chatting/honeyhome';
+import Reviewperfect from '../Chatting/reviewperfect';
 import Collection from '../Collection/collection';
 import AddWrite from '../Write/AddWrite';
 import Chatting from '../Chatting/chatting';
@@ -24,6 +29,11 @@ const App = () => {
     return (
       <Router>
         <Routes>
+          <Route path="/address" element={<Address />} />
+          <Route path="/chatdetails" element={<Chatdetails />} />
+          <Route path="/review" element={<Review />} />
+          <Route path="/honeyhome" element={<Honeyhome />} />
+          <Route path="/reviewperfect" element={<Reviewperfect />} />
           <Route path="/addWrite" element={<AddWrite />} />
           <Route path="/chatting" element={<Chatting />} />
           <Route path="/mypage" element={<Mypage />} />
