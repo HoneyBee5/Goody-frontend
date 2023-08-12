@@ -2,6 +2,7 @@ import React from 'react';
 import { Nav } from '../Component/Nav';
 import { ActionBar } from '../Component/ActionBar';
 import { Link } from 'react-router-dom';
+
 // 액션바 이름
 const actionBarName = "채팅목록";
 
@@ -15,7 +16,6 @@ const Chatting = () => {
     <>
       <ActionBar actionBarName={actionBarName} />
       {/* 채팅목록 */}
-
       <Link to="/chatdetails">
       <button className="w-full">
 

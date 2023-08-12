@@ -5,10 +5,6 @@ import { Link } from 'react-router-dom';
 // 액션바 이름
 const actionBarName = "채팅";
 
-  
-
-
-
 const chatdetails = () => {
 
   const [showplusbtn, setShowplusbtn] = useState(false);
