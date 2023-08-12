@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ActionBarDot } from '../Component/ActionBarDot';
 import { Link } from 'react-router-dom';
+import { ActionBarClose } from '../Component/ActionBarClose';
 
 const actionBarName = "컬렉션 작성";
 
@@ -100,7 +100,7 @@ function CollectionWrtie2() {
   return (
 
     <div>
-        <ActionBarDot actionBarName={actionBarName} />
+        <ActionBarClose actionBarName={actionBarName} />
         <Title />
         <Story />
         <Photo />
