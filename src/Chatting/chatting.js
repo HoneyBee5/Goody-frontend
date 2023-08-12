@@ -10,8 +10,7 @@ const Chatting = () => {
   /* 값을 받아올 변수들 */
   const chat_id = '이름';
   const chat_explain = '안녕하세요';
-  const date_month = '0';
-  const date_day = '0';
+
 
   return (
     <>
@@ -19,6 +18,7 @@ const Chatting = () => {
       {/* 채팅목록 */}
       <Link to="/chatdetails">
       <button className="w-full">
+
         <div className="p-5 flex border">
           <div>
             <img src="img/item_gray.png" alt="프로필사진" className="rounded-full" style={{ width: 60 }}></img>
@@ -32,11 +32,9 @@ const Chatting = () => {
               {chat_explain}
             </div>
           </div>
-
-          <div style={{ fontSize: '0.7rem' }} className="ml-auto">
-            {date_month}월{date_day}일
-          </div>
+      
         </div>
+
       </button>
       </Link>
       {/* 추가 채팅버튼(예시) */}
@@ -55,9 +53,7 @@ const Chatting = () => {
             </div>
           </div>
 
-          <div style={{ fontSize: '0.7rem' }} className="ml-auto">
-            {date_month}월{date_day}일
-          </div>
+      
         </div>
       </button>
 
