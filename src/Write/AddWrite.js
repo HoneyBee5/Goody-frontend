@@ -3,7 +3,7 @@ import { ActionBar } from '../Component/ActionBar';
 import './AddWrite.css';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+
 
 // 액션바 이름
 const actionBarName = "글 작성";
@@ -275,7 +275,7 @@ const AddWrite = () => {
           value={text}
           onChange={handleChange}
           placeholder='￦ 가격'
-          className="outline-none border-0 mr-40 focus:outline-none"
+          className="outline-none border-0 mr-36 focus:outline-none"
 
         />
 
@@ -290,7 +290,7 @@ const AddWrite = () => {
             />
 
             <div className='ml-3 mr-[-14px]'>
-            <label className="Check_label mr-[-35px] flex">나눔</label>
+            <label className="Check_label w-10 flex">나눔</label>
             </div>
                      
           </div>
@@ -327,13 +327,12 @@ const AddWrite = () => {
   const Check = () => {
     return (
   
-    <div style={{ display: 'flex', alignItems: 'flex-end',}}>
-      <Link to = "/Inquiry">
-      <button style={{display:'flex'}}> 
+<div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'5px', marginBottom:'85px'}}>
+      <button>
         <img src='img\registerBtn.png'></img>
       </button>
-      </Link>
     </div>
+
     );
   };
 
