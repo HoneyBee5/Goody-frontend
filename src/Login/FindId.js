@@ -16,7 +16,7 @@ const FindId = () => {
           </div>
     
           <div className='flex justify-center'> {/* This div will center its children horizontally */}
-            <button className='mt-10 w-[22rem]'>
+          <button className='mt-10 w-[22rem]'>
                 <img src='img/FindIdButton.png' alt='Join' />
             </button>
           </div>
