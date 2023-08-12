@@ -4,6 +4,7 @@ import './AddWrite.css';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 
+
 // 액션바 이름
 const actionBarName = "글 작성";
 
@@ -281,7 +282,7 @@ const AddWrite = () => {
             />
 
             <div className='ml-3 mr-[-14px]'>
-            <label className="Check_label w-10  flex">나눔</label>
+            <label className="Check_label mr-[-35px] flex">나눔</label>
             </div>
                      
           </div>
@@ -330,6 +331,7 @@ const AddWrite = () => {
         <img src='img\registerBtn.png'></img>
       </button>
     </div>
+
     );
   };
 

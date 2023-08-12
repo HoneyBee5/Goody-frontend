@@ -9,13 +9,13 @@ const Login = () => {
 
       <div className='text-center'>
       <p className='text-left ml-8 font-bold p-2' > 이름 </p>
-            <input type={'text'} className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[350px] h-12 pl-4' placeholder='hongildong'></input>
+            <input type={'text'} className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[22rem] h-12 pl-4' placeholder='hongildong'></input>
             <p className='text-left ml-8 font-bold p-2' > 비밀번호 </p>
-            <input type={'password'} className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)]  rounded-lg w-[350px] h-12 pl-4' placeholder='********'></input>
+            <input type={'password'} className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)]  rounded-lg w-[22rem] h-12 pl-4' placeholder='********'></input>
       </div>
 
       <div className='flex justify-center'> {/* This div will center its children horizontally */}
-        <button className='mt-5 w-[350px] mb-5'>
+        <button className='mt-5 w-[22rem] mb-5'>
           <Link to="/home">
             <img src='img/LoginButton.png' alt='Login' />
           </Link>
