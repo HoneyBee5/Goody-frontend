@@ -2,8 +2,9 @@
 import Button_honey from './Component/honeybtn';
 import Slider from '@mui/material/Slider';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MySlider = ({ value, handleChange }) => {
     return (
@@ -40,7 +41,24 @@ const MySlider = ({ value, handleChange }) => {
     handleChange: PropTypes.func.isRequired,
   };
 
+
+
+
 const honeyhome = () => {
+
+  
+  useEffect(() => {
+    const defaultOpenElement = document.getElementById('defaultOpen');
+    if (defaultOpenElement) {
+        defaultOpenElement.click();
+    }
+}, []);
+
+const navigate = useNavigate();
+const handleBack = () => {
+    navigate(-1); // 이전 페이지로 이동하는 함수
+};
+
     const [value, setValue] = useState(50);
 
     const handleChange = (event, newValue) => {
@@ -53,31 +71,32 @@ const honeyhome = () => {
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: -1,
         backgroundImage: `url('img/honeyhome_back.png')`,
         backgroundSize: 'cover', // 이미지가 div를 덮도록 설정
       };
     
 
       return (
+        <>
         <div style={divStyle}>
-        <div className='flex justify-start items-center'>
-  <div className='font fixed top-0 pl-2' style={{ color: 'white', fontSize: '50px' }}>
-    REVIEW
+
+<div>
+  <div className='flex justify-between items-center w-full z-50'>
+    <p className='font ml-3 ' style={{ color: 'white', fontSize: '50px' }}>
+      REVIEW
+    </p>
+
+    <div className='flex items-end mr-5' >
+      <button className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)' onClick={ handleBack }>
+        <img src="img/Close.png" alt='닫기' width={'30px'} height={'30px'} />
+      </button>
+    </div>
   </div>
-  
-  <div className='ml-auto pt-6 pr-3'>
-        
-  <Link to="/review" >
-    <button className='top-0 right-0'>
-      <img src="img/Close.png" alt='닫기' width={'30px'} height={'30px'} />
-    </button>
-  </Link>
-  </div>
-  
 </div>
 
-          <div className='fixed inset-0 flex items-center justify-center flex-col'> 
+
+
+          <div className='pt-12 flex items-center justify-center flex-col '> 
                 <p className='font font-extrabold m-5' style={{fontSize:'40px',color:'white'}}>
                     꿀단지를 채워주세요
                 </p>
@@ -90,8 +109,9 @@ const honeyhome = () => {
               <Button_honey>다음</Button_honey>
             </Link>
           </div>
-        
         </div>
+        
+        </>
       );
 };
 
