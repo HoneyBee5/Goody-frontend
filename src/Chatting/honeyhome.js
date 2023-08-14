@@ -4,6 +4,7 @@ import Slider from '@mui/material/Slider';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 const MySlider = ({ value, handleChange }) => {
     return (
       <div>
@@ -14,10 +15,10 @@ const MySlider = ({ value, handleChange }) => {
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"
-          step={0.5}
+          step={10}
           marks
           min={0}
-          max={5}
+          max={100}
 
           sx={{
             '& .MuiSlider-thumb': {
@@ -40,7 +41,7 @@ const MySlider = ({ value, handleChange }) => {
   };
 
 const honeyhome = () => {
-    const [value, setValue] = useState(2.5);
+    const [value, setValue] = useState(50);
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -60,9 +61,21 @@ const honeyhome = () => {
 
       return (
         <div style={divStyle}>
-          <div className='font fixed top-0 pl-2' style={{color:'white',fontSize:'50px'}}>
-            REVIEW
-          </div>
+        <div className='flex justify-start items-center'>
+  <div className='font fixed top-0 pl-2' style={{ color: 'white', fontSize: '50px' }}>
+    REVIEW
+  </div>
+  
+  <div className='ml-auto pt-6 pr-3'>
+        
+  <Link to="/review" >
+    <button className='top-0 right-0'>
+      <img src="img/Close.png" alt='닫기' width={'30px'} height={'30px'} />
+    </button>
+  </Link>
+  </div>
+  
+</div>
 
           <div className='fixed inset-0 flex items-center justify-center flex-col'> 
                 <p className='font font-extrabold m-5' style={{fontSize:'40px',color:'white'}}>

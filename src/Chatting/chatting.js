@@ -2,20 +2,17 @@ import React from 'react';
 import { Nav } from '../Component/Nav';
 import { ActionBar } from '../Component/ActionBar';
 import { Link } from 'react-router-dom';
-
 // 액션바 이름
 const actionBarName = "채팅목록";
 
 const Chatting = () => {
-  /* 값을 받아올 변수들 */
-  const chat_id = '이름';
-  const chat_explain = '안녕하세요';
 
 
   return (
     <>
       <ActionBar actionBarName={actionBarName} />
       {/* 채팅목록 */}
+
       <Link to="/chatdetails">
       <button className="w-full">
 
