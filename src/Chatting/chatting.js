@@ -1,7 +1,8 @@
 import React from 'react';
 import { Nav } from '../Component/Nav';
 import { ActionBar } from '../Component/ActionBar';
-import { Link } from 'react-router-dom';
+import ChatListItem from './Component/ChatListItem'; 
+
 // 액션바 이름
 const actionBarName = "채팅목록";
 
@@ -12,48 +13,11 @@ const Chatting = () => {
     <>
       <ActionBar actionBarName={actionBarName} />
       {/* 채팅목록 */}
-
-      <Link to="/chatdetails">
-      <button className="w-full">
-
-        <div className="p-5 flex border">
-          <div>
-            <img src="img/item_gray.png" alt="프로필사진" className="rounded-full" style={{ width: 60 }}></img>
-          </div>
-
-          <div className="w-3/5 h-full pl-2">
-            <div style={{ fontSize: '1.1rem' }} className="font-extrabold flex justify-start">
-              {chat_id}
-            </div>
-            <div style={{ fontSize: '0.9rem' }} className="flex justify-start">
-              {chat_explain}
-            </div>
-          </div>
-      
-        </div>
-
-      </button>
-      </Link>
-      {/* 추가 채팅버튼(예시) */}
-      <button className="w-full">
-        <div className="p-5 flex border">
-          <div>
-            <img src="img/item_gray.png" alt="프로필사진" className="rounded-full" style={{ width: 60 }}></img>
-          </div>
-
-          <div className="w-3/5 h-full pl-2">
-            <div style={{ fontSize: '1.1rem' }} className="font-extrabold flex justify-start">
-              {chat_id}
-            </div>
-            <div style={{ fontSize: '0.9rem' }} className="flex justify-start">
-              {chat_explain}
-            </div>
-          </div>
-
-      
-        </div>
-      </button>
-
+     
+     <div>
+      <ChatListItem chat_id="유진" chat_explain="첫번째" />
+      <ChatListItem chat_id="유진" chat_explain="두번째" />
+      </div>
       {/* 네비게이션바 */}
       <Nav />
     </>

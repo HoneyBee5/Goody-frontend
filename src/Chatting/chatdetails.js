@@ -9,9 +9,6 @@ import Chat_btn2 from './Component/chat_profile_btn2';
 
 
 // 액션바 이름
-const actionBarName = "채팅";
-
-  
 
 
 
