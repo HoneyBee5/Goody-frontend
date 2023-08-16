@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-// import { useNavigate } from "react-router-dom";
 import { ActionBarDot } from '../Component/ActionBarDot';
 
 const actionBarName = "컬렉션";
@@ -109,10 +107,5 @@ function CollectionDetail() {
 
   );
 }
-
-CollectionDetail.propTypes = {
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-    defaultValue: PropTypes.string,
-  };
   
 export default CollectionDetail;
