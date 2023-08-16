@@ -3,6 +3,9 @@ import './font.css';
 import Button_honey from './Component/honeybtn';
 import Button_honey_2 from './Component/honeybtn_2';
 import { Link } from 'react-router-dom';
+import Button_honey from './Component/honeybtn';
+import Button_honey_2 from './Component/honeybtn_2';
+import { Link } from 'react-router-dom';
 
 const reviewperfect = () => {
   const Score = 15;

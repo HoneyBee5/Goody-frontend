@@ -6,6 +6,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import { useNavigate } from 'react-router-dom';
+
 const MySlider = ({ value, handleChange }) => {
   return (
     <div>
@@ -44,37 +46,40 @@ MySlider.propTypes = {
 
 
 
+
+
+
 const honeyhome = () => {
 
-
+  
   useEffect(() => {
     const defaultOpenElement = document.getElementById('defaultOpen');
     if (defaultOpenElement) {
-      defaultOpenElement.click();
+        defaultOpenElement.click();
     }
-  }, []);
+}, []);
 
-  const navigate = useNavigate();
-  const handleBack = () => {
+const navigate = useNavigate();
+const handleBack = () => {
     navigate(-1); // 이전 페이지로 이동하는 함수
-  };
+};
 
-  const [value, setValue] = useState(50);
+    const [value, setValue] = useState(50);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const divStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundImage: `url('img/honeyhome_back.png')`,
-    backgroundSize: 'cover', // 이미지가 div를 덮도록 설정
-  };
-
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+    
+    const divStyle = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundImage: `url('img/honeyhome_back.png')`,
+        backgroundSize: 'cover', // 이미지가 div를 덮도록 설정
+      };
+    
 
   return (
     <>
