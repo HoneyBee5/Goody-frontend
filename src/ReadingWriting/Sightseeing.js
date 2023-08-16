@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
@@ -246,10 +245,5 @@ function Sightseeing() {
 
   );
 }
-
-Sightseeing.propTypes = {
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-    defaultValue: PropTypes.string,
-  };
   
 export default Sightseeing;

@@ -15,7 +15,7 @@ const Item_UserReview = () => {
         subheader={<Typography variant="subtitle1" style={{ fontWeight: '' }}> 0000년 00월 00일 00시 00분 </Typography>}
       />
       <div className='mx-4 mb-4'>
-        <p className='font-bold text-sm'>후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용
+        <p className='font-bold text-sm text-gray-600'>후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용
           후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용
           후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 </p>
       </div>

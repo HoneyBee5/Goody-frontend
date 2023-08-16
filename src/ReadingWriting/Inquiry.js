@@ -314,10 +314,4 @@ function Inquiry() {
   );
 }
 
-Inquiry.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  defaultValue: PropTypes.string,
-};
-
-
 export default Inquiry;
