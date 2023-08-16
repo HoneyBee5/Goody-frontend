@@ -15,3 +15,9 @@
     font-weight: bold;
     color: gray;
   }
+
+  @media (max-width: 390px) {
+    .check {
+      margin-right: 7.75rem;
+    }
+  }

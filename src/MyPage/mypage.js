@@ -114,7 +114,7 @@ const Mypage = () => {
           </button>
         </div>
 
-        <div className="flex pb-2">
+        <div className="flex pb-2 mb-10">
           <button className="flex p-2 items-center">
             <img src="img/Icon_Settings.png" alt="로그아웃" className="h-6 w-6 mr-5" />
             <span className="font-extrabold">로그아웃</span>

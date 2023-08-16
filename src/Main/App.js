@@ -9,7 +9,7 @@ import Reviewperfect from '../Chatting/reviewperfect';
 import Collection from '../Collection/collection';
 import AddWrite from '../Write/AddWrite';
 import Chatting from '../Chatting/chatting';
-import Mypage from '../MyPage/mypage';
+import MyPage from '../MyPage/MyPage';
 import ReviewList from '../MyPage/ReviewList';
 import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
@@ -25,6 +25,7 @@ import Join from '../Login/Join';
 import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
 
+
 const App = () => {
     return (
       <Router>
@@ -36,7 +37,7 @@ const App = () => {
           <Route path="/reviewperfect" element={<Reviewperfect />} />
           <Route path="/addWrite" element={<AddWrite />} />
           <Route path="/chatting" element={<Chatting />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/MyPage" element={<MyPage />} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/favoritelist" element={<FavoriteList />} />
           <Route path="/purchaselist" element={<PurchaseList />} />
