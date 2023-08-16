@@ -9,7 +9,7 @@ import Reviewperfect from '../Chatting/reviewperfect';
 import Collection from '../Collection/collection';
 import AddWrite from '../Write/AddWrite';
 import Chatting from '../Chatting/chatting';
-import MyPage from '../MyPage/MyPage';
+import MyPage from '../MyPage/mypage';
 import ReviewList from '../MyPage/ReviewList';
 import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/reviewperfect" element={<Reviewperfect />} />
           <Route path="/addWrite" element={<AddWrite />} />
           <Route path="/chatting" element={<Chatting />} />
-          <Route path="/MyPage" element={<MyPage />} />
+          <Route path="/mypage" element={<MyPage />} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/favoritelist" element={<FavoriteList />} />
           <Route path="/purchaselist" element={<PurchaseList />} />
