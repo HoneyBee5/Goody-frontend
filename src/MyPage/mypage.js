@@ -34,7 +34,7 @@ const RecipeReviewCard = () => {
   };
 
   return (
-    <div className='ml-7 '>
+    <div className='flex justify-center'>
     <Card style={{ width: 355, backgroundColor: grey[100], borderRadius: 16}}>
 
     <CardHeader
