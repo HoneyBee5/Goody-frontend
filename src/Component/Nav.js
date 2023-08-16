@@ -26,7 +26,7 @@ const Nav = () => {
             />
           </Link>
         </button>
-        <button className='w-8 mx-6 my-4 nav_sm'>
+        <button className='w-8 mx-7 my-4 nav_sm'>
           <Link to="/addWrite">
             <img
               src={location.pathname === '/addWrite' ? 'img/write_yellow.png' : 'img/write_gray.png'}
