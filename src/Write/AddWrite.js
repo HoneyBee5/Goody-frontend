@@ -4,7 +4,6 @@ import './AddWrite.css';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 
-
 // 액션바 이름
 const actionBarName = "글 작성";
 
@@ -104,32 +103,32 @@ const AddWrite = () => {
     setSelectedOption: PropTypes.func,
   };
 
-  const Member = ( ) => {
-    
+  const Member = () => {
     const [text, setText] = useState('');
-    const [additionalText, setAdditionalText] = useState(''); // <-- Add this line
-    const placeholder = ' (명) ';
+    const [additionalText, setAdditionalText] = useState('');
+    const [selectedRadio, setSelectedRadio] = useState('');
+    const [showNumberOfMembersBox, setShowNumberOfMembersBox] = useState(false);
+    const placeholder = " (명) "; // The placeholder for the number of members input box
 
     const handleChange = (event) => {
       setText(event.target.value);
     };
-
-    const shouldShowInput = selectedRadio !== 'option2';
-    const shouldShowPlaceholder =  shouldShowInput && text === '';
+  
+    const shouldShowInput = selectedRadio === 'option1'; 
+    const shouldShowPlaceholder = shouldShowInput && text === '';
 
     const boxWidth = selectedRadio === 'option2' ? 'w-60' : 'w-32';
 
-    /*작성 X -> 공백 띄우기*/
-    const handleFocus = () => {
-      if (shouldShowPlaceholder) {
-        setText(placeholder);
-      }
-    };
+    const handleRadioChange = (event) => {
+      const selectedValue = event.target.value;
 
-    /*작성 O -> 화면에 띄우기*/
-    const handleBlur = () => {
-      if (text === placeholder) {
-        setText('');
+      if (selectedValue === "option1") { //옵션1 = 인원수 클릭시 보임
+        setSelectedRadio(selectedValue);
+        setShowNumberOfMembersBox(true);
+      } 
+      else if (selectedValue === "option2") { //옵션2 = 추가인원 클릭시 보임
+        setSelectedRadio(selectedValue);
+        setShowNumberOfMembersBox(true); 
       }
     };
 
@@ -140,89 +139,110 @@ const AddWrite = () => {
       }
     };
 
-    {/*추가인원 - 버튼 클릭 -> 삭제*/}
     const handleDeleteBtnClick = () => {
-      setAdditionalText('');
+      const updatedText = additionalText
+        .split(', ')
+        .slice(0, -1) 
+        .join(', ');
+  
+      setAdditionalText(updatedText);
     };
-  
-  
+
+
+    const handleFocus = () => {
+      if (shouldShowPlaceholder) {
+        setText(placeholder);
+      }
+    };
+
+    const handleBlur = () => {
+      if (text === placeholder) {
+        setText('');
+      }
+    };
 
     return (
+      <div>
+        {selectedOption2 === "5" && ( // Check for '5' (같이해요) in selectedOption2
+          <div style={{ marginTop: '10px', display: 'flex' }}> 
+            <div className='mb-8' style={{ display: 'flex', alignItems: 'center', marginLeft: '16px'}}> {/*인원수,추가인원div*/}     
+              <label style={{ margin: '5px' }}>
+                <input
+                  type="radio"
+                  name="radioGroup"
+                  value="option1"
+                  checked={selectedRadio === "option1"}
+                  onChange={handleRadioChange}
+                />
+                &nbsp;&nbsp;인원수
+              </label>
+            </div>
 
-    <div >
-        <div style={{ marginTop: '10px', display: 'flex' }}> 
-        <div className='mb-8' style={{ display: 'flex', alignItems: 'center', marginLeft: '16px'}}> {/*인원수,추가인원div*/}     
-        <label style={{ margin: '5px' }}>
-              <input
-                type="radio"
-                name="radioGroup"
-                value="option1"
-                checked={selectedRadio === 'option1'}
-                onChange={handleRadioChange}
-              />
-              &nbsp;&nbsp;인원수
-            </label>
+            <div className={` mb-8 ${boxWidth}`} style={{ display: 'flex', alignItems: 'center'}}>       
+              <label className='fixe fixe-cols ml-10'>
+                <input
+                  type="radio"
+                  name="radioGroup"
+                  value="option2"
+                  checked={selectedRadio === "option2"}
+                  onChange={handleRadioChange}
+                />
+                &nbsp;&nbsp;추가인원
+              </label>
+            </div>
           </div>
+        )}
 
-          <div className={` mb-8 ${boxWidth}`} style={{ display: 'flex', alignItems: 'center'}}>       
-            <label className='fixe fixe-cols ml-10'>
-              <input
-                type="radio"
-                name="radioGroup"
-                value="option2"
-                checked={selectedRadio === 'option2'}
-                onChange={handleRadioChange}
-              />
-              &nbsp;&nbsp;추가인원
-            </label>
-        </div>
-      </div>
+        {showNumberOfMembersBox && (
+          <div className='flex h-8 mt-[-0.75rem] ml-[0.7rem] mb-[1.25rem]'>
+            <input
+              type="text"
+              value={shouldShowPlaceholder ? placeholder : text}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              className={`border border-gray-500 pr-[0.25rem] ml-[0.75rem] text-right ${boxWidth}`}
+              style={{borderRadius:5}}
+            />
 
-      <div style={{ height: 30, display: 'flex', marginTop:-12, marginLeft:'10px', marginBottom:'20px'}}> {/*(명) text div*/}
+            {/*추가버튼*/}
+            {selectedRadio === 'option2' && (
+              <div className='추가버튼img ml-[1.25rem] mt-[0.2rem]'>
+                <button onClick={handleAddBtnClick}>
+                  <img src='img\personAdd.png' width={30} alt='추가버튼' />
+                </button>
+              </div>
+            )}
 
-        <input
-          type="text"
-          value={shouldShowPlaceholder ? placeholder : text}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          className={`border border-gray-500  ml-3 text-right ${boxWidth}`}
-          style={{borderRadius:5}}
-        />
-
-
-        {/*추가버튼*/}
-        {selectedRadio === 'option2' && (
-            <div className='추가버튼img' style={{ marginLeft: 10, marginTop: -9 }}>
-              <button onClick={handleAddBtnClick}>
-                <img src='img\Add.png' width={30} alt='추가버튼' />
+       
+            {/*삭제버튼*/}
+            {selectedRadio === 'option2' && (
+            <div className='삭제버튼img ml-[1rem] mt-[-0.07rem]'>
+              <button onClick={handleDeleteBtnClick}>
+                <img src='img\personMinus.png' width={33} alt='삭제버튼' />
               </button>
             </div>
-          )}
-
-        {/*삭제버튼*/}
-        {selectedRadio === 'option2' && (
-          <div className='삭제버튼img' style={{marginLeft: 5, marginTop: -8}}>
-            <button onClick={handleDeleteBtnClick}>
-              <img src='img\Delete.png' width={33} alt='삭제버튼' />
-            </button>
+            )}
           </div>
+
         )}
+
+        {/*글작성 +버튼 -> 인원 추가*/}
+        <div>
+          <div>
+            {additionalText !== '' && (
+              <div className='mt-[1rem] mb-[1rem] ml-[1.5rem]'>
+                {additionalText.split(', ').map((person, index) => (
+                  <div key={index}>
+                    {index + 1}. {person}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-
-      {/*글작성 +버튼 -> 인원 추가*/}
-      <div>
-        {additionalText !== '' && (
-            <div style={{marginTop:20, marginLeft:8}}>
-              1. {additionalText}
-            </div>
-        )}
-      </div>
-
-    </div>
-
-      
-    )
+    );
   };
 
   /*글제목 작성*/
@@ -282,7 +302,7 @@ const AddWrite = () => {
             />
 
             <div className='ml-3 mr-[-14px]'>
-            <label className="Check_label mr-[-35px] flex">나눔</label>
+            <label className="Check_label w-10  flex">나눔</label>
             </div>
                      
           </div>
@@ -316,12 +336,6 @@ const AddWrite = () => {
   };
   
 
-  const [selectedRadio, setSelectedRadio] = useState('');
-
-  const handleRadioChange = (event) => {
-    setSelectedRadio(event.target.value);
-  };
-
 
   const Check = () => {
     return (
@@ -331,7 +345,6 @@ const AddWrite = () => {
         <img src='img\registerBtn.png'></img>
       </button>
     </div>
-
     );
   };
 
