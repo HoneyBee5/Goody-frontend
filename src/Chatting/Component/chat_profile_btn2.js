@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -45,4 +44,3 @@ const Button = () => {
 
 
 export default Button;
->>>>>>> master
