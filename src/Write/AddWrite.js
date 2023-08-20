@@ -3,6 +3,7 @@ import { ActionBar } from '../Component/ActionBar';
 import './AddWrite.css';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 // 액션바 이름
 const actionBarName = "글 작성";
@@ -76,6 +77,7 @@ const AddWrite = () => {
           >
             <option value="7">남자배우</option>
             <option value="8">여자배우</option>
+            <option value="9">카테고리</option>
           </select>
         ) : (
           <select
@@ -93,6 +95,7 @@ const AddWrite = () => {
         {/* Show the selected option as text */}
         {selectedOption === "7" && selectedOption !== "2" && selectedOption !== "8" && ""}
         {selectedOption === "8" && ""}
+        {selectedOption === "9" && ""}
       </div>
     );
   };
@@ -280,7 +283,7 @@ const AddWrite = () => {
     };
 
     return (
-      <div className='flex mr-12 h-30 mt-5 mb-5 ml-3 items-center'>
+      <div className='flex mr-12 h-30 mt-5 mb-5 ml-5 items-center'>
   
         <input
           type="text"
@@ -321,7 +324,7 @@ const AddWrite = () => {
     };
   
     return (
-      <div className="Div_explainText flex flex-col m-3">
+      <div className="Div_explainText flex flex-col m-5">
         <textarea
           type="text"
           value={text}
@@ -340,10 +343,12 @@ const AddWrite = () => {
   const Check = () => {
     return (
   
-<div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'5px', marginBottom:'85px'}}>
+    <div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'5px', marginBottom:'85px'}}>
+          <Link to="/sightseeing">
       <button>
         <img src='img\registerBtn.png'></img>
       </button>
+      </Link>
     </div>
     );
   };

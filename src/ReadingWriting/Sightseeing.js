@@ -16,7 +16,7 @@ const Image = () => {
           <div style={{marginLeft:'370px', marginTop:20}}>
           <Link to="/Inquiry">
             <button>
-              <img src="img\Close.png" style={{ width: '20px', height: '20px'}}/>
+              <img src="img/Close.png" alt='닫기'  className='w-[1.9rem] h-[1.9rem]'/>
             </button>
             </Link>
           </div>
@@ -27,12 +27,7 @@ const Image = () => {
 const Profile = () => {
   return (
     <div>
-      <div  
-        style={{
-          marginTop:30,
-          height: "60px",
-          display: 'flex', 
-        }}>
+      <div className='ml-[0.5rem] mt-[2rem] h-18 flex'>
 
           {/*프로필사진*/}
           <img src='img\Profile.png' 
@@ -56,7 +51,7 @@ const Profile = () => {
 
 const Title = () => {
   return (
-    <div style={{display:'flex'}}>
+    <div className='flex ml-[0.5rem]'>
 
       {/*제목*/}
       <div 
@@ -82,7 +77,7 @@ const Title = () => {
 
 const Tag = () => {
   return (
-    <div className='mt-1 h-10 w-300 display-flex'>
+    <div className='mt-1 ml-[0.5rem] h-10 w-300 display-flex'>
       
       <div style={{
         width: '5.5rem',
@@ -132,12 +127,8 @@ const Tag = () => {
 
 const Content = () => {
   return (
-    <div style={{
-      margin:10, 
-      marginLeft:12,
-      marginTop:20
-      }}>
-      <label style={{color:'GrayText'}}>게시글 내용...</label>
+    <div className='m-10 mt-[1.5rem] ml-[1rem]'>
+      <label className='ml-[0.5rem] text-[#b4b4b4]'>게시글 내용...</label>
     </div>
   );
 };
@@ -147,14 +138,7 @@ const TotNum = () => {
 
     <div>
       
-    <div style={{
-      display: 'flex',
-      marginLeft:12,
-      zIndex: 999,
-      // bottom: 'calc(6vh - 1px + 140px)',
-      justifyItems: 'center',
-      marginTop:'220px'
-      }}>
+    <div className='flex ml-[1.5rem] mt-[14rem] ' style={{zIndex: 999}}>
       <label>모집인원수: ?명</label>
     </div>
     </div>
@@ -178,41 +162,26 @@ const Purchase = () => {
     }}>
 
       <hr/>
-      
-      <div className='h-20 md:border-0 ml-4 mt-2'style={{display: 'flex', alignItems: 'center',}}> 
+
+      <div className='flex justify-center bg-[#f8f8f8] h-20 bottom-0 p-2 shadow-inner'> 
 
         {/*찜버튼*/}
-        <button style={{ display: 'inline-block', marginTop: '-23px', marginRight:3 }} onClick={handleLikeClick}>
-          <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''}`} size="lg" />
+        <button style={{ display: 'inline-block', marginTop: '-23px' }} onClick={handleLikeClick}>
+          <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''} ml-[1rem] mt-[0.8rem]`} size="xl" />
         </button>
           
         {/*세로라인*/}
-        <div style={{
-          width:'3px', 
-          height:'40px', 
-          backgroundColor:'#E6E6E6', 
-          marginTop:'-25px',
-          marginLeft:'10px' }}>
-        </div>  
+        <div className='w-[0.25rem] h-[2.5rem] bg-[#E6E6E6] mt-[0.4rem] ml-[1rem]'></div>  
 
         {/*가격*/}
-        <div style={{
-          marginLeft:'20px',
-          marginTop: '-25px'}}>
+        <div className='ml-[1rem] mt-[0.9rem]'>
           <label>000원</label>
         </div>
 
         {/*구매하기버튼*/}
-        <div style={{display:'flex', marginLeft: 'auto',  marginRight: '10px'}}>
+        <div className='flex ml-auto mr-[0.5rem]' >
           <Link to="/chatting">
-          <button style={{ 
-            backgroundColor:'#575757',
-            width:130,
-            height:50,              
-            borderRadius:12,
-            marginTop: '-20px',
-            marginBottom: 7,
-            }}>
+          <button className='bg-[#575757] w-[8.5rem] h-[3.2rem] right-0 mt-[0rem] border rounded-xl'>
             <label style={{
               color:'white',
               fontWeight:'bolder', 
@@ -233,13 +202,13 @@ function Sightseeing() {
   return (
 
     <div>
-      <Image /> {/*사진*/}
-      <Profile /> {/*프로필,닉네임,등급*/}
-      <Title /> {/*글제목*/}
-      <Tag /> {/*카테고리*/}
-      <Content /> {/*게시글내용*/}
-      <TotNum /> {/*모집인원*/}
-      <Purchase /> {/*찜, 가격, 구매하기*/}
+      <Image /> 
+      <Profile /> 
+      <Title />
+      <Tag /> 
+      <Content /> 
+      <TotNum /> 
+      <Purchase /> 
      </div>
 
   );

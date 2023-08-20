@@ -85,21 +85,26 @@ const Dropdown = ({ label, items }) => {
           transition: 'height 0.3s',
           position: 'absolute',
           zIndex: isOpen ? 1 : 0,
-          backgroundColor: '#ffffff' //드롭박스 내부 투명/불투명
+          backgroundColor: '#ffffff' 
         }}
       >
 
         <button
+          className='flex'
           onClick={handleButtonClick}
           style={{
-
-            width: '100%',
             textAlign: 'center',
             fontSize: isOpen ? '16px' : '14px',
             padding: '0 10px',
-          }}
-        >
-          {selectedItem ? selectedItem : label} ∨
+          }}>
+
+          {selectedItem ? selectedItem : label} 
+          <img src='img/category.png' 
+               className='ml-[0.4rem] w-[1.2rem] h-[1rem]' 
+               style={{ marginTop: isOpen ? '5px' : '2px',
+               }}>
+          </img>
+
         </button>
 
         {/*드롭 열렸을 떄*/}
@@ -154,7 +159,7 @@ const Arrange = () => {
 
   const handleButtonClick = () => {
     setOpen((prevState) => !prevState);
-    setSelectedOption(null); // Reset the selected option when the button is clicked
+    setSelectedOption(null);
   };
 
   const handleOptionClick = (option) => {
@@ -207,25 +212,40 @@ const Dp = () => {
   return (
     <div>
 
-          <div className='flex mb-5'>
-            <Inquiry_Item />  
-
-            <div className='ml-48'>
-              <Inquiry_Item />  
-            </div>
-          </div>
-
-          <div className='flex mb-5'>
-            <Inquiry_Item />  
-
-            <div className='ml-48'>
-              <Inquiry_Item />  
-            </div>
-          </div>
-
           <div className='flex'>
             <Inquiry_Item />  
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
             </div>
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
+
+          <div className='flex mt-[-1rem]'>
+            <Inquiry_Item />  
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
+
+          <div className='flex mt-[-1rem]'>
+            <Inquiry_Item />  
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
 
 
     </div>

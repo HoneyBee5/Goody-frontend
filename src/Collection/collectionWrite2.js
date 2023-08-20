@@ -46,7 +46,7 @@ const Story = () => {
                 value={text}
                 onChange={handleChange}
                 placeholder=' 내용'
-                maxLength={300} 
+                maxLength={400} 
                 rows={text.split('\n').length}
                 className='py-2 pl-2 shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[380px] h-[300px]'
                 style={{resize: 'none' }} />
@@ -77,7 +77,7 @@ const Nav = () => {
 
             <button>
             <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />
-                <label htmlFor="fileInput"> <img src='img\Camera.png' className='mt-3 w-15 h-14 ml-5 bottom-2'  id="selectedImage" alt="Selected"></img></label>            </button>
+                <label htmlFor="fileInput"> <img src='img\CollectionCamera.png' className='mt-3 w-15 h-14 ml-5 bottom-2'  id="selectedImage" alt="Selected"></img></label>            </button>
             
             <button>
                 <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />

@@ -21,14 +21,14 @@ const Item = () => {
 
             {/*1줄*/}
             <div style={{ width: '100%', height:'300px' }}>
-                <div className='absolute mt-2'>
-                    <FontAwesomeIcon onClick={() => handleLikeClick(0)} icon={faHeartRegular} className={`absolute mt-10 ml-40 ${liked[0] ? 'text-color' : 'fa-heart-regular'}`} size="lg" />
+                <div className='absolute'>
+                    <FontAwesomeIcon onClick={() => handleLikeClick(0)} icon={faHeartRegular} className={`absolute mt-[3rem] ml-[6.5rem] ${liked[0] ? 'text-color' : 'fa-heart-regular'}`} size="lg" />
                     <Link to="/sightseeing">
-                    <button className='mt-8 ml-6'>
-                    <img width={'170px'} src='img\item_gray.png' alt='아이템1'></img>
+                    <button className='mt-[2.5rem] ml-[1.4rem]'>
+                    <img width={'110px'} src='img\item_gray.png' alt='아이템1'></img>
                     </button>
                     </Link>
-                    <div className='mt-2 ml-7'>
+                    <div className='mt-2 ml-[1.6rem] text-[0.9rem]'>
                     <Link to="/sightseeing">
                     <button className="" style={{ textAlign: 'left' }}>
                     <p className='font-bold'>상품이름</p>
@@ -37,7 +37,7 @@ const Item = () => {
                     </button>
                     </Link>
                     </div>
-                    <div className='border rounded-lg border-[#B4B4B4] px-2 inline-block ml-[7rem] mt-[0.5rem]'>거래상태</div>
+                    <div className='border rounded-[0.45rem] text-[0.85rem] border-[#B4B4B4] px-1.5 inline-block ml-[1.6rem] mt-[0.5rem]'>거래상태</div>
                 </div>
             </div>
         </div>
