@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
 import { ActionBarDot } from '../Component/ActionBarDot';
 
@@ -13,14 +12,13 @@ const Square = () => {
   };
 
   return (
-    <div>
-      <button>
-      <label htmlFor="fileInput" className="photo w-32 h-32 mt-10 m-5 ml-3 flex items-center justify-center rounded-lg border border-gray-500">
-        <div className="PhotoText rounded-1g">사진</div>
-        <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
-      </label>
-      </button>
-    </div>  
+    <div className='w-16 m-6 mt-10 border border-gray-200 rounded-xl p-4 shadow-[0_1px_8px_rgba(180,180,180,0.7)]'>
+    <label id="fileInput" className="">
+      <img className='w-16' src='img\Icon_Camera.png'></img>
+      <p className='text-center font-bold text-[#B4B4B4]'>1/5</p>
+      <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
+    </label>
+  </div>
   );
 };
 
@@ -103,10 +101,5 @@ function CollectionWrtie() {
 
   );
 }
-
-CollectionWrtie.propTypes = {
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-    defaultValue: PropTypes.string,
-  };
   
 export default CollectionWrtie;

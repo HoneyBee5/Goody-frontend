@@ -21,14 +21,14 @@ const ActionBarDot = ({ actionBarName }) => {
       <div style={{ position: 'absolute', right:65, top:25 }}>
         <Link to="/collection">
         <button>
-          <img src="img\Close.png" style={{ width: '30px', height: '30px' }} />
+          <img src="img\Close.png" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' style={{ width: '30px', height: '30px' }} />
         </button>
         </Link>
       </div>
 
       <div style={{ position: 'absolute', right: 35, top: 28 }}>
         <button onClick={handleDdongButtonClick}>
-          <img src="img\Ddong.png" style={{ width: '5px', height: '25px' }} />
+          <img src="img\Ddong.png" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' style={{ width: '5px', height: '25px' }}  />
         </button>
 
           {showOptions && (

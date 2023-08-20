@@ -27,6 +27,7 @@ import Chatting from '../Chatting/Chatting';
 import CollectionDetail2 from '../Collection/collectionDetail2';
 import CollectionWrtie2 from '../Collection/collectionWrite2';
 
+
 const App = () => {
     return (
       <Router>

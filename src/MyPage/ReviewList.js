@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import { Item_UserReview } from '../Component/Item_UserReview';
+import { Item_KeywordReview } from '../Component/Item_KeywordReview';
 
 
 const actionBarName = "리뷰 목록";
@@ -30,6 +31,11 @@ const ReviewList = () => {
                               <img src="img/Icon_List.png" alt="키워드 리뷰" className="h-6 w-6 mr-5" />
                               <span className="font-extrabold">키워드 리뷰</span>
                         </button>
+                        <div className='p-4'>
+                              <Item_KeywordReview />
+                        </div>
+
+
                   </div> <br />
                   <br />
 
@@ -44,9 +50,6 @@ const ReviewList = () => {
                         </div>
 
                   </div>
-
-
-
             </>
       );
 }

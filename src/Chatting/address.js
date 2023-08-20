@@ -1,7 +1,6 @@
 import React from 'react';
-import { ActionBar } from '../Component/ActionBar';
 import './font.css';
-import { Link } from 'react-router-dom';
+import { ActionBarClose } from '../Component/ActionBarClose';
 
 // 액션바 이름
 const actionBarName = "채팅";
@@ -11,12 +10,10 @@ const Chatting = () => {
   return (
     <>
     
-    <Link to='/chatdetails'>
-      <div className='pb-10'>
-      <ActionBar actionBarName={actionBarName} />
-     
-      </div>
-      </Link>
+    <ActionBarClose actionBarName={actionBarName} />
+      <div className='pb-10'/>
+
+      
       <div className='font flex justify-center font-bold' style={{color:'#5F3300'}}>
         채팅방 이름
       </div>

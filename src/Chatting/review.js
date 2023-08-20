@@ -1,36 +1,38 @@
 import React from 'react';
-import { ActionBar } from '../Component/ActionBar';
-import Button from './Component/reviewbtn';
+import { ActionBarClose } from '../Component/ActionBarClose';
+import Button_y from './Component/reviewbtn';
 import Button_g from './Component/reviewbtn_gray';
 import Button_honey from './Component/honeybtn';
 import { Link } from 'react-router-dom';
 
-const actionBarName = "리뷰";
-
 const review = () => {
-  
+  const actionBarName = "리뷰";
 
   return (
     <>
 
-      <ActionBar  actionBarName={actionBarName} />
+  
+    <ActionBarClose actionBarName={actionBarName} />
+  
 
-    <div className='fixed inset-0 flex items-center justify-center flex-col'>
+
+    <div className=' flex justify-center items-center  flex-col pt-20'>
+      
         <div className='fontsmall'>
             이런 점이 가장 좋았어요
         </div>
         
         <div className='flex'>
-        <Button>친절해요</Button>
-        <Button>응답이 빨라요</Button>
+        <Button_y>친절해요</Button_y>
+        <Button_y>응답이 빨라요</Button_y>
         </div>
         <div className='flex'>
-        <Button>믿어도 돼요</Button>
-        <Button>상품상태가 좋아요</Button>
+        <Button_y>믿어도 돼요</Button_y>
+        <Button_y>상품상태가 좋아요</Button_y>
         </div>
         <div className='flex'>
-        <Button>저렴해요</Button>
-        <Button>시간약속을 잘지켜요</Button>
+        <Button_y>저렴해요</Button_y>
+        <Button_y>시간약속을 잘지켜요</Button_y>
         </div>
 
         <div className='fontsmall'>
@@ -50,18 +52,20 @@ const review = () => {
         <Button_g>시간약속을 못지켜요</Button_g>
         </div>
 
-        <div className='fontsmall mt-5'>
+        <div className='fontsmall mt-7'>
            상세한 후기를 작성해주세요
         </div>
 
 
-        <textarea placeholder="300자 이내로 작성해주세요" className='border rounded-lg font-normal'style={{ width:'25rem', height:'7rem',fontSize:'13px',textAlign:'start'}}/>
-
+        <textarea placeholder="300자 이내로 작성해주세요"
+         className='border rounded-lg font-normal p-4'style={{ width:'25rem', height:'7rem',fontSize:'13px',textAlign:'start'}}>
+          
+        </textarea>
 
 
             
         <div className='fixed bottom-0 p-2'>
-        <img className='rounded-2xl'  src="img/review.png" alt="안내문"  style={{ width:'25rem', height:'5rem'}}/>
+        <img className='rounded-2xl mb-2'  src="img/review.png" alt="안내문"  style={{ width:'25rem', height:'4rem'}}/>
 
         <Link to='/honeyhome'>
         <Button_honey>꿀단지 채우러 가기</Button_honey>
@@ -72,8 +76,7 @@ const review = () => {
 
 
     </div>
-    
-        
+  
 
     </>
   );

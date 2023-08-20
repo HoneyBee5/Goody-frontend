@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Nav } from '../Component/Nav';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -88,10 +87,4 @@ function Inspect() {
     );
   }
 
-  Inspect.propTypes = {
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-    defaultValue: PropTypes.string,
-  };
-  
-  
   export default Inspect;

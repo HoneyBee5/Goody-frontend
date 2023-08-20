@@ -1,0 +1,8 @@
+@media (max-width: 390px) {
+    .col_item {
+        margin-top: 1.25rem;
+        margin-left: 0.9rem;
+        margin-right: 0.5rem;
+        width: 6.25rem;
+    }
+  }

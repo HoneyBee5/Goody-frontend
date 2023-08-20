@@ -21,12 +21,17 @@ const AddWrite = () => {
       const file = event.target.files[0];
       console.log(file);
     };
-  
+
     return (
-      <label htmlFor="fileInput" className="photo w-32 h-32 mt-10 m-5 ml-3 flex items-center justify-center rounded-lg border border-gray-500">
-        <div className="PhotoText rounded-1g">사진</div>
-        <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
-      </label>
+      <>
+        <div className='w-16 m-6 mt-10 border border-gray-200 rounded-xl p-4 shadow-[0_1px_8px_rgba(180,180,180,0.7)]'>
+          <label id="fileInput" className="">
+            <img className='w-16' src='img\Icon_Camera.png'></img>
+            <p className='text-center font-bold text-[#B4B4B4]'>1/5</p>
+            <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
+          </label>
+        </div>
+      </>
     );
   };
 
@@ -66,7 +71,7 @@ const AddWrite = () => {
       setSelectedOption(event.target.value);
     };
 
-    
+
     return (
       <div className="w-full sm:flex-row h-10 sm:h-16 my-3">
         {(selectedOption === "2" && props.options === OPTIONS1) || selectedOption === "8" ? (
@@ -84,10 +89,10 @@ const AddWrite = () => {
             className="w-11/12 sm:flex-row h-10 sm:h-16 p-2 ml-2"
             onChange={handleSelectChange}
             value={selectedOption || ''}
-            >
-          {options.map((option) => (
-            <option value={option.value} key={option.value}>
-            {option.name}
+          >
+            {options.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.name}
               </option>
             ))}
           </select>
@@ -116,8 +121,8 @@ const AddWrite = () => {
     const handleChange = (event) => {
       setText(event.target.value);
     };
-  
-    const shouldShowInput = selectedRadio === 'option1'; 
+
+    const shouldShowInput = selectedRadio === 'option1';
     const shouldShowPlaceholder = shouldShowInput && text === '';
 
     const boxWidth = selectedRadio === 'option2' ? 'w-60' : 'w-32';
@@ -128,10 +133,10 @@ const AddWrite = () => {
       if (selectedValue === "option1") { //옵션1 = 인원수 클릭시 보임
         setSelectedRadio(selectedValue);
         setShowNumberOfMembersBox(true);
-      } 
+      }
       else if (selectedValue === "option2") { //옵션2 = 추가인원 클릭시 보임
         setSelectedRadio(selectedValue);
-        setShowNumberOfMembersBox(true); 
+        setShowNumberOfMembersBox(true);
       }
     };
 
@@ -283,33 +288,33 @@ const AddWrite = () => {
     };
 
     return (
-      <div className='flex mr-12 h-30 mt-5 mb-5 ml-5 items-center'>
+      <div className='flex mr-10 h-30 mt-5 mb-5 ml-5 items-center'>
   
         <input
           type="text"
           value={text}
           onChange={handleChange}
           placeholder='￦ 가격'
-          className="outline-none border-0 mr-36 focus:outline-none"
-
+          className="outline-none border-0 mr-40 check"
         />
 
         {/* 나눔 체크 박스  */}
-        <div style={{ marginLeft:'10px'}}>
+        <div >
 
-          <div className='ml-17 flex'>
+          <div className='flex'>
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleCheckboxChange}
+              className='mr-2'
             />
 
-            <div className='ml-3 mr-[-14px]'>
-            <label className="Check_label w-10  flex">나눔</label>
+            <div className='mr-[-16px]'>
+            <label className="Check_label w-10 flex">나눔</label>
             </div>
-                     
+
           </div>
-       
+
         </div>
       </div>
     );
@@ -318,11 +323,11 @@ const AddWrite = () => {
   /*설명 작성*/
   const ExplainText = () => {
     const [text, setText] = useState('');
-  
+
     const handleChange = (event) => {
       setText(event.target.value);
     };
-  
+
     return (
       <div className="Div_explainText flex flex-col m-5">
         <textarea
@@ -353,7 +358,7 @@ const AddWrite = () => {
     );
   };
 
-  
+
 
 
   return (
@@ -362,27 +367,21 @@ const AddWrite = () => {
       <ActionBar actionBarName={actionBarName} />
       {/* /*return 구문에서 PHOTO 컴포넌트 화면에 렌더링*/}
       <Square />
-      <hr/>
+      <hr />
       {/* SELECTBOX 컴포넌트를 화면에 렌더링 */}
-      <SelectBox options={OPTIONS1} selectedOption={selectedOption1} setSelectedOption={setSelectedOption1} /><hr/>
-      <SelectBox options={OPTIONS2} selectedOption={selectedOption2} setSelectedOption={setSelectedOption2} /><hr/>
-      <SelectBox options={OPTIONS3} selectedOption={selectedOption3} setSelectedOption={setSelectedOption3} /><hr/>
+      <SelectBox options={OPTIONS1} selectedOption={selectedOption1} setSelectedOption={setSelectedOption1} /><hr />
+      <SelectBox options={OPTIONS2} selectedOption={selectedOption2} setSelectedOption={setSelectedOption2} /><hr />
+      <SelectBox options={OPTIONS3} selectedOption={selectedOption3} setSelectedOption={setSelectedOption3} /><hr />
       {/* 라디오 버튼 화면에 렌더링 */}
 
-      <Member/> <hr/>
-      <TextBox /> <hr/>
-      <PriceText /> <hr/>
-      <ExplainText /> 
+      <Member /> <hr />
+      <TextBox /> <hr />
+      <PriceText /> <hr />
+      <ExplainText />
       <Check />
-      <Nav/>
+      <Nav />
     </div>
   );
 };
-
-AddWrite.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  defaultValue: PropTypes.string,
-};
-
 
 export default AddWrite;

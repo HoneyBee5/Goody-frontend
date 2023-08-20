@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
@@ -161,15 +160,11 @@ const Purchase = () => {
       backgroundColor: 'white',
     }}>
 
-      <hr/>
-
       <div className='flex justify-center bg-[#f8f8f8] h-20 bottom-0 p-2 shadow-inner'> 
 
         {/*찜버튼*/}
-        <button style={{ display: 'inline-block', marginTop: '-23px' }} onClick={handleLikeClick}>
-          <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''} ml-[1rem] mt-[0.8rem]`} size="xl" />
-        </button>
-          
+        <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''} ml-[1rem] mt-[0.9rem]`} size="xl" onClick={handleLikeClick}/>
+            
         {/*세로라인*/}
         <div className='w-[0.25rem] h-[2.5rem] bg-[#E6E6E6] mt-[0.4rem] ml-[1rem]'></div>  
 
@@ -213,10 +208,5 @@ function Sightseeing() {
 
   );
 }
-
-Sightseeing.propTypes = {
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-    defaultValue: PropTypes.string,
-  };
   
 export default Sightseeing;
