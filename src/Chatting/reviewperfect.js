@@ -37,11 +37,7 @@ const reviewperfect = () => {
         <Button_honey_2 className='bg-white' style={{color:'#5F3300'}}>홈</Button_honey_2>
         </Link>
       </div>  
-      
-     
-      
-      
-      
+
       
     </div>
     
