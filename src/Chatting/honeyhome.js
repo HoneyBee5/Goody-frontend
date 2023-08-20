@@ -4,8 +4,6 @@ import Slider from '@mui/material/Slider';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
 const MySlider = ({ value, handleChange }) => {
   return (
     <div>
