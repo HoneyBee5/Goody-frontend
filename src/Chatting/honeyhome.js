@@ -2,7 +2,7 @@
 import Button_honey from './Component/honeybtn';
 import Slider from '@mui/material/Slider';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 
 import { Link } from 'react-router-dom';
 const MySlider = ({ value, handleChange }) => {
@@ -89,5 +89,5 @@ const honeyhome = () => {
         </div>
       );
  
-
+      }
 export default honeyhome;
