@@ -3,7 +3,7 @@ import { ActionBar } from '../Component/ActionBar';
 import './AddWrite.css';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom';
 
 // 액션바 이름
 const actionBarName = "글 작성";
@@ -82,6 +82,7 @@ const AddWrite = () => {
           >
             <option value="7">남자배우</option>
             <option value="8">여자배우</option>
+            <option value="9">카테고리</option>
           </select>
         ) : (
           <select
@@ -99,6 +100,7 @@ const AddWrite = () => {
         {/* Show the selected option as text */}
         {selectedOption === "7" && selectedOption !== "2" && selectedOption !== "8" && ""}
         {selectedOption === "8" && ""}
+        {selectedOption === "9" && ""}
       </div>
     );
   };
@@ -108,7 +110,6 @@ const AddWrite = () => {
     selectedOption: PropTypes.string,
     setSelectedOption: PropTypes.func,
   };
-
 
   const Member = () => {
     const [text, setText] = useState('');
@@ -141,14 +142,20 @@ const AddWrite = () => {
 
     const handleAddBtnClick = () => {
       if (text !== '' && selectedRadio === 'option2') {
-        setAdditionalText((prevText) => (prevText ? prevText + ', ' + text : text));
+        setAdditionalText((prevText) => prevText ? prevText + ', ' + text : text);
         setText('');
       }
     };
 
     const handleDeleteBtnClick = () => {
-      setAdditionalText('');
+      const updatedText = additionalText
+        .split(', ')
+        .slice(0, -1) 
+        .join(', ');
+  
+      setAdditionalText(updatedText);
     };
+
 
     const handleFocus = () => {
       if (shouldShowPlaceholder) {
@@ -165,9 +172,9 @@ const AddWrite = () => {
     return (
       <div>
         {selectedOption2 === "5" && ( // Check for '5' (같이해요) in selectedOption2
-          <div style={{ display: "flex", marginTop: "10px" }}>
-            <div className="mb-8" style={{ display: "flex", alignItems: "center", marginLeft: "10px" }}>
-              <label style={{ margin: "5px" }}>
+          <div style={{ marginTop: '10px', display: 'flex' }}> 
+            <div className='mb-8' style={{ display: 'flex', alignItems: 'center', marginLeft: '16px'}}> {/*인원수,추가인원div*/}     
+              <label style={{ margin: '5px' }}>
                 <input
                   type="radio"
                   name="radioGroup"
@@ -178,8 +185,9 @@ const AddWrite = () => {
                 &nbsp;&nbsp;인원수
               </label>
             </div>
-            <div className={`mb-8 ${boxWidth}`} style={{ display: "flex", alignItems: "center" }}>
-              <label className="fixe fixe-cols ml-10">
+
+            <div className={` mb-8 ${boxWidth}`} style={{ display: 'flex', alignItems: 'center'}}>       
+              <label className='fixe fixe-cols ml-10'>
                 <input
                   type="radio"
                   name="radioGroup"
@@ -194,49 +202,56 @@ const AddWrite = () => {
         )}
 
         {showNumberOfMembersBox && (
-          <div style={{ height: 30, display: "flex", marginTop: -12, marginLeft: "5px", marginBottom: "20px" }}>
+          <div className='flex h-8 mt-[-0.75rem] ml-[0.7rem] mb-[1.25rem]'>
             <input
               type="text"
               value={shouldShowPlaceholder ? placeholder : text}
               onChange={handleChange}
               onFocus={handleFocus}
               onBlur={handleBlur}
-              className={`border border-gray-500 ml-2 text-right ${boxWidth}`}
-              style={{ borderRadius: 5 }}
+              className={`border border-gray-500 pr-[0.25rem] ml-[0.75rem] text-right ${boxWidth}`}
+              style={{borderRadius:5}}
             />
 
             {/*추가버튼*/}
             {selectedRadio === 'option2' && (
-              <div className='추가버튼img' style={{ marginLeft: 10, marginTop: -9 }}>
+              <div className='추가버튼img ml-[1.25rem] mt-[0.2rem]'>
                 <button onClick={handleAddBtnClick}>
-                  <img src='img\Add.png' width={30} alt='추가버튼' />
+                  <img src='img\personAdd.png' width={30} alt='추가버튼' />
                 </button>
               </div>
             )}
 
+       
             {/*삭제버튼*/}
             {selectedRadio === 'option2' && (
-              <div className='삭제버튼img' style={{ marginLeft: 5, marginTop: -8 }}>
-                <button onClick={handleDeleteBtnClick}>
-                  <img src='img\Delete.png' width={33} alt='삭제버튼' />
-                </button>
-              </div>
+            <div className='삭제버튼img ml-[1rem] mt-[-0.07rem]'>
+              <button onClick={handleDeleteBtnClick}>
+                <img src='img\personMinus.png' width={33} alt='삭제버튼' />
+              </button>
+            </div>
             )}
           </div>
+
         )}
 
         {/*글작성 +버튼 -> 인원 추가*/}
         <div>
-          {additionalText !== '' && (
-            <div style={{ marginTop: 20, marginLeft: 8 }}>
-              1. {additionalText}
-            </div>
-          )}
+          <div>
+            {additionalText !== '' && (
+              <div className='mt-[1rem] mb-[1rem] ml-[1.5rem]'>
+                {additionalText.split(', ').map((person, index) => (
+                  <div key={index}>
+                    {index + 1}. {person}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
   };
-
 
   /*글제목 작성*/
   const TextBox = () => {
@@ -273,8 +288,8 @@ const AddWrite = () => {
     };
 
     return (
-      <div className='flex h-30 mt-5 mb-5 ml-3 items-center'>
-
+      <div className='flex mr-10 h-30 mt-5 mb-5 ml-5 items-center'>
+  
         <input
           type="text"
           value={text}
@@ -284,7 +299,7 @@ const AddWrite = () => {
         />
 
         {/* 나눔 체크 박스  */}
-        <div style={{ marginLeft: '10px' }}>
+        <div >
 
           <div className='flex'>
             <input
@@ -294,8 +309,8 @@ const AddWrite = () => {
               className='mr-2'
             />
 
-            <div className=''>
-              <label className="Check_label">나눔</label>
+            <div className='mr-[-16px]'>
+            <label className="Check_label w-10 flex">나눔</label>
             </div>
 
           </div>
@@ -314,30 +329,32 @@ const AddWrite = () => {
     };
 
     return (
-      <div className="Div_explainText flex flex-col m-3">
+      <div className="Div_explainText flex flex-col m-5">
         <textarea
           type="text"
           value={text}
           onChange={handleChange}
           placeholder='설명'
           rows={text.split('\n').length} // 엔터를 누를 때마다 행의 개수에 따라 크기가 조정됨
-          style={{ minHeight: '195px', resize: 'none' }} // 최소 높이 및 크기 조정 비활성화
+          style={{ minHeight: '120px', resize: 'none' }} // 최소 높이 및 크기 조정 비활성화
           className=""
         />
       </div>
     )
   };
+  
 
 
   const Check = () => {
     return (
-
-      <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '5px', marginBottom: '85px' }}>
-        <button>
-          <img src='img\registerBtn.png'></img>
-        </button>
-      </div>
-
+  
+    <div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'5px', marginBottom:'85px'}}>
+          <Link to="/sightseeing">
+      <button>
+        <img src='img\registerBtn.png'></img>
+      </button>
+      </Link>
+    </div>
     );
   };
 

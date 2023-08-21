@@ -8,7 +8,7 @@ const CollectionItem = () => {
 
   return (
     <div className='inline-flex'>
-    <Link to="/collectionDetail" >
+    <Link to="/collectionDetail2" >
     <button className='mt-5 ml-3.5 mr-2.5 col_item'>
       <img src="/img/hexagon.png" alt='플러스' width={'110rem'} className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' />
     </button>
@@ -19,7 +19,7 @@ const CollectionItem = () => {
 // 플로팅 버튼
 const PlusBtn = () => {
   return (
-    <Link to="/collectionWrite">
+    <Link to="/collectionWrite2">
       <button className='right-3 bottom-24 absolute'>
         <img src="/img/collection_plusButton.png" alt='플러스' width={'70px'} className='' />
       </button>

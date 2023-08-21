@@ -65,9 +65,11 @@ const Top = () => {
       </div>
 
       <div style={{marginTop:'60px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Link to="/Inquiry">
         <button>
           <img src='img/BottomSearch.png' style={{width:'60px'}}></img>
         </button>
+        </Link>
       </div>
 
     </div>

@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
-import './Inquiry.css'; 
-
+import { Inquiry_Item } from '../Component/Inquiry_Item';
 
 {/*상단*/ }
 const Search = () => {
@@ -22,18 +17,17 @@ const Search = () => {
     <div className='flex mt-10 bg-yellow' style={{ alignItems: 'center' }}>
 
       {/*뒤로가기*/}
-      <div style={{ display: 'flex' }}>
+      <div className='flex mt-[0.2rem] ml-[0.8rem]'>
         <button>
-          <img src='img\yellow_left.png' style={{ width: '20px', height: '30px', marginLeft: '12px', }}></img>
+          <img src='img\yellow_left.png' className='w-[1.1rem] h-[1.9rem]'></img>
         </button>
       </div>
 
 
       {/*검색입력창*/}
-      <div
-        style={{ width: '350px', height: '35px', marginLeft: '15px', borderRadius: '5px', display: 'flex', alignItems: 'center',}}>
+      <div className='h-[2rem] w-[19rem] ml-[1.2rem] border-rounded-[0.5rem] flex items-center'>
 
-        <img src='img\Bar.png' style={{height: '6px',marginTop: '30px', width: '310px', display: 'flex', alignItems: 'center',}}></img>
+        <img src='img\Bar.png' className='w-[23rem] h-[0.3rem] mt-[2rem] flex items-center'></img>
 
 
         <input
@@ -42,19 +36,18 @@ const Search = () => {
           maxLength={100}
           onChange={handleChange}
           placeholder='검색어를 입력해주세요.'
-          className=' outline-none border-0 focus:outline-none'
-          style={{ width: '300px', marginLeft: '-315px', marginTop: '-5px', border: 'none', padding: '0 8px', background: 'transparent' }}
+          className='transparent outline-none border-0 focus:outline-none w-[22rem] ml-[-19.5rem] mt-[-0.25rem]'
+          style={{ border: 'none', padding: '0 8px'}}
         />
+      </div>
 
         {/*돋보기*/}
-        <div style={{ marginLeft: '20px', marginBottom: '-7px' }}>
+        <div className='ml-[0.6rem] mb-[-0.8rem]'>
           <button>
-            <img src="img/Search2.png" alt='검색' width={'30px'} height={'30px'}
-              className='' />
+            <img src="img/Search2.png" alt='검색' width={'30px'} height={'30px'}/>
           </button>
         </div>
 
-      </div>
     </div>
   )
 }
@@ -91,21 +84,26 @@ const Dropdown = ({ label, items }) => {
           transition: 'height 0.3s',
           position: 'absolute',
           zIndex: isOpen ? 1 : 0,
-          backgroundColor: '#ffffff' //드롭박스 내부 투명/불투명
+          backgroundColor: '#ffffff' 
         }}
       >
 
         <button
+          className='flex'
           onClick={handleButtonClick}
           style={{
-
-            width: '100%',
             textAlign: 'center',
             fontSize: isOpen ? '16px' : '14px',
             padding: '0 10px',
-          }}
-        >
-          {selectedItem ? selectedItem : label} ∨
+          }}>
+
+          {selectedItem ? selectedItem : label} 
+          <img src='img/category.png' 
+               className='ml-[0.4rem] w-[1.2rem] h-[1rem]' 
+               style={{ marginTop: isOpen ? '5px' : '2px',
+               }}>
+          </img>
+
         </button>
 
         {/*드롭 열렸을 떄*/}
@@ -160,7 +158,7 @@ const Arrange = () => {
 
   const handleButtonClick = () => {
     setOpen((prevState) => !prevState);
-    setSelectedOption(null); // Reset the selected option when the button is clicked
+    setSelectedOption(null);
   };
 
   const handleOptionClick = (option) => {
@@ -200,6 +198,7 @@ const Arrange = () => {
           ))}
         </div>
       )}
+
       {selectedOption && (
         <div style={{ marginLeft: '10px', fontSize: '14px', fontWeight: 'bold' }}>
         </div>
@@ -208,88 +207,58 @@ const Arrange = () => {
   );
 };
 
-
-{/*상품정렬*/ }
-const SquareGrid = () => {
-  const squares = [
-    { id: 1, description: '상품 1' },
-    { id: 2, description: '상품 2' },
-    { id: 3, description: '상품 3' },
-    { id: 4, description: '상품 4' },
-    { id: 5, description: '상품 5' },
-  ];
-
-  /*사진이 한 줄에 2개 이상이면 다음 줄에 뜨게 해줌*/
-  const chunk = (arr, size) => {
-    return arr.reduce((acc, val, i) => {
-      const idx = Math.floor(i / size);
-      const page = acc[idx] || (acc[idx] = []);
-      page.push(val);
-      return acc;
-    }, []);
-  };
-
-  /*한 줄에 상품 2개까지만 보이게 해둠*/
-
-  const chunkedSquares = chunk(squares, 1);
-
-  const [likedSquares, setLikedSquares] = useState([]);
-
-  const handleLikeClick = (squareId) => {
-    if (likedSquares.includes(squareId)) {
-      setLikedSquares(likedSquares.filter(id => id !== squareId));
-    } else {
-      setLikedSquares([...likedSquares, squareId]);
-    }
-  };
+const Dp = () => {
+ 
   return (
-    <div className="grid gap-3 grid-cols-2 ml-4 justify-center" style={{ marginTop: '-45px' }}>
-      {chunkedSquares.map((row, rowIndex) => (
-        <div key={rowIndex}>
-          {row.map((square) => (
-             <button key={square.id} onClick={() => handleLikeClick(square.id)} 
-             className="m-2 mt-20 w-44 h-40 bg-[#e6e6e6] shadow-md"
-             style={{ borderRadius: '10px', marginLeft: '-0px' }}
-           >
-              <FontAwesomeIcon 
-                icon={likedSquares.includes(square.id) ? faHeartSolid : faHeartRegular}
-                className={`heart-icon mb-28 ml-32 ${likedSquares.includes(square.id) ? 'text-color' : ''}`}
-                size="lg"
-              />
-            </button>
-          ))}
-          <button>
+    <div>
 
-            
-            <div
-              className='ml-2 mt-2 w-44 h-25'
-              style={{
-                marginBottom: '-58px', borderRadius: '5px', marginLeft: '-0px'
-              }}>
+          <div className='flex'>
+            <Inquiry_Item />  
 
-              <Link to="/Sightseeing">
-              <label className='whitespace-pre-line' style={{fontWeight:'bold'}}>꿀벌오소리 벌꿀오소리...{'\n'}</label>
-              <label style={{fontWeight:'bold'}}>20,000원</label>
-              <label className='fixe ml-11'>3시간전</label>
-              <div className='w-20 ml-1 mt-3 border rounded-lg border-[#B4B4B4] p-1 text-sm'>거래상태</div>
-              </Link>
-
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
             </div>
-          </button>
-       
-        </div>
-      ))}
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
+
+          <div className='flex mt-[-1rem]'>
+            <Inquiry_Item />  
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
+
+          <div className='flex mt-[-1rem]'>
+            <Inquiry_Item />  
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
+
+
     </div>
-  );
-};
+  )
+}
 
 function Inquiry() {
   return (
     <div>
       <Search />
 
-      {/*드롭박스*/}
-      <div style={{ marginTop: '0px', marginLeft: '8px', height: '150px' }}>
+      {/*드롭박스*/} 
+      <div className="pl-2 mt-[-0.5rem] h-[150px]" >
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {/* 첫 번째 드롭다운 */}
           <div style={{ marginLeft: '-5px', display: 'flex', alignItems: 'center' }}>
@@ -305,9 +274,9 @@ function Inquiry() {
           </div>
         </div>
       </div>
-
+      
       <Arrange />
-      <SquareGrid />
+      <Dp /> 
       <Nav />
     </div>
 

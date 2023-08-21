@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+// import { useNavigate } from "react-router-dom";
 import { ActionBarDot } from '../Component/ActionBarDot';
 
-const actionBarName = "컬렉션";
+const actionBarName = "컬렉션 디테일1";
 
 const Image = () => {
   return (
