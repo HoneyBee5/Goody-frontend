@@ -17,18 +17,17 @@ const Search = () => {
     <div className='flex mt-10 bg-yellow' style={{ alignItems: 'center' }}>
 
       {/*뒤로가기*/}
-      <div style={{ display: 'flex' }}>
+      <div className='flex mt-[0.2rem] ml-[0.8rem]'>
         <button>
-          <img src='img\yellow_left.png' style={{ width: '20px', height: '30px', marginLeft: '10px', }}></img>
+          <img src='img\yellow_left.png' className='w-[1.1rem] h-[1.9rem]'></img>
         </button>
       </div>
 
 
       {/*검색입력창*/}
-      <div
-        style={{ width: '350px', height: '35px', marginLeft: '17px', borderRadius: '5px', display: 'flex', alignItems: 'center',}}>
+      <div className='h-[2rem] w-[19rem] ml-[1.2rem] border-rounded-[0.5rem] flex items-center'>
 
-        <img src='img\Bar.png' style={{height: '6px',marginTop: '30px', width: '330px', display: 'flex', alignItems: 'center',}}></img>
+        <img src='img\Bar.png' className='w-[23rem] h-[0.3rem] mt-[2rem] flex items-center'></img>
 
 
         <input
@@ -37,18 +36,18 @@ const Search = () => {
           maxLength={100}
           onChange={handleChange}
           placeholder='검색어를 입력해주세요.'
-          className=' outline-none border-0 focus:outline-none'
-          style={{ width: '300px', marginLeft: '-330px', marginTop: '-5px', border: 'none', padding: '0 8px', background: 'transparent' }}
+          className='transparent outline-none border-0 focus:outline-none w-[22rem] ml-[-19.5rem] mt-[-0.25rem]'
+          style={{ border: 'none', padding: '0 8px'}}
         />
+      </div>
 
         {/*돋보기*/}
-        <div style={{marginLeft: '40px', marginBottom: '-7px' }}>
+        <div className='ml-[0.6rem] mb-[-0.8rem]'>
           <button>
             <img src="img/Search2.png" alt='검색' width={'30px'} height={'30px'}/>
           </button>
         </div>
 
-      </div>
     </div>
   )
 }
@@ -85,21 +84,26 @@ const Dropdown = ({ label, items }) => {
           transition: 'height 0.3s',
           position: 'absolute',
           zIndex: isOpen ? 1 : 0,
-          backgroundColor: '#ffffff' //드롭박스 내부 투명/불투명
+          backgroundColor: '#ffffff' 
         }}
       >
 
         <button
+          className='flex'
           onClick={handleButtonClick}
           style={{
-
-            width: '100%',
             textAlign: 'center',
             fontSize: isOpen ? '16px' : '14px',
             padding: '0 10px',
-          }}
-        >
-          {selectedItem ? selectedItem : label} ∨
+          }}>
+
+          {selectedItem ? selectedItem : label} 
+          <img src='img/category.png' 
+               className='ml-[0.4rem] w-[1.2rem] h-[1rem]' 
+               style={{ marginTop: isOpen ? '5px' : '2px',
+               }}>
+          </img>
+
         </button>
 
         {/*드롭 열렸을 떄*/}
@@ -154,7 +158,7 @@ const Arrange = () => {
 
   const handleButtonClick = () => {
     setOpen((prevState) => !prevState);
-    setSelectedOption(null); // Reset the selected option when the button is clicked
+    setSelectedOption(null);
   };
 
   const handleOptionClick = (option) => {
@@ -194,6 +198,7 @@ const Arrange = () => {
           ))}
         </div>
       )}
+
       {selectedOption && (
         <div style={{ marginLeft: '10px', fontSize: '14px', fontWeight: 'bold' }}>
         </div>
@@ -207,25 +212,40 @@ const Dp = () => {
   return (
     <div>
 
-          <div className='flex mb-5'>
-            <Inquiry_Item />  
-
-            <div className='ml-48'>
-              <Inquiry_Item />  
-            </div>
-          </div>
-
-          <div className='flex mb-5'>
-            <Inquiry_Item />  
-
-            <div className='ml-48'>
-              <Inquiry_Item />  
-            </div>
-          </div>
-
           <div className='flex'>
             <Inquiry_Item />  
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
             </div>
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
+
+          <div className='flex mt-[-1rem]'>
+            <Inquiry_Item />  
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
+
+          <div className='flex mt-[-1rem]'>
+            <Inquiry_Item />  
+
+            <div className='ml-[8rem]'>
+              <Inquiry_Item />  
+            </div>
+            
+          </div>
 
 
     </div>
@@ -238,7 +258,7 @@ function Inquiry() {
       <Search />
 
       {/*드롭박스*/} 
-      <div className="pl-2 h-[150px]" >
+      <div className="pl-2 mt-[-0.5rem] h-[150px]" >
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {/* 첫 번째 드롭다운 */}
           <div style={{ marginLeft: '-5px', display: 'flex', alignItems: 'center' }}>
@@ -254,6 +274,7 @@ function Inquiry() {
           </div>
         </div>
       </div>
+      
       <Arrange />
       <Dp /> 
       <Nav />

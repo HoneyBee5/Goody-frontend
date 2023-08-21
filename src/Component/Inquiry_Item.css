@@ -1,5 +1,7 @@
-
+.fa-heart-regular {
+    color: #b4b4b4; /* 클릭 전 아이콘 색상 */
+}
 
 .text-color {
-    color: #FFD52B !important; /* Add !important to override existing styles */
+    color: #FFD52B !important; /* 클릭 후 아이콘 색상 */
 }
