@@ -8,11 +8,14 @@ const CollectionItem = () => {
 
   return (
     <div className='inline-flex'>
-    <Link to="/collectionDetail" >
-    <button className='mt-5 ml-3.5 mr-2.5 col_item'>
-      <img src="/img/hexagon.png" alt='플러스' width={'110rem'} className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' />
-    </button>
-    </Link></div>
+      <Link to="/collectionDetail2" >
+        <button className='mt-5 ml-3.5 mr-2.5 col_item'>
+          <div className='hexagon-container'>
+            <img src='/img/newjeans.png' className='clipped-image drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' alt="New Jeans" />
+          </div>
+            {/* <img src="/img/hexagon.png" alt='벌집' width={'110rem'} className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' /> */}
+        </button>
+      </Link></div>
   );
 }
 

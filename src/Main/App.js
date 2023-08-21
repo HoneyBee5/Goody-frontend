@@ -24,6 +24,10 @@ import Login from '../Login/Login';
 import Join from '../Login/Join';
 import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
+import {Inquiry_Item} from '../Component/Inquiry_Item';
+import CollectionWrtie2 from '../Collection/collectionWrite2';
+import CollectionDetail2 from '../Collection/collectionDetail2';
+
 
 const App = () => {
     return (
