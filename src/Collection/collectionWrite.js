@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { ActionBarDot } from '../Component/ActionBarDot';
+import { ActionBarClose } from '../Component/ActionBarClose';
 
 // 액션바 이름
 const actionBarName = "컬렉션 작성";
@@ -91,7 +91,7 @@ function CollectionWrtie() {
 
     <div>
 
-      <ActionBarDot actionBarName={actionBarName} />
+      <ActionBarClose actionBarName={actionBarName} />
       <Square />
       <Title />
       <ExplainText />

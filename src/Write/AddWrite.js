@@ -288,8 +288,8 @@ const AddWrite = () => {
     };
 
     return (
-      <div className='flex mr-10 h-30 mt-5 mb-5 ml-5 items-center'>
-  
+      <div className='flex h-30 mt-5 mb-5 ml-3 items-center'>
+
         <input
           type="text"
           value={text}
@@ -299,7 +299,7 @@ const AddWrite = () => {
         />
 
         {/* 나눔 체크 박스  */}
-        <div >
+        <div style={{ marginLeft: '10px' }}>
 
           <div className='flex'>
             <input
@@ -309,8 +309,8 @@ const AddWrite = () => {
               className='mr-2'
             />
 
-            <div className='mr-[-16px]'>
-            <label className="Check_label w-10 flex">나눔</label>
+            <div className=''>
+              <label className="Check_label">나눔</label>
             </div>
 
           </div>
