@@ -34,7 +34,7 @@ const ActionBarDot = ({ actionBarName }) => {
           {showOptions && (
           <div style={{ position: 'absolute', right:20, top: -3, backgroundColor: '#ffffff', border: '1px solid #575757', borderRadius: '5px', padding: '5px', zIndex: 1 }}>
             <div style={{display: 'block' }} onClick={() => handleOptionClick('수정')}>
-              <Link to="/collectionWrite">
+              <Link to="/collectionWrite2">
                 <button style={{width:'35px'}}>수정</button>
               </Link>
             </div>

@@ -88,7 +88,7 @@ const Tag = () => {
         height: '30px',
         marginLeft: 10,
         borderRadius: '15px',
-        border: '1px solid #ffd52b',
+        border: '1px solid #b4b4b4',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -103,7 +103,7 @@ const Tag = () => {
         marginLeft: 110,
         marginTop: -30,
         borderRadius: '15px',
-        border: '1px solid #ffd52b',
+        border: '1px solid #b4b4b4',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -117,7 +117,7 @@ const Tag = () => {
         marginLeft: 210,
         marginTop: -30,
         borderRadius: '12px',
-        border: '1px solid #ffd52b',
+        border: '1px solid #b4b4b4',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -163,13 +163,9 @@ const TotNum = () => {
 
 const Purchase = () => {
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(11); // Initial like count
 
   const handleLikeClick = () => {
     setLiked(!liked);
-    if (!liked) {
-      setLikeCount(likeCount + 1); // Increment the like count
-    }
   };
 
   return (
@@ -207,6 +203,7 @@ const Purchase = () => {
 
         {/*구매하기버튼*/}
         <div style={{display:'flex', marginLeft: 'auto',  marginRight: '10px'}}>
+          <Link to="/chatting">
           <button style={{ 
             backgroundColor:'#575757',
             width:130,
@@ -222,6 +219,7 @@ const Purchase = () => {
               구매하기
             </label>
           </button>
+          </Link>
         </div>
           
       </div>
