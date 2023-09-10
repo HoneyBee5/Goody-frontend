@@ -25,8 +25,6 @@ import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
 import {Inquiry_Item} from '../Component/Inquiry_Item';
 import Chatting from '../Chatting/chatting';
-import CollectionDetail2 from '../Collection/collectionDetail2';
-import CollectionWrtie2 from '../Collection/collectionWrite2';
 
 
 const App = () => {
@@ -49,14 +47,10 @@ const App = () => {
           <Route path="/collection" element={<Collection />} />
           <Route exact path="/collectionDetail" element={<CollectionDetail />} />
           <Route exact path="/collectionWrite" element={<CollectionWrtie/>} />
-          <Route exact path="/collectionDetail2" element={<CollectionDetail2/>} />
-          <Route exact path="/collectionWrite2" element={<CollectionWrtie2/>} />
           <Route exact path="/inspect" element={<Inspect />} />
           <Route exact path="/sightseeing"  element={<Sightseeing />} />
           <Route exact path="/inquiry"  element={<Inquiry />} />
           <Route exact path="/inquiry_Item" element={<Inquiry_Item />} />
-          <Route exact path="/collectionWrite2" element={<CollectionWrtie2 />} />
-          <Route exact path="/collectionDetail2" element={<CollectionDetail2 />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />
