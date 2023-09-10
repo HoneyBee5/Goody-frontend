@@ -5,8 +5,8 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const ActionBarModify = () => {
   const [showOptions, setShowOptions] = useState(false);
-  const [imageIndex, setImageIndex] = useState(0); // Current image index
-  const images = ['img/newjeans.png', 'img/newjeans.png', 'img/newjeans.png']; // Array of image URLs
+  const [imageIndex, setImageIndex] = useState(0); 
+  const images = ['img/newjeans.png', 'img/newjeans.png', 'img/newjeans.png']; 
 
   const handleDdongButtonClick = () => {
     setShowOptions((prevShowOptions) => !prevShowOptions);
@@ -14,7 +14,7 @@ const ActionBarModify = () => {
 
   const handleOptionClick = (option) => {
     console.log(`Selected option: ${option}`);
-    setShowOptions(false); // Close the options after selecting an option
+    setShowOptions(false);
   };
 
   const handleSlideChange = (selectedIndex) => {

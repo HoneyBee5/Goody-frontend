@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Nav } from '../Component/Nav';
-import { TabView } from './TabView';
+import TabView from './TabView';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -13,13 +13,13 @@ const HomeActionBar = ({ children, imageSrc }) => {
   return (
     <div className='flex'>
       <img className='relative' src={imageSrc} alt='구디' />
-      <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'150px'} />
+      <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
       <Link to="/Inspect">
-        <button className='absolute right-14 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
-          <img src="img/Search.png" alt='검색' width={'30px'} height={'30px'} />
+        <button className='absolute right-12 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
+          <img src="img/Search.png" alt='검색' width={'25px'} height={'25px'} />
         </button></Link>
       <button className='absolute right-0 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
-        <Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'30px'} height={'30px'} /></Link>
+        <Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link>
       </button>
 
       <div>
@@ -92,19 +92,19 @@ const Home = () => {
 
       {/* 메인 카테고리 */}
       <div className='flex justify-center'>
-        <div className="mb-3">
-          <button className='w-12 mx-2 my-6 font-bold text-gray-600 cate'> <img src='img\Movie.png' className='shadow-md rounded-2xl mb-2' alt='영화'></img>영화</button>
-          <button className='w-12 mx-2 my-6 font-bold text-gray-600 cate'> <img src='img\Games.png' className='shadow-md rounded-2xl mb-2' alt='게임'></img>게임</button>
-          <button className='w-12 mx-2 my-6 font-bold text-gray-600 cate'> <img src='img\Mic.png' className='shadow-md rounded-2xl mb-2' alt='아이돌'></img>아이돌</button>
-          <button className='w-12 mx-2 my-6 font-bold text-gray-600 cate'> <img src='img\Bear.png' className='shadow-md rounded-2xl mb-2' alt='캐릭터'></img>캐릭터</button>
-          <button className='w-12 mx-2 my-6 font-bold text-gray-600 cate'> <img src='img\Ball.png' className='shadow-md rounded-2xl mb-2' alt='스포츠'></img>스포츠</button>
-          <button className='w-12 mx-2 my-6 font-bold text-gray-600 cate'> <img src='img\Book.png' className='shadow-md rounded-2xl mb-2' alt='만화/책'></img>만화</button>
+        <div className="mb-2">
+          <button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Movie.png' className='shadow-md rounded-2xl mb-2' alt='영화'></img>영화</button>
+          <button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Games.png' className='shadow-md rounded-2xl mb-2' alt='게임'></img>게임</button>
+          <button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Mic.png' className='shadow-md rounded-2xl mb-2' alt='아이돌'></img>아이돌</button>
+          <button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Bear.png' className='shadow-md rounded-2xl mb-2' alt='캐릭터'></img>캐릭터</button>
+          <button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Ball.png' className='shadow-md rounded-2xl mb-2' alt='스포츠'></img>스포츠</button>
+          <button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Book.png' className='shadow-md rounded-2xl mb-2' alt='만화/책'></img>만화</button>
         </div>
       </div>
       <hr />
 
       {/* 최근 업로드 */}
-      <h3 className='font-extrabold mt-10 ml-5'> 최근 업로드 </h3>
+      <h3 className='font-extrabold mt-7 ml-5'> 최근 업로드 </h3>
 
       {/* 탭 뷰 */}
       <TabView />
@@ -119,4 +119,3 @@ HomeActionBar.propTypes = {
 };
 
 export default Home;
-

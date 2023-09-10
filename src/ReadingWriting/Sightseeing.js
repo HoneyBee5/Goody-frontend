@@ -15,7 +15,7 @@ const Image = () => {
           <div style={{marginLeft:'370px', marginTop:20}}>
           <Link to="/Inquiry">
             <button>
-              <img src="img/Close.png" alt='닫기'  className='w-[1.9rem] h-[1.9rem]'/>
+              <img src="img/close.png" alt='닫기'  className='w-[1.9rem] h-[1.9rem]'/>
             </button>
             </Link>
           </div>
@@ -29,7 +29,7 @@ const Profile = () => {
       <div className='ml-[0.5rem] mt-[2rem] h-18 flex'>
 
           {/*프로필사진*/}
-          <img src='img\Profile.png' 
+          <img src='img\profile.png' 
             style={{width:60, marginLeft:5}}>  
           </img>
 

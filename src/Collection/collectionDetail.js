@@ -1,112 +1,70 @@
-import React from 'react';
-// import { useNavigate } from "react-router-dom";
-import { ActionBarDot } from '../Component/ActionBarDot';
+import React, { useState } from 'react';
+import { ActionBarModify } from '../Component/ActionBarModity';
+import './collectionDetail.css'; 
 
-const actionBarName = "컬렉션 디테일1";
 
-const Image = () => {
+const Text = () => {
+  const [isSliding, setIsSliding] = useState(false);
+  const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
+  const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
+  const [marginTop, setMarginTop] = useState(0); 
+
+  const handleImageClick = () => {
+    const newMarginTop = marginTop === 0 ? -225 : 0;
+    setMarginTop(newMarginTop);
+    
+    setIsSliding(true);
+    setIsDescriptionVisible1(isDescriptionVisible); 
+    setIsDescriptionVisible(!isDescriptionVisible);
+    
+    setTimeout(() => {
+      setIsSliding(false);
+    }, 500); 
+  }
+
   return (
-      <div className="PhotoText rounded-1g border border-black bg-black h-260" 
-        style={{
-          height: "300px"
-        }}>사진
-      </div>
-  );
-};
+    <div className={`justify-center flex ${isSliding ? 'transition duration-200 ease-in-out sliding' : ''}`}  
+         style={{ marginTop: `${marginTop}px` }}>
 
-{/*제목*/}
-const Title = () => {
-  return (
-    <div className='mt-5 ml-3'>
-      <label style={{
-        fontSize:'25px',
-        fontWeight:'bold',
-        color:'#575757'
-        }}>컬렉션 No.1
-      </label>
+      <img src='img/collectionText.png' className='absolute mt-[-3rem]' alt='collection' onClick={handleImageClick} />
+      
+      <p className='text-3xl mt-[-0.625rem] absolute'>
+        <button onClick={handleImageClick}>NEWJEANS</button>
+      </p>
+
+      <div className='flex mt-[2.2rem] pr-[8.5rem]'>
+        <img src='img\Calendar.png' className="absolute h-6 w-10" alt='calendar' />
+        <div><p className='absolute ml-11'>2023.07.31</p></div>
+      </div> 
+
+      {isDescriptionVisible1 && (
+        <p className='left-[1rem] mt-[5rem] absolute whitespace-pre-line text-[#888]' onClick={handleImageClick} >
+          작성 내용 더보기...
+        </p>
+      )}
+
+      {isDescriptionVisible && (
+        <p className='left-[1.25rem] mt-[5.5rem] absolute whitespace-pre-line'>
+          설명~~~~{'\n'}설명설명설명설명설명설명{'\n'}설명설명설명설명설명설설명설명
+          {'\n'}{'\n'}설명설명설명설설명{'\n'}설명설명설명설명설명설명설설명설명명설명설명{'\n'}{'\n'}명설명설명{'\n'}
+          설명설명설명설설명설명설명설설설명{'\n'}설명설명설명설명명설명   
+          설명~~~~{'\n'}설명설명설명설명설명설명{'\n'}설명설명설명설명설명설설명설명
+          {'\n'}{'\n'}설명설명설명설설명{'\n'}설명설명설명설명설명설명설설명설명명설명설명{'\n'}{'\n'}명설명설명{'\n'}
+          설명설명설명설설명설명설명설설설명{'\n'}설명설명설명설명명설명
+        </p>
+      )}
     </div>
   );
-};
-
-
-const Calendar = () => {
-  return (
-    <div className='fixed right-24 mt-3 display:flex'>
-
-      {/*달력img*/}
-      <div className="display:flex mr-2">
-      <img src='img\Calendar.png' className="h-7 w-10" />
-      </div>
-
-      {/*날짜*/}
-      <div>
-       <label className=''
-          style={{ 
-            position: 'fixed',
-            marginLeft: '40px', 
-            marginTop:'-24px' }}>
-            2023.07.31
-        </label>
-      </div>
-  
-    </div>
-  );
-};
-
-const Explain = () => {
-  return (
-    <div style={{
-      height: '320px', 
-      marginTop:90,
-      // border: '1px solid #b4b4b4',
-      display: 'block', 
-      marginLeft:'12px'
-    }}>
-
-      <label className='whitespace-pre-line'>
-      설명~~~~{'\n'}설명설명설명설명설명설명{'\n'}설명설명설명
-      {'\n'}{'\n'}설명설명설명설설명{'\n'}설명설명설명설명{'\n'}{'\n'}{'\n'}
-      설명설명설명설설명설명설{'\n'}설명설명설명설명설명설명설설명명설명설
-      </label>
-    </div>
-  );
-};
-
-
-// const ModifyBtn = () => {
-//   const navigate = useNavigate();
-//   const navigateToPurchase = () => {
-//     navigate("/collectionWrite");
-//   };
-
-//   return (
-//     <div style={{ marginTop:'30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-//         <button onClick={navigateToPurchase}>
-//             <img src='img\modifyBtn.png' 
-//             style={{
-//               width:180,
-//               height:40,
-//             }}>
-//             </img>
-//         </button>
-//     </div>  
-//   );
-// };
-
+}
 
 function CollectionDetail() {
   return (
-
     <div>
-      <ActionBarDot actionBarName={actionBarName} />
-      <Image />
-      <Title />
-      <Calendar />
-      <Explain />
-      {/* <ModifyBtn /> */}
+      <ActionBarModify />
+      <Text />
     </div>
-
   );
 }
-  
+
+
 export default CollectionDetail;
