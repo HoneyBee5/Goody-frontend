@@ -29,7 +29,7 @@ const Top = () => {
 
     <div className='mt-10 mr-5 flex justify-end'>
           <button>
-            <img src='img\Close.png' style={{width: '35px'}} alt='Close' className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' onClick={handleBack} />
+            <img src='img\close.png' style={{width: '35px'}} alt='Close' className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' onClick={handleBack} />
           </button>
       </div>
      

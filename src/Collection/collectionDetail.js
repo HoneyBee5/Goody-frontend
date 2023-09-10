@@ -57,7 +57,7 @@ const Text = () => {
   );
 }
 
-function CollectionDetail2() {
+function CollectionDetail() {
   return (
     <div>
       <ActionBarModify />
@@ -67,4 +67,4 @@ function CollectionDetail2() {
 }
 
 
-export default CollectionDetail2;
+export default CollectionDetail;
