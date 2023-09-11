@@ -8,7 +8,7 @@ const CollectionItem = () => {
 
   return (
     <div className='inline-flex'>
-      <Link to="/collectionDetail2" >
+      <Link to="/collectionDetail" >
         <button className='mt-5 ml-3.5 mr-2.5 col_item'>
           <div className='hexagon-container'>
             <img src='/img/newjeans.png' className='clipped-image drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' alt="New Jeans" />
@@ -22,7 +22,7 @@ const CollectionItem = () => {
 // 플로팅 버튼
 const PlusBtn = () => {
   return (
-    <Link to="/collectionWrite2">
+    <Link to="/collectionWrite">
       <button className='right-3 bottom-24 absolute'>
         <img src="/img/collection_plusButton.png" alt='플러스' width={'70px'} className='' />
       </button>
@@ -32,7 +32,7 @@ const PlusBtn = () => {
 
 function Collection() {
   const back = {
-    backgroundImage: "url('img/collection_back.png')",
+    backgroundImage: "url('img/Collection_back.png')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     width: "100%",
@@ -52,10 +52,6 @@ function Collection() {
         <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'30px'} height={'30px'} /></Link></button>
       </div>
       <CollectionItem />
-      <CollectionItem />
-      <CollectionItem />
-      <CollectionItem />
-      <CollectionItem />
       <PlusBtn />
       <Nav />
     </div>
@@ -63,56 +59,3 @@ function Collection() {
 }
 
 export default Collection;
-
-
-
-// const SquareGrid = () => {
-//   const squares = [
-//     { id: 1, color: 'white' },
-//     { id: 2, color: 'white' },
-//     { id: 3, color: 'white' },
-//     { id: 4, color: 'white' },
-//     { id: 5, color: 'white' },
-//     { id: 6, color: 'white' },
-//     { id: 7, color: 'white' },
-//     { id: 8, color: 'white' },
-//     { id: 9, color: 'white' },
-//     { id: 10, color: 'white' },
-//     { id: 11, color: 'white' },
-//   ];
-
-//   // Calculate the clip-path for hexagon-like shape (horizontal top and bottom edges)
-//   const hexagonClipPath = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
-
-//   /*사진이 한 줄에 3개 이상이면 다음 줄에 뜨게 해줌*/
-//   const chunk = (arr, size) => {
-//     return arr.reduce((acc, val, i) => {
-//       const idx = Math.floor(i / size);
-//       const page = acc[idx] || (acc[idx] = []);
-//       page.push(val);
-//       return acc;
-//     }, []);
-//   };
-
-//   /*현재는 한 줄에 사진 3개까지만 보이게 해둠*/
-//   const chunkedSquares = chunk(squares, 1);
-
-//   return (
-//     <div className="grid gap-3 grid-cols-3 ml-4 justify-center mt-20">
-//       {chunkedSquares.map((row, rowIndex) => (
-//         <div key={rowIndex} className="">
-//           {row.map((square) => (
-//             <Link to="/collectionDetail" key={square.id}>
-
-//               <button key={square.id}
-//                 className="m-2 mt-2 w-24 h-28 bg-[white]"
-//                 style={{ clipPath: hexagonClipPath, transform: "rotate(90deg)" }} // Rotate the hexagon by 90 degrees
-//               ></button>
-//             </Link>
-
-//           ))}
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
