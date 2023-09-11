@@ -54,7 +54,7 @@ const chatdetails = () => {
     setIsHoveredY(!isHoveredY);
   };
   const chat_id = '이름';
-  const chat_explain = '안녕하세요';
+  const chat_explain = 'asdkjfasldjfalksdjfalksdjf';
  
 
   return (
