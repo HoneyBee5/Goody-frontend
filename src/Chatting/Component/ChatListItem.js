@@ -32,4 +32,3 @@ ChatListItem.propTypes = {
 
 
 export default ChatListItem;
-

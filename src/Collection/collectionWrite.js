@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { ActionBarClose } from '../Component/ActionBarClose';
+import PropTypes from 'prop-types';
 
 const actionBarName = "컬렉션 작성";
 
@@ -114,5 +114,5 @@ CollectionWrtie.propTypes = {
     options: PropTypes.arrayOf(PropTypes.string).isRequired,
     defaultValue: PropTypes.string,
   };
-  
+
 export default CollectionWrtie;

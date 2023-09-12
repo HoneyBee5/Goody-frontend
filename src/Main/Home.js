@@ -119,4 +119,3 @@ HomeActionBar.propTypes = {
 };
 
 export default Home;
-

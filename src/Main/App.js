@@ -24,8 +24,8 @@ import Join from '../Login/Join';
 import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
 import {Inquiry_Item} from '../Component/Inquiry_Item';
-import Chatting from '../Chatting/chatting';
-
+import Chatting from '../Chatting/Chatting';
+import TabView from './TabView';
 
 const App = () => {
     return (
@@ -55,6 +55,7 @@ const App = () => {
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />
           <Route path="/findpw" element={<FindPw />} />
+          <Route path="/tabview" element={<TabView />} />
           <Route path="/" element={<Login />} />
 
         </Routes>

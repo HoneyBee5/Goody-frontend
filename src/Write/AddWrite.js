@@ -288,30 +288,32 @@ const AddWrite = () => {
     };
 
     return (
-      <div className='flex h-30 mt-5 mb-5 ml-3 items-center'>
+      <div className='flex h-30 mt-5 mb-5 ml-5 items-center'>
 
         <input
           type="text"
           value={text}
+          maxLength={20}
           onChange={handleChange}
           placeholder='￦ 가격'
-          className="outline-none border-0 mr-40 check"
+          className="outline-none border-0 mr-[9.5rem] check"
         />
 
         {/* 나눔 체크 박스  */}
         <div style={{ marginLeft: '10px' }}>
 
           <div className='flex'>
+
+            <div className='mr-1'>
+              <label className="Check_label">나눔</label>
+            </div>
+
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleCheckboxChange}
-              className='mr-2'
+              className='ml-1 mr-1'
             />
-
-            <div className=''>
-              <label className="Check_label">나눔</label>
-            </div>
 
           </div>
 
