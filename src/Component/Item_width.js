@@ -40,4 +40,5 @@ Item_width.propTypes = {
     documentId: PropTypes.string.isRequired, // 아이템 식별자를 추가
   }).isRequired,
 };
+
 export default Item_width;

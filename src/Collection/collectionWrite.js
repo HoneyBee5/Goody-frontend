@@ -115,5 +115,4 @@ CollectionWrtie.propTypes = {
     defaultValue: PropTypes.string,
   };
 
-  
 export default CollectionWrtie;

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ActionBarModify } from '../Component/ActionBarModity';
 import './collectionDetail.css'; 
 
-
 const Text = () => {
   const [isSliding, setIsSliding] = useState(false);
   const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);

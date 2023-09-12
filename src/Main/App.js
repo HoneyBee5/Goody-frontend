@@ -27,7 +27,6 @@ import {Inquiry_Item} from '../Component/Inquiry_Item';
 import Chatting from '../Chatting/Chatting';
 import TabView from './TabView';
 
-
 const App = () => {
     return (
       <Router>
@@ -52,7 +51,6 @@ const App = () => {
           <Route exact path="/sightseeing"  element={<Sightseeing />} />
           <Route exact path="/inquiry"  element={<Inquiry />} />
           <Route exact path="/inquiry_Item" element={<Inquiry_Item />} />
-          <Route path="/tabView" element={<TabView />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />
