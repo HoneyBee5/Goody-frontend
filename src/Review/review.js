@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActionBarClose } from '../Component/ActionBarClose';
-import Button_y from './Component/reviewbtn';
-import Button_g from './Component/reviewbtn_gray';
-import Button_honey from './Component/honeybtn';
+import Button_y from './reviewbtn';
+import Button_g from './reviewbtn_gray';
+import Button_honey from './Reviewhoneybtn';
 import { Link } from 'react-router-dom';
 
 const review = () => {
