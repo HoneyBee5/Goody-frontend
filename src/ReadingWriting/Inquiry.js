@@ -210,50 +210,18 @@ const Arrange = () => {
 const Dp = () => {
  
   return (
-    <div>
+    <div className='flex'>
 
-          <div className='flex'>
-            <Inquiry_Item />  
-
-            <div className='ml-[8rem]'>
-              <Inquiry_Item />  
-            </div>
-
-            <div className='ml-[8rem]'>
-              <Inquiry_Item />  
-            </div>
-            
-          </div>
-
-          <div className='flex mt-[-1rem]'>
-            <Inquiry_Item />  
-
-            <div className='ml-[8rem]'>
-              <Inquiry_Item />  
-            </div>
-            
-            <div className='ml-[8rem]'>
-              <Inquiry_Item />  
-            </div>
-            
-          </div>
-
-          <div className='flex mt-[-1rem]'>
-            <Inquiry_Item />  
-
-            <div className='ml-[8rem]'>
-              <Inquiry_Item />  
-            </div>
-            
-          </div>
-
-
+      <Inquiry_Item />  
+      
     </div>
   )
 }
 
 function Inquiry() {
+
   return (
+
     <div>
       <Search />
 
@@ -262,11 +230,12 @@ function Inquiry() {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {/* 첫 번째 드롭다운 */}
           <div style={{ marginLeft: '-5px', display: 'flex', alignItems: 'center' }}>
-            <Dropdown label='카테고리' items={['Outerwear', 'Top']} />
+            <Dropdown label='카테고리' items={['영화', '방송/연예','게임','스포츠', '만화', '캐릭터']} />
           </div>
           {/* 두 번째 드롭다운 */}
           <div style={{ marginLeft: '120px' }}>
-            <Dropdown label='거래종류' items={['만나서', '택배']} />
+          <Dropdown label='거래종류' items={['핀매해요', '같이해요', '교환해요', '나눔해요']}/>
+
           </div>
           {/* 세 번째 드롭다운 */}
           <div style={{ marginLeft: '120px' }}>
@@ -277,6 +246,7 @@ function Inquiry() {
       
       <Arrange />
       <Dp /> 
+
       <Nav />
     </div>
 

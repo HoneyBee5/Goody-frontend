@@ -23,10 +23,10 @@ import Login from '../Login/Login';
 import Join from '../Login/Join';
 import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
-import {Inquiry_Item} from '../Component/Inquiry_Item';
 import Chatting from '../Chatting/Chatting';
 import TabView from './TabView';
-
+import {Inquiry_Item} from '../Component/Inquiry_Item';
+import { Inquiry_Item2 } from '../Component/Inquiry_Item2';
 
 const App = () => {
     return (
@@ -52,6 +52,8 @@ const App = () => {
           <Route exact path="/sightseeing"  element={<Sightseeing />} />
           <Route exact path="/inquiry"  element={<Inquiry />} />
           <Route exact path="/inquiry_Item" element={<Inquiry_Item />} />
+          <Route exact path="/inquiry_Item2" element={<Inquiry_Item2 />} />
+
           <Route path="/tabView" element={<TabView />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />

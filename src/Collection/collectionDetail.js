@@ -26,7 +26,7 @@ const Text = () => {
     <div className={`justify-center flex ${isSliding ? 'transition duration-200 ease-in-out sliding' : ''}`}  
          style={{ marginTop: `${marginTop}px` }}>
 
-      <img src='img/collectionText.png' className='absolute mt-[-3rem]' alt='collection' onClick={handleImageClick} />
+      <img src='img/collectionText.png' className='absolute mt-[-4rem]' alt='collection' onClick={handleImageClick} />
       
       <p className='text-3xl mt-[-0.625rem] absolute'>
         <button onClick={handleImageClick}>NEWJEANS</button>
