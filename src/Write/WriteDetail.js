@@ -13,7 +13,7 @@ const Image = () => {
           height: "300px",
         }}>
           <div style={{marginLeft:'370px', marginTop:20}}>
-          <Link to="/Inquiry">
+          <Link to="/Search">
             <button>
               <img src="img/close.png" alt='닫기'  className='w-[1.9rem] h-[1.9rem]'/>
             </button>

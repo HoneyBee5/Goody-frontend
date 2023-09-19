@@ -14,7 +14,7 @@ const HomeActionBar = ({ children, imageSrc }) => {
     <div className='flex'>
       <img className='relative' src={imageSrc} alt='구디' />
       <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
-      <Link to="/Inspect">
+      <Link to="/Search">
         <button className='absolute right-12 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
           <img src="img/Search.png" alt='검색' width={'25px'} height={'25px'} />
         </button></Link>

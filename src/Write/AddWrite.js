@@ -351,7 +351,7 @@ const AddWrite = () => {
     return (
   
     <div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'5px', marginBottom:'85px'}}>
-          <Link to="/sightseeing">
+          <Link to="/WriteDetail">
       <button>
         <img src='img\registerBtn.png'></img>
       </button>
