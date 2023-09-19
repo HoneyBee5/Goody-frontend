@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './Inquiry_Item2.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
-const Inquiry_Item2 = () => {
+const SearchDetail_Item2 = () => {
   const [items, setItems] = useState([]); // 상태
   const [liked, setLiked] = useState([false, false, false, false]);
 
@@ -66,4 +65,4 @@ const Inquiry_Item2 = () => {
   );
 };
 
-export { Inquiry_Item2 };
+export { SearchDetail_Item2 };

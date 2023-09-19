@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Sightseeing from '../ReadingWriting/Sightseeing';
+import Sightseeing from '../Write/WriteDetail';
 
 const Item_width = ({ data }) => {
 
@@ -40,4 +40,5 @@ Item_width.propTypes = {
     documentId: PropTypes.string.isRequired, // 아이템 식별자를 추가
   }).isRequired,
 };
+
 export default Item_width;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
-import { Inquiry_Item } from '../Component/Inquiry_Item';
+import { SearchDetail_Item } from '../Component/SearchDetail_Item';
 
 {/*상단*/ }
 const Search = () => {
@@ -212,13 +212,13 @@ const Dp = () => {
   return (
     <div className='flex'>
 
-      <Inquiry_Item />  
+      <SearchDetail_Item />  
       
     </div>
   )
 }
 
-function Inquiry() {
+function SearchDetail() {
 
   return (
 
@@ -253,4 +253,4 @@ function Inquiry() {
   );
 }
 
-export default Inquiry;
+export default SearchDetail;

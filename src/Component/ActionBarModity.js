@@ -39,8 +39,6 @@ const ActionBarModify = () => {
         ))}
       </div>
 
-
-
       <div style={{ position: 'absolute', right: 50, top: 28 }}>
         <Link to="/collection">
           <button>

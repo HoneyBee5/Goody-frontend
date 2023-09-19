@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './Inquiry_Item.css'; 
+import './SearchDetail_Item.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
 
-const Inquiry_Item = () => {
+const SearchDetail_Item = () => {
   const [items, setItems] = useState([]); // 상태
   const [liked, setLiked] = useState([false, false, false, false]);
 
@@ -84,4 +84,4 @@ const Inquiry_Item = () => {
   );
 };
 
-export { Inquiry_Item };
+export { SearchDetail_Item };

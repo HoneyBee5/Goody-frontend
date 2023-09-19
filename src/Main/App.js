@@ -14,10 +14,10 @@ import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
 import Categories from './Categories';
 import CollectionDetail from '../Collection/collectionDetail';
-import Inquiry from '../ReadingWriting/Inquiry';
+import SearchDetail from '../Search/SearchDetail';
 import CollectionWrtie from '../Collection/collectionWrite';
-import Inspect from '../ReadingWriting/Inspect';
-import Sightseeing from '../ReadingWriting/Sightseeing';
+import Search from '../Search/Search';
+import WriteDetail from '../Write/WriteDetail';
 import Home from './Home';
 import Login from '../Login/Login';
 import Join from '../Login/Join';
@@ -25,8 +25,7 @@ import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
 import Chatting from '../Chatting/Chatting';
 import TabView from './TabView';
-import {Inquiry_Item} from '../Component/Inquiry_Item';
-import { Inquiry_Item2 } from '../Component/Inquiry_Item2';
+import {SearchDetail_Item} from '../Component/SearchDetail_Item';
 
 const App = () => {
     return (
@@ -35,7 +34,7 @@ const App = () => {
         <Route path="/chatting" element={<Chatting />} />
 
           <Route path="/address" element={<Address />} />
-          <Route path="/chatdetails" element={<Chatdetails />} />
+          <Route path="/chatdetails" element={<Chatdetails />} />s
           <Route path="/review" element={<Review />} />
           <Route path="/honeyhome" element={<Honeyhome />} />
           <Route path="/reviewperfect" element={<Reviewperfect />} />
@@ -48,14 +47,11 @@ const App = () => {
           <Route path="/collection" element={<Collection />} />
           <Route exact path="/collectionDetail" element={<CollectionDetail />} />
           <Route exact path="/collectionWrite" element={<CollectionWrtie/>} />
-          <Route exact path="/inspect" element={<Inspect />} />
-          <Route exact path="/sightseeing"  element={<Sightseeing />} />
-          <Route exact path="/inquiry"  element={<Inquiry />} />
-          <Route exact path="/inquiry_Item" element={<Inquiry_Item />} />
-          <Route exact path="/inquiry_Item2" element={<Inquiry_Item2 />} />
-
-          <Route path="/tabView" element={<TabView />} />
-          <Route path="/home" element={<Home />} />
+          <Route exact path="/search" element={<Search />} />
+          <Route exact path="/writeDetail"  element={<WriteDetail />} />
+          <Route exact path="/searchDetail"  element={<SearchDetail />} />
+          <Route exact path="/searchDetail_Item" element={<SearchDetail_Item />} />
+\          <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />
           <Route path="/findpw" element={<FindPw />} />
