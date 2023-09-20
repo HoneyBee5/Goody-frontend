@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
 
+
+const apiurl = "http://27.96.134.23:4001/goody/user/get";
+ 
 const SearchDetail_Item = () => {
   const [items, setItems] = useState([]); // 상태
   const [liked, setLiked] = useState([false, false, false, false]);
@@ -12,11 +15,10 @@ const SearchDetail_Item = () => {
     const updatedLiked = [...liked];
     updatedLiked[index] = !updatedLiked[index];
     setLiked(updatedLiked);
+    
   };
 
-  const apiurl = "http://27.96.134.23:4001/goody/post/preview-info?postType=%ED%8C%90%EB%A7%A4%ED%95%B4%EC%9A%94&page=0";
 
-  /*fetch api 연결*/ 
   useEffect(() => {
     fetch(apiurl)
       .then(response => {
@@ -26,16 +28,15 @@ const SearchDetail_Item = () => {
         return response.json();
       })
       .then(data => {
-        if (data.postPreviewInfo && data.postPreviewInfo.length > 0) {
-          setItems(data.postPreviewInfo);
-        }
+        setItems(data.ContentDTO);
       })
       .catch(error => {
         console.error('오류 발생:', error);
-      }); //오류 처리
+      }); 
   }, []);
 
-  const itemsPerRow = 3; // 한 줄에 표시할 아이템 수
+
+  const itemsPerRow = 3;
   const itemRows = [];
 
   for (let i = 0; i < items.length; i += itemsPerRow) {

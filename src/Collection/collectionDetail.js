@@ -7,6 +7,7 @@ const Text = () => {
   const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
   const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
   const [marginTop, setMarginTop] = useState(0); 
+  
 
   const handleImageClick = () => {
     const newMarginTop = marginTop === 0 ? -225 : 0;
