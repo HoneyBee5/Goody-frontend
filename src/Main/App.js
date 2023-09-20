@@ -24,7 +24,7 @@ import Join from '../Login/Join';
 import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
 import {Inquiry_Item} from '../Component/Inquiry_Item';
-import Chatting from '../Chatting/Chatting';
+import Chatting from '../Chatting/chatting';
 import TabView from './TabView';
 
 const App = () => {
@@ -32,7 +32,6 @@ const App = () => {
       <Router>
         <Routes>
         <Route path="/chatting" element={<Chatting />} />
-
           <Route path="/address" element={<Address />} />
           <Route path="/chatdetails" element={<Chatdetails />} />
           <Route path="/review" element={<Review />} />
@@ -45,8 +44,8 @@ const App = () => {
           <Route path="/purchaselist" element={<PurchaseList />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/collection" element={<Collection />} />
-          <Route exact path="/collectionDetail" element={<CollectionDetail />} />
-          <Route exact path="/collectionWrite" element={<CollectionWrtie/>} />
+          <Route  path="/collectionDetail" element={<CollectionDetail />} />
+          <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
           <Route exact path="/inspect" element={<Inspect />} />
           <Route exact path="/sightseeing"  element={<Sightseeing />} />
           <Route exact path="/inquiry"  element={<Inquiry />} />

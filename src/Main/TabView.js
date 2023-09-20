@@ -14,13 +14,12 @@ const TabView = () => {
   // 데이터를 가져오는 비동기 함수
   const fetchData = async (postType) => {
     try {
-      const response = await fetch(`http://27.96.134.23:4001/goody/post/preview-info?postType=${postType}&page=0`);
-      
+      const response = await fetch(`http://27.96.134.23:4001/goody/contents/preview-info?transType=${postType}&page=0`);
       if (!response.ok) {
         throw new Error('네트워크 오류');
       }
       
-      const data = await response.json();
+      const data = await response;
       if (data.postPreviewInfo && data.postPreviewInfo.length > 0) {
         setPostPreviewInfo(data.postPreviewInfo);
         setLoading(false); // 데이터 로딩이 완료되면 false로 설정

@@ -1,27 +1,15 @@
 @media (max-width: 390px) {
-    .col_item {
-        margin-top: 1.25rem;
-        margin-left: 0.9rem;
-        margin-right: 0.5rem;
-        width: 6.25rem;
+    .col_item2 {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
     }
   }
 
-  .hexagon-container {
-    position: relative;
-    width: 110px;
-    filter: drop-shadow(3px 0px 5px rgb(147, 110, 9));
-    transform: rotate(90deg); /* 요소를 90도 회전 */
-    transform-origin: center center;
-  }
   
-  
-  .clipped-image {
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    width: 100px;
-    height: 110px;
+  .Collecthin_image {
+    width: 137px;
+    height: 137px;
     object-fit: cover;
-    transform: rotate(-90deg);
-    transform-origin: center center;
   }
   
