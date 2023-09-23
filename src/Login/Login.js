@@ -25,13 +25,12 @@ const Login = () => {
          console.log(response);
         } else {
           // 로그인 실패 시 처리
-
           console.error('로그인 실패');
         }
       })
       .catch((error) => {
         console.error('로그인 요청 중 오류 발생', error);
-        window.location.href = '/home'//
+        window.location.href = '/home'
       });
     };
 
@@ -49,7 +48,7 @@ const Login = () => {
         
         </div>
 
-        <div className='flex justify-center'> {/* This div will center its children horizontally */}
+        <div className='flex justify-center'>
           <button type={'submit'} className='mt-5 w-[22rem] mb-5'>
             {/* <Link to="/home"> */}
               <img src='img/LoginButton.png' alt='Login' />

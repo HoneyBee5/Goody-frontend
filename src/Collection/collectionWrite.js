@@ -7,7 +7,7 @@ const actionBarName = "컬렉션 작성";
 const CollectionWrite = () => {
     const [title, setTitle] = useState(''); // 타이틀 상태 추가
     const [story, setStory] = useState(''); // 스토리 상태 추가
-    const [image, setImage] = useState(null); // 이미지 상태 추가
+    const [image, setImage] = useState(null);
 
     const handleTitleChange = (newTitle) => {
         setTitle(newTitle);
@@ -19,7 +19,7 @@ const CollectionWrite = () => {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        setImage(file); // 이미지 상태 업데이트
+        setImage(file);
     };
 
     const handleMiniRegisterClick = async () => {
@@ -27,18 +27,21 @@ const CollectionWrite = () => {
             const formData = new FormData();
             formData.append('title', title); // 제목을 추가
             formData.append('content', story); // 내용을 추가
+
             if (image) {
                 formData.append('images', image); // 이미지 파일을 추가
             }
 
             const response = await fetch('http://27.96.134.23:4001/goody/collection/create', {
                 method: 'POST',
-                body: formData,
+                body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
             });
 
             if (response.ok) {
+                // 데이터가 성공적으로 API로 전송되었습니다.
                 console.log('데이터가 성공적으로 전송되었습니다.');
             } else {
+                // 여기서 오류를 처리합니다.
                 console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
             }
         } catch (error) {
@@ -82,7 +85,7 @@ const CollectionWrite = () => {
             </div>
             <div className='flex p-2 mt-48'>
                 <button>
-                    <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+                    <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />
                     <label htmlFor="fileInput"> <img src='img\CollectionCamera.png' className='mt-3 w-15 h-14 ml-5 bottom-2' id="selectedImage" alt="Selected"></img></label>            </button>
     
                 <button>
@@ -91,7 +94,7 @@ const CollectionWrite = () => {
                 </button>
     
                 <button onClick={handleMiniRegisterClick}>
-                    <Link to="/collectionWrite">
+                    <Link to="/collection">
                         <img src='img\miniRegister.png' className='w-40 h-12 mt-2 ml-10' alt="Mini Register"></img>
                     </Link>
                 </button>

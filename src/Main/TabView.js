@@ -12,21 +12,23 @@ const TabView = () => {
   const [loading, setLoading] = useState(true); // 데이터 로딩 상태를 관리
 
   // 데이터를 가져오는 비동기 함수
-  const fetchData = async (postType) => {
+  const fetchData = async ( postType ) => {
     try {
-      const response = await fetch(`http://27.96.134.23:4001/goody/contents/preview-info?transType=${postType}&page=0`);
+      const response = await fetch(`http://27.96.134.23:4001/goody/contents/preview-info?transType=${postType}&page=0`, {
+      method: 'GET',
+    });
+
       if (!response.ok) {
-        throw new Error('네트워크 오류');
+        throw new Error('HTTP 오류 ' + response.status);
       }
       
-      const data = await response;
+      const data = await response.json();
+
       if (data.postPreviewInfo && data.postPreviewInfo.length > 0) {
         setPostPreviewInfo(data.postPreviewInfo);
-        setLoading(false); // 데이터 로딩이 완료되면 false로 설정
-        console.log(data);
+        setLoading(false);
       } else {
         console.error('API에서 데이터를 가져오는 중 오류 발생: 데이터가 비어 있습니다.');
-        console.log(data);
       }
     } catch (error) {
       console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
