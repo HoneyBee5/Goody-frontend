@@ -19,10 +19,14 @@ const CollectionItem = ({ item }) => {
   // 컬렉션 아이템 정보를 받아와서 렌더링
   return (
     <div className='inline-flex'>
-      <Link to="/collectionDetail">
+      <Link to={`/collectionDetail/${item.collectionId}`}>
         <button>
           <div>
-            <img src={item.thumbnail} className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item col_item2' alt={item.collectionId} />
+            <img
+              src={item.thumbnail} // 이미지 URL 사용
+              className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item col_item2'
+              alt={item.title}
+            />
           </div>
         </button>
       </Link>
@@ -30,27 +34,41 @@ const CollectionItem = ({ item }) => {
   );
 };
 
+
+
+
 function Collection() {
   const [collectionItems, setCollectionItems] = useState(null);
 
-  useEffect(() => {
-    async function fetchCollectionItems() {
-      try {
-        const response = await fetch('http://27.96.134.23:4001/goody/collection/list');
-        if (response.ok) {
-          const data = await response;
-          setCollectionItems(data);
-        } else {
-          console.error('컬렉션 아이템 목록을 불러오는 중 오류가 발생했습니다.');
-        }
-      } catch (error) {
-        console.error('오류가 발생했습니다:', error);
-      }
-    }
-    
+    // 토큰 가져오기
+    const token = localStorage.getItem('token');
 
-    fetchCollectionItems();
-  }, []);
+    useEffect(() => {
+      async function fetchCollectionItems() {
+        try {
+          const headers = {
+            Authorization: `${token}`,
+          };
+    
+          const response = await fetch('http://27.96.134.23:4001/goody/collection/list', {
+            method: 'GET',
+            headers,
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            setCollectionItems(data.dto); // 데이터 설정
+          } else {
+            console.error('컬렉션 아이템 목록을 불러오는 중 오류가 발생했습니다.');
+          }
+          
+        } catch (error) {
+          console.error('오류가 발생했습니다:', error);
+        }
+      }
+    
+      fetchCollectionItems();
+    }, []);
 
   const back = {
     backgroundImage: "url('img/Collection_back.png')",
@@ -65,6 +83,7 @@ function Collection() {
   if (collectionItems === null) {
     return <div>Loading...</div>;
   }
+  console.log(collectionItems);
   return (
     <div style={back}>
       <div className='flex'>
@@ -77,8 +96,8 @@ function Collection() {
         <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link></button>
       </div>
 
-     {Array.isArray(collectionItems) && collectionItems
-  .map((item, index) => (
+      {Array.isArray(collectionItems) &&
+  collectionItems.map((item, index) => (
     <CollectionItem key={index} item={item} />
   ))
 }
@@ -92,9 +111,9 @@ function Collection() {
 // CollectionItem 컴포넌트 내에서 아래와 같이 PropTypes 설정
 CollectionItem.propTypes = {
   item: PropTypes.shape({
-    thumbnail: PropTypes.string.isRequired,
     collectionId: PropTypes.string.isRequired,
-    // 다른 필요한 프로퍼티도 여기에 추가할 수 있습니다.
+    thumbnail: PropTypes.string.isRequired,
+    title:PropTypes.string.isRequired,
   }).isRequired,
 };
 
