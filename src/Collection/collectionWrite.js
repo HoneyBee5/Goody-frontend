@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ActionBarClose } from '../Component/ActionBarClose';
 
 const actionBarName = "컬렉션 작성";
 
 const CollectionWrite = () => {
-    const [title, setTitle] = useState(''); // 타이틀 상태 추가
-    const [story, setStory] = useState(''); // 스토리 상태 추가
+    const [title, setTitle] = useState('');
+    const [story, setStory] = useState('');
     const [image, setImage] = useState(null);
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // 사용자 로그인 상태를 확인하는 로직을 구현
+        const token = localStorage.getItem('token'); // 또는 세션에서 토큰을 가져올 수 있음
+        if (token) {
+            setLoggedIn(true); // 토큰이 있다면 로그인 상태로 설정
+        }
+    }, []);
 
     const handleTitleChange = (newTitle) => {
         setTitle(newTitle);
@@ -24,10 +33,17 @@ const CollectionWrite = () => {
 
     const handleMiniRegisterClick = async () => {
         try {
+            // 사용자 인증 여부 확인
+            if (!loggedIn) {
+                // 로그인되지 않은 경우 처리
+                alert('로그인 후에 글을 작성할 수 있습니다.');
+                return;
+            }
+
+            // 나머지 글 작성 로직
             const formData = new FormData();
             formData.append('title', title); // 제목을 추가
             formData.append('content', story); // 내용을 추가
-
             if (image) {
                 formData.append('images', image); // 이미지 파일을 추가
             }
@@ -35,6 +51,10 @@ const CollectionWrite = () => {
             const response = await fetch('http://27.96.134.23:4001/goody/collection/create', {
                 method: 'POST',
                 body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
+                headers: {
+                    // 토큰을 사용하여 사용자 인증
+                    Authorization: `${localStorage.getItem('token')}`,
+                },
             });
 
             if (response.ok) {
@@ -51,6 +71,7 @@ const CollectionWrite = () => {
 
     return (
         <div>
+            {!loggedIn && <link to="/login" />} {/* 로그인되지 않은 경우 로그인 페이지로 리디렉션 */}
             <ActionBarClose actionBarName={actionBarName} />
             <div>
                 <p className="text-3xl text-[#FFD52B] font-serif flex justify-center mt-10">Title</p>

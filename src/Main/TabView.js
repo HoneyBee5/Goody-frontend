@@ -17,7 +17,7 @@ const TabView = () => {
   const fetchData = async (postType) => {
     try {
       const headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: `${token}`,
       };
 
       const response = await fetch(

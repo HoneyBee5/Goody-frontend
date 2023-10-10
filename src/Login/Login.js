@@ -11,11 +11,19 @@ const Login = () => {
     const form = new FormData();
     form.append('userId', userId);
     form.append('userPw', userPw);
-  
+    
+    // 로그인 정보를 담은 JSON 객체 생성
+    const user = {
+      userId: userId,
+      userPw: userPw,
+    };
+
     const requestOptions = {
       method: 'POST',
-      body: form,
-      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/json', // JSON 형식으로 데이터 전송을 설정합니다.
+      },
+      body: JSON.stringify(user), // JSON 형식으로 데이터를 문자열로 변환하여 전송합니다.
     };
   
     try {
