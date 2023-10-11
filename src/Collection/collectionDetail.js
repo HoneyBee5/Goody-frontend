@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { ActionBarModify } from '../Component/ActionBarModity';
 import './collectionDetail.css'; 
 import { useParams } from 'react-router-dom';
-const Text = () => {
-  const [isSliding, setIsSliding] = useState(false);
+
+
+function CollectionDetail() {
+const [isSliding, setIsSliding] = useState(false);
   const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
   const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
   const [marginTop, setMarginTop] = useState(0);
   const [collectionData, setCollectionData] = useState(null); // 컬렉션 데이터 상태 추가
 
-
   const { collectionId } = useParams(); // 추가: URL에서 컬렉션 ID를 가져옴
+
+  const Text = () => {
   
+  
+  
+  
+
   useEffect(() => {
     async function fetchCollectionItems() {
       const token = localStorage.getItem('token');
@@ -91,10 +98,9 @@ const Text = () => {
 
 
 
-function CollectionDetail() {
   return (
     <div>
-      <ActionBarModify />
+     <ActionBarModify collectionData={collectionData} />
       <Text />
     </div>
   );
