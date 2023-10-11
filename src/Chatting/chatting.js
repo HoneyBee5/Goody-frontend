@@ -4,13 +4,14 @@ import { ActionBar } from '../Component/ActionBar';
 import ChatListItem from './Component/ChatListItem';
 
 const actionBarName = "채팅목록";
+const apiurl = "http://27.96.134.23:4001/goody/user/get";
 
-const Chatting = () => {
+const chatting = () => {
   const [chatData, setChatData] = useState([]);//상태
 
   /*fetch api 연결*/ 
   useEffect(() => {
-    fetch("http://27.96.134.23:4001/goody/user/get")
+    fetch(apiurl)
       .then(response => {
         if (!response.ok) {
           throw new Error('네트워크 오류');
@@ -48,4 +49,4 @@ const Chatting = () => {
   
 };
 
-export default Chatting;
+export default chatting;

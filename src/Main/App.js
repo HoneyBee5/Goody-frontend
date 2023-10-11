@@ -3,9 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chatdetails  from '../Chatting/chatdetails';
 import Address  from '../Chatting/address';
-import Review from '../Chatting/review';
-import Honeyhome from '../Chatting/honeyhome';
-import Reviewperfect from '../Chatting/reviewperfect';
+import Review from '../Review/review';
+import Honeyhome from '../Review/ReviewHoneyHome';
+import Reviewperfect from '../Review/reviewperfect';
 import Collection from '../Collection/collection';
 import AddWrite from '../Write/AddWrite';
 import Mypage from '../MyPage/mypage';
@@ -28,6 +28,7 @@ import TabView from './TabView';
 import {SearchDetail_Item} from '../Component/SearchDetail_Item';
 
 const App = () => {
+  
     return (
       <Router>
         <Routes>

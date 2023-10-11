@@ -1,5 +1,5 @@
 
-import Button_honey from './Component/honeybtn';
+import Button_honey from './Reviewhoneybtn';
 import Slider from '@mui/material/Slider';
 import PropTypes from 'prop-types';
 import React, { useState} from 'react';
@@ -47,7 +47,7 @@ MySlider.propTypes = {
 
 
 
-const honeyhome = () => {
+const ReviewHoneyHome = () => {
     const [value, setValue] = useState(2.5);
 
     const handleChange = (event, newValue) => {
@@ -90,4 +90,4 @@ const honeyhome = () => {
       );
  
       }
-export default honeyhome;
+export default ReviewHoneyHome;

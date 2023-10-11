@@ -1,7 +1,7 @@
 import React from 'react';
 import './font.css';
-import Button_honey from './Component/honeybtn';
-import Button_honey_2 from './Component/honeybtn_2';
+import Button_honey from './Reviewhoneybtn';
+import Button_honey_2 from './Reviewhoneybtn2';
 import { Link } from 'react-router-dom';
 
 const reviewperfect = () => {

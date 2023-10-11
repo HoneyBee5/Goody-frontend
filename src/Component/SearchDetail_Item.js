@@ -5,36 +5,37 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
 
 
-const apiurl = "http://27.96.134.23:4001/goody/user/get";
- 
 const SearchDetail_Item = () => {
-  const [items, setItems] = useState([]); // 상태
   const [liked, setLiked] = useState([false, false, false, false]);
 
   const handleLikeClick = (index) => {
     const updatedLiked = [...liked];
     updatedLiked[index] = !updatedLiked[index];
     setLiked(updatedLiked);
-    
   };
+
+  const [items, setItems] = useState([]);
 
 
   useEffect(() => {
-    fetch(apiurl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('네트워크 오류');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setItems(data.ContentDTO);
-      })
-      .catch(error => {
-        console.error('오류 발생:', error);
-      }); 
-  }, []);
+    
+    fetch(`http://27.96.134.23:4001/goody/contents/search?category=0`, 
+    {
+      method: 'GET',
+      redirect: 'follow',
+      headers: {
+        Accept: "application/json",
+      },
+    })
+    .then(res => {
+       res.json();
+    })
+    .then(data => {
+      setItems(data) 
+    });
 
+  },);
+    
 
   const itemsPerRow = 3;
   const itemRows = [];
@@ -47,7 +48,7 @@ const SearchDetail_Item = () => {
           <div key={index} className='w-[8rem] p-[0.2rem] mt-[2.2rem]'>
              
               <button>
-                <Link to='/Sightseeing'>
+                <Link to='/SearchDetail'>
                 <img
                   width={'110px'}
                   src={`http://27.96.134.23:4001/goody/file/files/?file=${item.filePath.previewImg}`}
@@ -78,10 +79,14 @@ const SearchDetail_Item = () => {
     );
   }
 
+
+
   return (
+    <>
     <div>
-      {itemRows}
+      {items}
     </div>
+    </>
   );
 };
 
