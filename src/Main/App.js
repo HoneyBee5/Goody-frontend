@@ -44,10 +44,10 @@ const App = () => {
           <Route path="/purchaselist" element={<PurchaseList />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/collection" element={<Collection />} />
-          <Route  path="/collectionDetail" element={<CollectionDetail />} />
+          <Route path="/collectionDetail/:collectionId" element={<CollectionDetail />} />
           <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
           <Route exact path="/inspect" element={<Inspect />} />
-          <Route exact path="/sightseeing"  element={<Sightseeing />} />
+          <Route exact path="/sightseeing/:documentId"  element={<Sightseeing />} />
           <Route exact path="/inquiry"  element={<Inquiry />} />
           <Route exact path="/inquiry_Item" element={<Inquiry_Item />} />
           <Route path="/home" element={<Home />} />

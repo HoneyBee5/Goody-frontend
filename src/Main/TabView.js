@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Item_width from '../Component/Item_width';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -99,14 +100,18 @@ const TabView = () => {
       {/* 데이터 로딩 중 또는 데이터가 비어 있는 경우 처리 */}
       {loading && <div>Loading...</div>}
 
-      {/* 각 탭에 따라 데이터 렌더링 */}
-      {!loading && postPreviewInfo && postPreviewInfo.map((item, index) => (
-        <div key={index}>
-          <Item_width data={item} />
-          {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
-        </div>
-      ))}
-    </Box>
+         {/* 각 탭에 따라 데이터 렌더링 */}
+         {!loading && postPreviewInfo && postPreviewInfo.map((item, index) => (
+      
+      <div key={index} >
+      <Link to={`/sightseeing/${item.documentId}`}>
+      <Item_width data={item} />
+      {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
+      </Link>
+    </div>
+   
+  ))}
+</Box>
   );
 };
 

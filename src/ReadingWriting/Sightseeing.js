@@ -1,54 +1,102 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-import './Sightseeing.css'; 
+import './Sightseeing.css';
+
+
+function Sightseeing( ) {
+  const [sightseeingData, setSightseeingData] = useState(null);
+  const {documentId} = useParams();
+  
+  const token = localStorage.getItem('token');
+  
+
+  useEffect(() => {
+    const fetchDataForSightseeing = async () => {
+      try {
+        const headers = {
+          Authorization: `${token}`,
+        };
+
+        const response = await fetch(`http://27.96.134.23:4001/goody/contents/detail?documentId=${documentId}`,
+        {
+          method: 'GET',
+          headers,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSightseeingData(data);
+          // 데이터를 사용하여 필요한 렌더링 또는 처리 작업 수행
+        } else {
+          console.error('API에서 데이터를 가져오는 중 오류 발생:', response);
+        }
+      } catch (error) {
+        console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
+    
+      }
+    };
+
+    // fetchDataForSightseeing 함수를 호출하여 데이터 가져오기
+    fetchDataForSightseeing();
+  }, [documentId]);
 
 
 const Image = () => {
-    
+  if (!sightseeingData || !sightseeingData.imgPath) {
+    return null; // 이미지 데이터가 없을 경우 컴포넌트를 렌더링하지 않음
+  }
+
   return (
-      <div className="PhotoText rounded-1g border border-black bg-black h-260" 
-        style={{
-          height: "300px",
-        }}>
-          <div style={{marginLeft:'370px', marginTop:20}}>
-          <Link to="/Inquiry">
-            <button>
-              <img src="img/close.png" alt='닫기'  className='w-[1.9rem] h-[1.9rem]'/>
-            </button>
-            </Link>
-          </div>
-      </div>
-  );
-};
+    <div className="PhotoText rounded-1g border  h-260"style={{ height: "300px",
+     backgroundImage: `url(${sightseeingData.imgPath})` }}>
+      <div style={{ marginLeft: '370px', marginTop: 20 }}>
 
-const Profile = () => {
-  return (
-    <div>
-      <div className='ml-[0.5rem] mt-[2rem] h-18 flex'>
-
-          {/*프로필사진*/}
-          <img src='img\profile.png' 
-            style={{width:60, marginLeft:5}}>  
-          </img>
-
-          {/*닉네임 텍스트*/}
-          <div style={{marginTop:5, marginLeft:10,}}>
-            <label style={{fontWeight:'bold'}}>닉네임</label>
-          </div>
-          
-          {/*등급 텍스트*/}
-          <div style={{marginTop:30, marginLeft:-47}}>
-            <label style={{fontWeight:'normal'}} >등급</label>
-          </div>
-          
+        
+        <Link to="/Inquiry">
+          <button>
+            <img referrerPolicy="no-referrer" src="../img/close.png" alt='닫기' className='w-[1.9rem] h-[1.9rem]' />
+          </button>
+        </Link>
       </div>
     </div>
   );
 };
 
+
+const Profile = (  ) => {
+  if (!sightseeingData) {
+    // 데이터가 없을 때의 처리
+    return null;
+  }
+
+ {
+    return (
+      <div>
+        <div className='ml-[0.5rem] mt-[2rem] h-18 flex'>
+          {/*프로필사진*/}
+          <img src='' style={{ width: 60, marginLeft: 5 }} alt="프로필 사진" />
+          
+          {/*닉네임 텍스트*/}
+          <div style={{ marginTop: 5, marginLeft: 10 }}>
+            <label style={{ fontWeight: 'bold' }}>유댕</label>
+          </div>
+          
+          {/*등급 텍스트*/}
+          <div style={{ marginTop: 30, marginLeft: -47 }}>
+            <label style={{ fontWeight: 'normal' }}></label>
+          </div>
+        </div>
+      </div>
+    );
+  } 
+};
 const Title = () => {
+  if (!sightseeingData) {
+    // 데이터가 없을 때의 처리
+    return null;
+  }
   return (
     <div className='flex ml-[0.5rem]'>
 
@@ -62,12 +110,12 @@ const Title = () => {
           marginTop:'25px',
         }}>
 
-        <label style={{fontWeight:'bold', fontSize: 20}}>브루노마스 콘서트 동행 구해요</label>
+        <label style={{fontWeight:'bold', fontSize: 20}}>{sightseeingData.grade}</label>
         </div>
 
         {/*찜*/}
         <div style={{alignItems:'center', display:'flex', marginTop:'-18px', marginRight:'10px'}}>
-          <img src="img\Like.png" className="w-7 md:w-20 xl:w-30 right-10"></img>
+          <img src="../img\Like.png" className="w-7 md:w-20 xl:w-30 right-10"></img>
               <label style={{ fontSize: 19, color: 'orange', right: 17,marginTop:5}}>11</label>
         </div>
       </div>
@@ -75,6 +123,10 @@ const Title = () => {
 };
 
 const Tag = () => {
+  if (!sightseeingData) {
+    // 데이터가 없을 때의 처리
+    return null;
+  }
   return (
     <div className='mt-1 ml-[0.5rem] h-10 w-300 display-flex'>
       
@@ -89,7 +141,7 @@ const Tag = () => {
         alignItems: 'center'
 
       }}>
-        <label>해외가수</label>
+        <label>{sightseeingData.category}</label>
       </div>
       
       <div style={{
@@ -103,7 +155,7 @@ const Tag = () => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <label>같이해요</label>
+        <label>{sightseeingData.transType}</label>
       </div>
      
       <div style={{
@@ -117,7 +169,7 @@ const Tag = () => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <label>?명</label>
+        <label>{sightseeingData.numOfpeople}명</label>
       </div>
   
     </div>
@@ -125,20 +177,28 @@ const Tag = () => {
 };
 
 const Content = () => {
+  if (!sightseeingData) {
+    // 데이터가 없을 때의 처리
+    return null;
+  }
   return (
     <div className='m-10 mt-[1.5rem] ml-[1rem]'>
-      <label className='ml-[0.5rem] text-[#b4b4b4]'>게시글 내용...</label>
+      <label className='ml-[0.5rem] text-[#b4b4b4]'>{sightseeingData.explain}</label>
     </div>
   );
 };
 
 const TotNum = () => {
+  if (!sightseeingData) {
+    // 데이터가 없을 때의 처리
+    return null;
+  }
   return (
 
     <div>
       
     <div className='flex ml-[1.5rem] mt-[14rem] ' style={{zIndex: 999}}>
-      <label>모집인원수: ?명</label>
+      <label>모집인원수: {sightseeingData.people}명</label>
     </div>
     </div>
 
@@ -151,7 +211,10 @@ const Purchase = () => {
   const handleLikeClick = () => {
     setLiked(!liked);
   };
-
+  if (!sightseeingData) {
+    // 데이터가 없을 때의 처리
+    return null;
+  }
   return (
     <div style={{
       position: 'fixed',
@@ -170,7 +233,7 @@ const Purchase = () => {
 
         {/*가격*/}
         <div className='ml-[1rem] mt-[0.9rem]'>
-          <label>000원</label>
+          <label>{sightseeingData.price}원</label>
         </div>
 
         {/*구매하기버튼*/}
@@ -193,7 +256,7 @@ const Purchase = () => {
   );
 };
 
-function Sightseeing() {
+
   return (
 
     <div>

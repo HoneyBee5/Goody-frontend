@@ -6,7 +6,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 const ActionBarModify = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [imageIndex, setImageIndex] = useState(0); 
-  const images = ['img/newjeans.png', 'img/newjeans.png', 'img/newjeans.png']; 
+  const images = ['../img/newjeans.png', '../img/newjeans.png', '../img/newjeans.png']; 
 
   const handleDdongButtonClick = () => {
     setShowOptions((prevShowOptions) => !prevShowOptions);
@@ -42,14 +42,14 @@ const ActionBarModify = () => {
       <div style={{ position: 'absolute', right: 50, top: 28 }}>
         <Link to="/collection">
           <button>
-            <img src="img\blackClose.png" style={{ width: '22px', height: '22px' }} />
+            <img src="../img\blackClose.png" style={{ width: '22px', height: '22px' }} />
           </button>
         </Link>
       </div>
 
       <div style={{ position: 'absolute', right: 20, top: 25 }}>
         <button onClick={handleDdongButtonClick}>
-          <img src="img\blackDdong.png" style={{ width: '5px', height: '25px' }} />
+          <img src="../img\blackDdong.png" style={{ width: '5px', height: '25px' }} />
         </button>
         {showOptions && (
           <div
