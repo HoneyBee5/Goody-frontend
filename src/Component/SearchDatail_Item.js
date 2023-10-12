@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const SearchDatail_Item = (props) => {
   
-const { title, price, createdDate } = props;
+const { title, price, createdDate,thumbnailImg } = props;
 
 
 const Item = ( ) => {
@@ -32,7 +32,7 @@ const Item = ( ) => {
                     <FontAwesomeIcon onClick={() => handleLikeClick(0)} icon={faHeartRegular} className={`absolute mt-[2.5rem] ml-[6.5rem] ${liked[0] ? 'text-color' : 'fa-heart-regular'}`} size="lg" />
                     <Link to="/sightseeing">
                     <button className='mt-[2rem] ml-[1.4rem]'>
-                    <img width={'110px'} src='img\item_gray.png' alt='아이템1'></img>
+                    <img width={'110px'} src={thumbnailImg} alt='아이템1'></img>
                     </button>
                     </Link>
                     <div className='mt-2 ml-[1.6rem] text-[0.9rem]'>
@@ -57,6 +57,7 @@ SearchDatail_Item.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   createdDate: PropTypes.string.isRequired,
+  thumbnailImg: PropTypes.string.isRequired,
 };
 
     return (

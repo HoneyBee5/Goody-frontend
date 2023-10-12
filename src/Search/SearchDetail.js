@@ -287,6 +287,7 @@ const Dp = () => {
             title={item.title}
             price={item.price}
             createdDate={item.createdDate}
+            thumbnailImg={item.thumbnailImg}
           />
         ))}
       </div>
