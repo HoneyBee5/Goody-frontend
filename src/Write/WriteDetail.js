@@ -1,15 +1,16 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-import './Sightseeing.css';
+import './WriteDetail.css';
 
 
-function Sightseeing( ) {
+function WriteDetail( ) {
   const [sightseeingData, setSightseeingData] = useState(null);
   const {documentId} = useParams();
-  
   const token = localStorage.getItem('token');
+  
   
 
   useEffect(() => {
@@ -44,26 +45,36 @@ function Sightseeing( ) {
 
 
 const Image = () => {
-  if (!sightseeingData || !sightseeingData.imgPath) {
+ 
+  if (!sightseeingData) {
     return null; // 이미지 데이터가 없을 경우 컴포넌트를 렌더링하지 않음
   }
-
   return (
-    <div className="PhotoText rounded-1g border  h-260"style={{ height: "300px",
-     backgroundImage: `url(${sightseeingData.imgPath})` }}>
-      <div style={{ marginLeft: '370px', marginTop: 20 }}>
-
-        
-        <Link to="/Inquiry">
-          <button>
-            <img referrerPolicy="no-referrer" src="../img/close.png" alt='닫기' className='w-[1.9rem] h-[1.9rem]' />
-          </button>
-        </Link>
-      </div>
+    <div>
+      {sightseeingData.imgPath.map((img, index) => (
+        <div key={index} className="PhotoText rounded-1g border h-260" style={{
+          height: "300px", backgroundImage: `url("${img}")`
+        }}>
+          <div style={{ marginLeft: '370px', marginTop: 20 }}>
+            <Link to="/SearchDatail">
+              <button>
+                <img
+                  referrerPolicy="no-referrer"
+                  src="../img/close.png"
+                  alt='닫기'
+                  className='w-[1.9rem] h-[1.9rem]'
+                />
+              </button>
+            </Link>
+          </div>
+        </div>
+      ))}
     </div>
   );
-};
 
+
+  
+};
 
 const Profile = (  ) => {
   if (!sightseeingData) {
@@ -254,7 +265,10 @@ const Purchase = () => {
 
     </div>
   );
+  
 };
+
+
 
 
   return (
@@ -270,6 +284,8 @@ const Purchase = () => {
      </div>
 
   );
+
+  
 }
   
-export default Sightseeing;
+export default WriteDetail;

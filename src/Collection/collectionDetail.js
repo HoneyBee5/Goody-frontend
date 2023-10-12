@@ -10,13 +10,14 @@ const [isSliding, setIsSliding] = useState(false);
   const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
   const [marginTop, setMarginTop] = useState(0);
   const [collectionData, setCollectionData] = useState(null); // 컬렉션 데이터 상태 추가
-
+  const [collectionimg, setCollectionImg] = useState([]); // collectionimg 상태 추가
+  
   const { collectionId } = useParams(); // 추가: URL에서 컬렉션 ID를 가져옴
 
+
+
+
   const Text = () => {
-  
-  
-  
   
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const [isSliding, setIsSliding] = useState(false);
         if (response.ok) {
           const data = await response.json();
           setCollectionData(data); // 컬렉션 데이터 설정
+          setCollectionImg(data.images);
         } else {
           console.error('컬렉션 아이템 목록을 불러오는 중 오류가 발생했습니다.');
         }
@@ -47,7 +49,7 @@ const [isSliding, setIsSliding] = useState(false);
     }
 
     fetchCollectionItems();
-  }, []);
+  }, [collectionId]);
 
   const handleImageClick = () => {
     const newMarginTop = marginTop === 0 ? -225 : 0;
@@ -100,7 +102,7 @@ const [isSliding, setIsSliding] = useState(false);
 
   return (
     <div>
-     <ActionBarModify collectionData={collectionData} />
+     <ActionBarModify  collectionimg = {collectionimg}  />
       <Text />
     </div>
   );

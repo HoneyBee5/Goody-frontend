@@ -4,11 +4,11 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import PropTypes from 'prop-types';
 
-const ActionBarModify = ({ collectionData }) => {
+const ActionBarModify = ({ collectionimg }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
-  const images = collectionData ? [collectionData.images, collectionData.images, collectionData.images] : [];
-
+  const images = collectionimg ? [collectionimg, collectionimg, collectionimg] : [];
+   
   const handleDdongButtonClick = () => {
     setShowOptions((prevShowOptions) => !prevShowOptions);
   };
@@ -21,10 +21,6 @@ const ActionBarModify = ({ collectionData }) => {
   const handleSlideChange = (selectedIndex) => {
     setImageIndex(selectedIndex);
   };
-
-  if (!collectionData) {
-    return null; // collectionData가 null이면 아무것도 렌더링하지 않음
-  }
 
   return (
     <div className="w-full h-[577px] relative">
@@ -85,10 +81,8 @@ const ActionBarModify = ({ collectionData }) => {
 };
 
 ActionBarModify.propTypes = {
-  collectionData: PropTypes.shape({
-    images: PropTypes.arrayOf(PropTypes.string),
-    // 다른 필요한 프로퍼티들을 추가할 수 있음
-  }),
+  collectionimg: PropTypes.arrayOf(PropTypes.string),
+  // 다른 필요한 프로퍼티들을 추가할 수 있음
 };
 
 export { ActionBarModify };

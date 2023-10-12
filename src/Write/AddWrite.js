@@ -11,7 +11,6 @@ const actionBarName = "글 작성";
 const AddWrite = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
-
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedOption1, setSelectedOption1] = useState(null);
   const [selectedOption2, setSelectedOption2] = useState(null);
@@ -20,8 +19,8 @@ const AddWrite = () => {
   const [price, setPrice] = useState('');
   const [explain, setExplane] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-  const [additionalText, setAdditionalText] = useState('');
-  const [numOfPeople, setNumOfPeople] = useState('');
+  const [additionalText, setAdditionalText] = useState(null);
+  const [numOfPeople, setNumOfPeople] = useState(null);
 
   useEffect(() => {
     // 사용자 로그인 상태를 확인하는 로직을 구현

@@ -104,7 +104,7 @@ const TabView = () => {
          {!loading && postPreviewInfo && postPreviewInfo.map((item, index) => (
       
       <div key={index} >
-      <Link to={`/sightseeing/${item.documentId}`}>
+      <Link to={`/WriteDetail/${item.documentId}`}>
       <Item_width data={item} />
       {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
       </Link>
