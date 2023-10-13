@@ -26,6 +26,7 @@ import FindPw from '../Login/FindPw';
 import {SearchDatail_Item} from '../Component/SearchDatail_Item';
 import Chatting from '../Chatting/chatting';
 import TabView from './TabView';
+import MainCategories from './MainCategories';
 
 const App = () => {
     return (
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/findid" element={<FindId />} />
           <Route path="/findpw" element={<FindPw />} />
           <Route path="/tabview" element={<TabView />} />
+          <Route path="/maincategories" element={<MainCategories />} />
           <Route path="/" element={<Login />} />
 
         </Routes>
