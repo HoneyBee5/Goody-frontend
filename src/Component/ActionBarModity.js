@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import PropTypes from 'prop-types';
 
-const ActionBarModify = () => {
+const ActionBarModify = ({ collectionimg }) => {
   const [showOptions, setShowOptions] = useState(false);
-  const [imageIndex, setImageIndex] = useState(0); 
-  const images = ['img/newjeans.png', 'img/newjeans.png', 'img/newjeans.png']; 
-
+  const [imageIndex, setImageIndex] = useState(0);
+  const images = collectionimg ? [collectionimg, collectionimg, collectionimg] : [];
+   
   const handleDdongButtonClick = () => {
     setShowOptions((prevShowOptions) => !prevShowOptions);
   };
@@ -21,19 +22,17 @@ const ActionBarModify = () => {
     setImageIndex(selectedIndex);
   };
 
-
   return (
     <div className="w-full h-[577px] relative">
-      
       <Carousel selectedItem={imageIndex} onChange={handleSlideChange} showIndicators={false} showThumbs={false} showStatus={false}>
         {images.map((imageUrl, idx) => (
           <div key={idx}>
-            <img src={imageUrl} alt={`Slide ${idx}`} className="h-full object-contain" />
+            <img src={imageUrl} alt={`Slide ${idx}`} className="h-full w-full object-fit-cover" />
           </div>
         ))}
       </Carousel>
-
-      <div className="indicator absolute mb-5 " style={{width: '100%'}}>
+      
+      <div className="indicator absolute mb-5" style={{ width: '100%' }}>
         {images.map((_, idx) => (
           <span key={idx} className={imageIndex === idx ? 'dot dot_active' : 'dot'}></span>
         ))}
@@ -42,14 +41,14 @@ const ActionBarModify = () => {
       <div style={{ position: 'absolute', right: 50, top: 28 }}>
         <Link to="/collection">
           <button>
-            <img src="img\blackClose.png" style={{ width: '22px', height: '22px' }} />
+            <img src="../img\blackClose.png" style={{ width: '22px', height: '22px' }} />
           </button>
         </Link>
       </div>
 
       <div style={{ position: 'absolute', right: 20, top: 25 }}>
         <button onClick={handleDdongButtonClick}>
-          <img src="img\blackDdong.png" style={{ width: '5px', height: '25px' }} />
+          <img src="../img\blackDdong.png" style={{ width: '5px', height: '25px' }} />
         </button>
         {showOptions && (
           <div
@@ -79,6 +78,11 @@ const ActionBarModify = () => {
       </div>
     </div>
   );
+};
+
+ActionBarModify.propTypes = {
+  collectionimg: PropTypes.arrayOf(PropTypes.string),
+  // 다른 필요한 프로퍼티들을 추가할 수 있음
 };
 
 export { ActionBarModify };

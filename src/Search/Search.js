@@ -24,6 +24,7 @@ const Top = () => {
   const handleBack = () => {
     navigate(-1); // 이전 페이지로 이동하는 함수
   };
+  
   return (
     <div>
 
@@ -48,7 +49,7 @@ const Top = () => {
           className="w-full mr-15 outline-none border-0 focus:outline-none"
         />
         <div style={{marginRight:'30px'}}>
-          <Link to="/Inquiry">
+          <Link to="/SearchDatail">
             <button>
               <img src="img/Search2.png" alt='검색' width={'32px'} height={'32px'} className="ml-2"></img>
             </button>
@@ -65,7 +66,7 @@ const Top = () => {
       </div>
 
       <div style={{marginTop:'60px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Link to="/Inquiry">
+        <Link to="/SearchDatail">
         <button>
           <img src='img/BottomSearch.png' style={{width:'60px'}}></img>
         </button>
@@ -76,7 +77,7 @@ const Top = () => {
   )
 }
 
-function Inspect() {
+function Search() {
     return (
   
         <div>
@@ -87,4 +88,4 @@ function Inspect() {
     );
   }
 
-  export default Inspect;
+  export default Search;

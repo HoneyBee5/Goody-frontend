@@ -1,42 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
-import './Inquiry_Item.css'; 
+import './SearchDatail_Item.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import PropTypes from 'prop-types';
+
+const SearchDatail_Item = (props) => {
+  
+const { title, price, createdDate,thumbnailImg } = props;
 
 
-const Item = () => {
-    const [item, setItem] = useState([]);//상태
+const Item = ( ) => {
+
     const [liked, setLiked] = useState([false, false, false, false]);
-
+    
  
     const handleLikeClick = (index) => {
         const updatedLiked = [...liked];
         updatedLiked[index] = !updatedLiked[index];
         setLiked(updatedLiked);
       };
-
-      const apiurl = "http://27.96.134.23:4001/goody/post/preview-info?postType=%ED%8C%90%EB%A7%A4%ED%95%B4%EC%9A%94&page=0";
-
-
-      /*fetch api 연결*/ 
-      useEffect(() => {
-        fetch(apiurl)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('네트워크 오류');
-            }
-            return response.json();
-          })
-          .then(data => {
-            if (data.postPreviewInfo && data.postPreviewInfo.length > 0) {
-              setItem(data.postPreviewInfo[0]);
-          }
-          })
-          .catch(error => {
-            console.error('오류 발생:', error);
-          }); //오류 처리
-      }, []);
 
     
 
@@ -49,16 +32,16 @@ const Item = () => {
                     <FontAwesomeIcon onClick={() => handleLikeClick(0)} icon={faHeartRegular} className={`absolute mt-[2.5rem] ml-[6.5rem] ${liked[0] ? 'text-color' : 'fa-heart-regular'}`} size="lg" />
                     <Link to="/sightseeing">
                     <button className='mt-[2rem] ml-[1.4rem]'>
-                    <img width={'110px'} src='img\item_gray.png' alt='아이템1'></img>
+                    <img width={'110px'} src={thumbnailImg} alt='아이템1'></img>
                     </button>
                     </Link>
                     <div className='mt-2 ml-[1.6rem] text-[0.9rem]'>
                     <Link to="/sightseeing">
                     <button className="" style={{ textAlign: 'left' }}>
                    
-                    <p className='font-bold'>{item.title}</p>
-                    <p className='font-bold'>{item.price}원</p>
-                    <p className='font-bold'>{item.postDate}</p>
+                    <p className='font-bold'>{title}</p>
+                    <p className='font-bold'>{price}원</p>
+                    <p className='font-bold'>{createdDate}</p>
               
                     </button>
                     </Link>
@@ -70,7 +53,13 @@ const Item = () => {
     );
 };
 
-const Inquiry_Item = () => {
+SearchDatail_Item.propTypes = {
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  createdDate: PropTypes.string.isRequired,
+  thumbnailImg: PropTypes.string.isRequired,
+};
+
     return (
     <div className='flex'>
         <Item />
@@ -78,4 +67,4 @@ const Inquiry_Item = () => {
     );
 };
 
-export { Inquiry_Item };
+export { SearchDatail_Item };
