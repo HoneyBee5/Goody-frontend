@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 // 플로팅 버튼
 const PlusBtn = () => {
   return (
-    <Link to="/collectionWrite/">
+    <Link to="/collectionWrite">
       <button className='right-3 bottom-24 absolute'>
         <img src="/img/collection_plusButton.png" alt='플러스' width={'70px'} className='' />
       </button>
