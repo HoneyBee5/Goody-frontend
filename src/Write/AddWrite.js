@@ -1,65 +1,140 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActionBar } from '../Component/ActionBar';
 import './AddWrite.css';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-// 액션바 이름
+
+
 const actionBarName = "글 작성";
-
 const AddWrite = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
 
+  const [selectedImage, setSelectedImage] = useState(null);
   const [selectedOption1, setSelectedOption1] = useState(null);
   const [selectedOption2, setSelectedOption2] = useState(null);
   const [selectedOption3, setSelectedOption3] = useState(null);
+  const [title, setTitle] = useState(''); // 상태 변수 추가
+  const [price, setPrice] = useState('');
+  const [explain, setExplane] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+  const [additionalText, setAdditionalText] = useState(null);
+  const [numOfPeople, setNumOfPeople] = useState(null);
 
+  useEffect(() => {
+    // 사용자 로그인 상태를 확인하는 로직을 구현
+    const token = localStorage.getItem('token'); // 또는 세션에서 토큰을 가져올 수 있음
+    if (token) {
+        setLoggedIn(true); // 토큰이 있다면 로그인 상태로 설정
+    }
+}, []);
+
+  const handleFileChange = (event) => { //파일 체인지
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  
+   
+    const handleUpload = async () => {
+      try {
+          // 사용자 인증 여부 확인
+          if (!loggedIn) {
+              // 로그인되지 않은 경우 처리
+              alert('로그인 후에 글을 작성할 수 있습니다.');
+              return;
+          }
+
+          const formData = new FormData();
+          formData.append('transType',selectedOption1 ); // 해당 필드에 원하는 값을 설정
+          formData.append('imgPath', selectedImage);
+          formData.append('price', parseInt(price, 32));
+          formData.append('numOfPeople', numOfPeople);
+          formData.append('free', isChecked);
+          formData.append('people', JSON.stringify({numOfPeople}));
+          formData.append('explain', explain);
+          formData.append('grade',  selectedOption3 );
+          formData.append('title', title);
+          formData.append('category', selectedOption2);
+    
+
+          const response = await fetch('http://27.96.134.23:4001/goody/contents/', {
+              method: 'POST',
+              body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
+              headers: {
+                  // 토큰을 사용하여 사용자 인증
+                  Authorization: `${localStorage.getItem('token')}`,
+              },
+          });
+
+          if (response.ok) {
+              // 데이터가 성공적으로 API로 전송되었습니다.
+              console.log('데이터가 성공적으로 전송되었습니다.');
+          } else {
+              // 여기서 오류를 처리합니다.
+              console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
+          }
+      } catch (error) {
+          console.error('오류가 발생했습니다:', error);
+      }
+  };
 
   /*사진 올리는 박스*/
   const Square = () => {
-    const handleFileChange = (event) => {
-      const file = event.target.files[0];
-      console.log(file);
-    };
-
     return (
-      <>
-        <div className='w-16 m-6 mt-10 border border-gray-200 rounded-xl p-4 shadow-[0_1px_8px_rgba(180,180,180,0.7)]'>
-          <label id="fileInput" className="">
-            <img className='w-16' src='img\Icon_Camera.png'></img>
-            <p className='text-center font-bold text-[#B4B4B4]'>1/5</p>
-            <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
-          </label>
-        </div>
-      </>
+      <div>
+      <div className="w-16 m-6 mt-10 border border-gray-200 rounded-xl p-4 shadow-[0_1px_8px_rgba(180,180,180,0.7)]">
+        <label id="fileInput" className="">
+          {selectedImage ? (
+            <img className='w-16' src={selectedImage} alt="Selected" />
+          ) : (
+            <img className='w-16' src='img\Icon_Camera.png' alt="Camera Icon" />
+          )}
+          <p className='text-center font-bold text-[#B4B4B4]'>1/5</p>
+          <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
+        </label>
+        <button onClick={handleUpload}></button> {/* Upload 버튼 추가 */}
+      </div>
+    </div>
     );
   };
 
 
   /*셀렉트 박스 선택*/
+  
   const OPTIONS1 = [
-    { value: "1", name: "카테고리" },
-    { value: "2", name: "연예인" },
-    { value: "3", name: "스포츠" },
-    { value: "4", name: "영화" },
-    { value: "5", name: "게임" },
-    { value: "6", name: "애니 / 만화" },
+    { value: "카테고리", name: "카테고리" },
+    { value: "연예인", name: "연예인" },
+    { value: "스포츠", name: "스포츠" },
+    { value: "영화", name: "영화" },
+    { value: "게임", name: "게임" },
+    { value: "애니/만화", name: "애니 / 만화" },
   ];
 
   const OPTIONS2 = [
-    { value: "1", name: "거래종류" },
-    { value: "2", name: "팔아요 / 구해요" },
-    { value: "3", name: "교환해요" },
-    { value: "4", name: "나눔해요" },
-    { value: "5", name: "같이해요" },
+    { value: "거래종류", name: "거래종류" },
+    { value: "팔아요/구해요", name: "팔아요 / 구해요" },
+    { value: "교환해요", name: "교환해요" },
+    { value: "나눔해요", name: "나눔해요" },
+    { value: "같이해요", name: "같이해요" },
   ];
 
   const OPTIONS3 = [
-    { value: "1", name: "상태등급" },
-    { value: "2", name: "A" },
-    { value: "3", name: "B" },
-    { value: "4", name: "C" },
-    { value: "5", name: "D" },
+    { value: "상태등급", name: "상태등급" },
+    { value: "A", name: "A" },
+    { value: "B", name: "B" },
+    { value: "C", name: "C" },
+    { value: "D", name: "D" },
   ];
 
 
@@ -74,15 +149,15 @@ const AddWrite = () => {
 
     return (
       <div className="w-full sm:flex-row h-10 sm:h-16 my-3">
-        {(selectedOption === "2" && props.options === OPTIONS1) || selectedOption === "8" ? (
+        {(selectedOption === "연예인" && props.options === OPTIONS1) || selectedOption === "남자배우" || selectedOption == "여자배우" ? (
           <select
             className="w-11/12 sm:flex-row h-10 sm:h-16 p-2  ml-2"
             value={selectedOption || ""}
             onChange={handleSelectChange}
           >
-            <option value="7">남자배우</option>
-            <option value="8">여자배우</option>
-            <option value="9">카테고리</option>
+            <option value="카테고리">카테고리</option>
+            <option value="남자배우">남자배우</option>
+            <option value="여자배우">여자배우</option>
           </select>
         ) : (
           <select
@@ -90,6 +165,7 @@ const AddWrite = () => {
             onChange={handleSelectChange}
             value={selectedOption || ''}
           >
+            
             {options.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.name}
@@ -97,10 +173,10 @@ const AddWrite = () => {
             ))}
           </select>
         )}
-        {/* Show the selected option as text */}
-        {selectedOption === "7" && selectedOption !== "2" && selectedOption !== "8" && ""}
-        {selectedOption === "8" && ""}
-        {selectedOption === "9" && ""}
+       
+        {selectedOption === "카테고리" && selectedOption !== "연예인" && selectedOption !== "남자배우" && ""}
+        {selectedOption === "남자배우" && ""}
+        {selectedOption === "여자배우" && ""}
       </div>
     );
   };
@@ -111,16 +187,21 @@ const AddWrite = () => {
     setSelectedOption: PropTypes.func,
   };
 
+
+
+
+
   const Member = () => {
     const [text, setText] = useState('');
-    const [additionalText, setAdditionalText] = useState('');
     const [selectedRadio, setSelectedRadio] = useState('');
     const [showNumberOfMembersBox, setShowNumberOfMembersBox] = useState(false);
-    const placeholder = " (명) "; // The placeholder for the number of members input box
+    const placeholder = " (명) ";
 
     const handleChange = (event) => {
       setText(event.target.value);
     };
+
+
 
     const shouldShowInput = selectedRadio === 'option1';
     const shouldShowPlaceholder = shouldShowInput && text === '';
@@ -140,10 +221,15 @@ const AddWrite = () => {
       }
     };
 
+
+
+
+
+
     const handleAddBtnClick = () => {
       if (text !== '' && selectedRadio === 'option2') {
         setAdditionalText((prevText) => prevText ? prevText + ', ' + text : text);
-        setText('');
+        setNumOfPeople(parseInt(text, 32));
       }
     };
 
@@ -171,7 +257,7 @@ const AddWrite = () => {
 
     return (
       <div>
-        {selectedOption2 === "5" && ( // Check for '5' (같이해요) in selectedOption2
+        {selectedOption2 === "같이해요" && ( // Check for '5' (같이해요) in selectedOption2
           <div style={{ marginTop: '10px', display: 'flex' }}> 
             <div className='mb-8' style={{ display: 'flex', alignItems: 'center', marginLeft: '16px'}}> {/*인원수,추가인원div*/}     
               <label style={{ margin: '5px' }}>
@@ -254,18 +340,19 @@ const AddWrite = () => {
   };
 
   /*글제목 작성*/
-  const TextBox = () => {
-    const [text, setText] = useState('');
+  const TextBox = ()  => {
 
     const handleChange = (event) => {
-      setText(event.target.value);
+      const { value } = event.target;
+      setTitle(value);
     };
 
     return (
+      
       <div className=' h-30 ml-4 my-5 '>
         <input
           type="text"
-          value={text}
+          value={title}
           onChange={handleChange}
           placeholder='글 제목'
           className="outline-none border-0 focus:outline-none"
@@ -276,11 +363,9 @@ const AddWrite = () => {
 
   /*가격 작성*/
   const PriceText = () => {
-    const [text, setText] = useState('');
-    const [isChecked, setIsChecked] = useState(false);
 
     const handleChange = (event) => {
-      setText(event.target.value);
+      setPrice(event.target.value);
     };
 
     const handleCheckboxChange = (event) => {
@@ -292,7 +377,7 @@ const AddWrite = () => {
 
         <input
           type="text"
-          value={text}
+          value={price}
           maxLength={20}
           onChange={handleChange}
           placeholder='￦ 가격'
@@ -324,20 +409,19 @@ const AddWrite = () => {
 
   /*설명 작성*/
   const ExplainText = () => {
-    const [text, setText] = useState('');
 
     const handleChange = (event) => {
-      setText(event.target.value);
+      setExplane(event.target.value);
     };
 
     return (
       <div className="Div_explainText flex flex-col m-5">
         <textarea
           type="text"
-          value={text}
+          value={explain}
           onChange={handleChange}
           placeholder='설명'
-          rows={text.split('\n').length} // 엔터를 누를 때마다 행의 개수에 따라 크기가 조정됨
+          rows={explain.split('\n').length} // 엔터를 누를 때마다 행의 개수에 따라 크기가 조정됨
           style={{ minHeight: '120px', resize: 'none' }} // 최소 높이 및 크기 조정 비활성화
           className=""
         />
@@ -351,8 +435,8 @@ const AddWrite = () => {
     return (
   
     <div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'5px', marginBottom:'85px'}}>
-          <Link to="/WriteDetail">
-      <button>
+          <Link to="/sightseeing">
+      <button onClick={handleUpload}>
         <img src='img\registerBtn.png'></img>
       </button>
       </Link>

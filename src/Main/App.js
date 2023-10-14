@@ -14,7 +14,7 @@ import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
 import Categories from './Categories';
 import CollectionDetail from '../Collection/collectionDetail';
-import SearchDetail from '../Search/SearchDetail';
+import SearchDatail from '../Search/SearchDetail';
 import CollectionWrtie from '../Collection/collectionWrite';
 import Search from '../Search/Search';
 import WriteDetail from '../Write/WriteDetail';
@@ -23,9 +23,10 @@ import Login from '../Login/Login';
 import Join from '../Login/Join';
 import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
+import {SearchDatail_Item} from '../Component/SearchDatail_Item';
 import Chatting from '../Chatting/Chatting';
 import TabView from './TabView';
-import {SearchDetail_Item} from '../Component/SearchDetail_Item';
+import MainCategories from './MainCategories';
 
 const App = () => {
   
@@ -45,17 +46,18 @@ const App = () => {
           <Route path="/purchaselist" element={<PurchaseList />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/collection" element={<Collection />} />
-          <Route exact path="/collectionDetail" element={<CollectionDetail />} />
-          <Route exact path="/collectionWrite" element={<CollectionWrtie/>} />
-          <Route exact path="/search" element={<Search />} />
-          <Route exact path="/writeDetail"  element={<WriteDetail />} />
-          <Route exact path="/searchDetail"  element={<SearchDetail />} />
-          <Route exact path="/searchDetail_Item" element={<SearchDetail_Item />} />
-\          <Route path="/home" element={<Home />} />
+          <Route path="/collectionDetail/:collectionId" element={<CollectionDetail />} />
+          <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
+          <Route exact path="/Search" element={<Search />} />
+          <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
+          <Route exact path="/SearchDatail"  element={<SearchDatail />} />
+          <Route exact path="/SearchDatail_Item" element={<SearchDatail_Item />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />
           <Route path="/findpw" element={<FindPw />} />
           <Route path="/tabview" element={<TabView />} />
+          <Route path="/maincategories" element={<MainCategories />} />
           <Route path="/" element={<Login />} />
 
         </Routes>

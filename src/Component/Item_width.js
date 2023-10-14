@@ -8,14 +8,14 @@ const Item_width = ({ data }) => {
     <>
      {/* <Link to={`/item/${data.documentId}`}> */}
       <div className='flex mt-7 ml-5 mb-5'>
-        <div>
+        <div >
           {/* 이미지 URL을 data에서 가져와서 src에 설정 */}
-          <img width={'70px'} src={`${data.thumbnailImg}`} alt={data.title} className='rounded-xl' />
+          <img src={`${data.thumbnailImg}`} alt={data.title} className='rounded-xl object-cover'  style={{ width:'70px', height: '70px', objectFit: 'cover' }} />
         </div>
         <div className='ml-3 '>
           <p className='font-bold'>{data.title}</p>
           <p className='font-bold'>{data.price}원</p>
-          <p className=''>{data.createdDate}</p>
+          <p className='text-sm'>{data.createdDate}</p>
         </div>
         <div className='border rounded-lg border-[#B4B4B4] px-2 text-sm h-6 ml-auto mt-auto mr-4'>{data.transType}</div>
       </div>
@@ -36,5 +36,6 @@ Item_width.propTypes = {
     documentId: PropTypes.string.isRequired,
   }).isRequired,
 };
+
 
 export default Item_width;
