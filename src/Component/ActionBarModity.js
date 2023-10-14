@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
+
 const ActionBarModify = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [imageIndex, setImageIndex] = useState(0); 
@@ -10,11 +11,6 @@ const ActionBarModify = () => {
 
   const handleDdongButtonClick = () => {
     setShowOptions((prevShowOptions) => !prevShowOptions);
-  };
-
-  const handleOptionClick = (option) => {
-    console.log(`Selected option: ${option}`);
-    setShowOptions(false);
   };
 
   const handleSlideChange = (selectedIndex) => {
@@ -51,34 +47,35 @@ const ActionBarModify = () => {
         <button onClick={handleDdongButtonClick}>
           <img src="img\blackDdong.png" style={{ width: '5px', height: '25px' }} />
         </button>
-        {showOptions && (
-          <div
-            style={{
-              position: 'absolute',
-              right: 20,
-              top: -3,
-              backgroundColor: '#ffffff',
-              border: '1px solid #575757',
-              borderRadius: '5px',
-              padding: '5px',
-              zIndex: 1,
-            }}
-          >
-            <div style={{ display: 'block' }} onClick={() => handleOptionClick('수정')}>
-              <Link to="/collectionWrite2">
-                <button style={{ width: '35px' }}>수정</button>
-              </Link>
-            </div>
-            <div style={{ display: 'block', marginTop: '5px' }} onClick={() => handleOptionClick('삭제')}>
-              <Link to="/collection">
-                <button>삭제</button>
-              </Link>
-            </div>
-          </div>
-        )}
       </div>
+
+      {showOptions && (
+         <div>
+         <img src='img/collectionText.png' className='absolute mt-[9rem]' alt='collection' />
+         <div className="absolute mt-[12rem] space-x-4">
+           <button className='flex'>
+             {/* 수정 버튼 이미지 */}
+             <img src='img/pen.png' className='w-[2.8rem] h-[3em] ml-[1.2rem]' alt='게시물 수정' />
+             <Link to ="collectionWrite">
+
+             <p className='text-[1.2rem] ml-[1rem] mt-[0.6rem]'>게시물 수정</p>
+            </Link>
+           </button>
+          </div>
+          <div className="absolute mt-[17rem] space-x-4">
+          <button className='flex'>
+             {/* 삭제 버튼 이미지 */}
+             <img src='img/trash.png' className='w-[2.5rem] h-[2.5em] ml-[1rem]' alt='게시글 삭제' />
+             <Link to ="collection">
+             <p className='text-[1.2rem] ml-[1.2rem] mt-[0.2rem]'>휴지통으로 이동</p>
+             </Link>
+           </button>
+         </div>
+       </div>
+      )}
     </div>
   );
 };
+
 
 export { ActionBarModify };

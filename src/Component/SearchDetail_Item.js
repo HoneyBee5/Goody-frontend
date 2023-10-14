@@ -1,93 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
+import { Link } from 'react-router-dom';
 import './SearchDetail_Item.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+const SearchDetail_Item = (props) => {
+  
+const { title, price, createdDate, thumbnailImg } = props;
 
 
-const SearchDetail_Item = () => {
-  const [liked, setLiked] = useState([false, false, false, false]);
-
-  const handleLikeClick = (index) => {
-    const updatedLiked = [...liked];
-    updatedLiked[index] = !updatedLiked[index];
-    setLiked(updatedLiked);
-  };
-
-  const [items, setItems] = useState([]);
-
-
-  useEffect(() => {
+    const [liked, setLiked] = useState([false, false, false, false]);
     
-    fetch(`http://27.96.134.23:4001/goody/contents/search?category=0`, 
-    {
-      method: 'GET',
-      redirect: 'follow',
-      headers: {
-        Accept: "application/json",
-      },
-    })
-    .then(res => {
-       res.json();
-    })
-    .then(data => {
-      setItems(data) 
-    });
+ 
+    const handleLikeClick = (index) => {
+        const updatedLiked = [...liked];
+        updatedLiked[index] = !updatedLiked[index];
+        setLiked(updatedLiked);
+      };
 
-  },);
     
+      SearchDetail_Item.propTypes = {
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      createdDate: PropTypes.string.isRequired,
+      thumbnailImg: PropTypes.string.isRequired,
+    };
 
-  const itemsPerRow = 3;
-  const itemRows = [];
 
-  for (let i = 0; i < items.length; i += itemsPerRow) {
-    const itemRow = items.slice(i, i + itemsPerRow);
-    itemRows.push(
-      <div className='flex' key={i}>
-        {itemRow.map((item, index) => (
-          <div key={index} className='w-[8rem] p-[0.2rem] mt-[2.2rem]'>
-             
-              <button>
-                <Link to='/SearchDetail'>
-                <img
-                  width={'110px'}
-                  src={`http://27.96.134.23:4001/goody/file/files/?file=${item.filePath.previewImg}`}
-                  alt={item.title}
-                  className='ml-[1.15rem] w-[7rem] h-[7rem] rounded-[0.7rem]'
-                />
-                </Link>
-              </button>
+    return (
+        <div>
 
-              <FontAwesomeIcon
-                onClick={() => handleLikeClick(index)}
-                icon={faHeartRegular}
-                className={`absolute ml-[-1.2rem] mt-[0.4rem] ${liked[index] ? 'text-color' : 'fa-heart-regular'}`} size='lg'
-              />
+             <div style={{ width: '100%', height:'300px' }}>
+                <div className='absolute mt-1'>
+                    <FontAwesomeIcon onClick={() => handleLikeClick(0)} icon={faHeartRegular} className={`absolute mt-[2.5rem] ml-[6.5rem] ${liked[0] ? 'text-color' : 'fa-heart-regular'}`} size="lg" />
+                    <Link to="/SearchDetail">
+                    <button className='mt-[2rem] ml-[1.4rem]'>
+                    <img width={'110px'} src={thumbnailImg} alt='아이템1'></img>
+                    </button>
+                    </Link>
+                    <div className='mt-2 ml-[1.6rem] text-[0.9rem]'>
+                    <Link to="/SearchDetail">
+                    <button className="" style={{ textAlign: 'left' }}>
+                   
+                    <p className='font-bold'>{title}</p>
+                    <p className='font-bold'>{price}원</p>
+                    <p className='font-bold'>{createdDate}</p>
+              
+                    </button>
+                    </Link>
+                    </div>
 
-              <Link to="/Sightseeing">
-              <button className='ml-[1.15rem] text-[0.9rem]' style={{ textAlign: 'left' }}>
-                <p className='font-bold'>{item.title}</p>
-                <p className='font-bold'>{item.price}원</p>
-                <p className='font-bold text-[0.8rem]'>{item.postDate}</p>
-                <div className='border h-[1.5rem] rounded-[0.4rem] mt-[1rem] text-[0.85rem] border-[#B4B4B4] p-[0.06rem] px-[0.2rem] inline-block'> {item.transType} </div>
-              </button>
-              </Link>
+                    <div className='border rounded-[0.6rem] text-[0.85rem] border-[#B4B4B4] 
+                                    p-[0.08rem] px-[0.4rem] inline-block ml-[1.6rem] mt-[0.5rem]'>
+                    판매해요 </div>
+                </div>
+            </div>
 
-          </div>
-        ))}
-      </div>
+        </div>
     );
-  }
-
-
-
-  return (
-    <>
-    <div>
-      {items}
-    </div>
-    </>
-  );
 };
+
+
 
 export { SearchDetail_Item };

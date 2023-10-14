@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Nav } from '../Component/Nav';
 import TabView from './TabView';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -42,8 +42,19 @@ const theme = createTheme({
 
 
 const Home = () => {
-
   const [thisIndex, setThisIndex] = useState(0);
+
+  // 이미지를 자동으로 넘기는 함수
+  const autoNextImage = () => {
+    const newIndex = (thisIndex + 1) % 3; // 3은 이미지의 총 개수
+    setThisIndex(newIndex);
+  };
+
+  // 3초마다 이미지를 자동으로 넘기기
+  useEffect(() => {
+    const timer = setInterval(autoNextImage, 5000); // 5초(5000ms)마다 호출
+    return () => clearInterval(timer); // 컴포넌트 언마운트 시 타이머 해제
+  }, [thisIndex]);
 
   const navigateTo = (data) => {
     const newIndex = thisIndex + data;

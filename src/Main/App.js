@@ -33,7 +33,6 @@ const App = () => {
       <Router>
         <Routes>
         <Route path="/chatting" element={<Chatting />} />
-
           <Route path="/address" element={<Address />} />
           <Route path="/chatdetails" element={<Chatdetails />} />s
           <Route path="/review" element={<Review />} />

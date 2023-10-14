@@ -5,40 +5,57 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-// 탭 뷰
 const TabView = () => {
   const [tabValue, setTabValue] = useState(0);
   const [postPreviewInfo, setPostPreviewInfo] = useState([]);
   const [loading, setLoading] = useState(true); // 데이터 로딩 상태를 관리
 
-  // 데이터를 가져오는 비동기 함수
+  // 토큰 가져오기
+  const token = localStorage.getItem('token');
+  
+  // fetchData 함수를 정의
   const fetchData = async (postType) => {
     try {
-      const response = await fetch(`http://27.96.134.23:4001/goody/post/preview-info?postType=${postType}&page=0`);
-      
+      const headers = {
+        Authorization: `${token}`,
+      };
+
+      const response = await fetch(
+        `http://27.96.134.23:4001/goody/contents/preview-info?transType=${postType}&page=0`,
+        {
+          method: 'GET',
+          headers,
+        }
+      );
+
       if (!response.ok) {
-        throw new Error('네트워크 오류');
+        throw new Error('HTTP 오류 ' + response.status);
       }
-      
+
       const data = await response.json();
+
       if (data.postPreviewInfo && data.postPreviewInfo.length > 0) {
         setPostPreviewInfo(data.postPreviewInfo);
-        setLoading(false); // 데이터 로딩이 완료되면 false로 설정
-        console.log(data);
+        setLoading(false);
       } else {
         console.error('API에서 데이터를 가져오는 중 오류 발생: 데이터가 비어 있습니다.');
-        console.log(data);
       }
     } catch (error) {
       console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
-      setLoading(false); // 에러가 발생하더라도 로딩 상태를 false로 설정
+      setLoading(false);
     }
   };
 
   useEffect(() => {
+    // 인증된 사용자인지 확인하고, 토큰이 없거나 인증에 실패하면 리디렉션할 수 있음
+    if (!token) {
+      window.location.href = '/login'; // 로그인 페이지로 리디렉션
+      return;
+    }
+
     // 처음 마운트될 때 '판매해요' 탭의 데이터를 가져오도록 설정
     fetchData('판매해요');
-  }, []);
+  }, [token]); // useEffect의 의존성 배열에 token 추가
 
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
@@ -94,4 +111,3 @@ const TabView = () => {
 };
 
 export default TabView;
-

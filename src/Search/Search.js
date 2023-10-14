@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 const Top = () => {
 
   const [text, setText] = useState(''); // text 변수와 handleChange 함수를 useState로 정의합니다.
-
   const handleChange = (event) => {
     setText(event.target.value); // input 요소의 값을 변경할 때마다 text 변수를 업데이트합니다.
   };
@@ -24,9 +23,11 @@ const Top = () => {
   const handleBack = () => {
     navigate(-1); // 이전 페이지로 이동하는 함수
   };
+
+
   return (
     <div>
-
+    
     <div className='mt-10 mr-5 flex justify-end'>
           <button>
             <img src='img\close.png' style={{width: '35px'}} alt='Close' className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' onClick={handleBack} />
@@ -47,7 +48,7 @@ const Top = () => {
           placeholder='검색어를 입력해주세요.'
           className="w-full mr-15 outline-none border-0 focus:outline-none"
         />
-        <div style={{marginRight:'30px'}}>
+        <div style={{marginRight:'30px'}}> 
           <Link to="/SearchDetail">
             <button>
               <img src="img/Search2.png" alt='검색' width={'32px'} height={'32px'} className="ml-2"></img>
