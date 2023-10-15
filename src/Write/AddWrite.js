@@ -151,6 +151,8 @@ const AddWrite = () => {
       if (response.ok) {
           // 데이터가 성공적으로 API로 전송되었습니다.
           console.log('데이터가 성공적으로 전송되었습니다.');
+          const data = await response.json();
+          window.location.href =`/WriteDetail/${data.contentsId}`; 
       } else {
           // 여기서 오류를 처리합니다.
           console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
@@ -242,7 +244,7 @@ const AddWrite = () => {
               <p className='text-center font-bold text-[#B4B4B4]'>{selectedImage.length}/5</p>
             </label>
           </div>
-            <ImageList sx={{ width: 1000 }} cols={5} rowHeight={134} gap={20}>
+            <ImageList sx={{ width: 1000 }} cols={5} rowHeight={130} gap={20}>
               {selectedImage.map((image, index) => (
                 <ImageListItem key={index} style={{ width: '100px', height: '100px' }}>
                   <div style={{ position: 'relative', display: 'inline-block' }}>
