@@ -12,6 +12,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Chip from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { NumericFormat } from 'react-number-format';
 import InputAdornment from '@mui/material/InputAdornment';
 import { TextField } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
@@ -172,7 +173,7 @@ const AddWrite = () => {
     const selectedValue = event.target.value;
     const selectedOption = OPTIONS1.find(option => option.value === selectedValue);
     setSelectedOption1(selectedOption);
-    console.log(selectedOption1.value);
+
 };
 
   const handleSelectTransTypeChange = (event) => {
@@ -181,6 +182,11 @@ const AddWrite = () => {
     setSelectedOption2(selectedOption);
      // If "같이해요" is selected, show the radio checkboxes.
      setShowTogetherTypeCheckboxes(selectedValue === "같이해요");
+     if(selectedValue==='나눔해요'){
+      setIsFreeChecked(true);
+      setPrice(0);
+     }
+     
   };
 
   const handleSelectGradeChange = (event) => {
@@ -201,13 +207,13 @@ const AddWrite = () => {
     setChipPeople((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
   };
 
-    const handleAddBtnClick = () => {//인원추가 버튼 클릭시
-      if (inputPeopleField.trim() !== '') {
-        // 입력 값이 공백이 아닌 경우에만 추가
-        const newPerson = { key: chipPeople.length, label: inputPeopleField };
-        setChipPeople([...chipPeople, newPerson]);
-        setInputPeopleField(''); // 입력 필드 비우기
-      }
+  const handleAddBtnClick = () => {//인원추가 버튼 클릭시
+    if (inputPeopleField.trim() !== '') {
+      // 입력 값이 공백이 아닌 경우에만 추가
+      const newPerson = { key: chipPeople.length, label: inputPeopleField };
+      setChipPeople([...chipPeople, newPerson]);
+      setInputPeopleField(''); // 입력 필드 비우기
+    }
   };
 
   return (
@@ -229,6 +235,7 @@ const AddWrite = () => {
         <ImageList sx={{width: 1000}} cols={5} rowHeight={134} gap={20}>
           {selectedImage.map((image, index) => (
           <ImageListItem key={index} style={{ width: '100px' ,height:'130px'}}>
+            <div style={{ position: 'relative', display: 'inline-block' }}>
           <img
             srcSet={URL.createObjectURL(image)}
             src={URL.createObjectURL(image)}
@@ -236,17 +243,18 @@ const AddWrite = () => {
             loading="lazy"
             className='rounded-xl'
           />
-          <button onClick={() => handleDeleteImage(index)}
+            <button onClick={() => handleDeleteImage(index)}
                   style={{
                     position: 'absolute',
-                    top: '10px',
-                    right: '-20px',
+                    top: '0',
+                    right: '0',
                     padding: '5px',
                     zIndex: '1',
                     cursor: 'pointer',
                   }}>
                     <HighlightOffIcon/>
-                  </button>
+              </button>
+              </div>
           </ImageListItem>
             ))}
         </ImageList>
@@ -307,13 +315,6 @@ const AddWrite = () => {
                 <div>
                   <div className='flex items-center justify-center'>
                     <TextField size='small' label="추가 품목" variant="outlined" value={inputPeopleField} onChange={(e) => setInputPeopleField(e.target.value)}/>
-                    {/* <input
-                      className='flex-col px-3 my-3 mx-2 w-60 h-8 border border-gray-500 rounded-md'
-                      type="text"
-                      placeholder="추가 품목"
-                      value={inputPeopleField}
-                      onChange={(e) => setInputPeopleField(e.target.value)}
-                    /> */}
                     <img className = 'm-3' src='img\personAdd.png' width={30} alt='추가버튼' onClick={handleAddBtnClick}/>
                   </div>
                   <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', listStyle: 'none', p: 0.5, m: 0, }} component="ul">
@@ -359,13 +360,15 @@ const AddWrite = () => {
        {/* 가격 */}
        <div className='flex h-10 ml-4 mr-4 mb-2 mt-2 p-2 items-center'>
        <FormControl>
-          <TextField 
-            disabled={isFreeChecked}
-            sx={{ "& .MuiOutlinedInput-root": {"& > fieldset": { border: "none" }}}}//테두리제거
-            InputProps={{startAdornment:(<InputAdornment position='start'>￦</InputAdornment>)}}
-            placeholder='가격'
-            value={price}
-            onChange={(e)=>setPrice(e.target.value)}/>
+        <NumericFormat
+          value={price}
+          thousandSeparator
+          customInput={TextField}
+          sx={{ "& .MuiOutlinedInput-root": {"& > fieldset": { border: "none" }}}}//테두리제거
+          onChange={(e)=>setPrice(e.target.value)}
+          placeholder='가격'
+          InputProps={{startAdornment:(<InputAdornment position='start'>￦</InputAdornment>), style: { border: 'none' }}}
+        />
         </FormControl>
         <FormGroup>
           <FormControlLabel control={
@@ -386,7 +389,7 @@ const AddWrite = () => {
               rows={10}
               placeholder='내용'/>
         </div>
-
+        {/* 버튼 */}
         <div style={{ display: 'flex',alignItems: 'flex-end', marginTop:'5px', marginBottom:'85px', marginLeft:'20px', marginRight:'20px'}}> 
           <button onClick={handleUpload}>
             <img src='img\registerBtn.png'></img>
