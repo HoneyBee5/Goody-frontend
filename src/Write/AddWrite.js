@@ -107,7 +107,11 @@ const AddWrite = () => {
         formData.append('transType', selectedOption1.value); //거래종류
       }
 
-      formData.append('imgPath', selectedImage);//이미지
+      if (selectedImage && selectedImage.length > 0) {
+        selectedImage.forEach((image, index) => {
+            formData.append(`imgPath[${index}]`, image);
+        });
+        }
       const stringWithoutCommas = price.replace(/,/g, '');
       const numberAsInt = parseInt(stringWithoutCommas, 10);//콤마제외하고 String->int 변환
       formData.append('price', numberAsInt);//가격
