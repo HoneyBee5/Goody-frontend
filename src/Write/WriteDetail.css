@@ -5,3 +5,29 @@
 .text-color {
   color: #FFD52B; 
 }
+
+.sliding-image {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 0 20px;
+}
+
+.image-nav button {
+  background-color: #FFD52B;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+

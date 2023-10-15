@@ -23,7 +23,6 @@ import Login from '../Login/Login';
 import Join from '../Login/Join';
 import FindId from '../Login/FindId';
 import FindPw from '../Login/FindPw';
-import {SearchDatail_Item} from '../Component/SearchDatail_Item';
 import Chatting from '../Chatting/chatting';
 import TabView from './TabView';
 import MainCategories from './MainCategories';
@@ -50,7 +49,6 @@ const App = () => {
           <Route exact path="/Search" element={<Search />} />
           <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
           <Route exact path="/SearchDatail"  element={<SearchDatail />} />
-          <Route exact path="/SearchDatail_Item" element={<SearchDatail_Item />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />

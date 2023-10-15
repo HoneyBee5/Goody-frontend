@@ -33,29 +33,24 @@ const Categories = () => {
 
       <div className="tab">
         <button className={activeTab === '영화' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('영화')} id="defaultOpen"> 영화</button>
-        <button className={activeTab === '방송/연예' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('방송/연예')}>방송/연예</button>
         <button className={activeTab === '게임' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('게임')}> 게임</button>
+        <button className={activeTab === '연예인' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('연예인')}>연예인</button>
+        <button className={activeTab === '캐릭터' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('캐릭터')}> 캐릭터</button>
         <button className={activeTab === '스포츠' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('스포츠')}> 스포츠</button>
         <button className={activeTab === '만화' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('만화')}> 만화</button>
-        <button className={activeTab === '캐릭터' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('캐릭터')}> 캐릭터</button>
       </div>
 
       <div id="영화" className={activeTab === '영화' ? 'tabcontent' : 'tabcontent hidden'}>
         <div className="">
           <ul>
-            <li className="font-bold">남자 배우</li>
-            <li className='my-5'><a href="#">· 남자 중년 배우</a></li>
-            <li className='my-5'><a href="#">· 남자 청년 배우</a></li>
-            <li className="mb-8"><a href="#">· 남자 아역 배우</a></li>
-            <li className="font-bold">여자 배우</li>
-            <li className='my-5'><a href="#">· 여자 중년 배우</a></li>
-            <li className='my-5'><a href="#">· 여자 청년 배우</a></li>
-            <li className="mb-4"><a href="#">· 여자 아역 배우</a></li>
+            <li className="font-bold">영화</li>
+            <li className='my-5'><a href="#">· 국내 영화</a></li>
+            <li className='my-5'><a href="#">· 해외 영화</a></li>
           </ul>
         </div></div>
 
 
-      <div id="방송/연예" className={activeTab === '방송/연예' ? 'tabcontent' : 'tabcontent hidden'}>
+      <div id="연예인" className={activeTab === '연예인' ? 'tabcontent' : 'tabcontent hidden'}>
         <div className="">
           <ul>
             <li className="font-bold">아이돌</li>
@@ -63,11 +58,17 @@ const Categories = () => {
             <li className='my-5'><a href="#">· 여자 아이돌</a></li>
             <li className="my-5"><a href="#">· 남자 솔로 가수</a></li>
             <li className="mb-8"><a href="#">· 여자 솔로 가수</a></li>
-            <li className="font-bold">희극인</li>
-            <li className='my-5'><a href="#">· 남자 희극인</a></li>
-            <li className='mb-8'><a href="#">· 여자 희극인</a></li>
           </ul>
-        </div> </div>
+        </div> 
+        
+        <div className="">
+          <ul>
+            <li className="font-bold">배우</li>
+            <li className='my-5'><a href="#">· 남자 배우</a></li>
+            <li className='my-5'><a href="#">· 여자 배우</a></li>
+          </ul>
+        </div>
+        </div>
 
       <div id="게임" className={activeTab === '게임' ? 'tabcontent' : 'tabcontent hidden'}>
         <ul>

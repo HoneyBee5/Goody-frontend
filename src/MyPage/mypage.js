@@ -71,6 +71,13 @@ const RecipeReviewCard = () => {
 
 const Mypage = () => {
 
+
+
+  const handleLogout = () => {
+    // 로컬 스토리지 값을 비움
+    localStorage.clear();
+  };
+
   return (
     <>
 
@@ -115,11 +122,12 @@ const Mypage = () => {
         </div>
 
         <div className="flex pb-2 mb-10">
-          <button className="flex p-2 items-center">
-            <img src="img/Icon_Settings.png" alt="로그아웃" className="h-6 w-6 mr-5" />
-            <span className="font-extrabold">로그아웃</span>
-          </button>
-        </div>
+          <Link to='/'>
+        <button className="flex p-2 items-center" onClick={handleLogout}>
+          <img src="img/Icon_Settings.png" alt="로그아웃" className="h-6 w-6 mr-5" />
+          <span className="font-extrabold">로그아웃</span>
+        </button></Link>
+      </div>
       </div>
 
 
