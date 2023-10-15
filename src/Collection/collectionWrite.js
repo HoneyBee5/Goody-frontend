@@ -7,7 +7,7 @@ const actionBarName = "컬렉션 작성";
 const CollectionWrite = () => {
     const [title, setTitle] = useState('');
     const [story, setStory] = useState('');
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -27,8 +27,9 @@ const CollectionWrite = () => {
     };
 
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setImage(file);
+        const files = event.target.files;
+        const newImages = Array.from(files);
+        setImages([...images, ...newImages]);
     };
 
     const handleMiniRegisterClick = async () => {
@@ -44,8 +45,10 @@ const CollectionWrite = () => {
             const formData = new FormData();
             formData.append('title', title); // 제목을 추가
             formData.append('content', story); // 내용을 추가
-            if (image) {
-                formData.append('images', image); // 이미지 파일을 추가
+            if (images && images.length > 0) {
+                images.forEach((image, index) => {
+                    formData.append(`images[${index}]`, image);
+                });
             }
 
             const response = await fetch('http://27.96.134.23:4001/goody/collection/create', {
@@ -74,7 +77,7 @@ const CollectionWrite = () => {
             {!loggedIn && <link to="/login" />} {/* 로그인되지 않은 경우 로그인 페이지로 리디렉션 */}
             <ActionBarClose actionBarName={actionBarName} />
             <div>
-                <p className="text-3xl text-[#FFD52B] font-serif flex justify-center mt-10">Title</p>
+                <p className="text-3xl text-[#FFD52B] font-serif flex justify-center mt-10 font-bold">Title</p>
                 <div className='flex-col px-4 mt-3'>
                     <input
                         type="text"
@@ -87,7 +90,7 @@ const CollectionWrite = () => {
                 </div>
             </div>
             <div>
-                <p className="text-3xl text-[#FFD52B] font-serif flex justify-center mt-5">STORY</p>
+                <p className="text-3xl text-[#FFD52B] font-serif flex justify-center mt-5 font-bold">STORY</p>
                 <div className='flex-col px-4 mt-3'>
                     <textarea
                         type="text"
@@ -96,30 +99,36 @@ const CollectionWrite = () => {
                         placeholder=' 내용'
                         maxLength={400}
                         rows={story.split('\n').length}
-                        className='py-2 pl-2 shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[380px] h-[300px]'
+                        className='py-2 pl-2 shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[380px] h-[350px]'
                         style={{ resize: 'none' }}
                     />
                 </div>
             </div>
             <div>
-                <img src='img\PhotoText.png' className='w-24 m-5' alt="Photo"></img>
+                <img src='img\PhotoText.png' className='w-28 pl-5 py-2' alt="Photo"></img>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    {images.map((image, index) => (
+                        <img key={index} src={URL.createObjectURL(image)} className='w-24 m-5 rounded-xl' alt="SelectedImage"></img>
+                    ))}
+                </div>
             </div>
-            <div className='flex p-2 mt-48'>
+            <div style={{ position: 'fixed', bottom: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center', background: 'white' }}>
                 <button>
                     <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />
                     <label htmlFor="fileInput"> <img src='img\CollectionCamera.png' className='mt-3 w-15 h-14 ml-5 bottom-2' id="selectedImage" alt="Selected"></img></label>            </button>
-    
+
                 <button>
                     <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
                     <label htmlFor="fileInput"> <img src='img\Gallery.png' className='mt-3 w-15 h-14 ml-9 bottom-2'></img></label>
                 </button>
-    
+
                 <button onClick={handleMiniRegisterClick}>
                     <Link to="/collection">
                         <img src='img\miniRegister.png' className='w-40 h-12 mt-2 ml-10' alt="Mini Register"></img>
                     </Link>
                 </button>
             </div>
+
         </div>
     );
 }
