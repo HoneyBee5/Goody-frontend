@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActionBar } from '../Component/ActionBar';
 import './AddWrite.css';
 import { Nav } from '../Component/Nav';
@@ -20,181 +20,9 @@ import FormGroup from '@mui/material/FormGroup';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+
 // 액션바 이름
 const actionBarName = "글 작성";
-
-const AddWrite = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedOption1, setSelectedOption1] = useState('');
-  const [selectedOption2, setSelectedOption2] = useState('');
-  const [selectedOption3, setSelectedOption3] = useState('');
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
-  const [additionalText, setAdditionalText] = useState('');
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setLoggedIn(true);
-    }
-  }, []);
-
-  const handleUpload = async () => {
-    try {
-      if (!loggedIn) {
-        alert('로그인 후에 글을 작성할 수 있습니다.');
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append('transType', selectedOption2);
-      formData.append('imgPath', selectedImage);
-      formData.append('price', price);
-      formData.append('free', isChecked);
-      if (additionalText !== null) {
-        formData.append('people', additionalText);
-      }
-
-      formData.append('grade', selectedOption3);
-      formData.append('title', title);
-      formData.append('category', selectedOption1);
-
-      console.log([...formData.entries()]);
-      const response = await fetch('http://27.96.134.23:4001/goody/contents/', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Authorization: `${localStorage.getItem('token')}`,
-        },
-      });
-
-      if (response.ok) {
-        console.log('데이터가 성공적으로 전송되었습니다.');
-      } else {
-        console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-      }
-    } catch (error) {
-      console.error('오류가 발생했습니다:', error);
-    }
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-  };
-
-  const handleSelectChange = (event, setSelectedOption) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const handleAddBtnClick = () => {
-    if (additionalText !== null) {
-      setAdditionalText((prevArray) => [...prevArray, additionalText]);
-      setAdditionalText('');
-    }
-  };
-
-  const handleDeleteBtnClick = () => {
-    if (additionalText !== null) {
-      const updatedText = additionalText.slice(0, additionalText.length - 1);
-      setAdditionalText(updatedText);
-    }
-  };
-
-  return (
-    <>
-      <ActionBar actionBarName={actionBarName} />
-
-      {/* 사진 */}
-      <div className="App">
-        <div className='w-16 m-6 mt-10 border border-gray-200 rounded-xl p-4 shadow-[0_1px_8px_rgba(180,180,180,0.7)]'>
-          <label id="fileInput">
-            <img className='w-16' src='img\Icon_Camera.png'></img>
-            <p className='text-center font-bold text-[#B4B4B4]'>1/5</p>
-            <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
-          </label>
-        </div>
-        <hr />
-
-        {/* 카테고리 */}
-        <div className="w-full sm:flex-row h-10 sm:h-16 my-3">
-          <select
-            className="w-11/12 sm:flex-row h-10 sm:h-16 p-2 ml-2"
-            value={selectedOption1}
-            onChange={(e) => handleSelectChange(e, setSelectedOption1)}
-          >
-            <option value="카테고리">카테고리</option>
-            <option value="MOV">영화</option>
-            <option value="GAME">게임</option>
-            <option value="ENT">연예인</option>
-            <option value="SPO">스포츠</option>
-            <option value="ANI">애니/만화</option>
-          </select>
-        </div>
-        <hr />
-        <div className="w-full sm:flex-row h-10 sm:h-16 my-3">
-          <select
-            className="w-11/12 sm:flex-row h-10 sm:h-16 p-2 ml-2"
-            value={selectedOption2}
-            onChange={(e) => handleSelectChange(e, setSelectedOption2)}
-          >
-            <option value="거래종류">거래종류</option>
-            <option value="판매해요">판매해요</option>
-            <option value="교환해요">교환해요</option>
-            <option value="나눔해요">나눔해요</option>
-            <option value="같이해요">같이해요</option>
-          </select>
-        </div>
-        <hr />
-        <div className="w-full sm:flex-row h-10 sm:h-16 my-3">
-          <select
-            className="w-11/12 sm:flex-row h-10 sm:h-16 p-2 ml-2"
-            value={selectedOption3}
-            onChange={(e) => handleSelectChange(e, setSelectedOption3)}
-          >
-            <option value="상태등급">상태등급</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-          </select>
-        </div>
-        <hr />
-
-        <hr />
-
-        {/* 글 제목 */}
-        <div className=' h-30 ml-4 my-5 '>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder='글 제목' className="outline-none border-0 focus:outline-none" />
-        </div>
-
-        <hr />
-
-        {/* 가격 */}
-        <div className='flex h-30 mt-5 mb-5 ml-5 items-center'>
-          <input
-            type="text"
-            value={price}
-            maxLength={20}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder='￦ 가격'
-            className="outline-none border-0 mr-[9.5rem] check"
-          />
-          <div style={{ marginLeft: '10px' }}>
-            <div className='flex'>
-              <div className='mr-1'>
-                <label className="Check_label">나눔</label>
-              </div>
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={(e) => setIsChecked(e.target.checked)}
-                className='ml-1 mr-1'
-              />
-            </div>
-          </div>
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
@@ -212,7 +40,7 @@ const OPTIONS1 = [
 
 const OPTIONS2 = [
   { value: "거래종류", name: "거래종류" },
-  { value: "팔아요/구해요", name: "팔아요 / 구해요" },
+  { value: "판매해요", name: "판매해요" },
   { value: "교환해요", name: "교환해요" },
   { value: "나눔해요", name: "나눔해요" },
   { value: "같이해요", name: "같이해요" },
@@ -252,87 +80,88 @@ const AddWrite = () => {
   const [inputPeopleField, setInputPeopleField] = useState('');
   const [chipPeople, setChipPeople] = useState([]);
   const [explainText, setExplainText] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
 
   //토큰 저장 후 로그인 상태 설정
-  // useEffect(() => {
-  //   // 사용자 로그인 상태를 확인하는 로직을 구현
-  //   const token = localStorage.getItem('token'); // 또는 세션에서 토큰을 가져올 수 있음
-  //   if (token) {
-  //       setLoggedIn(true); // 토큰이 있다면 로그인 상태로 설정
-  //     }
-  // }, []);
+  useEffect(() => {
+    // 사용자 로그인 상태를 확인하는 로직을 구현
+    const token = localStorage.getItem('token'); // 또는 세션에서 토큰을 가져올 수 있음
+    if (token) {
+        setLoggedIn(true); // 토큰이 있다면 로그인 상태로 설정
+      }
+  }, []);
 
   const handleUpload = async () => {//글작성 버튼 클릭시
     try {
-        // 사용자 인증 여부 확인
-        // if (!loggedIn) {
-        //     // 로그인되지 않은 경우 처리
-        //     alert('로그인 후에 글을 작성할 수 있습니다.');
-        //     return;
-        // }
+      //사용자 인증 여부 확인
+      if (!loggedIn) {
+          // 로그인되지 않은 경우 처리
+          alert('로그인 후에 글을 작성할 수 있습니다.');
+          return;
+      }
 
-        const formData = new FormData();// 해당 필드에 원하는 값을 설정
-        if(selectedOption1.value==="거래종류"){
-          alert('거래종류를 선택해주세요');
-        }else{
-          formData.append('transType',selectedOption1.value ); //거래종류
-        }
-        
-        formData.append('imgPath', selectedImage);//이미지
-        const stringWithoutCommas = price.replace(/,/g, '');
-        const numberAsInt = parseInt(stringWithoutCommas, 10);//콤마제외하고 String->int 변환
-        formData.append('price', numberAsInt);//가격
-        if(selectedNumOfPeople !== ''){
-          formData.append('numOfPeople', selectedNumOfPeople);//인원수
-        }
-        formData.append('free', isFreeChecked);//나눔여부
-        if(chipPeople.length > 0){
-          const peopleArray = chipPeople.map(item => item.label);
-          formData.append('people', peopleArray);//나눌품목
-        }
-        formData.append('explain', explainText);//설명
-        if(selectedOption3.value==="상태등급"){
-          alert('상태등급을 선택해주세요');
-        }else{
-          formData.append('grade',  selectedOption3.value );//등급
-        }
-        formData.append('title', title);//제목
-        if(selectedOption2.value==="카테고리"){
-          alert('카테고리를 선택해주세요');
-        }else{
-          formData.append('category', selectedOption2.value);//카테고리
-        }
-        
-  
-        console.log([...formData.entries()]);
-        // console.log([...formData.entries()]);
-        // const response = await fetch('http://27.96.134.23:4001/goody/contents/', {
-        //     method: 'POST',
-        //     body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
-        //     headers: {
-        //         // 토큰을 사용하여 사용자 인증
-        //         Authorization: `${localStorage.getItem('token')}`,
-        //     },
-        // });
+      const formData = new FormData();// 해당 필드에 원하는 값을 설정
+      if (selectedOption1.value === "거래종류") {
+        alert('거래종류를 선택해주세요');
+      } else {
+        formData.append('transType', selectedOption1.value); //거래종류
+      }
 
-        // if (response.ok) {
-        //     // 데이터가 성공적으로 API로 전송되었습니다.
-        //     console.log('데이터가 성공적으로 전송되었습니다.');
-        // } else {
-        //     // 여기서 오류를 처리합니다.
-        //     console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-        // }
+      formData.append('imgPath', selectedImage);//이미지
+      const stringWithoutCommas = price.replace(/,/g, '');
+      const numberAsInt = parseInt(stringWithoutCommas, 10);//콤마제외하고 String->int 변환
+      formData.append('price', numberAsInt);//가격
+      if (selectedNumOfPeople !== '') {
+        formData.append('numOfPeople', selectedNumOfPeople);//인원수
+      }
+      formData.append('free', isFreeChecked);//나눔여부
+      if (chipPeople.length > 0) {
+        const peopleArray = chipPeople.map(item => item.label);
+        formData.append('people', peopleArray);//나눌품목
+      }
+      formData.append('explain', explainText);//설명
+      if (selectedOption3.value === "상태등급") {
+        alert('상태등급을 선택해주세요');
+      } else {
+        formData.append('grade', selectedOption3.value);//등급
+      }
+      formData.append('title', title);//제목
+      if (selectedOption2.value === "카테고리") {
+        alert('카테고리를 선택해주세요');
+      } else {
+        formData.append('category', selectedOption2.value);//카테고리
+      }
+
+
+      console.log([...formData.entries()]);
+
+      const response = await fetch('http://27.96.134.23:4001/goody/contents/', {
+          method: 'POST',
+          body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
+          headers: {
+              // 토큰을 사용하여 사용자 인증
+              Authorization: `${localStorage.getItem('token')}`,
+          },
+      });
+
+      if (response.ok) {
+          // 데이터가 성공적으로 API로 전송되었습니다.
+          console.log('데이터가 성공적으로 전송되었습니다.');
+      } else {
+          // 여기서 오류를 처리합니다.
+          console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
+      }
     } catch (error) {
-        console.error('오류가 발생했습니다:', error);
+      console.error('오류가 발생했습니다:', error);
     }
   }
 
   const handleFileChange = (event) => {//파일첨부시 선택된 파일 이미지 데이터에 추가
     const files = event.target.files;
     const newImages = Array.from(files);
-    setSelectedImage([...selectedImage,...newImages]);
-    
-    if(setSelectedImage.length>=5){
+    setSelectedImage([...selectedImage, ...newImages]);
+
+    if (setSelectedImage.length >= 5) {
       alert("이미지초과");
     }
     console.log(files);
@@ -340,8 +169,8 @@ const AddWrite = () => {
 
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImage];
-    updatedImages.splice(index, 1); 
-    setSelectedImage(updatedImages); 
+    updatedImages.splice(index, 1);
+    setSelectedImage(updatedImages);
   };
 
   const handleSelectCategoryChange = (event) => {
@@ -349,19 +178,19 @@ const AddWrite = () => {
     const selectedOption = OPTIONS1.find(option => option.value === selectedValue);
     setSelectedOption1(selectedOption);
 
-};
+  };
 
   const handleSelectTransTypeChange = (event) => {
     const selectedValue = event.target.value;
     const selectedOption = OPTIONS2.find(option => option.value === selectedValue);
     setSelectedOption2(selectedOption);
-     // If "같이해요" is selected, show the radio checkboxes.
-     setShowTogetherTypeCheckboxes(selectedValue === "같이해요");
-     if(selectedValue==='나눔해요'){
+    // If "같이해요" is selected, show the radio checkboxes.
+    setShowTogetherTypeCheckboxes(selectedValue === "같이해요");
+    if (selectedValue === '나눔해요') {
       setIsFreeChecked(true);
       setPrice('');
-     }
-     
+    }
+
   };
 
   const handleSelectGradeChange = (event) => {
@@ -393,86 +222,88 @@ const AddWrite = () => {
 
   return (
     <div className="App w-full h-full mt-18">
-      <ActionBar actionBarName={actionBarName} className ='fixed top-0 w-full' />
-      
+      <ActionBar actionBarName={actionBarName} className='fixed top-0 w-full' />
+
       {/*return 구문에서 PHOTO 컴포넌트 화면에 렌더링*/}
       <div id="addwirte" className='mt-5 pt-10'>
-      
-      <div id="photo" className='p-3'>
-        <div className='w-16 m-6 mt-10 border border-gray-200 rounded-xl p-4 shadow-[0_1px_8px_rgba(180,180,180,0.7)]'>
-          <input type="file" multiple id="fileInput" className="hidden" onChange={handleFileChange} />
-            <label id="fileInput" htmlFor="fileInput">
-            <img className='w-16' src='img\Icon_Camera.png'></img>
-            <p className='text-center font-bold text-[#B4B4B4]'>{selectedImage.length}/5</p>
-          </label>
-        </div>
-        <div className='flex space-x-4'>
-        <ImageList sx={{width: 1000}} cols={5} rowHeight={134} gap={20}>
-          {selectedImage.map((image, index) => (
-          <ImageListItem key={index} style={{ width: '100px' ,height:'130px'}}>
-            <div style={{ position: 'relative', display: 'inline-block' }}>
-          <img
-            srcSet={URL.createObjectURL(image)}
-            src={URL.createObjectURL(image)}
-            alt="image"
-            loading="lazy"
-            className='rounded-xl'
-          />
-            <button onClick={() => handleDeleteImage(index)}
-                  style={{
-                    position: 'absolute',
-                    top: '0',
-                    right: '0',
-                    padding: '5px',
-                    zIndex: '1',
-                    cursor: 'pointer',
-                  }}>
-                    <HighlightOffIcon/>
-              </button>
-              </div>
-          </ImageListItem>
-            ))}
-        </ImageList>
-            
-        </div>
-        </div>
-      <hr />
 
-      {/* 카테고리 선택박스 */ }      
-      <FormControl sx={{ m: 1, minWidth: 400 }}>
+        <div id="photo" className='p-3'>
+          
+          <div className='flex space-x-4 p-5'>
+            
+            <div className='p-6 border border-gray-200 rounded-xl p-4 shadow-[0_1px_8px_rgba(180,180,180,0.7)] flex'>
+            <input type="file" multiple id="fileInput" className="hidden" onChange={handleFileChange} />
+            <label id="fileInput" htmlFor="fileInput">
+              <img className='w-16' src='img\Icon_Camera.png'></img>
+              <p className='text-center font-bold text-[#B4B4B4]'>{selectedImage.length}/5</p>
+            </label>
+          </div>
+            <ImageList sx={{ width: 1000 }} cols={5} rowHeight={134} gap={20}>
+              {selectedImage.map((image, index) => (
+                <ImageListItem key={index} style={{ width: '100px', height: '100px' }}>
+                  <div style={{ position: 'relative', display: 'inline-block' }}>
+                    <img
+                      srcSet={URL.createObjectURL(image)}
+                      src={URL.createObjectURL(image)}
+                      alt="image"
+                      loading="lazy"
+                      className='rounded-xl'
+                    />
+                    <button onClick={() => handleDeleteImage(index)}
+                      style={{
+                        position: 'absolute',
+                        top: '0',
+                        right: '0',
+                        padding: '5px',
+                        zIndex: '1',
+                        cursor: 'pointer',
+                      }}>
+                      <HighlightOffIcon />
+                    </button>
+                  </div>
+                </ImageListItem>
+              ))}
+            </ImageList>
+
+          </div>
+        </div>
+        <hr />
+
+        {/* 카테고리 선택박스 */}
+        <FormControl sx={{ m: 1, minWidth: 400 }}>
           <Select className="w-11/12 sm:flex-row h-10 sm:h-16 p-2  ml-2" value={selectedOption1.value} onChange={handleSelectCategoryChange}
-                  sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
-              {OPTIONS1.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
+            sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
+            {OPTIONS1.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.name}
+              </MenuItem>
+            ))}
           </Select>
-      </FormControl>
-      <hr/>
-      {/* 거래종류 선택박스 */ }
-      <FormControl sx={{ m: 1, minWidth: 400 }}>
+        </FormControl>
+        <hr />
+        {/* 거래종류 선택박스 */}
+        <FormControl sx={{ m: 1, minWidth: 400 }}>
           <Select className="w-11/12 sm:flex-row h-10 sm:h-16 p-2  ml-2" value={selectedOption2.value} onChange={handleSelectTransTypeChange}
-                  sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
-              {OPTIONS2.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
+            sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
+            {OPTIONS2.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.name}
+              </MenuItem>
+            ))}
           </Select>
-      </FormControl>
-      <hr/>
-      {/*같이해요 선택시 나타나는 박스*/}
-      <div style={{ margin: '10px', padding: '10px', display: showTogetherTypeCheckboxes ? 'block' :'none' }}> 
-            <div className='mb-4 flex items-center justify-center'>
-              <FormControl>
-                <RadioGroup row defaultValue="numOfPeople" name="radio-buttons-group" value ={selectedTogetherType} onChange={handleTogetherCheckBoxChange}>
-                  <FormControlLabel value="numOfPeople" control={<Radio color="default" size='small'/>} label="인원수" style={{ marginRight: '140px' }} />
-                  <FormControlLabel value="people" control={<Radio color="default" size='small'/>} label="품목" />
-                </RadioGroup>
-              </FormControl>
-            </div>
-            <div className='flex items-center justify-center'>
+        </FormControl>
+        <hr />
+        {/*같이해요 선택시 나타나는 박스*/}
+        <div style={{ margin: '10px', padding: '10px', display: showTogetherTypeCheckboxes ? 'block' : 'none' }}>
+          <div className='mb-4 flex items-center justify-center'>
+            <FormControl>
+              <RadioGroup row defaultValue="numOfPeople" name="radio-buttons-group" value={selectedTogetherType} onChange={handleTogetherCheckBoxChange}>
+                <FormControlLabel value="numOfPeople" control={<Radio color="default" size='small' />} label="인원수" style={{ marginRight: '140px' }} />
+                <FormControlLabel value="people" control={<Radio color="default" size='small' />} label="품목" />
+              </RadioGroup>
+            </FormControl>
+          </div>
+          <div className='flex items-center justify-center'>
             {selectedTogetherType === "numOfPeople" ? (
               <FormControl>
                 <InputLabel>모집인원</InputLabel>
@@ -485,117 +316,104 @@ const AddWrite = () => {
                 >
                   {numOfPeopleOptions}
                 </Select>
-                </FormControl>
-              ) : (
-                <div>
-                  <div className='flex items-center justify-center'>
-                    <TextField size='small' label="추가 품목" variant="outlined" value={inputPeopleField} onChange={(e) => setInputPeopleField(e.target.value)}/>
-                    <img className = 'm-3' src='img\personAdd.png' width={30} alt='추가버튼' onClick={handleAddBtnClick}/>
-                  </div>
-                  <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', listStyle: 'none', p: 0.5, m: 0, }} component="ul">
-                    {chipPeople.map((data) => {
-                      let icon;
-                      return (
-                        <ListItem key={data.key}>
-                          <Chip
-                            icon={icon}
-                            label={data.label}
-                            onDelete={data.label === 'React' ? undefined : handleChipDelete(data)}
-                          />
-                        </ListItem>
-                      );
-                    })}
-                  </Box>
+              </FormControl>
+            ) : (
+              <div>
+                <div className='flex items-center justify-center'>
+                  <TextField size='small' label="추가 품목" variant="outlined" value={inputPeopleField} onChange={(e) => setInputPeopleField(e.target.value)} />
+                  <img className='m-3' src='img\personAdd.png' width={30} alt='추가버튼' onClick={handleAddBtnClick} />
                 </div>
-              )}
-            </div>  
-      </div>
-      <hr/>
-      {/* 등급 선택박스 */ }
-      <FormControl sx={{ m: 1, minWidth: 400 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', listStyle: 'none', p: 0.5, m: 0, }} component="ul">
+                  {chipPeople.map((data) => {
+                    let icon;
+                    return (
+                      <ListItem key={data.key}>
+                        <Chip
+                          icon={icon}
+                          label={data.label}
+                          onDelete={data.label === 'React' ? undefined : handleChipDelete(data)}
+                        />
+                      </ListItem>
+                    );
+                  })}
+                </Box>
+              </div>
+            )}
+          </div>
+        </div>
+        <hr />
+        {/* 등급 선택박스 */}
+        <FormControl sx={{ m: 1, minWidth: 400 }}>
           <Select className="w-11/12 sm:flex-row h-10 sm:h-16 p-2  ml-2" value={selectedOption3.value} onChange={handleSelectGradeChange}
-                  sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
-              {OPTIONS3.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
+            sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
+            {OPTIONS3.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.name}
+              </MenuItem>
+            ))}
           </Select>
-      </FormControl>
-      <hr/>
-      {/* 글 제목 */}
-      <div className='flex p-2 h-10 m-2 mr-4 ml-4 items-center'>
-            <TextField fullWidth
-              sx={{ "& .MuiOutlinedInput-root": {"& > fieldset": { border: "none" }}}}//테두리제거
-              value={title}
-              onChange={(e)=>setTitle(e.target.value)}
-              placeholder='글 제목'/>
-        </div>
-      <hr/>
-       {/* 가격 */}
-       <div className='flex h-10 ml-4 mr-4 mb-2 mt-2 p-2 items-center'>
-       <FormControl>
-        <NumericFormat
-          value={price}
-          thousandSeparator
-          customInput={TextField}
-          disabled={isFreeChecked}
-          sx={{ "& .MuiOutlinedInput-root": {"& > fieldset": { border: "none" }}}}//테두리제거
-          onChange={(e)=>setPrice(e.target.value)}
-          placeholder='가격'
-          InputProps={{startAdornment:(<InputAdornment position='start'>￦</InputAdornment>), style: { border: 'none' }}}
-        />
         </FormControl>
-        <FormGroup>
-          <FormControlLabel control={
-            <Checkbox checked={isFreeChecked} 
-                      onChange={
-                          (e)=> {setIsFreeChecked(e.target.checked);
-                          if (e.target.checked) {
-                            setPrice(''); // Set price to an empty string when the checkbox is checked
-                          }}} 
-                      inputProps={{ 'aria-label': 'controlled' }} color="default"/>} label="나눔"/>
-        </FormGroup>
+        <hr />
+        {/* 글 제목 */}
+        <div className='flex p-2 h-10 m-2 mr-4 ml-4 items-center'>
+          <TextField fullWidth
+            sx={{ "& .MuiOutlinedInput-root": { "& > fieldset": { border: "none" } } }}//테두리제거
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder='글 제목' />
         </div>
-        <hr/>
+        <hr />
+        {/* 가격 */}
+        <div className='flex h-10 ml-4 mr-4 mb-2 mt-2 p-2 items-center'>
+          <FormControl>
+            <NumericFormat
+              value={price}
+              thousandSeparator
+              customInput={TextField}
+              disabled={isFreeChecked}
+              sx={{ "& .MuiOutlinedInput-root": { "& > fieldset": { border: "none" } } }}//테두리제거
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder='가격'
+              InputProps={{ startAdornment: (<InputAdornment position='start'>￦</InputAdornment>), style: { border: 'none' } }}
+            />
+          </FormControl>
+          <FormGroup>
+            <FormControlLabel control={
+              <Checkbox checked={isFreeChecked}
+                onChange={
+                  (e) => {
+                    setIsFreeChecked(e.target.checked);
+                    if (e.target.checked) {
+                      setPrice(''); // Set price to an empty string when the checkbox is checked
+                    }
+                  }}
+                inputProps={{ 'aria-label': 'controlled' }} color="default" />} label="나눔" />
+          </FormGroup>
+        </div>
+        <hr />
         {/* 내용 */}
         <div className='flex mr-4 ml-4 p-2 items-center'>
-            <TextField fullWidth
-              sx={{ "& .MuiOutlinedInput-root": {"& > fieldset": { border: "none" }}, "& .MuiInputBase-input": {
+          <TextField fullWidth
+            sx={{
+              "& .MuiOutlinedInput-root": { "& > fieldset": { border: "none" } }, "& .MuiInputBase-input": {
                 overflowY: 'auto', // Allow scrolling when content exceeds the specified rows
-              },}}//테두리제거
-              value={explainText}
-              onChange={(e)=>setExplainText(e.target.value)}
-              multiline
-              rows={10}
-              placeholder='내용'/>
+              },
+            }}//테두리제거
+            value={explainText}
+            onChange={(e) => setExplainText(e.target.value)}
+            multiline
+            rows={10}
+            placeholder='내용' />
         </div>
-        <hr />
-
-        {/* 내용 */}
-        <div className='flex h-30 mt-5 mb-5 ml-5 items-center'>
-          <input
-            type="text"
-            value={additionalText}
-            maxLength={20}
-            onChange={(e) => setAdditionalText(e.target.value)}
-            placeholder='내용'
-            className="outline-none border-0 mr-[9.5rem] check"
-            rows={additionalText.split('\n').length} // 엔터를 누를 때마다 행의 개수에 따라 크기가 조정됨
-            style={{ minHeight: '120px', resize: 'none' }} // 최소 높이 및 크기 조정 비활성화
-          />
-
-          <button onClick={handleAddBtnClick} className='btn btn-sm btn-green flex items-center'> 추가</button>
-          <button onClick={handleDeleteBtnClick} className='btn btn-sm btn-red flex items-center'>삭제</button>
+        {/* 버튼 */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '5px', marginBottom: '85px', marginLeft: '20px', marginRight: '20px' }}>
+          <button onClick={handleUpload}>
+            <img src='img\registerBtn.png'></img>
+          </button>
         </div>
-        <hr />
-        <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '5px', marginBottom: '85px' }}>
-          <button onClick={handleUpload}> <img src='img\registerBtn.png'></img></button></div>
-
-
       </div>
       <Nav />
-    </>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ActionBarClose } from '../Component/ActionBarClose';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const actionBarName = "컬렉션 작성";
 
@@ -17,6 +18,13 @@ const CollectionWrite = () => {
             setLoggedIn(true); // 토큰이 있다면 로그인 상태로 설정
         }
     }, []);
+
+    const handleDeleteImage = (index) => {
+        // 이미지 목록에서 이미지를 삭제합니다.
+        const updatedImages = [...images];
+        updatedImages.splice(index, 1);
+        setImages(updatedImages);
+      };
 
     const handleTitleChange = (newTitle) => {
         setTitle(newTitle);
@@ -51,6 +59,8 @@ const CollectionWrite = () => {
                 });
             }
 
+            console.log([...formData.entries()]);
+
             const response = await fetch('http://27.96.134.23:4001/goody/collection/create', {
                 method: 'POST',
                 body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
@@ -70,6 +80,7 @@ const CollectionWrite = () => {
         } catch (error) {
             console.error('오류가 발생했습니다:', error);
         }
+
     };
 
     return (
@@ -105,13 +116,18 @@ const CollectionWrite = () => {
                 </div>
             </div>
             <div>
-                <img src='img\PhotoText.png' className='w-28 pl-5 py-2' alt="Photo"></img>
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    {images.map((image, index) => (
-                        <img key={index} src={URL.createObjectURL(image)} className='w-24 m-5 rounded-xl' alt="SelectedImage"></img>
-                    ))}
-                </div>
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+          {images.map((image, index) => (
+            <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+              <img src={URL.createObjectURL(image)} className='w-24 m-5 rounded-xl' alt="SelectedImage" />
+              <button
+              onClick={() => handleDeleteImage(index)} style={{ position: 'absolute',top: '0',right: '0',padding: '20px', zIndex: '1',cursor: 'pointer',}}>
+                <HighlightOffIcon />
+              </button>
             </div>
+          ))}
+        </div>
+      </div>
             <div style={{ position: 'fixed', bottom: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center', background: 'white' }}>
                 <button>
                     <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />

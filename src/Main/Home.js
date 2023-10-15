@@ -105,7 +105,7 @@ const Home = () => {
         <div className="mb-2">
           <Link to="/maincategories?category=MOV&name=영화"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Movie.png' className='shadow-md rounded-2xl mb-2' alt='MOV'></img>영화</button></Link>
           <Link to="/maincategories?category=GAME&name=게임"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Games.png' className='shadow-md rounded-2xl mb-2' alt='GAME'></img>게임</button></Link>
-          <Link to="/maincategories?category=ENT&name=아이돌"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Mic.png' className='shadow-md rounded-2xl mb-2' alt='ENT'></img>아이돌</button></Link>
+          <Link to="/maincategories?category=ENT&name=연예인"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Mic.png' className='shadow-md rounded-2xl mb-2' alt='ENT'></img>연예인</button></Link>
           <Link to="/maincategories?category=CHA&name=캐릭터"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Bear.png' className='shadow-md rounded-2xl mb-2' alt='CHA'></img>캐릭터</button></Link>
           <Link to="/maincategories?category=SPO&name=스포츠"> <button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Ball.png' className='shadow-md rounded-2xl mb-2' alt='SPO'></img>스포츠</button></Link>
           <Link to="/maincategories?category=ANI&name=만화"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Book.png' className='shadow-md rounded-2xl mb-2' alt='ANI'></img>만화</button></Link>

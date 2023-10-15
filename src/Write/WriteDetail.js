@@ -7,14 +7,28 @@ import { useNavigate } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
 import Avatar from '@mui/material/Avatar';
 
+
 function WriteDetail() {
   const [writeDetailData, setWriteDetailData] = useState({});
   const { documentId } = useParams();
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleBack = () => {
     navigate(-1);
+  };
+
+  const nextImage = () => {
+    if (writeDetailData.imgPath.length > 0) {
+      setCurrentImageIndex((currentImageIndex + 1) % writeDetailData.imgPath.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (writeDetailData.imgPath.length > 0) {
+      setCurrentImageIndex((currentImageIndex - 1 + writeDetailData.imgPath.length) % writeDetailData.imgPath.length);
+    }
   };
 
   const fetchData = async () => {
@@ -32,7 +46,7 @@ function WriteDetail() {
       );
 
       if (!response.ok) {
-        throw new Error('HTTP 오류 ' + response.status);
+        throw Error('HTTP 오류 ' + response.status);
       }
 
       const data = await response.json();
@@ -75,6 +89,10 @@ function WriteDetail() {
     );
   };
 
+  const isFirstImage = currentImageIndex === 0;
+  const isLastImage = writeDetailData.imgPath && currentImageIndex === writeDetailData.imgPath.length - 1;
+
+
   return (
     <div>
       {writeDetailData && writeDetailData.imgPath && writeDetailData.imgPath.length > 0 ? (
@@ -83,46 +101,58 @@ function WriteDetail() {
             <button onClick={handleBack}>
               <img src="/img/close.png" alt="닫기" className="w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
             </button>
+
           </div>
+
+          {writeDetailData.imgPath.length > 1 && (
+            <div className="image-nav absolute">
+              {!isFirstImage && <button onClick={prevImage}>이전</button>}
+              {!isLastImage && <button onClick={nextImage} className='flex justify-center center items-center bottom-0'>다음</button>}
+            </div>
+          )}
           <div>
-            <img src={writeDetailData.imgPath[0]} alt="상세 이미지" style={{ width: '500px', height: '500px', objectFit: 'cover' }} />
+            <img src={writeDetailData.imgPath[currentImageIndex]} alt="상세 이미지" className="sliding-image" />
           </div>
         </div>
       ) : null}
-
       <div>
         <div className='flex py-5 px-5'>
-          {<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe"> M </Avatar>}
+          {/*  사용자 닉네임 같은 값 가져오는 코드 수정 필요 */}
+          {<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">  {writeDetailData?.writerId} </Avatar>}
           <div style={{ marginTop: 5, marginLeft: 10 }}>
-            <label style={{ fontWeight: 'bold' }}> mjc123</label>
+            <label style={{ fontWeight: 'bold' }}> {writeDetailData?.writerId}</label>
           </div>
           <div style={{ marginTop: 30, marginLeft: -47 }}>
             <label style={{ fontWeight: 'normal' }}></label>
           </div>
         </div>
       </div>
-      <div className='flex ml-[0.5rem]'>
-        <div className='mt-3 ml-5 flex justify-between'>
-          <label className='font-bold text-xl'>{writeDetailData?.title}</label>
-          <div className='mr-0 flex center'>
-            <img src="/img/Like.png" className="w-7 h-8" alt="Like" />
-            <label>11</label>
+
+
+      {/* 제목 하트 부분 */}
+      <div className='flex'>
+        <div className='mt-3 ml-5 flex mb-2 justify-between items-center w-full'>
+          <div>
+            <label className='font-bold text-xl'>{writeDetailData?.title}</label>
+          </div>
+          <div className='flex items-center'>
+            <img src="/img/Like.png" className="w-7 h-8" alt="Like" /> <label className='mr-5'>{writeDetailData?.heart}</label>
           </div>
         </div>
       </div>
-      <div className='mt-1 ml-[0.5rem] h-10 w-300 display-flex'>
-        <div style={{ width: '5.5rem', height: '30px', marginLeft: 10, borderRadius: '15px', border: '1px solid #b4b4b4', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+
+
+
+      <div className='mt-3 h-10 w-300 display-flex'>
+        <div  className='flex justify-center items-center rounded-2xl' style={{ width: '5.5rem', height: '30px', marginLeft: 10,border: '1px solid #909090', display: 'flex' }}>
           <label>{writeDetailData?.category}</label>
         </div>
-        <div style={{
-          width: '5.5rem', height: '30px', marginLeft: 110, marginTop: -30, borderRadius: '15px', border: '1px solid #b4b4b4', display: 'flex',
-          justifyContent: 'center', alignItems: 'center'
-        }}>
+        <div className='flex justify-center items-center rounded-2xl' style={{width: '5.5rem', border: '1px solid #909090', height: '30px', marginLeft: 110, marginTop: -30 }}>
           <label>{writeDetailData?.transType}</label>
         </div>
       </div>
       <div className='m-10 mt-[1.5rem] ml-[1rem]'>
-        <label className='ml-[0.5rem] text-[#6d6d6d]'>{writeDetailData?.explain}</label>
+        <label className='ml-[0.5rem] text-[#909090]'>{writeDetailData?.explain}</label>
       </div>
 
       <Purchase />
