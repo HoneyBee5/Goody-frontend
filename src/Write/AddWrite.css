@@ -21,3 +21,12 @@
       margin-right: 7.75rem;
     }
   }
+
+  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+    background-color : lightgray;
+  }
+
+  .css-m5hdmq-MuiInputBase-root-MuiInput-root-MuiSelect-root:after{
+    border-color: black;
+  }
+ 
