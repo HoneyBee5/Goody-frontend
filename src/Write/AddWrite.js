@@ -106,7 +106,9 @@ const AddWrite = () => {
         }
         
         formData.append('imgPath', selectedImage);//이미지
-        formData.append('price', price);//가격
+        const stringWithoutCommas = price.replace(/,/g, '');
+        const numberAsInt = parseInt(stringWithoutCommas, 10);//콤마제외하고 String->int 변환
+        formData.append('price', numberAsInt);//가격
         if(selectedNumOfPeople !== ''){
           formData.append('numOfPeople', selectedNumOfPeople);//인원수
         }
@@ -184,7 +186,7 @@ const AddWrite = () => {
      setShowTogetherTypeCheckboxes(selectedValue === "같이해요");
      if(selectedValue==='나눔해요'){
       setIsFreeChecked(true);
-      setPrice(0);
+      setPrice('');
      }
      
   };
@@ -364,6 +366,7 @@ const AddWrite = () => {
           value={price}
           thousandSeparator
           customInput={TextField}
+          disabled={isFreeChecked}
           sx={{ "& .MuiOutlinedInput-root": {"& > fieldset": { border: "none" }}}}//테두리제거
           onChange={(e)=>setPrice(e.target.value)}
           placeholder='가격'
@@ -372,7 +375,12 @@ const AddWrite = () => {
         </FormControl>
         <FormGroup>
           <FormControlLabel control={
-            <Checkbox checked={isFreeChecked} onChange={(e)=> setIsFreeChecked(e.target.checked)} 
+            <Checkbox checked={isFreeChecked} 
+                      onChange={
+                          (e)=> {setIsFreeChecked(e.target.checked);
+                          if (e.target.checked) {
+                            setPrice(''); // Set price to an empty string when the checkbox is checked
+                          }}} 
                       inputProps={{ 'aria-label': 'controlled' }} color="default"/>} label="나눔"/>
         </FormGroup>
         </div>
