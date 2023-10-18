@@ -10,7 +10,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import Chip from '@mui/material/Chip';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { NumericFormat } from 'react-number-format';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -20,6 +19,8 @@ import FormGroup from '@mui/material/FormGroup';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import { styled } from '@mui/system'
+import NumberInput from '../Component/NumberInput'
 
 // 액션바 이름
 const actionBarName = "글 작성";
@@ -64,6 +65,7 @@ for (let i = 1; i <= 10; i++) {
   );
 }
 
+
 const AddWrite = () => {
 
   // const [loggedIn, setLoggedIn] = useState(false);//로그인여부 확인
@@ -76,7 +78,7 @@ const AddWrite = () => {
   const [isFreeChecked, setIsFreeChecked] = useState(false);//나눔여부
   const [showTogetherTypeCheckboxes, setShowTogetherTypeCheckboxes] = useState(false);
   const [selectedTogetherType, setSelectedTogetherType] = useState('numOfPeople'); //인원수 or 품목
-  const [selectedNumOfPeople, setSelectedNumOfPeople] = useState('');
+  const [selectedNumOfPeople, setSelectedNumOfPeople] = useState(3);
   const [inputPeopleField, setInputPeopleField] = useState('');
   const [chipPeople, setChipPeople] = useState([]);
   const [explainText, setExplainText] = useState('');
@@ -112,9 +114,12 @@ const AddWrite = () => {
             formData.append(`imgPath[${index}]`, image);
         });
         }
-      const stringWithoutCommas = price.replace(/,/g, '');
-      const numberAsInt = parseInt(stringWithoutCommas, 10);//콤마제외하고 String->int 변환
-      formData.append('price', numberAsInt);//가격
+      if(price !== ''){
+        const stringWithoutCommas = price.replace(/,/g, '');
+        const numberAsInt = parseInt(stringWithoutCommas, 10);//콤마제외하고 String->int 변환
+        formData.append('price', numberAsInt);//가격
+      }
+      
       if (selectedNumOfPeople !== '') {
         formData.append('numOfPeople', selectedNumOfPeople);//인원수
       }
@@ -322,6 +327,7 @@ const AddWrite = () => {
                 >
                   {numOfPeopleOptions}
                 </Select>
+                <NumberInput placeholder="모집인원" value={selectedNumOfPeople} onChange={handleSelectNumOfPeopleChange}/>
               </FormControl>
             ) : (
               <div>
