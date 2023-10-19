@@ -26,7 +26,7 @@ const MainCategories = () => {
                 };
 
                 const response = await fetch(
-                    `http://27.96.134.23:4001/goody/contents/search?category=${categoryId}`,
+                    `https://www.honeybee-goody.site/goody/contents/search?category=${categoryId}`,
                     {
                         method: 'GET',
                         headers,
