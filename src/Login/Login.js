@@ -27,7 +27,7 @@ const Login = () => {
     };
   
     try {
-      const response = await fetch('http://27.96.134.23:4001/goody/user/login', requestOptions);
+      const response = await fetch('https://www.honeybee-goody.site/goody/user/login', requestOptions);
   
       if (response.ok) {
         const accessToken = response.headers.get('Authorization');
@@ -48,7 +48,7 @@ const Login = () => {
     } catch (error) {
       console.error('로그인 요청 중 오류 발생', error);
       // 오류 처리
-      window.location.href = '/home';
+    //  window.location.href = '/home';
     }
   };
   
