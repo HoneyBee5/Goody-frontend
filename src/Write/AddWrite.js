@@ -144,7 +144,7 @@ const AddWrite = () => {
 
       console.log([...formData.entries()]);
 
-      const response = await fetch('http://27.96.134.23:4001/goody/contents/', {
+      const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
           method: 'POST',
           body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
           headers: {

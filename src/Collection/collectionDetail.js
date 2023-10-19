@@ -44,6 +44,7 @@ function CollectionDetail() {
    
   // };
 
+
   const handleImageClick = () => {
     const newMarginTop = marginTop === 0 ? -225 : 0;
     setMarginTop(newMarginTop);

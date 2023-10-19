@@ -48,7 +48,7 @@ function Collection() {
           Authorization: `${token}`,
         };
 
-        const response = await fetch('http://27.96.134.23:4001/goody/collection/list', {
+        const response = await fetch('https://www.honeybee-goody.site/goody/collection/list', {
           method: 'GET',
           headers,
         });

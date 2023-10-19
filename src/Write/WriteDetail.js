@@ -38,7 +38,7 @@ function WriteDetail() {
       };
 
       const response = await fetch(
-        `http://27.96.134.23:4001/goody/contents/detail?documentId=${documentId}`,
+        `https://www.honeybee-goody.site/goody/contents/detail?documentId=${documentId}`,
         {
           method: 'GET',
           headers,
