@@ -22,7 +22,7 @@ const TabView = () => {
       };
 
       const response = await fetch(
-        `http://27.96.134.23:4001/goody/contents/preview-info?transType=${postType}&page=0`,
+        `https://www.honeybee-goody.site/goody/contents/preview-info?transType=${postType}&page=0`,
         {
           method: 'GET',
           headers,
