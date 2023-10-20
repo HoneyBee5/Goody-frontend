@@ -118,9 +118,9 @@ function WriteDetail() {
       <div>
         <div className='flex py-5 px-5'>
           {/*  사용자 닉네임 같은 값 가져오는 코드 수정 필요 */}
-          {<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">  {writeDetailData?.writerId} </Avatar>}
+          {<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">  {writeDetailData?.writerId}U </Avatar>}
           <div style={{ marginTop: 5, marginLeft: 10 }}>
-            <label style={{ fontWeight: 'bold' }}> {writeDetailData?.writerId}</label>
+            <label style={{ fontWeight: 'bold' }}> {writeDetailData?.writerId} 사용자 닉네임</label>
           </div>
           <div style={{ marginTop: 30, marginLeft: -47 }}>
             <label style={{ fontWeight: 'normal' }}></label>

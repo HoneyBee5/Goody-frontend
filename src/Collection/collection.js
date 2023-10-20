@@ -111,7 +111,7 @@ CollectionItem.propTypes = {
   item: PropTypes.shape({
     collectionId: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    title: PropTypes.string, 
+    title: PropTypes.string.isRequired,
   }).isRequired,
 };
 
