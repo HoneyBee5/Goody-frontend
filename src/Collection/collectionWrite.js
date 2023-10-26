@@ -116,10 +116,10 @@ const CollectionWrite = () => {
                 </div>
             </div>
             <div>
-        <div style={{ position: 'relative', display: 'inline-block' }}>
+        <div className='relative inline-block'>
           {images.map((image, index) => (
             <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
-              <img src={URL.createObjectURL(image)} className='w-24 m-5 rounded-xl' alt="SelectedImage" />
+              <img src={URL.createObjectURL(image)} className='m-4 rounded-xl object-cover w-[100px] h-[100px]' alt="SelectedImage" />
               <button
               onClick={() => handleDeleteImage(index)} style={{ position: 'absolute',top: '0',right: '0',padding: '20px', zIndex: '1',cursor: 'pointer',}}>
                 <HighlightOffIcon />

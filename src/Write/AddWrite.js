@@ -242,30 +242,31 @@ const AddWrite = () => {
           
           <div className='flex space-x-4 p-5'>
             
-            <div className='p-6 border border-gray-200 rounded-xl p-4 shadow-[0_1px_8px_rgba(180,180,180,0.7)] flex'>
+            <div className='p-6 border border-gray-200 rounded-xl shadow-[0_1px_8px_rgba(180,180,180,0.7)] flex'>
             <input type="file" multiple id="fileInput" className="hidden" onChange={handleFileChange} />
             <label id="fileInput" htmlFor="fileInput">
               <img className='w-16' src='img\Icon_Camera.png'></img>
               <p className='text-center font-bold text-[#B4B4B4]'>{selectedImage.length}/5</p>
             </label>
           </div>
+          
+          {/* 카메라 아이콘 옆 이미지 리스트 */}
             <ImageList sx={{ width: 1000 }} cols={5} rowHeight={130} gap={20}>
               {selectedImage.map((image, index) => (
-                <ImageListItem key={index} style={{ width: '100px', height: '100px' }}>
+                <ImageListItem key={index} style={{ width: '100px', height: '100px'}}>
                   <div style={{ position: 'relative', display: 'inline-block' }}>
                     <img
                       srcSet={URL.createObjectURL(image)}
                       src={URL.createObjectURL(image)}
                       alt="image"
                       loading="lazy"
-                      className='rounded-xl'
+                      className='rounded-xl object-cover w-[100px] h-[100px]'
                     />
                     <button onClick={() => handleDeleteImage(index)}
                       style={{
                         position: 'absolute',
                         top: '0',
                         right: '0',
-                        padding: '5px',
                         zIndex: '1',
                         cursor: 'pointer',
                       }}>
@@ -281,7 +282,7 @@ const AddWrite = () => {
         <hr />
 
         {/* 카테고리 선택박스 */}
-        <FormControl sx={{ m: 1, minWidth: 400 }}>
+        <FormControl sx={{ m: 1, minWidth: 390 }}>
           <Select className="w-11/12 sm:flex-row h-10 sm:h-16 p-2  ml-2" value={selectedOption1.value} onChange={handleSelectCategoryChange}
             sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
             {OPTIONS1.map((option) => (
@@ -292,8 +293,9 @@ const AddWrite = () => {
           </Select>
         </FormControl>
         <hr />
+
         {/* 거래종류 선택박스 */}
-        <FormControl sx={{ m: 1, minWidth: 400 }}>
+        <FormControl sx={{ m: 1, minWidth: 390 }}>
           <Select className="w-11/12 sm:flex-row h-10 sm:h-16 p-2  ml-2" value={selectedOption2.value} onChange={handleSelectTransTypeChange}
             sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
             {OPTIONS2.map((option) => (
@@ -304,6 +306,7 @@ const AddWrite = () => {
           </Select>
         </FormControl>
         <hr />
+
         {/*같이해요 선택시 나타나는 박스*/}
         <div style={{ margin: '10px', padding: '10px', display: showTogetherTypeCheckboxes ? 'block' : 'none' }}>
           <div className='mb-4 flex items-center justify-center'>
@@ -354,8 +357,10 @@ const AddWrite = () => {
           </div>
         </div>
         <hr />
+
+
         {/* 등급 선택박스 */}
-        <FormControl sx={{ m: 1, minWidth: 400 }}>
+        <FormControl sx={{ m: 1, minWidth: 390 }}>
           <Select className="w-11/12 sm:flex-row h-10 sm:h-16 p-2  ml-2" value={selectedOption3.value} onChange={handleSelectGradeChange}
             sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}>
             {OPTIONS3.map((option) => (
@@ -366,6 +371,8 @@ const AddWrite = () => {
           </Select>
         </FormControl>
         <hr />
+
+
         {/* 글 제목 */}
         <div className='flex p-2 h-10 m-2 mr-4 ml-4 items-center'>
           <TextField fullWidth
@@ -375,8 +382,9 @@ const AddWrite = () => {
             placeholder='글 제목' />
         </div>
         <hr />
+
         {/* 가격 */}
-        <div className='flex h-10 ml-4 mr-4 mb-2 mt-2 p-2 items-center'>
+        <div className='flex h-10 m-4 items-center'>
           <FormControl>
             <NumericFormat
               value={price}
@@ -386,14 +394,15 @@ const AddWrite = () => {
               sx={{ "& .MuiOutlinedInput-root": { "& > fieldset": { border: "none" } } }}//테두리제거
               onChange={(e) => setPrice(e.target.value)}
               placeholder='가격'
-              InputProps={{ startAdornment: (<InputAdornment position='start'>￦</InputAdornment>), style: { border: 'none' } }}
+              InputProps={{ startAdornment: (<InputAdornment position='start'>￦</InputAdornment>), style: { border: 'none' , marginRight: '45px'} }}
             />
           </FormControl>
+
+          {/* 나눔버튼 */}
           <FormGroup>
             <FormControlLabel control={
               <Checkbox checked={isFreeChecked}
-                onChange={
-                  (e) => {
+                onChange={ (e) => {
                     setIsFreeChecked(e.target.checked);
                     if (e.target.checked) {
                       setPrice(''); // Set price to an empty string when the checkbox is checked
@@ -403,8 +412,9 @@ const AddWrite = () => {
           </FormGroup>
         </div>
         <hr />
+
         {/* 내용 */}
-        <div className='flex mr-4 ml-4 p-2 items-center'>
+        <div className='flex mr-4 ml-4 items-center'>
           <TextField fullWidth
             sx={{
               "& .MuiOutlinedInput-root": { "& > fieldset": { border: "none" } }, "& .MuiInputBase-input": {
@@ -417,8 +427,9 @@ const AddWrite = () => {
             rows={10}
             placeholder='내용' />
         </div>
-        {/* 버튼 */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: '5px', marginBottom: '85px', marginLeft: '20px', marginRight: '20px' }}>
+
+        {/* 등록 버튼 */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: '80px', marginLeft: '20px', marginRight: '20px' }}>
           <button onClick={handleUpload}>
             <img src='img\registerBtn.png'></img>
           </button>

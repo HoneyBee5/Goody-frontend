@@ -16,6 +16,7 @@ const PlusBtn = () => {
 };
 
 const CollectionItem = ({ item }) => {
+
   // 컬렉션 아이템 정보를 받아와서 렌더링
   return (
     <div className='inline-flex'>
@@ -25,7 +26,6 @@ const CollectionItem = ({ item }) => {
             <img
               src={item.thumbnail} // 이미지 URL 사용
               className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item col_item2'
-              alt={item.title}
             />
           </div>
         </button>
@@ -111,7 +111,6 @@ CollectionItem.propTypes = {
   item: PropTypes.shape({
     collectionId: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
   }).isRequired,
 };
 
