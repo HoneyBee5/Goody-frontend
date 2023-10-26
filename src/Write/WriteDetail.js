@@ -8,12 +8,18 @@ import { grey } from '@mui/material/colors';
 import Avatar from '@mui/material/Avatar';
 
 
+
 function WriteDetail() {
   const [writeDetailData, setWriteDetailData] = useState({});
   const { documentId } = useParams();
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  const handleLikeClick = () => {
+    setLiked(!liked);
+  };
 
   const handleBack = () => {
     navigate(-1);
@@ -60,34 +66,6 @@ function WriteDetail() {
     fetchData();
   }, []);
 
-  const Purchase = () => {
-    const [liked, setLiked] = useState(false);
-
-    const handleLikeClick = () => {
-      setLiked(!liked);
-    };
-
-    return (
-      <div style={{ position: 'fixed', bottom: -15, width: '100%', backgroundColor: 'white', }}>
-        <div className='flex justify-center bg-[#f8f8f8] h-20 bottom-0 p-2 shadow-inner'>
-
-          <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''} ml-[1rem] mt-[0.9rem]`} size="xl" onClick={handleLikeClick} />
-
-          <div className='w-[0.25rem] h-[2.5rem] bg-[#E6E6E6] mt-[0.4rem] ml-[1rem]'></div>
-          <div className='ml-[1rem] mt-[0.9rem]'>
-            <label>{writeDetailData.price}원</label>
-          </div>
-          <div className='flex ml-auto mr-[0.5rem]' >
-            <Link to="/chatting">
-              <button className='bg-[#575757] w-[8.5rem] h-[3.2rem] right-0 mt-[0rem] border rounded-xl'>
-                <label style={{ color: 'white', fontWeight: 'bolder', fontSize: '20px' }}>구매하기</label>
-              </button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   const isFirstImage = currentImageIndex === 0;
   const isLastImage = writeDetailData.imgPath && currentImageIndex === writeDetailData.imgPath.length - 1;
@@ -96,41 +74,56 @@ function WriteDetail() {
   return (
     <div>
       {writeDetailData && writeDetailData.imgPath && writeDetailData.imgPath.length > 0 ? (
-        <div className='relative'>
-          <div className='absolute right-0 p-5 '>
-            <button onClick={handleBack}>
-              <img src="/img/close.png" alt="닫기" className="w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
-            </button>
+        <div className='relative w-full'>
 
+
+          <div className='absolute right-0 p-4'>
+            <button onClick={handleBack} className=''>
+              <img src="/img/close.png" alt="닫기" className=" w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
+            </button>
           </div>
 
           {writeDetailData.imgPath.length > 1 && (
-            <div className="image-nav absolute">
-              {!isFirstImage && <button onClick={prevImage}>이전</button>}
-              {!isLastImage && <button onClick={nextImage} className='flex justify-center center items-center bottom-0'>다음</button>}
-            </div>
+            <>
+              <div className="flex absolute top-56 left-0 pl-3">
+                {!isFirstImage && <button onClick={prevImage} className='nav_button'>&lt;</button>}</div>
+              <div className="flex absolute top-56 right-0 pr-3">
+                {!isLastImage && <button onClick={nextImage} className='nav_button'>&gt;</button>}</div>
+            </>
           )}
+
+
           <div>
             <img src={writeDetailData.imgPath[currentImageIndex]} alt="상세 이미지" className="sliding-image" />
           </div>
+
         </div>
       ) : null}
+
+
+      {/* 아이디 부분 */}
       <div>
-        <div className='flex py-5 px-5'>
-          {/*  사용자 닉네임 같은 값 가져오는 코드 수정 필요 */}
-          {<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">  {writeDetailData?.writerId} </Avatar>}
-          <div style={{ marginTop: 5, marginLeft: 10 }}>
-            <label style={{ fontWeight: 'bold' }}> {writeDetailData?.writerId}</label>
-          </div>
-          <div style={{ marginTop: 30, marginLeft: -47 }}>
-            <label style={{ fontWeight: 'normal' }}></label>
+        <div className='flex'>
+          <div className='flex mt-5 ml-5'>
+            {writeDetailData?.writerId && (
+              <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
+                {writeDetailData.writerId.charAt(0)} {/* 첫 글자만 표시 */}
+              </Avatar>
+            )}
+            <div className='ml-2'>
+              <div className=''>
+                <label className='font-bold'> {writeDetailData?.writerId} </label>
+              </div>
+              <div>
+                <label className='text-sm'>등급</label>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
 
-      {/* 제목 하트 부분 */}
-      <div className='flex'>
+        {/* 제목 하트 부분 */}
+        {/* <div className='flex'>
         <div className='mt-3 ml-5 flex mb-2 justify-between items-center w-full'>
           <div>
             <label className='font-bold text-xl'>{writeDetailData?.title}</label>
@@ -138,25 +131,45 @@ function WriteDetail() {
           <div className='flex items-center'>
             <img src="/img/Like.png" className="w-7 h-8" alt="Like" /> <label className='mr-5'>{writeDetailData?.heart}</label>
           </div>
+        </div> */}
+
+
+        {/* 카테고리 */}
+        <div className='mt-5 ml-3 w-300 flex'>
+          <div className='flex justify-center rounded-2xl w-24 m-2 h-7' style={{ border: '1px solid #909090' }}>
+            <label>{writeDetailData?.category}</label>
+          </div>
+          <div className='flex justify-center rounded-2xl w-24 m-2 h-7' style={{ border: '1px solid #909090' }}>
+            <label>{writeDetailData?.transType}</label>
+          </div>
         </div>
-      </div>
 
-
-
-      <div className='mt-3 h-10 w-300 display-flex'>
-        <div  className='flex justify-center items-center rounded-2xl' style={{ width: '5.5rem', height: '30px', marginLeft: 10,border: '1px solid #909090', display: 'flex' }}>
-          <label>{writeDetailData?.category}</label>
+        {/* 설명 */}
+        <div className='m-10 mt-[1.5rem] ml-[1rem]'>
+          <label className='ml-[0.5rem] text-[#565656]'>{writeDetailData?.explain}</label>
         </div>
-        <div className='flex justify-center items-center rounded-2xl' style={{width: '5.5rem', border: '1px solid #909090', height: '30px', marginLeft: 110, marginTop: -30 }}>
-          <label>{writeDetailData?.transType}</label>
-        </div>
-      </div>
-      <div className='m-10 mt-[1.5rem] ml-[1rem]'>
-        <label className='ml-[0.5rem] text-[#909090]'>{writeDetailData?.explain}</label>
-      </div>
 
-      <Purchase />
-    </div>
+        {/* 가격 및 구매하기 */}
+        <div className='bottom-0 fixed  w-full'>
+          <div className='flex justify-center bg-[#e2e2e2] h-20 p-4'>
+
+            <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''} p-3`} size="xl" onClick={handleLikeClick} />
+
+            <div className='w-[0.1rem] h-[2.5rem] bg-[#b8b8b8] mt-[0.4rem] ml-[1rem]'></div>
+            <div className='p-3 pl-5 font-semibold text-lg'>
+              <label>{writeDetailData.price}원</label>
+            </div>
+            <div className='flex ml-auto mr-[0.5rem]' >
+              <Link to="/chatting">
+                <button className='bg-[#FFD52B] w-[8.5rem] h-[3.2rem] right-0 mt-[0rem] border rounded-xl'>
+                  <label style={{ color: 'black', fontWeight: 'bolder', fontSize: '20px' }}>구매하기</label>
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+      </div></div>
   );
 }
 
