@@ -3,8 +3,7 @@ import { Nav } from '../Component/Nav';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-
-const Top = () => {
+function Search() {
 
   const [text, setText] = useState(''); // text 변수와 handleChange 함수를 useState로 정의합니다.
 
@@ -26,6 +25,7 @@ const Top = () => {
   };
   
   return (
+    <>
     <div>
 
     <div className='mt-10 mr-5 flex justify-end'>
@@ -49,7 +49,7 @@ const Top = () => {
           className="w-full mr-15 outline-none border-0 focus:outline-none"
         />
         <div style={{marginRight:'30px'}}>
-          <Link to="/SearchDatail">
+          <Link to="/SearchDetail">
             <button>
               <img src="img/Search2.png" alt='검색' width={'32px'} height={'32px'} className="ml-2"></img>
             </button>
@@ -66,7 +66,7 @@ const Top = () => {
       </div>
 
       <div style={{marginTop:'60px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Link to="/SearchDatail">
+        <Link to="/SearchDetail">
         <button>
           <img src='img/BottomSearch.png' style={{width:'60px'}}></img>
         </button>
@@ -74,18 +74,12 @@ const Top = () => {
       </div>
 
     </div>
-  )
+    
+    <Nav />
+
+    </>
+  );
 }
 
-function Search() {
-    return (
-  
-        <div>
-           <Top />
-           <Nav />
-        </div>
-  
-    );
-  }
 
   export default Search;
