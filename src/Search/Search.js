@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Nav } from '../Component/Nav';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Search() {
-
-  const [text, setText] = useState(''); // text 변수와 handleChange 함수를 useState로 정의합니다.
+  const navigate = useNavigate();
+  const [Searchtext, setSearchText] = useState(''); // text 변수와 handleChange 함수를 useState로 정의합니다.
 
   const handleChange = (event) => {
-    setText(event.target.value); // input 요소의 값을 변경할 때마다 text 변수를 업데이트합니다.
+    setSearchText(event.target.value); // input 요소의 값을 변경할 때마다 text 변수를 업데이트합니다.
   };
 
   useEffect(() => {
@@ -18,7 +17,15 @@ function Search() {
     }
   }, []);
 
-  const navigate = useNavigate();
+  const handleSearch = () => {
+    if (Searchtext.trim() === '') {
+      window.alert('검색어를 입력해주세요.'); // 경고 다이얼로그를 띄웁니다.
+    } else {
+      navigate(`/SearchDetail/${Searchtext}`);
+    }
+  };
+
+  
 
   const handleBack = () => {
     navigate(-1); // 이전 페이지로 이동하는 함수
@@ -42,18 +49,18 @@ function Search() {
       <div className='h-30 ml-5 mt-16 flex flex-grow'>
         <input
           type="text"
-          value={text}
+          value={Searchtext}
           maxLength={100}
           onChange={handleChange}
           placeholder='검색어를 입력해주세요.'
           className="w-full mr-15 outline-none border-0 focus:outline-none"
         />
         <div style={{marginRight:'30px'}}>
-          <Link to="/SearchDetail">
-            <button>
+        
+            <button onClick={handleSearch}>
               <img src="img/Search2.png" alt='검색' width={'32px'} height={'32px'} className="ml-2"></img>
             </button>
-          </Link>
+         
         </div>
       </div>
 
@@ -66,11 +73,11 @@ function Search() {
       </div>
 
       <div style={{marginTop:'60px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Link to="/SearchDetail">
-        <button>
+        
+      <button onClick={handleSearch}>
           <img src='img/BottomSearch.png' style={{width:'60px'}}></img>
         </button>
-        </Link>
+      
       </div>
 
     </div>

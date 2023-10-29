@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 import { SearchDatail_Item } from './SearchDetail_item';
 import SearchSelectbox from './SearchSelectbox';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
+import { useParams  } from 'react-router-dom';
+
 
 
 const OPTIONS1 = [
@@ -35,46 +37,49 @@ const OPTIONS3 = [
 
 const SearchDetail = () => {
   const navigate = useNavigate();
-
-  const [text, setText] = useState('');
+  const { Searchtext } = useParams();
+  
+  const [text, setText] = useState(Searchtext);
   const [category,setCategory] = useState('');
+
   const [transtype,setTransType] = useState('');
   const [sold,setSold] = useState('');
   
   const [loading, setLoading] = useState(false); // setLoading 상태를 추가
   const [data, setData] = useState([]);
   const token = localStorage.getItem('token');
-  let apiUrl = `http://27.96.134.23:4001/goody/contents/search`;
+
   const queryParameters = [];
 
+  let apiUrl = 'http://27.96.134.23:4001/goody/contents/search';
+  
   
  
-  if (text) {
-    queryParameters.push(`search=${text}`);
-  }
-
+   if (text) {
+      apiUrl += `?search=${text}`;
+   }
+  
   if (category) {
     queryParameters.push(`category=${category}`);
   }
-
+  
   if (transtype) {
     queryParameters.push(`transType=${transtype}`);
   }
+  
   if (sold) {
     queryParameters.push(`sold=${sold}`);
   }
-
-
-  // 쿼리 매개변수가 있는 경우 URL 조합
+  
   if (queryParameters.length > 0) {
-    apiUrl = `${apiUrl}?${queryParameters.join('&')}`;
+    apiUrl += `?${queryParameters.join('&')}`;
   }
 
-
-
   const handleBack = () => {
-    navigate(-1); // 이전 페이지로 이동하는 함수
-  };
+  
+      navigate(-1); // Navigate to the previous route
+    
+  }
   const handleCategoryChange = (selectedCategory) => {
     setCategory(selectedCategory); // 선택한 카테고리 값을 상태 변수에 저장
   };
@@ -89,27 +94,21 @@ const SearchDetail = () => {
 
   const handleTextChange = (event) => {
     setText(event.target.value);
+   
   };
 
 
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const Searchtext = searchParams.get('search'); // URL 파라미터에서 검색어 읽기
 
-
-  useEffect(() => {
-    // text 값을 이용하여 API 요청 URL 생성 및 API 요청
-    if (Searchtext) {
-      const queryParameters = [];
-      queryParameters.push(`search=${text}`);
-      // ...
-    }
-  }, [text]);
 
 
   const handleSearch = () => {
     setLoading(true);
-    
+
+    if(text){
+      navigate(`/SearchDetail/${text}`, { replace: true });
+    }else{
+      navigate(`/SearchDetail/`, { replace: true });
+    }
     // 요청 헤더 설정
     const headers = {
       Authorization: `${token}`,
@@ -136,8 +135,12 @@ const SearchDetail = () => {
         setLoading(false); // 데이터 로딩 오류
       });
   };
-  
-  
+
+
+  useEffect(() => {
+    handleSearch();
+   
+  }, []);
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -149,19 +152,19 @@ const SearchDetail = () => {
     <div className='w-full'>
       <div className='flex mt-10 bg-yellow justify-center' style={{ alignItems: 'center' }}>
         <div className='flex mt-[0.2rem] ml-[0.8rem]'>
-          <button>
-            <img src='img\yellow_left.png' className='w-[1.1rem] h-[1.9rem]' alt="뒤로가기" onClick={handleBack}/>
+          <button onClick={handleBack}>
+            <img src='../img\yellow_left.png' className='w-[1.1rem] h-[1.9rem]' alt="뒤로가기"/>
           </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className='h-[2rem] w-[19rem] ml-[1.2rem] border-rounded-[0.5rem] flex items-center'>
-            <img src='img\Bar.png' className='w-[23rem] h-[0.3rem] mt-[2rem] flex items-center' alt="바" />
+            <img src='../img\Bar.png' className='w-[23rem] h-[0.3rem] mt-[2rem] flex items-center' alt="바" />
             <input
               type="text"
               value={text}
               maxLength={100}
               onChange={handleTextChange}
-              placeholder='검색어를 입력해주세요.'
+              placeholder = '검색어를 입력해주세요'
               className='transparent outline-none border-0 focus:outline-none w-[22rem] ml-[-19.5rem] mt-[-0.25rem]'
               style={{ border: 'none', padding: '0 8px'}}
             />
@@ -169,7 +172,7 @@ const SearchDetail = () => {
         </form>
         <div className='ml-[0.6rem] mb-[-0.8rem]'>
           <button onClick={handleSearch}>
-            <img src="img/Search2.png" alt='검색' width={'30px'} height={'30px'} />
+            <img src="../img/Search2.png" alt='검색' width={'30px'} height={'30px'} />
           </button>
         </div>
       </div>
@@ -184,7 +187,7 @@ const SearchDetail = () => {
 
       <div className='flex pr-3' >
         <div className='ml-auto flex'>
-        <img src='img\Arrange.png' className='h-5 w-5' />
+        <img src='../img\Arrange.png' className='h-5 w-5' />
         <span>정렬</span>
       </div>
       </div>
@@ -194,14 +197,18 @@ const SearchDetail = () => {
         {loading ? ( // 로딩 중인 경우
           <div className="loader">로딩 중...</div>
         ) : (
+
           data.map((item, index) => (
+           
             <SearchDatail_Item
               key={index}
               title={item.title}
               price={item.price}
               createdDate={item.createdDate}
               thumbnailImg={item.thumbnailImg}
+              documentId = {item.documentId}
             />
+           
           ))
         )}
       </div>

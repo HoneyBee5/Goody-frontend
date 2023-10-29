@@ -48,7 +48,8 @@ const App = () => {
           <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
           <Route exact path="/Search" element={<Search />} />
           <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
-          <Route exact path="/SearchDetail"  element={<SearchDetail />} />
+          <Route path="/SearchDetail/" element={<SearchDetail />} />
+          <Route path="/SearchDetail/:Searchtext" element={<SearchDetail />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />
