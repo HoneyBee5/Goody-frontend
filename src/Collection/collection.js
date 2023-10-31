@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 const PlusBtn = () => {
   return (
     <Link to="/collectionWrite">
-      <button className='right-3 bottom-24 absolute'>
-        <img src="/img/collection_plusButton.png" alt='플러스' width={'70px'} className='' />
+      <button className='right-3 bottom-16 absolute'>
+        <img src="/img/collection_plusButton.png" alt='플러스' width={'50px'} className='' />
       </button>
     </Link>
   );
@@ -88,7 +88,7 @@ function Collection() {
         <div className='w-full flex justify-center mb-20'>
           <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
         </div>
-        <Link to="/Inspect">
+        <Link to="/search">
           <button className='absolute right-14 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><img src="img/Search.png" alt='검색' width={'25px'} height={'25px'} /></button>
         </Link>
         <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link></button>

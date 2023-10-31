@@ -54,7 +54,7 @@ const Login = () => {
   
   return (
     <div>
-      <img className='relative' src='img/LoginActionBar.png' alt='구디' />
+      <img className='relative' src='img/LoginActionBar.png' alt='구디'/>
       <p className='font-bold text-center text-xl mb-10'> 로그인</p>
 
       <form onSubmit={handleSubmit} method="POST" action="/login">
@@ -70,9 +70,7 @@ const Login = () => {
 
         <div className='flex justify-center'>
           <button type={'submit'} className='mt-5 w-[22rem] mb-5'>
-            {/* <Link to="/home"> */}
               <img src='img/LoginButton.png' alt='Login' />
-            {/* </Link> */}
           </button>
         </div>
       </form>
@@ -80,10 +78,6 @@ const Login = () => {
       <div className='text-center mt-5'>
         <div className='flex justify-center space-x-2'>
           <Link to="/join"><p> 회원가입 </p></Link>
-          <p>|</p>
-          <Link to="/findid"><p> 아이디 찾기 </p></Link>
-          <p>|</p>
-          <Link to="/findpw"><p> 비밀번호 찾기 </p></Link>
         </div>
       </div>
     </div>

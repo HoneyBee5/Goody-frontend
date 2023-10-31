@@ -91,10 +91,10 @@ const TabView = () => {
         indicatorColor="secondary"
         aria-label="scrollable prevent tabs example"
       >
-        <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>판매해요</Typography>} />
-        <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>교환해요</Typography>} />
-        <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>나눔해요</Typography>} />
-        <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>같이해요</Typography>} />
+        <Tab label={<Typography variant="body1" sx={{ minWidth: 80, fontWeight: 'bold' }}>판매해요</Typography>} />
+        <Tab label={<Typography variant="body1" sx={{ minWidth: 80, fontWeight: 'bold' }}>교환해요</Typography>} />
+        <Tab label={<Typography variant="body1" sx={{ minWidth: 80, fontWeight: 'bold' }}>나눔해요</Typography>} />
+        <Tab label={<Typography variant="body1" sx={{ minWidth: 80, fontWeight: 'bold' }}>같이해요</Typography>} />
       </Tabs>
 
       {/* 데이터 로딩 중 또는 데이터가 비어 있는 경우 처리 */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Chip from '@mui/material/Chip';
 
 const Item_width = ({ data }) => {
   const MAX_TITLE_LENGTH = 16; // 원하는 최대 길이
@@ -16,14 +17,19 @@ const Item_width = ({ data }) => {
     <>
       <div className='flex mt-7 ml-5 mb-5'>
         <div>
-          <img src={data.thumbnailImg} alt={data.title} className='rounded-xl'  style={{ width:'70px', height: '70px', objectFit: 'cover' }} />
+          <img src={data.thumbnailImg} alt={data.title} className='rounded-xl'  style={{ width:'60px', height: '60px', objectFit: 'cover' }} />
         </div>
         <div className='ml-3 '>
           <p className='font-bold'>{truncatedTitle}</p>
-          <p className='font-bold'>{formatPrice(data.price)}원</p>
-          <p className='text-sm'>{data.createdDate}</p>
+          <p className='font-bold text-sm'>{formatPrice(data.price)}원</p>
+          <p className='text-xs'>{data.createdDate}</p>
         </div>
-        <div className='border rounded-lg border-[#B4B4B4] px-2 text-sm h-6 ml-auto mt-auto mr-4'>{data.transType}</div>
+        <Chip
+            label={data.transType}
+            variant="outlined"
+            size="small"
+            className='h-6 ml-auto mt-auto mr-4'
+          />
       </div>
       <hr />
     </>
