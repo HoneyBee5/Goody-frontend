@@ -70,7 +70,7 @@ const Home = () => {
       <HomeActionBar imageSrc="img\HomeActionBar.png">
         <div className='left-0 absolute w-full flex justify-center items-center mt-24'>
           <div className="all">
-          <div id="con" style={{ transform: `translateX(-${thisIndex * (window.innerWidth <= 390 ? 305 : 335)}px)` }}>
+          <div id="con" style={{ transform: `translateX(-${thisIndex * (window.innerWidth <= 390 ? 315 : 335)}px)` }}>
               <a href="#"><img className="main_img" src="img/EventImg1.png" alt="event_img" /></a>
               <a href="#"><img className="main_img" src="img/EventImg2.png" alt="event_img2" /></a>
               <a href="#"><img className="main_img" src="img/EventImg3.png" alt="event_img3"/></a>
