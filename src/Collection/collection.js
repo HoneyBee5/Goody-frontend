@@ -16,7 +16,6 @@ const PlusBtn = () => {
 };
 
 const CollectionItem = ({ item }) => {
-
   // 컬렉션 아이템 정보를 받아와서 렌더링
   return (
     <div className='inline-flex'>
@@ -25,7 +24,7 @@ const CollectionItem = ({ item }) => {
           <div>
             <img
               src={item.thumbnail} // 이미지 URL 사용
-              className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item col_item2'
+              className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item'
             />
           </div>
         </button>
@@ -94,11 +93,15 @@ function Collection() {
         <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link></button>
       </div>
 
-      {Array.isArray(collectionItems) &&
-        collectionItems.map((item, index) => (
-          <CollectionItem key={index} item={item} />
-        ))
-      }
+      <div className='flex flex-col items-center'> {/* 부모 요소 */}
+        <div className='grid grid-cols-3 gap-1'> {/* 그리드 컨테이너, 3개의 열과 간격 설정 */}
+          {Array.isArray(collectionItems) &&
+            collectionItems.map((item, index) => (
+              <CollectionItem key={index} item={item} />
+            ))
+          }
+        </div>
+      </div>
 
       <PlusBtn />
       <Nav />

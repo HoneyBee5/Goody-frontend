@@ -1,5 +1,5 @@
 #con {
-    width: 1065px;
+    width: 1005px;
     height: auto;
     display: inline-flex;
     transition: 0.2s;
@@ -8,15 +8,16 @@
   
   .all {
     margin-top: 5rem;
-    width: 355px;
+    width: 335px;
     height: auto;
     position: absolute;
     overflow: hidden;
     border-radius: 20px;
   }
+
   
   .main_img {
-    width: 355px;
+    width: 335px;
     height: auto;
     object-fit: cover;
     transition: 0.7s;
@@ -79,13 +80,29 @@
 }
 
 @media (max-width: 390px) {
-  .cate {
-      width: 2.75rem;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
-      font-size: small;
+  #con {
+    width: 915px;
   }
 
+  .all {
+    width: 305px;
+    margin-top: 4rem; 
+  }
+
+  .main_img {
+    width: 305px;
+    height: auto;
+  }
+
+  .dot {
+    width: 8px; 
+    height: 8px; 
+    margin: 3px; 
+  }
+
+  .cate {
+    width: 2rem; 
+    margin: 0.5rem;
+    font-size: x-small;
+  }
 }

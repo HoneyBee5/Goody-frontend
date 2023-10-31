@@ -1,15 +1,14 @@
-@media (max-width: 390px) {
-    .col_item2 {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-    }
-  }
-
   
   .Collecthin_image {
     width: 137px;
     height: 137px;
     object-fit: cover;
   }
-  
+
+  @media (max-width: 390px) {
+    .col_item {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+    }
+  }
