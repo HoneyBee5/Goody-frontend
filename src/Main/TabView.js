@@ -13,7 +13,7 @@ const TabView = () => {
 
   // 토큰 가져오기
   const token = localStorage.getItem('token');
-  
+
   // fetchData 함수를 정의
   const fetchData = async (postType) => {
     try {
@@ -22,7 +22,7 @@ const TabView = () => {
       };
 
       const response = await fetch(
-        `http://27.96.134.23:4001/goody/contents/preview-info?transType=${postType}&page=0`,
+        `https://www.honeybee-goody.site/goody/contents/preview-info?transType=${postType}&page=0`,
         {
           method: 'GET',
           headers,
@@ -67,13 +67,13 @@ const TabView = () => {
         fetchData('판매해요');
         break;
       case 1:
-        fetchData('같이해요');
-        break;
-      case 2:
         fetchData('교환해요');
         break;
-      case 3:
+      case 2:
         fetchData('나눔해요');
+        break;
+      case 3:
+        fetchData('같이해요');
         break;
       default:
         break;
@@ -92,26 +92,24 @@ const TabView = () => {
         aria-label="scrollable prevent tabs example"
       >
         <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>판매해요</Typography>} />
-        <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>같이해요</Typography>} />
         <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>교환해요</Typography>} />
         <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>나눔해요</Typography>} />
+        <Tab label={<Typography variant="body1" sx={{ minWidth: 90, fontWeight: 'bold' }}>같이해요</Typography>} />
       </Tabs>
 
       {/* 데이터 로딩 중 또는 데이터가 비어 있는 경우 처리 */}
       {loading && <div>Loading...</div>}
 
-         {/* 각 탭에 따라 데이터 렌더링 */}
-         {!loading && postPreviewInfo && postPreviewInfo.map((item, index) => (
-      
-      <div key={index} >
-      <Link to={`/WriteDetail/${item.documentId}`}>
-      <Item_width data={item} />
-      {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
-      </Link>
-    </div>
-   
-  ))}
-</Box>
+      {/* 각 탭에 따라 데이터 렌더링 */}
+      {!loading && postPreviewInfo && postPreviewInfo.map((item, index) => (
+        <div key={index} >
+          <Link to={`/WriteDetail/${item.documentId}`}>
+            <Item_width data={item} />
+            {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
+          </Link>
+        </div>
+      ))}
+    </Box>
   );
 };
 

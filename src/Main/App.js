@@ -47,11 +47,12 @@ const App = () => {
           <Route path="/categories" element={<Categories />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/collectionDetail/:collectionId" element={<CollectionDetail />} />
+          <Route path="/SearchDatail_Item" element={<SearchDatail_Item />} />
+
           <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
           <Route exact path="/Search" element={<Search />} />
           <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
           <Route exact path="/SearchDatail"  element={<SearchDatail />} />
-          <Route exact path="/SearchDatail_Item" element={<SearchDatail_Item />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />

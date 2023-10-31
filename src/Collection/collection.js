@@ -16,6 +16,7 @@ const PlusBtn = () => {
 };
 
 const CollectionItem = ({ item }) => {
+
   // 컬렉션 아이템 정보를 받아와서 렌더링
   return (
     <div className='inline-flex'>
@@ -25,7 +26,6 @@ const CollectionItem = ({ item }) => {
             <img
               src={item.thumbnail} // 이미지 URL 사용
               className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item col_item2'
-              alt={item.title}
             />
           </div>
         </button>
@@ -35,40 +35,38 @@ const CollectionItem = ({ item }) => {
 };
 
 
-
-
 function Collection() {
   const [collectionItems, setCollectionItems] = useState(null);
 
-    // 토큰 가져오기
-    const token = localStorage.getItem('token');
+  // 토큰 가져오기
+  const token = localStorage.getItem('token');
 
-    useEffect(() => {
-      async function fetchCollectionItems() {
-        try {
-          const headers = {
-            Authorization: `${token}`,
-          };
-    
-          const response = await fetch('http://27.96.134.23:4001/goody/collection/list', {
-            method: 'GET',
-            headers,
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            setCollectionItems(data.dto); // 데이터 설정
-          } else {
-            console.error('컬렉션 아이템 목록을 불러오는 중 오류가 발생했습니다.');
-          }
-          
-        } catch (error) {
-          console.error('오류가 발생했습니다:', error);
+  useEffect(() => {
+    async function fetchCollectionItems() {
+      try {
+        const headers = {
+          Authorization: `${token}`,
+        };
+
+        const response = await fetch('https://www.honeybee-goody.site/goody/collection/list', {
+          method: 'GET',
+          headers,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setCollectionItems(data.dto); // 데이터 설정
+        } else {
+          console.error('컬렉션 아이템 목록을 불러오는 중 오류가 발생했습니다.');
         }
+
+      } catch (error) {
+        console.error('오류가 발생했습니다:', error);
       }
-    
-      fetchCollectionItems();
-    }, []);
+    }
+
+    fetchCollectionItems();
+  }, []);
 
   const back = {
     backgroundImage: "url('img/Collection_back.png')",
@@ -83,7 +81,7 @@ function Collection() {
   if (collectionItems === null) {
     return <div>Loading...</div>;
   }
-  console.log(collectionItems);
+  
   return (
     <div style={back}>
       <div className='flex'>
@@ -97,12 +95,12 @@ function Collection() {
       </div>
 
       {Array.isArray(collectionItems) &&
-  collectionItems.map((item, index) => (
-    <CollectionItem key={index} item={item} />
-  ))
-}
+        collectionItems.map((item, index) => (
+          <CollectionItem key={index} item={item} />
+        ))
+      }
 
-      <PlusBtn/>
+      <PlusBtn />
       <Nav />
     </div>
   );
@@ -113,8 +111,8 @@ CollectionItem.propTypes = {
   item: PropTypes.shape({
     collectionId: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    title:PropTypes.string.isRequired,
   }).isRequired,
 };
+
 
 export default Collection;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import Item_width from '../Component/Item_width';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const MainCategories = () => {
     
@@ -25,7 +26,7 @@ const MainCategories = () => {
                 };
 
                 const response = await fetch(
-                    `http://27.96.134.23:4001/goody/contents/search?category=${categoryId}`,
+                    `https://www.honeybee-goody.site/goody/contents/search?category=${categoryId}`,
                     {
                         method: 'GET',
                         headers,
@@ -37,7 +38,6 @@ const MainCategories = () => {
                 }
 
                 const data = await response.json();
-                console.log(data);
 
                 if (data && data.length > 0) {
                     setPostPreviewInfo(data);
@@ -62,8 +62,9 @@ const MainCategories = () => {
             ) : (
                 postPreviewInfo.map((item, index) => (
                     <div key={index}>
+                         <Link to={`/WriteDetail/${item.documentId}`}>
                         <Item_width data={item} />
-                        {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
+                        {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}</Link>
                     </div>
                 ))
             )}

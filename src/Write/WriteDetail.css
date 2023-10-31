@@ -1,7 +1,18 @@
-.heart-icon {
-  color: #000000;
+
+.sliding-image {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
 }
 
-.text-color {
-  color: #FFD52B; 
+.nav_button {
+  background-color: #FFD52B;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+  border: none;
+  border-radius: 20%;
+  padding: 5px 10px;
 }
+
+
