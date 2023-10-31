@@ -1,62 +1,76 @@
 import React, { useState, useEffect } from 'react';
 import { ActionBarClose } from '../Component/ActionBarClose';
-import PropTypes from 'prop-types';
+import Item_width from '../Component/Item_width';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const actionBarName = "찜 목록";
+const FavoriteList = () => {
+  const [productData, setProductData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
-const FavoriteList = ({ token, documentId, liked }) => {
-  const [productData, setProductData] = useState(null);
+  const actionBarName = queryParams.get('name');
+  const categoryId = queryParams.get('category');
 
-  useEffect(() => {
-    if (liked) {
-      const headers = {
-        Authorization: token,
+    useEffect(() => {
+
+      // 토큰 가져오기
+      const token = localStorage.getItem('token');
+
+      const fetchData = async () => {
+          try {
+              const headers = {
+                  Authorization: `${token}`,
+              };
+
+              const response = await fetch(
+                  `https://www.honeybee-goody.site/goody/contents/myPage/likesPreview`,
+                  {
+                      method: 'GET',
+                      headers,
+                  }
+              );
+
+              if (!response.ok) {
+                  throw new Error('HTTP 오류 ' + response.status);
+              }
+
+              const data = await response.json();
+
+              if (data && data.length > 0) {
+                  setProductData(data);
+                  setLoading(false);
+              } else {
+                  console.error('API에서 데이터를 가져오는 중 오류 발생: 데이터가 비어 있습니다.');
+              }
+          } catch (error) {
+              console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
+              setLoading(false);
+          }
       };
 
-      fetch(`https://www.honeybee-goody.site/goody/myPage/likesPreview`, {
-        method: 'GET',
-        headers,
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('데이터를 불러오는 중 오류가 발생했습니다.');
-          }
-        })
-        .then((data) => {
-          setProductData(data); // 데이터 설정
-        })
-        .catch((error) => {
-          console.error('오류가 발생했습니다:', error);
-        });
-    }
-  }, [token, documentId, liked]);
+      fetchData();
+  }, [categoryId, actionBarName]); // 빈 배열을 의존성 배열로 사용하여 최초 한 번만 실행되도록 설정
+
 
   return (
     <>
       <ActionBarClose actionBarName={actionBarName} />
-      {productData && (
-        <div className='flex mt-7 ml-5 mb-5'>
-          <div>
-            <img src={productData.imageSrc} alt={productData.title} className='rounded-xl' style={{ width: '70px', height: '70px', objectFit: 'cover' }} />
-          </div>
-          <div className='ml-3 '>
-            <p className='font-bold'>{productData.title}</p>
-            <p className='font-bold'>{productData.price}원</p>
-            <p className='text-sm'>{productData.description}</p>
-          </div>
-          <div className='border rounded-lg border-[#B4B4B4] px-2 text-sm h-6 ml-auto mt-auto mr-4'>{productData.category}</div>
-        </div>
-      )}
+      {loading ? (
+                <div>Loading...</div>
+            ) : (
+              productData.map((item, index) => (
+                    <div key={index}>
+                         <Link to={`/WriteDetail/${item.documentId}`}>
+                        <Item_width data={item} />
+                        {index === productData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}</Link>
+                    </div>
+                ))
+            )}
     </>
   );
 };
 
-FavoriteList.propTypes = {
-  token: PropTypes.string.isRequired,
-  documentId: PropTypes.string.isRequired,
-  liked: PropTypes.bool.isRequired,
-};
 
 export default FavoriteList;
