@@ -1,54 +1,119 @@
-import React, { useState,} from 'react';
+import React, { useState,useEffect } from 'react';
 import { Nav } from '../Component/Nav';
-import { SearchDetail_Item } from '../Component/SearchDetail_Item';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
+import { SearchDatail_Item } from './SearchDetail_item';
+import SearchSelectbox from './SearchSelectbox';
+import { useNavigate  } from 'react-router-dom';
+import { useParams  } from 'react-router-dom';
 
-{/*상단*/ }
+
+
+const OPTIONS1 = [
+  { value: "" , name: "카테고리" },
+  { value: "ENT", name: "연예인" },
+  { value: "SPO", name: "스포츠" },
+  { value: "MOV", name: "영화" },
+  { value: "GAME", name: "게임" },
+  { value: "ANI", name: "애니 / 만화" },
+ 
+];
+
+const OPTIONS2 = [
+  { value: "", name: "구매형태" },
+  { value: "판매해요", name: "판매해요" },
+  { value: "교환해요", name: "교환해요" },
+  { value: "나눔해요", name: "나눔해요" },
+  { value: "같이해요", name: "같이해요" },
+
+];
+
+const OPTIONS3 = [
+  { value: "", name: "품절유무" },
+  { value: "true", name: "품절됨" },
+  { value: "false", name: "품절안됨" },
+  
+];
+
+
 const SearchDetail = () => {
+  const navigate = useNavigate();
+  const { Searchtext } = useParams();
+  
+  const [text, setText] = useState(Searchtext);
+  const [category,setCategory] = useState('');
 
+  const [transtype,setTransType] = useState('');
+  const [sold,setSold] = useState('');
+  
+  const [loading, setLoading] = useState(false); // setLoading 상태를 추가
+  const [data, setData] = useState([]);
   const token = localStorage.getItem('token');
 
-  const [text, setText] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedTransType, setSelectedTransType] = useState(null);
-  const [selectedox, setSelectedox] = useState(null);
-  // const [Data, setData] = useState(null);
-  const [isToggleOn, setIsToggleOn] = useState(true);
+  const queryParameters = [];
 
+  let apiUrl = 'http://27.96.134.23:4001/goody/contents/search';
+  
+  
+ 
+   if (text) {
+      apiUrl += `?search=${text}`;
+   }
+  
+  if (category) {
+    queryParameters.push(`category=${category}`);
+  }
+  
+  if (transtype) {
+    queryParameters.push(`transType=${transtype}`);
+  }
+  
+  if (sold) {
+    queryParameters.push(`sold=${sold}`);
+  }
+  
+  if (queryParameters.length > 0) {
+    apiUrl += `?${queryParameters.join('&')}`;
+  }
 
-  const handleToggleClick = () => {
-    setIsToggleOn(!isToggleOn);
+  const handleBack = () => {
+  
+      navigate(-1); // Navigate to the previous route
+    
+  }
+  const handleCategoryChange = (selectedCategory) => {
+    setCategory(selectedCategory); // 선택한 카테고리 값을 상태 변수에 저장
   };
 
-  const handleCategoryChange = (selectedValue) => {
-    setSelectedCategory(selectedValue);
+  const handleTranstypeChange = (selectedTransType) => {
+    setTransType(selectedTransType); // 선택한 카테고리 값을 상태 변수에 저장
   };
 
-  const handleTransTypeChange = (selectedValue) => {
-    setSelectedTransType(selectedValue);
+  const handleSoldChange = (selectedSold) => {
+    setSold(selectedSold); // 선택한 카테고리 값을 상태 변수에 저장
   };
 
-  const handleoxChange = (selectedValue) => {
-    setSelectedox(selectedValue);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault(); // 폼 제출 기본 동작을 중지
-    // 여기서 API 요청을 수행하거나 원하는 동작을 실행하세요
-    console.log('검색 버튼을 눌렀습니다. 입력값:', text);
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+   
   };
 
 
-  const apiUrl = `http://27.96.134.23:4001/goody/contents/search?search=${text}&category=${selectedCategory}&transType=${selectedTransType}&sold=${selectedox}`;
+
 
 
   const handleSearch = () => {
-  
+    setLoading(true);
+
+    if(text){
+      navigate(`/SearchDetail/${text}`, { replace: true });
+    }else{
+      navigate(`/SearchDetail/`, { replace: true });
+    }
     // 요청 헤더 설정
     const headers = {
       Authorization: `${token}`,
     };
+
     // GET 요청을 수행
     fetch(apiUrl, {
       method: 'GET',
@@ -60,152 +125,109 @@ const SearchDetail = () => {
         }
         return response.json();
       })
-      // .then((data) => {
-      //   setData(data);
-      // })
+      .then((responseData) => {
+        // 데이터를 추출하고 상태 변수에 저장
+        setData(responseData);
+        setLoading(false); // 데이터 로딩 완료
+      })
       .catch((error) => {
         console.error('API 요청 중 오류 발생:', error);
+        setLoading(false); // 데이터 로딩 오류
       });
   };
 
 
-  {/*상단바*/}
-
-  const handleChange = (event) => {
-    setText(event.target.value);
+  useEffect(() => {
+    handleSearch();
+   
+  }, []);
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('검색 버튼을 눌렀습니다. 입력값:', text);
   };
 
-  const [category, setCategory] = useState("카테고리");
-  const newCategory = (event) => {
-    setCategory(event.target.value)
-  }
-
-  const [transType, setTransType] = useState("거래종류");
-  const newTransType = (event) => {
-    setTransType(event.target.value)
-  }
-
-  const [condition, setCondition] = useState("싱태등급");
-  const newCondition = (event) => {
-    setCondition(event.target.value)
-  }
-
-  // if (Data === null) {
-  //   return null;
-  // }
-  
-  {/*드롭박스*/}
-
   return (
-    <div>
-
-        {/*상단바*/}
-        <div className='flex mt-10 bg-yellow' style={{ alignItems: 'center' }}>
-
-          {/*뒤로가기*/}
-          <div className='flex mt-[0.2rem] ml-[0.8rem]'>
-            <button>
-              <img src='img\yellow_left.png' className='w-[1.1rem] h-[1.9rem]'></img>
-            </button>
-          </div>
-
-
-          {/*검색입력창*/}
-          <form onSubmit={handleSubmit}> {/* 폼 제출을 가로채고 handleSubmit 함수 호출 */}
+    <>
+    <div className='w-full'>
+      <div className='flex mt-10 bg-yellow justify-center' style={{ alignItems: 'center' }}>
+        <div className='flex mt-[0.2rem] ml-[0.8rem]'>
+          <button onClick={handleBack}>
+            <img src='../img\yellow_left.png' className='w-[1.1rem] h-[1.9rem]' alt="뒤로가기"/>
+          </button>
+        </div>
+        <form onSubmit={handleSubmit}>
           <div className='h-[2rem] w-[19rem] ml-[1.2rem] border-rounded-[0.5rem] flex items-center'>
-
-            <img src='img\Bar.png' className='w-[23rem] h-[0.3rem] mt-[2rem] flex items-center'></img>
-
-
+            <img src='../img\Bar.png' className='w-[23rem] h-[0.3rem] mt-[2rem] flex items-center' alt="바" />
             <input
               type="text"
               value={text}
               maxLength={100}
-              onChange={handleChange}
-              placeholder='검색어를 입력해주세요.'
+              onChange={handleTextChange}
+              placeholder = '검색어를 입력해주세요'
               className='transparent outline-none border-0 focus:outline-none w-[22rem] ml-[-19.5rem] mt-[-0.25rem]'
               style={{ border: 'none', padding: '0 8px'}}
             />
           </div>
-          </form>
-
-          {/*돋보기*/}
-          <div className='ml-[0.6rem] mb-[-0.8rem]'>
-            <button  onClick={handleSearch}>
-              <img src="img/Search2.png" alt='검색' width={'30px'} height={'30px'}/>
-            </button>
-          </div>
+        </form>
+        <div className='ml-[0.6rem] mb-[-0.8rem]'>
+          <button onClick={handleSearch}>
+            <img src="../img/Search2.png" alt='검색' width={'30px'} height={'30px'} />
+          </button>
         </div>
+      </div>
+
+      <div className='flex justify-center'>
+      <SearchSelectbox OPTIONS={OPTIONS1}  OPTIONNAME='카테고리' onChange={handleCategoryChange} />  
+      <SearchSelectbox OPTIONS={OPTIONS2}  OPTIONNAME='구매형태' onChange={handleTranstypeChange} /> 
+      <SearchSelectbox OPTIONS={OPTIONS3}  OPTIONNAME='품절유무' onChange={handleSoldChange}/>
+      </div>
 
 
 
-        {/*드롭박스*/}
-        <div className='flex mt-[2rem] pl-[1.6rem]'>
-          <form>
-            <select className='border-[0.13rem] border-[#E6E6E6] w-[6.5rem] p-[0.25rem] rounded-[0.7rem]' 
-            value={category} onChange={newCategory} onSelect={handleCategoryChange}>
-              <option value="카테고리">카테고리</option>
-              <option value="MOV">영화</option>
-              <option value="GAME">게임</option>
-              <option value="ENT">연예인</option>
-              <option value="SPO">스포츠</option>
-              <option value="ANI">애니/만화</option>
-            </select>
-          </form>
+      <div className='flex pr-3' >
+        <div className='ml-auto flex'>
+        <img src='../img\Arrange.png' className='h-5 w-5' />
+        <span>정렬</span>
+      </div>
+      </div>
 
-          <form className='pl-[3rem]'>
-            <select className='border-[0.13rem] border-[#E6E6E6] ml-[-1.5rem] w-[6.5rem] p-[0.25rem] rounded-[0.7rem]' 
-            value={transType} onChange={newTransType} onSelect={handleTransTypeChange}>
-            <option value="거래종류">거래종류</option>
-            <option value="판매해요">판매해요</option>
-            <option value="교환해요">교환해요</option>
-            <option value="나눔해요">나눔해요</option>
-            <option value="같이해요">같이해요</option>
-            </select>
-          </form>
+      
+      <div className='flex flex-wrap mb-24'>
+        {loading ? ( // 로딩 중인 경우
+          <div className="loader">로딩 중...</div>
+        ) : (
 
-          <form className='pl-[3rem]'>
-            <select className='border-[0.13rem] border-[#E6E6E6] ml-[-1.5rem] w-[6.5rem] p-[0.25rem] rounded-[0.7rem]' 
-            value={condition} onChange={newCondition} onSelect={handleoxChange}>
-            <option value="상태등급">상태등급</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            </select>
-          </form>
-        </div>
+          data.map((item, index) => (
+           
+            <SearchDatail_Item
+              key={index}
+              title={item.title}
+              price={item.price}
+              createdDate={item.createdDate}
+              thumbnailImg={item.thumbnailImg}
+              documentId = {item.documentId}
+            />
+           
+          ))
+        )}
+      </div>
 
-        <div className='bg-[#ffffff] mt-[2rem] h-[2rem] flex '>
-
-            <p className='font-medium text-[1rem] mt-[0.1rem] ml-[20.2rem]'>품절</p>
-  
-          {isToggleOn ? (
-            <FontAwesomeIcon icon={faToggleOn} className='flex inline-block ml-[-0.4rem] w-[4rem] h-[2rem]' style={{ color: '#f5e69e' }} onClick={handleToggleClick} />
-          ) : (
-            <FontAwesomeIcon icon={faToggleOff} className='flex inline-block ml-[-0.4rem] w-[4rem] h-[2rem]' style={{ color: '#f5e69e' }} onClick={handleToggleClick} />
-          )}
-
-        </div>
-        
-{/* 
-        {Data.map((item, index) => (
-        <SearchDetail_Item 
-          key={index}
-          title={item.title}
-          price={item.price}
-          createdDate={item.createdDate}
-          thumbnailImg={item.thumbnailImg}
-          transType={item.transType} />
-        ))} */}
-
-        <SearchDetail_Item />
-
-        <Nav/>
-
+    
     </div>
-  )
+
+          
+    
+    <Nav />
+    </>
+  );
 }
 
+SearchSelectbox.propTypes = {
+  OPTIONS: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string,
+    name: PropTypes.string,
+  })).isRequired,
+};
 
 export default SearchDetail;

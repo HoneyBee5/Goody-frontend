@@ -13,7 +13,7 @@ const Nav = () => {
         <button className='w-8 mx-6 my-4 nav_sm'>
           <Link to="/home">
             <img
-              src={location.pathname === '/home' ? 'img/home_yellow.png' : 'img/home_gray.png'}
+              src={location.pathname === '/home' ? '../img/home_yellow.png' : '../img/home_gray.png'}
               alt='Home'
             />
           </Link>
@@ -21,7 +21,7 @@ const Nav = () => {
         <button className='w-8 mx-6 my-4 nav_sm'>
           <Link to="/collection">
             <img
-              src={location.pathname === '/collection' ? 'img/collection_yellow.png' : 'img/collection_gray.png'}
+              src={location.pathname === '/collection' ? '../img/collection_yellow.png' : '../img/collection_gray.png'}
               alt='Collection'
             />
           </Link>
@@ -29,7 +29,7 @@ const Nav = () => {
         <button className='w-8 mx-7 my-4 nav_sm'>
           <Link to="/addWrite">
             <img
-              src={location.pathname === '/addWrite' ? 'img/write_yellow.png' : 'img/write_gray.png'}
+              src={location.pathname === '/addWrite' ? '../img/write_yellow.png' : '../img/write_gray.png'}
               alt='Add Write'
             />
           </Link>
@@ -37,7 +37,7 @@ const Nav = () => {
         <button className='w-7 mx-6 my-4 nav_chat'>
           <Link to="/chatting">
             <img
-              src={location.pathname === '/chatting' ? 'img/chat_yellow.png' : 'img/chat_gray.png'}
+              src={location.pathname === '/chatting' ? '../img/chat_yellow.png' : '../img/chat_gray.png'}
               alt='Chatting'
             />
           </Link>
@@ -45,7 +45,7 @@ const Nav = () => {
         <button className='w-8 mx-6 my-4 nav_sm'>
           <Link to="/mypage">
             <img
-              src={location.pathname === '/mypage' ? 'img/my_yellow.png' : 'img/my_gray.png'}
+              src={location.pathname === '/mypage' ? '../img/my_yellow.png' : '../img/my_gray.png'}
               alt='My Page'
             />
           </Link>
