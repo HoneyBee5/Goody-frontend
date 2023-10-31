@@ -121,19 +121,6 @@ function WriteDetail() {
           </div>
         </div>
 
-
-        {/* 제목 하트 부분 */}
-        {/* <div className='flex'>
-        <div className='mt-3 ml-5 flex mb-2 justify-between items-center w-full'>
-          <div>
-            <label className='font-bold text-xl'>{writeDetailData?.title}</label>
-          </div>
-          <div className='flex items-center'>
-            <img src="/img/Like.png" className="w-7 h-8" alt="Like" /> <label className='mr-5'>{writeDetailData?.heart}</label>
-          </div>
-        </div> */}
-
-
         {/* 카테고리 */}
         <div className='mt-5 ml-3 w-300 flex'>
           <div className='flex justify-center rounded-2xl w-24 m-2 h-7' style={{ border: '1px solid #909090' }}>
