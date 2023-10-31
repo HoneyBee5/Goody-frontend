@@ -7,7 +7,6 @@
 }
 
 .nav_button {
-  background-color: #FFD52B;
   color: rgb(0, 0, 0);
   font-weight: bolder;
   border: none;
@@ -16,3 +15,7 @@
 }
 
 
+.yellow {
+  background-color: #FFD52B; /* Use your theme's secondary color here */
+  color: white; /* Adjust text color for readability */
+}

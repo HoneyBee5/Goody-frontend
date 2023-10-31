@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import { Link } from 'react-router-dom';
 
 function Join()  {
   
@@ -67,6 +67,12 @@ function Join()  {
             </button>
           </div>
           </form>
+
+          <div className='text-center mt-5'>
+        <div className='flex justify-center space-x-2'>
+          <Link to="/"><p> 로그인 </p></Link>
+        </div>
+      </div>
         </div>
       );
 }

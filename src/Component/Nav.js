@@ -1,57 +1,82 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Component.css';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 
-// 네비게이션
+const iconStyle = { width: 25, margintop: '2px' }; // Adjust the size of your icons
+
 const Nav = () => {
   const location = useLocation();
 
   return (
-    <div className='bg-[#f8f8f8] fixed w-full bottom-0 shadow-inner'>
-      <div>
-        <button className='w-8 mx-6 my-4 nav_sm'>
-          <Link to="/home">
+    <Paper elevation={3} style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+      <BottomNavigation>
+        <BottomNavigationAction
+          label="Home"
+          icon={
             <img
               src={location.pathname === '/home' ? '../img/home_yellow.png' : '../img/home_gray.png'}
-              alt='Home'
+              alt="Home"
+              style={iconStyle}
             />
-          </Link>
-        </button>
-        <button className='w-8 mx-6 my-4 nav_sm'>
-          <Link to="/collection">
+          }
+          component={Link}
+          to="/home"
+          selected={location.pathname === '/home'}
+        />
+        <BottomNavigationAction
+          label="Collection"
+          icon={
             <img
               src={location.pathname === '/collection' ? '../img/collection_yellow.png' : '../img/collection_gray.png'}
-              alt='Collection'
+              alt="Collection"
+              style={iconStyle}
             />
-          </Link>
-        </button>
-        <button className='w-8 mx-7 my-4 nav_sm'>
-          <Link to="/addWrite">
+          }
+          component={Link}
+          to="/collection"
+          selected={location.pathname === '/collection'}
+        />
+        <BottomNavigationAction
+          label="Add Write"
+          icon={
             <img
               src={location.pathname === '/addWrite' ? '../img/write_yellow.png' : '../img/write_gray.png'}
-              alt='Add Write'
+              alt="Add Write"
+              style={iconStyle}
             />
-          </Link>
-        </button>
-        <button className='w-7 mx-6 my-4 nav_chat'>
-          <Link to="/chatting">
+          }
+          component={Link}
+          to="/addWrite"
+          selected={location.pathname === '/addWrite'}
+        />
+        <BottomNavigationAction
+          label="Chatting"
+          icon={
             <img
               src={location.pathname === '/chatting' ? '../img/chat_yellow.png' : '../img/chat_gray.png'}
-              alt='Chatting'
+              alt="Chatting"
+              style={iconStyle}
             />
-          </Link>
-        </button>
-        <button className='w-8 mx-6 my-4 nav_sm'>
-          <Link to="/mypage">
+          }
+          component={Link}
+          to="/chatting"
+          selected={location.pathname === '/chatting'}
+        />
+        <BottomNavigationAction
+          label="My Page"
+          icon={
             <img
               src={location.pathname === '/mypage' ? '../img/my_yellow.png' : '../img/my_gray.png'}
-              alt='My Page'
+              alt="My Page"
+              style={iconStyle}
             />
-          </Link>
-        </button>
-      </div>
-    </div>
+          }
+          component={Link}
+          to="/mypage"
+          selected={location.pathname === '/mypage'}
+        />
+      </BottomNavigation>
+    </Paper>
   );
 };
 

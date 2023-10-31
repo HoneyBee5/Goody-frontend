@@ -6,7 +6,18 @@ import './WriteDetail.css';
 import { useNavigate } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
 import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
+// 탭뷰 테마 커스텀 테마를 생성
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#FFD52B', // 원하는 색상으로 변경
+    },
+  },
+});
 
 
 function WriteDetail() {
@@ -57,6 +68,7 @@ function WriteDetail() {
 
       const data = await response.json();
       setWriteDetailData(data);
+      console.log(data);
     } catch (error) {
       console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
     }
@@ -72,11 +84,10 @@ function WriteDetail() {
 
 
   return (
+    <ThemeProvider theme={theme}>
     <div>
       {writeDetailData && writeDetailData.imgPath && writeDetailData.imgPath.length > 0 ? (
         <div className='relative w-full'>
-
-
           <div className='absolute right-0 p-4'>
             <button onClick={handleBack} className=''>
               <img src="/img/close.png" alt="닫기" className=" w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
@@ -105,14 +116,14 @@ function WriteDetail() {
       <div>
         <div className='flex'>
           <div className='flex mt-5 ml-5'>
-            {writeDetailData?.writerId && (
+            {documentId && (
               <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
-                {writeDetailData.writerId.charAt(0)} {/* 첫 글자만 표시 */}
+                {documentId.charAt(0)} {/* 첫 글자만 표시 */}
               </Avatar>
             )}
             <div className='ml-2'>
               <div className=''>
-                <label className='font-bold'> {writeDetailData?.writerId} </label>
+                <label className='font-bold'> {documentId} </label>
               </div>
               <div>
                 <label className='text-sm'>등급</label>
@@ -121,27 +132,19 @@ function WriteDetail() {
           </div>
         </div>
 
-
-        {/* 제목 하트 부분 */}
-        {/* <div className='flex'>
-        <div className='mt-3 ml-5 flex mb-2 justify-between items-center w-full'>
-          <div>
-            <label className='font-bold text-xl'>{writeDetailData?.title}</label>
-          </div>
-          <div className='flex items-center'>
-            <img src="/img/Like.png" className="w-7 h-8" alt="Like" /> <label className='mr-5'>{writeDetailData?.heart}</label>
-          </div>
-        </div> */}
-
-
         {/* 카테고리 */}
-        <div className='mt-5 ml-3 w-300 flex'>
-          <div className='flex justify-center rounded-2xl w-24 m-2 h-7' style={{ border: '1px solid #909090' }}>
-            <label>{writeDetailData?.category}</label>
-          </div>
-          <div className='flex justify-center rounded-2xl w-24 m-2 h-7' style={{ border: '1px solid #909090' }}>
-            <label>{writeDetailData?.transType}</label>
-          </div>
+        <div className='mt-5 ml-5 w-300 flex'>
+          <Chip
+            label={writeDetailData?.category}
+            color="primary" 
+            size="medium"
+            className='mr-5'
+          />
+          <Chip
+            label={writeDetailData?.transType}
+            color="primary" 
+            size="medium"
+          />
         </div>
 
         {/* 설명 */}
@@ -149,27 +152,47 @@ function WriteDetail() {
           <label className='ml-[0.5rem] text-[#565656]'>{writeDetailData?.explain}</label>
         </div>
 
+        <br></br>
+
+        {writeDetailData?.transType === '같이해요' && writeDetailData?.people && (
+          <div className="m-4">
+            <h2 className="text-sm font-bold ml-3">품목 리스트</h2>
+            <div>
+              {writeDetailData.people.map((person, index) => (
+                <Chip
+                  key={index}
+                  label={person}
+                  variant="outlined"
+                  style={{ margin: '0.5rem' }}
+                />
+              ))}
+            </div>
+            {writeDetailData.people.length > 0 && <div style={{ marginBottom: '6rem' }}></div>}
+          </div>
+        )}
+
+
+
         {/* 가격 및 구매하기 */}
-        <div className='bottom-0 fixed  w-full'>
-          <div className='flex justify-center bg-[#e2e2e2] h-20 p-4'>
+        <div className='bottom-0 fixed w-full'>
+          <div className='flex justify-center bg-[#f8f8f8] h-15 p-2'>
 
-            <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''} p-3`} size="xl" onClick={handleLikeClick} />
-
-            <div className='w-[0.1rem] h-[2.5rem] bg-[#b8b8b8] mt-[0.4rem] ml-[1rem]'></div>
-            <div className='p-3 pl-5 font-semibold text-lg'>
+            <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''} p-3`} size="lg" onClick={handleLikeClick} />
+            <div className='p-3 pl-5 font-semibold text-sm'>
               <label>{writeDetailData.price}원</label>
             </div>
             <div className='flex ml-auto mr-[0.5rem]' >
               <Link to="/chatting">
-                <button className='bg-[#FFD52B] w-[8.5rem] h-[3.2rem] right-0 mt-[0rem] border rounded-xl'>
-                  <label style={{ color: 'black', fontWeight: 'bolder', fontSize: '20px' }}>구매하기</label>
+                <button className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'>
+                구매하기
                 </button>
               </Link>
             </div>
           </div>
         </div>
-
-      </div></div>
+      </div>
+    </div>
+    </ThemeProvider>
   );
 }
 
