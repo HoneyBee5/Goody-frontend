@@ -14,7 +14,7 @@ import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
 import Categories from './Categories';
 import CollectionDetail from '../Collection/collectionDetail';
-import SearchDatail from '../Search/SearchDetail';
+import SearchDetail from '../Search/SearchDetail';
 import CollectionWrtie from '../Collection/collectionWrite';
 import Search from '../Search/Search';
 import WriteDetail from '../Write/WriteDetail';
@@ -48,7 +48,8 @@ const App = () => {
           <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
           <Route exact path="/Search" element={<Search />} />
           <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
-          <Route exact path="/SearchDatail"  element={<SearchDatail />} />
+          <Route path="/SearchDetail/" element={<SearchDetail />} />
+          <Route path="/SearchDetail/:Searchtext" element={<SearchDetail />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/findid" element={<FindId />} />
