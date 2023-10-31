@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Chip from '@mui/material/Chip';
 
 const Item_width = ({ data }) => {
-  const MAX_TITLE_LENGTH = 16; // 원하는 최대 길이
+  const MAX_TITLE_LENGTH = window.innerWidth <= 390 ? 14 : 16;
 
   const formatPrice = (price) => {
     return price.toLocaleString(); // 가격에 천 단위 구분 기호(쉼표) 추가
@@ -20,8 +20,8 @@ const Item_width = ({ data }) => {
           <img src={data.thumbnailImg} alt={data.title} className='rounded-xl'  style={{ width:'60px', height: '60px', objectFit: 'cover' }} />
         </div>
         <div className='ml-3 '>
-          <p className='font-bold'>{truncatedTitle}</p>
-          <p className='font-bold text-sm'>{formatPrice(data.price)}원</p>
+          <p className='font-bold text-sm'>{truncatedTitle}</p>
+          <p className='font-bold text-xs'>{formatPrice(data.price)}원</p>
           <p className='text-xs'>{data.createdDate}</p>
         </div>
         <Chip
@@ -31,7 +31,6 @@ const Item_width = ({ data }) => {
             className='h-6 ml-auto mt-auto mr-4'
           />
       </div>
-      <hr />
     </>
   );
 };
