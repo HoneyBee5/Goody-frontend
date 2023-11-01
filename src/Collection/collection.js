@@ -8,15 +8,14 @@ import PropTypes from 'prop-types';
 const PlusBtn = () => {
   return (
     <Link to="/collectionWrite">
-      <button className='right-3 bottom-24 absolute'>
-        <img src="/img/collection_plusButton.png" alt='플러스' width={'70px'} className='' />
+      <button className='right-3 bottom-16 absolute'>
+        <img src="/img/collection_plusButton.png" alt='플러스' width={'50px'} className='' />
       </button>
     </Link>
   );
 };
 
 const CollectionItem = ({ item }) => {
-
   // 컬렉션 아이템 정보를 받아와서 렌더링
   return (
     <div className='inline-flex'>
@@ -25,7 +24,7 @@ const CollectionItem = ({ item }) => {
           <div>
             <img
               src={item.thumbnail} // 이미지 URL 사용
-              className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item col_item2'
+              className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item'
             />
           </div>
         </button>
@@ -88,17 +87,21 @@ function Collection() {
         <div className='w-full flex justify-center mb-20'>
           <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
         </div>
-        <Link to="/Inspect">
+        <Link to="/search">
           <button className='absolute right-14 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><img src="img/Search.png" alt='검색' width={'25px'} height={'25px'} /></button>
         </Link>
         <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link></button>
       </div>
 
-      {Array.isArray(collectionItems) &&
-        collectionItems.map((item, index) => (
-          <CollectionItem key={index} item={item} />
-        ))
-      }
+      <div className='flex flex-col items-center'> {/* 부모 요소 */}
+        <div className='grid grid-cols-3 gap-1'> {/* 그리드 컨테이너, 3개의 열과 간격 설정 */}
+          {Array.isArray(collectionItems) &&
+            collectionItems.map((item, index) => (
+              <CollectionItem key={index} item={item} />
+            ))
+          }
+        </div>
+      </div>
 
       <PlusBtn />
       <Nav />

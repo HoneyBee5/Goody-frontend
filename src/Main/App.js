@@ -21,12 +21,10 @@ import WriteDetail from '../Write/WriteDetail';
 import Home from './Home';
 import Login from '../Login/Login';
 import Join from '../Login/Join';
-import FindId from '../Login/FindId';
-import FindPw from '../Login/FindPw';
-import {SearchDatail_Item} from '../Component/SearchDatail_Item';
 import Chatting from '../Chatting/Chatting';
 import TabView from './TabView';
 import MainCategories from './MainCategories';
+import { SearchDatail_Item } from '../Search/SearchDetail_item';
 
 const App = () => {
   
@@ -56,8 +54,6 @@ const App = () => {
           <Route path="/SearchDetail/:Searchtext" element={<SearchDetail />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
-          <Route path="/findid" element={<FindId />} />
-          <Route path="/findpw" element={<FindPw />} />
           <Route path="/tabview" element={<TabView />} />
           <Route path="/maincategories" element={<MainCategories />} />
           <Route path="/" element={<Login />} />

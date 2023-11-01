@@ -70,10 +70,10 @@ const Home = () => {
       <HomeActionBar imageSrc="img\HomeActionBar.png">
         <div className='left-0 absolute w-full flex justify-center items-center mt-24'>
           <div className="all">
-            <div id="con" style={{ transform: `translateX(-${thisIndex * 355}px)` }}>
-              <a href="#"><img className="main_img" src="img/EventImg1.png" alt="event_img" width={'355px'} /></a>
-              <a href="#"><img className="main_img" src="img/EventImg2.png" alt="event_img2" width={'355px'} /></a>
-              <a href="#"><img className="main_img" src="img/EventImg3.png" alt="event_img3" width={'355px'} /></a>
+          <div id="con" style={{ transform: `translateX(-${thisIndex * (window.innerWidth <= 390 ? 305 : 335)}px)` }}>
+              <a href="#"><img className="main_img" src="img/EventImg1.png" alt="event_img" /></a>
+              <a href="#"><img className="main_img" src="img/EventImg2.png" alt="event_img2" /></a>
+              <a href="#"><img className="main_img" src="img/EventImg3.png" alt="event_img3"/></a>
             </div>
             <button
               id="prev"
@@ -103,12 +103,12 @@ const Home = () => {
       {/* 메인 카테고리 */}
       <div className='flex justify-center'>
         <div className="mb-2">
-          <Link to="/maincategories?category=MOV&name=영화"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Movie.png' className='shadow-md rounded-2xl mb-2' alt='MOV'></img>영화</button></Link>
-          <Link to="/maincategories?category=GAME&name=게임"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Games.png' className='shadow-md rounded-2xl mb-2' alt='GAME'></img>게임</button></Link>
-          <Link to="/maincategories?category=ENT&name=연예인"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Mic.png' className='shadow-md rounded-2xl mb-2' alt='ENT'></img>연예인</button></Link>
-          <Link to="/maincategories?category=CHA&name=캐릭터"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Bear.png' className='shadow-md rounded-2xl mb-2' alt='CHA'></img>캐릭터</button></Link>
-          <Link to="/maincategories?category=SPO&name=스포츠"> <button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Ball.png' className='shadow-md rounded-2xl mb-2' alt='SPO'></img>스포츠</button></Link>
-          <Link to="/maincategories?category=ANI&name=만화"><button className='w-10 mx-2.5 my-5 font-bold text-gray-600 text-sm cate'> <img src='img\Book.png' className='shadow-md rounded-2xl mb-2' alt='ANI'></img>만화</button></Link>
+          <Link to="/maincategories?category=MOV&name=영화"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Movie.png' className='shadow-md rounded-2xl mb-2' alt='MOV'></img>영화</button></Link>
+          <Link to="/maincategories?category=GAME&name=게임"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Games.png' className='shadow-md rounded-2xl mb-2' alt='GAME'></img>게임</button></Link>
+          <Link to="/maincategories?category=ENT&name=연예인"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Mic.png' className='shadow-md rounded-2xl mb-2' alt='ENT'></img>연예인</button></Link>
+          <Link to="/maincategories?category=CHA&name=캐릭터"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Bear.png' className='shadow-md rounded-2xl mb-2' alt='CHA'></img>캐릭터</button></Link>
+          <Link to="/maincategories?category=SPO&name=스포츠"> <button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Ball.png' className='shadow-md rounded-2xl mb-2' alt='SPO'></img>스포츠</button></Link>
+          <Link to="/maincategories?category=ANI&name=만화"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Book.png' className='shadow-md rounded-2xl mb-2' alt='ANI'></img>만화</button></Link>
         </div>
       </div>
       <hr />

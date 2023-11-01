@@ -5,9 +5,9 @@ import { createRoot } from 'react-dom/client'; // "react-dom/client"에서 creat
 
 // document.getElementById('root') root를 퍼블릭 인덱스 바디와 연결
 createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <App />
-  </React.StrictMode>
+  //</React.StrictMode>
 );
 
 
