@@ -36,11 +36,11 @@ const OPTIONS3 = [
 
 
 const SearchDetail = () => {
-  const navigate = useNavigate();
-  const { Searchtext } = useParams();
+  const navigate = useNavigate(); //네비게이션
+  const { Searchtext } = useParams(); //게시글 파라미터 추출
   
-  const [text, setText] = useState(Searchtext);
-  const [category,setCategory] = useState('');
+  const [text, setText] = useState(Searchtext); //입력한 값
+  const [category,setCategory] = useState(''); //
 
   const [transtype,setTransType] = useState('');
   const [sold,setSold] = useState('');
