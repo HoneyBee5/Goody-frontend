@@ -139,7 +139,7 @@ useEffect(() => {
   // likedItems 배열을 사용하여 해당 아이템의 좋아요 상태를 설정
   const isLiked = likedItems.includes(documentId);
   setLiked(isLiked);
-}, []);
+}, [documentId]);
 
 
   const isFirstImage = currentImageIndex === 0;
