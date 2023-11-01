@@ -28,10 +28,81 @@ function WriteDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [liked, setLiked] = useState(false);
 
-  const handleLikeClick = () => {
-    setLiked(!liked);
-  };
 
+
+  
+  const handleLikeClick = () => {
+
+      // 좋아요 상태를 토글하고 저장
+      setLiked(!liked);
+      const likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+
+
+      if (liked) {
+        // 이미 좋아요한 경우, 아이템을 제거
+        const updatedLikedItems = likedItems.filter((item) => item !== documentId);
+        localStorage.setItem('likedItems', JSON.stringify(updatedLikedItems));
+
+
+        // 좋아요 취소 API 호출
+        const headers = {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        };
+        
+        const dataToSend = {
+          documentId: documentId,
+        };
+
+        fetch(`https://www.honeybee-goody.site/goody/contents/removeLike?documentId=${documentId}`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(dataToSend),
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('HTTP 오류 ' + response.status);
+          }
+        })
+        .catch((error) => {
+          console.error('좋아요 취소 중 오류 발생:', error);
+        });
+        
+
+      } else {
+        // 좋아요하지 않은 경우, 아이템을 추가
+        likedItems.push(documentId);
+        localStorage.setItem('likedItems', JSON.stringify(likedItems));
+
+
+    const headers = {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    };
+  
+    const dataToSend = {
+    documentId: documentId,
+      liked: true, // 현재 상태를 토글
+    };
+  
+    fetch(`https://www.honeybee-goody.site/goody/contents/addlike?documentId=${documentId}`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(dataToSend),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('HTTP 오류 ' + response.status);
+        }
+      })
+      .catch((error) => {
+        console.error('좋아요 정보 업데이트 중 오류 발생:', error);
+      });
+    }
+  };
+ 
+ 
+ 
   const handleBack = () => {
     navigate(-1);
   };
@@ -74,9 +145,14 @@ function WriteDetail() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+useEffect(() => {
+  fetchData();
+  // 로컬 스토리지에서 좋아요한 아이템 목록을 가져옴
+  const likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+  // likedItems 배열을 사용하여 해당 아이템의 좋아요 상태를 설정
+  const isLiked = likedItems.includes(documentId);
+  setLiked(isLiked);
+}, [documentId]);
 
 
   const isFirstImage = currentImageIndex === 0;
@@ -195,5 +271,7 @@ function WriteDetail() {
     </ThemeProvider>
   );
 }
+
+
 
 export default WriteDetail;

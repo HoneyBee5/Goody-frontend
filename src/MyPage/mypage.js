@@ -89,7 +89,7 @@ const Mypage = () => {
           Authorization: `${token}`,
         };
 
-        const response = await fetch('http://27.96.134.23:4001/goody/myPage/', {
+        const response = await fetch('https://www.honeybee-goody.site/goody/myPage/', {
           method: 'GET',
           headers,
         });

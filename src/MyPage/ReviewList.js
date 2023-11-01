@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
 import { ActionBarClose } from '../Component/ActionBarClose';
-import { Item_UserReview } from '../Component/Item_UserReview';
 import { Item_KeywordReview } from '../Component/Item_KeywordReview';
 
 
@@ -37,19 +36,7 @@ const ReviewList = () => {
 
 
                   </div> <br />
-                  <br />
 
-                  {/* 사용자 리뷰 */}
-                  <div className="p-2">
-                        <button className="flex pl-5 items-center">
-                              <img src="img/Icon_List.png" alt="사용자 리뷰" className="h-6 w-6 mr-5" />
-                              <span className="font-extrabold">사용자 리뷰</span>
-                        </button>
-                        <div className='p-4'>
-                              <Item_UserReview />
-                        </div>
-
-                  </div>
             </>
       );
 }

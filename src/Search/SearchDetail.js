@@ -3,8 +3,8 @@ import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 import { SearchDatail_Item } from './SearchDetail_item';
 import SearchSelectbox from './SearchSelectbox';
-import { useNavigate  } from 'react-router-dom';
-import { useParams  } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -51,9 +51,7 @@ const SearchDetail = () => {
 
   const queryParameters = [];
 
-  let apiUrl = 'http://27.96.134.23:4001/goody/contents/search';
-  
-  
+  let apiUrl = 'https://www.honeybee-goody.site/goody/contents/search';
  
    if (text) {
       apiUrl += `?search=${text}`;
