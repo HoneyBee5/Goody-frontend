@@ -29,34 +29,21 @@ function WriteDetail() {
   const [liked, setLiked] = useState(false);
 
 
-
-  
   const handleLikeClick = () => {
 
-      // 좋아요 상태를 토글하고 저장
-      setLiked(!liked);
-      const likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+      setLiked(!liked); // 좋아요 상태를 토글하고 저장
 
+      const dataToSend = {
+        documentId: documentId,
+        liked: !liked, // 좋아요 상태를 토글
+      };
 
-      if (liked) {
-        // 이미 좋아요한 경우, 아이템을 제거
-        const updatedLikedItems = likedItems.filter((item) => item !== documentId);
-        localStorage.setItem('likedItems', JSON.stringify(updatedLikedItems));
-
-
-        // 좋아요 취소 API 호출
-        const headers = {
-          Authorization: token,
-          'Content-Type': 'application/json',
-        };
-        
-        const dataToSend = {
-          documentId: documentId,
-        };
-
+      if (liked) {  // 좋아요 취소 API 호출
         fetch(`https://www.honeybee-goody.site/goody/contents/removeLike?documentId=${documentId}`, {
           method: 'POST',
-          headers,
+          headers: {
+            Authorization: `${token}`,
+          },
           body: JSON.stringify(dataToSend),
         })
         .then((response) => {
@@ -71,8 +58,7 @@ function WriteDetail() {
 
       } else {
         // 좋아요하지 않은 경우, 아이템을 추가
-        likedItems.push(documentId);
-        localStorage.setItem('likedItems', JSON.stringify(likedItems));
+      
 
 
     const headers = {

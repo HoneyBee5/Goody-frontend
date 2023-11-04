@@ -8,6 +8,7 @@ const Nav = () => {
   const location = useLocation();
 
   return (
+    <div>
     <Paper elevation={3} style={{ position: 'fixed', bottom: 0, width: '100%' }}>
       <BottomNavigation>
         <BottomNavigationAction
@@ -77,6 +78,7 @@ const Nav = () => {
         />
       </BottomNavigation>
     </Paper>
+    </div>
   );
 };
 

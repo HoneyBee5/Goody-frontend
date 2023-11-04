@@ -5,10 +5,37 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import { Drawer } from 'antd';
+
 
 // 액션바
 const HomeActionBar = ({ children, imageSrc }) => {
 
+  const [visible, setVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState('영화');
+
+
+  const openCity = (cityName) => {
+    setActiveTab(cityName);
+  };
+
+  useEffect(() => {
+    const defaultOpenElement = document.getElementById('defaultOpen');
+    if (defaultOpenElement) {
+      defaultOpenElement.click();
+    }
+  }, []);
+
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
+
+
+  
   return (
     <div className='flex'>
       <img className='relative' src={imageSrc} alt='구디' />
@@ -17,13 +44,118 @@ const HomeActionBar = ({ children, imageSrc }) => {
         <button className='absolute right-12 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
           <img src="img/Search.png" alt='검색' width={'25px'} height={'25px'} />
         </button></Link>
-      <button className='absolute right-0 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
-        <Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link>
+      <button onClick={showDrawer} className='absolute right-0 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
+        <img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} />
       </button>
 
       <div>
         {children && (<div className=''>{children}</div>
-        )}</div></div>
+        )}
+      </div>
+    
+      <Drawer
+      placement="right"
+      closable={false}
+      onClose={onClose}
+      visible={visible} 
+      >
+     <div className='ml-[-1.5rem] mt-[-1rem]'>
+      <div className='flex'>
+        <button  onClick={onClose} className='absolute mt-[-1.3rem] mr-[-0.5rem] right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
+          <img src="img/Close.png" alt='닫기' width={'30px'} height={'30px'} />
+        </button>
+      </div>
+
+
+      <div className="tab">
+        <button className={activeTab === '영화' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('영화')} id="defaultOpen"> 영화</button>
+        <button className={activeTab === '게임' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('게임')}> 게임</button>
+        <button className={activeTab === '연예인' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('연예인')}>연예인</button>
+        <button className={activeTab === '캐릭터' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('캐릭터')}> 캐릭터</button>
+        <button className={activeTab === '스포츠' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('스포츠')}> 스포츠</button>
+        <button className={activeTab === '만화' ? 'tablinks active' : 'tablinks'} onClick={() => openCity('만화')}> 만화</button>
+      </div>
+
+      <div id="영화" className={activeTab === '영화' ? 'tabcontent' : 'tabcontent hidden'}>
+        <div className="">
+          <ul>
+            <li className="font-bold">영화</li>
+            <li className='my-5'><a href="#">· 국내 영화</a></li>
+            <li className='my-5'><a href="#">· 해외 영화</a></li>
+          </ul>
+        </div></div>
+
+
+      <div id="연예인" className={activeTab === '연예인' ? 'tabcontent' : 'tabcontent hidden'}>
+        <div className="">
+          <ul>
+            <li className="font-bold">아이돌</li>
+            <li className='my-5'><a href="#">· 남자 아이돌</a></li>
+            <li className='my-5'><a href="#">· 여자 아이돌</a></li>
+            <li className="my-5"><a href="#">· 남자 솔로 가수</a></li>
+            <li className="mb-8"><a href="#">· 여자 솔로 가수</a></li>
+          </ul>
+        </div> 
+        
+        <div className="">
+          <ul>
+            <li className="font-bold">배우</li>
+            <li className='my-5'><a href="#">· 남자 배우</a></li>
+            <li className='my-5'><a href="#">· 여자 배우</a></li>
+          </ul>
+        </div>
+        </div>
+
+      <div id="게임" className={activeTab === '게임' ? 'tabcontent' : 'tabcontent hidden'}>
+        <ul>
+          <li className="font-bold">게임</li>
+          <li className='my-5'><a href="#">· 롤플레잉 게임 RPG</a></li>
+          <li className='my-5'><a href="#">· 시뮬레이션 게임 SLG</a></li>
+          <li className="my-5"><a href="#">· 액션 게임 ATG</a></li>
+          <li className="my-5"><a href="#">· 리듬 게임</a></li>
+          <li className="my-5"><a href="#">· 연애 게임</a></li>
+          <li className='mb-8'><a href="#">· 스포츠 게임</a></li>
+        </ul>
+      </div>
+
+      <div id="스포츠" className={activeTab === '스포츠' ? 'tabcontent' : 'tabcontent hidden'}>
+        <div className="">
+          <ul>
+            <li className="font-bold">스포츠</li>
+            <li className='my-5'><a href="#">· 육상 경기 종목 </a></li>
+            <li className='my-5'><a href="#">· 구기 종목</a></li>
+            <li className="my-5"><a href="#">· 라켓 스포츠</a></li>
+            <li className="my-5"><a href="#">· 수상 스포츠</a></li>
+            <li className='my-5'><a href="#">· 기계 체조</a></li>
+            <li className='mb-8'><a href="#">· 격기 종목</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="만화" className={activeTab === '만화' ? 'tabcontent' : 'tabcontent hidden'}>
+        <div className="">
+          <ul>
+            <li className="font-bold">만화</li>
+            <li className='my-5'><a href="#">· 웹툰 </a></li>
+            <li className='my-5'><a href="#">· 애니메이션</a></li>
+            <li className="my-5"><a href="#">· 만화책</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="캐릭터" className={activeTab === '캐릭터' ? 'tabcontent' : 'tabcontent hidden'}>
+        <ul>
+          <li className="font-bold">캐릭터</li>
+          <li className='my-5'><a href="#">· 카카오</a></li>
+          <li className='my-5'><a href="#">· 라인</a></li>
+          <li className="my-5"><a href="#">· 산리오</a></li>
+          <li className="my-5"><a href="#">· 기타</a></li>
+        </ul>
+      </div>
+    </div>
+      </Drawer>
+      
+    </div>
   );
 };
 

@@ -81,6 +81,9 @@ const TabView = () => {
   };
 
   return (
+    
+    <div>
+
     <Box sx={{ width: '100%', bgcolor: 'background.paper', marginTop: '1rem' }}>
       <Tabs
         value={tabValue}
@@ -110,6 +113,7 @@ const TabView = () => {
         </div>
       ))}
     </Box>
+    </div>
   );
 };
 

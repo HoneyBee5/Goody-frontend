@@ -12,7 +12,6 @@ import Mypage from '../MyPage/mypage';
 import ReviewList from '../MyPage/ReviewList';
 import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
-import Categories from './Categories';
 import CollectionDetail from '../Collection/collectionDetail';
 import SearchDetail from '../Search/SearchDetail';
 import CollectionWrtie from '../Collection/collectionWrite';
@@ -24,16 +23,14 @@ import Join from '../Login/Join';
 import Chatting from '../Chatting/Chatting';
 import TabView from './TabView';
 import MainCategories from './MainCategories';
-import { SearchDatail_Item } from '../Search/SearchDetail_item';
 
 const App = () => {
-  
     return (
       <Router>
         <Routes>
         <Route path="/chatting" element={<Chatting />} />
           <Route path="/address" element={<Address />} />
-          <Route path="/chatdetails" element={<Chatdetails />} />s
+          <Route path="/chatdetails" element={<Chatdetails />} />
           <Route path="/review" element={<Review />} />
           <Route path="/honeyhome" element={<Honeyhome />} />
           <Route path="/reviewperfect" element={<Reviewperfect />} />
@@ -42,11 +39,8 @@ const App = () => {
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/favoritelist" element={<FavoriteList />} />
           <Route path="/purchaselist" element={<PurchaseList />} />
-          <Route path="/categories" element={<Categories />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/collectionDetail/:collectionId" element={<CollectionDetail />} />
-          <Route path="/SearchDatail_Item" element={<SearchDatail_Item />} />
-
           <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
           <Route exact path="/Search" element={<Search />} />
           <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
