@@ -23,7 +23,7 @@ const CollectionItem = ({ item }) => {
         <button>
           <div>
             <img
-              src={item.thumbnail} // 이미지 URL 사용
+              src={item.thumbnailPath} // 이미지 URL 사용
               className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] Collecthin_image col_item'
             />
           </div>
@@ -87,7 +87,7 @@ function Collection() {
         <div className='w-full flex justify-center mb-20'>
           <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
         </div>
-        <Link to="/search">
+        <Link to="/collectionSearch">
           <button className='absolute right-14 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><img src="img/Search.png" alt='검색' width={'25px'} height={'25px'} /></button>
         </Link>
         <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link></button>
@@ -113,7 +113,7 @@ function Collection() {
 CollectionItem.propTypes = {
   item: PropTypes.shape({
     collectionId: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
+    thumbnailPath: PropTypes.string.isRequired,
   }).isRequired,
 };
 

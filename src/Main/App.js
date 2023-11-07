@@ -16,6 +16,7 @@ import Categories from './Categories';
 import CollectionDetail from '../Collection/collectionDetail';
 import SearchDetail from '../Search/SearchDetail';
 import CollectionWrtie from '../Collection/collectionWrite';
+import CollectionSearch from '../Collection/collectionSearch';
 import Search from '../Search/Search';
 import WriteDetail from '../Write/WriteDetail';
 import Home from './Home';
@@ -48,6 +49,7 @@ const App = () => {
           <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
           <Route path="/SearchDetail/" element={<SearchDetail />} />
           <Route path="/SearchDetail/:Searchtext" element={<SearchDetail />} />
+          <Route path="/collectionSearch" element={<CollectionSearch />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/tabview" element={<TabView />} />

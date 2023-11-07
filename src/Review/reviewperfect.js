@@ -3,9 +3,12 @@ import './font.css';
 import Button_honey from './Reviewhoneybtn';
 import Button_honey_2 from './Reviewhoneybtn2';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const reviewperfect = () => {
-  const Score = 15;
+  const location = useLocation();
+  const value = location.state ? location.state.value : 0;
+
   const divStyle = {
     zIndex: -1,
     width: '100%',
@@ -16,11 +19,12 @@ const reviewperfect = () => {
   
   return (
     <>
+    
     <div style={divStyle}>
     <p className='font-bold text-white p-5 ml-2 text-xl drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'> REVIEW</p>
 
       <div className='fixed inset-0 flex items-center justify-center flex-col'>
-        <p className='font p-3'  style={{fontSize:'2rem',color:'white'}}> { Score } / 100 꿀을 드렸어요 ! </p>
+        <p className='font p-3'  style={{fontSize:'2rem',color:'white'}}> { value } / 100 꿀을 드렸어요 ! </p>
         <img className='pl-7' src='img/honeyhome.png' style={{ width: '20rem', height: '25rem' }}></img>
 
 
