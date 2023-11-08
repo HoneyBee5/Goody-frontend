@@ -1,14 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
+import Avatar from '@mui/material/Avatar';
+import { grey } from '@mui/material/colors';
 
-const ChatListItem = ({ chat_img ,chat_id, chat_explain }) => {
+const ChatListItem = ({ chat_id, chat_explain }) => {
   return (
-
-    <Link to="/chatdetails" className="block w-full h-15">
-      <div className="p-5 flex border ">
+    <div className="block w-full h-15">
+      <div className="p-5 flex">
         <div>
-          <img src={chat_img} alt="프로필사진" className="rounded-full border" style={{ width: '3.5rem', height:'3.5rem' }} />
+          <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
+            {chat_id ? chat_id.charAt(0) : ''}
+          </Avatar>
         </div>
         <div className="w-3/5 h-full pl-3 pt-0.5">
           <div style={{ fontSize: '1.1rem' }} className="font-extrabold flex justify-start">
@@ -19,16 +21,14 @@ const ChatListItem = ({ chat_img ,chat_id, chat_explain }) => {
           </div>
         </div>
       </div>
-    </Link>
+      <hr />
+    </div>
   );
 };
 
-/*유효성 검사*/ 
 ChatListItem.propTypes = {
-  chat_img: PropTypes.string.isRequired,
   chat_id: PropTypes.string.isRequired,
-  chat_explain: PropTypes.string.isRequired
+  chat_explain: PropTypes.string.isRequired,
 };
-
 
 export default ChatListItem;

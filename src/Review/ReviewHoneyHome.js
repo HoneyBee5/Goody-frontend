@@ -61,7 +61,7 @@ const ReviewHoneyHome = () => {
         width: '100%',
         height: '100%',
         zIndex: -1,
-        backgroundImage: `url('img/honeyhome_back.png')`,
+        backgroundImage: `url('img/BackGround.png')`,
         backgroundSize: 'cover', // 이미지가 div를 덮도록 설정
       };
     

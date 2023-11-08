@@ -89,7 +89,7 @@ const CollectionWrite = () => {
             <ActionBarClose actionBarName={actionBarName} />
             <div>
                 <p className="text-3xl text-[#FFD52B] font-serif flex justify-center mt-10 font-bold">Title</p>
-                <div className='flex-col px-4 mt-3'>
+                <div className='flex-col px-4 '>
                     <input
                         type="text"
                         value={title}
@@ -102,7 +102,7 @@ const CollectionWrite = () => {
             </div>
             <div>
                 <p className="text-3xl text-[#FFD52B] font-serif flex justify-center mt-5 font-bold">STORY</p>
-                <div className='flex-col px-4 mt-3'>
+                <div className='flex-col px-4 '>
                     <textarea
                         type="text"
                         value={story}
@@ -116,6 +116,7 @@ const CollectionWrite = () => {
                 </div>
             </div>
             <div>
+                <img src='img/PhotoText.png' className='w-24 ml-5 mt-2'></img>
         <div className='relative inline-block'>
           {images.map((image, index) => (
             <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
@@ -131,16 +132,16 @@ const CollectionWrite = () => {
             <div style={{ position: 'fixed', bottom: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center', background: 'white' }}>
                 <button>
                     <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />
-                    <label htmlFor="fileInput"> <img src='img\CollectionCamera.png' className='mt-3 w-15 h-14 ml-5 bottom-2' id="selectedImage" alt="Selected"></img></label>            </button>
+                    <label htmlFor="fileInput"> <img src='img\CollectionCamera.png' className=' w-15 h-14 mx-5' id="selectedImage" alt="Selected"></img></label>            </button>
 
                 <button>
                     <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
-                    <label htmlFor="fileInput"> <img src='img\Gallery.png' className='mt-3 w-15 h-14 ml-9 bottom-2'></img></label>
+                    <label htmlFor="fileInput"> <img src='img\Gallery.png' className=' w-15 h-14 mr-5'></img></label>
                 </button>
 
                 <button onClick={handleMiniRegisterClick}>
                     <Link to="/collection">
-                        <img src='img\miniRegister.png' className='w-40 h-12 mt-2 ml-10' alt="Mini Register"></img>
+                        <img src='img\addBtn.png' className='w-48 h-11' alt="Mini Register"></img>
                     </Link>
                 </button>
             </div>

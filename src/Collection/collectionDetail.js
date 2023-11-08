@@ -19,7 +19,7 @@ function CollectionDetail() {
         Authorization: `${token}`,
       };
 
-      const response = await fetch(`http://27.96.134.23:4001/goody/collection/detail?collectionId=${collectionId}`, {
+      const response = await fetch(`https://www.honeybee-goody.site/goody/collection/detail?collectionId=${collectionId}`, {
         method: 'GET',
         headers,
       });
@@ -27,7 +27,7 @@ function CollectionDetail() {
       if (response.ok) {
         const data = await response.json();
         setCollectionData(data);
-        setCurrentImageIndex(0); 
+        setCurrentImageIndex(0);
       } else {
         console.error('An error occurred while fetching collection item list.');
       }
@@ -39,12 +39,12 @@ function CollectionDetail() {
   const handleImageClick = () => {
     const newMarginTop = marginTop === 0 ? -225 : 0;
     setMarginTop(newMarginTop);
-  
+
     setIsSliding(true);
     setIsDescriptionVisible1(isDescriptionVisible);
     setIsDescriptionVisible(!isDescriptionVisible);
-    
- 
+
+
   };
 
   const showPreviousImage = () => {
@@ -79,70 +79,69 @@ function CollectionDetail() {
         <button className='absolute left-0 w-[10rem] h-[50rem]' onClick={showPreviousImage}></button> {/*이미지*/}
         <button className='absolute right-0 w-[10rem] h-[50rem]' onClick={showNextImage}> </button>{/*이미지*/}
         {/*이미지*/}
-          <img   
-          
-            src={collectionData && collectionData.images[currentImageIndex]}
-            alt={`Image ${currentImageIndex}`}
-            className='relative w-full h-[700px] bg-background-image -z-40 '/>
-        
+        <img
+
+          src={collectionData && collectionData.images[currentImageIndex]}
+          alt={`Image ${currentImageIndex}`}
+          className='relative w-full h-[700px] bg-background-image object-cover -z-40 ' />
+
 
         <div className='flex'>
-        <Link to="/collection">
-          <button>
-            <img src="../img/blackClose.png" className='absolute top-5 right-5' style={{ width: '22px', height: '22px' }} />
-          </button>
-        </Link>
+          <Link to="/collection">
+            <button>
+              <img src="../img/blackClose.png" className='absolute top-5 right-5' style={{ width: '22px', height: '22px' }} />
+            </button>
+          </Link>
 
-        <button className='absolute top-5 left-3 border p-1 rounded-2xl bg-white'>
-          수정
-        </button>
-        <button className='absolute top-5 left-14 border p-1 rounded-2xl bg-white'>
-          삭제
-        </button>
-      
-        </div> 
-        
+          <button className='absolute top-5 left-3 border p-1 rounded-2xl bg-white'>
+            수정
+          </button>
+          <button className='absolute top-5 left-14 border p-1 rounded-2xl bg-white'>
+            삭제
+          </button>
+
+        </div>
+
 
         <div className="relative" style={{ marginTop: `${marginTop}px` }}> {/*아래 상세설명*/}
-        <button className={`overflow-hidden absolute  -bottom-[33rem] w-full h-[600px] bg-white rounded-3xl justify-center flex z-50 
+          <button className={`overflow-hidden absolute  -bottom-[33rem] w-full h-[600px] bg-white rounded-3xl justify-center flex z-50 
                ${isSliding ? 'transition duration-200 ease-in-out sliding ' : ''}`}
-          style={{ marginTop: `${marginTop}px` }}
-          onClick={handleImageClick}>
-          <p className="text-3xl p-3  absolute text-center">
-            {collectionData ? collectionData.title : 'Loading...'}
-          </p>
-
-
-          <div className="flex mt-[2.2rem] p-5 justify-center">
-              <img src="../img/Calendar.png" className="h-6 w-10" alt="calendar" />
-          <div>
-          <p>
-            {collectionData ? new Date(collectionData.createdDate).toLocaleString() : 'Loading...'}
-          </p>
-          </div>
-          </div>
-
-          {isDescriptionVisible1 && (
-            <p className="left-[1rem] mt-[5rem] absolute whitespace-pre-line text-[#888]" onClick={handleImageClick}>
-              더보기
+            style={{ marginTop: `${marginTop}px` }}
+            onClick={handleImageClick}>
+            <p className="text-lg font-bold absolute text-center mt-5">
+              {collectionData ? collectionData.title : 'Loading...'}
             </p>
-          )}
-          {isDescriptionVisible && (
-                          <div>
-                          <p className="left-[1.25rem] mt-[5.5rem] mr-[1.25rem] absolute whitespace-pre-line">
-                          {collectionData ? collectionData.content : 'Loading...'}
-                          </p>
-                    
-                          </div>
 
-                 
-          )}
 
-          
-        </button> 
+            <div className="flex mt-[2.2rem] p-5 justify-center">
+              <div>
+                <p>
+                  {collectionData ? new Date(collectionData.createdDate).toLocaleDateString() : 'Loading...'}
+                </p>
+              </div>
+            </div>
+
+            {isDescriptionVisible1 && (
+              <p className="left-[1rem] mt-[5rem] absolute whitespace-pre-line text-[#888]" onClick={handleImageClick}>
+                더보기
+              </p>
+            )}
+            {isDescriptionVisible && (
+              <div>
+                <p className="left-[1.25rem] mt-[5.5rem] mr-[1.25rem] absolute whitespace-pre-line">
+                  {collectionData ? collectionData.content : 'Loading...'}
+                </p>
+
+              </div>
+
+
+            )}
+
+
+          </button>
         </div> {/*아래 상세 설명 끝*/}
-        </div>
-     
+      </div>
+
     </>
   );
 }

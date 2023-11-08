@@ -2,51 +2,69 @@ import React, { useState, useEffect } from 'react';
 import { Nav } from '../Component/Nav';
 import { ActionBar } from '../Component/ActionBar';
 import ChatListItem from './Component/ChatListItem';
-
-const actionBarName = "채팅목록";
-const apiurl = "http://27.96.134.23:4001/goody/user/get";
+import { Link } from 'react-router-dom';
 
 const chatting = () => {
-  const [chatData, setChatData] = useState([]);//상태
+  const [chatData, setChatData] = useState([]);
+  const actionBarName = "채팅목록";
+  const apiurl = "https://www.honeybee-goody.site/goody/chatroom/list";
+  // 토큰 가져오기
+  const token = localStorage.getItem('token');
 
-  /*fetch api 연결*/ 
+  const fetchData = async () => {
+    try {
+      const headers = {
+        Authorization: `${token}`, // Assuming 'token' is a variable that holds your authorization token
+      };
+
+      const response = await fetch(apiurl, {
+        method: 'GET',
+        headers,
+      });
+
+      if (!response.ok) {
+        throw Error('네트워크 오류');
+      }
+
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        setChatData(data);
+
+      } else {
+        console.error('API에서 데이터를 가져오는 중 오류 발생: 데이터가 비어 있습니다.');
+      }
+
+    } catch (error) {
+      console.error('오류 발생:', error);
+      throw error; // You can re-throw the error if you want to handle it further in your component.
+    }
+  };
+
+
+  /*fetch api 연결*/
   useEffect(() => {
-    fetch(apiurl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('네트워크 오류');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // API 응답 데이터의 postPreviewInfo 배열을 chatData 상태에 저장
-        setChatData(data.ContentDTO);
-      })
-      .catch(error => {
-        console.error('오류 발생:', error);
-      }); //오류 처리
+    fetchData();
   }, []);
 
   return (
     <>
       <ActionBar actionBarName={actionBarName} />
-      <div>
-        {/* chatData 배열의 각 요소를 순회하면서 ChatListItem을 렌더링 */}
-        {chatData.map(chatItem => ( //map함수를 써서 채팅컴포넌트를 동적으로 렌더링 (여러개의 채팅방 생성)
-          <ChatListItem
-            key={chatItem.documentId} // 고유키
-            chat_img=
-            {`http://27.96.134.23:4001/goody/file/files/?file=${chatItem.filePath.previewImg}`}
-            chat_id={chatItem.title}
-            chat_explain={chatItem.explain} 
-          />
+
+      <div className='mt-20'>
+        {chatData.map(chatItem => (
+          <Link key={chatItem.roomId} to={`/chatdetails/${chatItem.roomId}`}>
+            <ChatListItem
+              chat_id={chatItem.roomId}
+              chat_explain={chatItem.enterUsers.join(', ')}
+            />
+          </Link>
         ))}
       </div>
+
       <Nav />
     </>
   );
-
-  
 };
 
 export default chatting;
