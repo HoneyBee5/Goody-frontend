@@ -42,6 +42,7 @@ const Chatdetails = () => {
 
 
           setMessages(data);
+          console.log(roomId);
         } else {
           console.error('서버에서 오류 응답을 받았습니다.', response.status);
         }
@@ -105,7 +106,7 @@ const Chatdetails = () => {
   return (
     <>
       <div className="w-full h-16 relative">
-        <img src='img/ActionBar.png' className='absolute' alt="ActionBar"></img>
+        <img src='../img/ActionBar.png' className='absolute' alt="ActionBar"></img>
         <div className='flex justify-between items-center h-full'>
           <p id="actionBar_name" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] font-bold text-white p-6 ml-2 text-xl absolute '>채팅</p>
         </div>
@@ -124,7 +125,7 @@ const Chatdetails = () => {
 
         <div>
           <button className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] absolute top-0 right-4 h-full' onClick={handleBack}>
-            <img src="img/close.png" alt='닫기' width={'30px'} height={'30px'} />
+            <img src="../img/close.png" alt='닫기' width={'30px'} height={'30px'} />
           </button>
         </div>
       </div>
@@ -133,27 +134,18 @@ const Chatdetails = () => {
       {/* 채팅방 출력 */}
       <div className='pt-16 w-full' style={{ height: '45rem' }}>
 
-        <div className='pt-16 w-full' style={{ height: '45rem' }}>
-          <div className='pl-3 pb-3'>
+        <div className=' w-full' style={{ height: '45rem' }}>
+          <div className='pl-3 pb-3 flex flex-col items-end'>
             {messages.map((message, index) => (
               <div
                 key={index}
                 style={{ fontSize: '1rem', height: '3rem', width: '16rem' }}
-                className={`flex justify-start border p-2 m-1 items-center rounded-lg w-100 h-100 shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'}`}
-              >
+                className={`flex justify-start border p-2 m-1 items-center rounded-lg w-100 h-100 shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'}`}>
                 {message.message}
               </div>
             ))}
-
           </div>
 
-          {/* <div className='p-1 flex justify-end '>
-            <div style={{ fontSize: '1rem', height: '3rem', width: '16rem' }}
-              className={`flex justify-start text-black border p-2 m-1 items-center bg-yellow-400 rounded-lg w-100 h-100 shadow-md`}
-            >
-              {messageInput}
-            </div>
-          </div> */}
         </div>
 
 
@@ -164,35 +156,25 @@ const Chatdetails = () => {
           </div>
 
           <div className="flex justify-center ">
-            <div style={{ height: '3rem', width: '10rem' }} className="items-center flex fixed justify-between bottom-3 p-3 rounded-full bg-gray-200">
-
-              <div>
+            <div className="items-center flex fixed justify-between bottom-3 p-3 ">
+              <div className="flex justify-center">
+                <div className="items-center flex fixed justify-between bottom-3 w-full rounded-full bg-gray-200">
                 <div onMouseEnter={handleMouseEnterY} onMouseLeave={handleMouseLeaveY} onClick={handleClickY}>
-
                   <CSSTransition
                     in={isHoveredY}
                     timeout={300}
                     classNames="mount">
-                    {isHoveredY ? <button className="font-bold text-xl text-black flex justify-start  " ><img src='./img/Plus.png' className='w-5' /></button> :
-                      <button className="font-bold text-xl text-black flex justify-start  " ><img src='./img/Plus.png' className='w-5' /></button>}
+                    {isHoveredY ? <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button> :
+                      <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>}
                   </CSSTransition>
                 </div>
-              </div>
-
-              <div className="flex justify-center ">
-                <div style={{ height: '3rem', width: '20rem' }} className="items-center flex fixed justify-between bottom-3 p-3 rounded-full bg-gray-200">
                   <input
                     type="text"
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
-                    style={{ borderRadius: '4px', padding: '8px' }}
+                    style={{ borderRadius: '4px', padding: '4px', width:'20rem' }}
                   />
-                  <button
-                    onClick={sendMessage}
-                    style={{ borderRadius: '4px', padding: '8px' }}
-                  >
-                    전송
-                  </button>
+                  <button onClick={sendMessage} style={{padding: '8px' }}> 전송</button>
                 </div>
               </div>
             </div></div>

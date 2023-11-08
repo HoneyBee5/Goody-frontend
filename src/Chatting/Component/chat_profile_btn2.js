@@ -16,7 +16,7 @@ const Button = () => {
                     backgroundColor: '#FFF2C6'
                 }}>
 
-                <img src="img/Book.png" alt="프로필사진" className="rounded-full border" style={{ width: '4rem', height: '4rem' }}></img>
+                <img src="../img/Book.png" alt="프로필사진" className="rounded-full border" style={{ width: '4rem', height: '4rem' }}></img>
 
                 <div className='flex flex-col  justify-center '>
                     <p className='pl-5 font-semibold '>{name}</p>

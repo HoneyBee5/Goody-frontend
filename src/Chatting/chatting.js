@@ -30,6 +30,7 @@ const chatting = () => {
 
       if (data && data.length > 0) {
         setChatData(data);
+        console.log(data);
 
       } else {
         console.error('API에서 데이터를 가져오는 중 오류 발생: 데이터가 비어 있습니다.');

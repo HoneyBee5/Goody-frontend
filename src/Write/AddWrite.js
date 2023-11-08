@@ -8,7 +8,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import { NumericFormat } from 'react-number-format';
@@ -68,7 +67,6 @@ for (let i = 1; i <= 10; i++) {
 
 const AddWrite = () => {
 
-  // const [loggedIn, setLoggedIn] = useState(false);//로그인여부 확인
   const [selectedImage, setSelectedImage] = useState([]);//첨부한 이미지
   const [selectedOption1, setSelectedOption1] = useState(OPTIONS1[0]);
   const [selectedOption2, setSelectedOption2] = useState(OPTIONS2[0]);
@@ -78,7 +76,7 @@ const AddWrite = () => {
   const [isFreeChecked, setIsFreeChecked] = useState(false);//나눔여부
   const [showTogetherTypeCheckboxes, setShowTogetherTypeCheckboxes] = useState(false);
   const [selectedTogetherType, setSelectedTogetherType] = useState('numOfPeople'); //인원수 or 품목
-  const [selectedNumOfPeople, setSelectedNumOfPeople] = useState(3);
+  const [selectedNumOfPeople, setSelectedNumOfPeople] = useState(null);
   const [inputPeopleField, setInputPeopleField] = useState('');
   const [chipPeople, setChipPeople] = useState([]);
   const [explainText, setExplainText] = useState('');
@@ -120,8 +118,9 @@ const AddWrite = () => {
         formData.append('price', numberAsInt);//가격
       }
       
-      if (selectedNumOfPeople !== '') {
-        formData.append('numOfPeople', selectedNumOfPeople);//인원수
+      if (selectedNumOfPeople !== null) {
+        const num = parseInt(selectedNumOfPeople, 10);
+        formData.append('numOfPeople', num);//인원수
       }
       formData.append('free', isFreeChecked);//나눔여부
       if (chipPeople.length > 0) {
@@ -140,28 +139,28 @@ const AddWrite = () => {
       } else {
         formData.append('category', selectedOption2.value);//카테고리
       }
-
-
       console.log([...formData.entries()]);
-
-      const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
-          method: 'POST',
-          body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
-          headers: {
-              // 토큰을 사용하여 사용자 인증
-              Authorization: `${localStorage.getItem('token')}`,
-          },
-      });
-
-      if (response.ok) {
-          // 데이터가 성공적으로 API로 전송되었습니다.
-          console.log('데이터가 성공적으로 전송되었습니다.');
-          const data = await response.json();
-          window.location.href =`/WriteDetail/${data.contentsId}`; 
-      } else {
-          // 여기서 오류를 처리합니다.
-          console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-      }
+      
+      if(formData.get('category'!=null)&&formData.get('grade'!=null)&&formData.get('transType'!=null)){
+        console.log([...formData.entries()]);
+        const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
+            method: 'POST',
+            body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
+            headers: {
+                // 토큰을 사용하여 사용자 인증
+                Authorization: `${localStorage.getItem('token')}`,
+            },
+        });
+  
+        if (response.ok) {
+            // 데이터가 성공적으로 API로 전송되었습니다.
+            console.log('데이터가 성공적으로 전송되었습니다.');
+            const data = await response.text();
+            window.location.href =`/WriteDetail/${data}`; 
+        } else {
+            // 여기서 오류를 처리합니다.
+            console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
+        }}
     } catch (error) {
       console.error('오류가 발생했습니다:', error);
     }
@@ -192,11 +191,18 @@ const AddWrite = () => {
   };
 
   const handleSelectTransTypeChange = (event) => {
+    setSelectedNumOfPeople(null);
+    setChipPeople([]);
+    setSelectedTogetherType('');
+    setIsFreeChecked(false);
     const selectedValue = event.target.value;
     const selectedOption = OPTIONS2.find(option => option.value === selectedValue);
     setSelectedOption2(selectedOption);
     // If "같이해요" is selected, show the radio checkboxes.
     setShowTogetherTypeCheckboxes(selectedValue === "같이해요");
+    if(selectedValue==='같이해요'){
+      setSelectedTogetherType('numOfPeople');
+    }
     if (selectedValue === '나눔해요') {
       setIsFreeChecked(true);
       setPrice('');
@@ -211,11 +217,19 @@ const AddWrite = () => {
   };
 
   const handleTogetherCheckBoxChange = (event) => {//모집인원 or 품목
+    setSelectedNumOfPeople(null);
+    setChipPeople([]);
     setSelectedTogetherType(event.target.value);
   }
 
   const handleSelectNumOfPeopleChange = (event) => {//선택한 모집인원
-    setSelectedNumOfPeople(event.target.value);
+    const value = parseInt(event.target.value, 10);
+    if (value >= 0) {
+      setSelectedNumOfPeople(value);
+    } else if(value<0) {
+      // 이 부분에서 0 미만의 값에 대한 처리를 수행하거나 무시합니다.
+      setSelectedNumOfPeople(0);
+    }
   }
 
   const handleChipDelete = (chipToDelete) => () => {
@@ -320,16 +334,6 @@ const AddWrite = () => {
           <div className='flex items-center justify-center'>
             {selectedTogetherType === "numOfPeople" ? (
               <FormControl>
-                <InputLabel>모집인원</InputLabel>
-                <Select
-                  className='w-80 flex items-center justify-center'
-                  id="select-numofpeople"
-                  value={selectedNumOfPeople}
-                  label="모집인원"
-                  onChange={handleSelectNumOfPeopleChange}
-                >
-                  {numOfPeopleOptions}
-                </Select>
                 <NumberInput placeholder="모집인원" value={selectedNumOfPeople} onChange={handleSelectNumOfPeopleChange}/>
               </FormControl>
             ) : (

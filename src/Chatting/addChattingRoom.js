@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 
 function addChattingRoom({ writerId, documentId, token, userId, title }) {
   // 여기에서 채팅방 ID를 생성 (글 작성자 ID와 글 ID 조합)
@@ -16,8 +15,10 @@ function addChattingRoom({ writerId, documentId, token, userId, title }) {
     messageCnt: 0,
     contentsId,
     sellerId,
-    buyerIds, // 수정된 부분: 구매자 ID 배열로 설정
+    buyerIds,
   };
+
+  console.log(buyerIds);
 
   const apiurl = 'https://www.honeybee-goody.site/goody/chatroom/create'; // API 엔드포인트 URL
   const headers = {
@@ -36,18 +37,11 @@ function addChattingRoom({ writerId, documentId, token, userId, title }) {
       }
       return response.json();
     })
-    .then((data) => {
+    .then((requestData) => {
       // 채팅방 생성이 성공하면 처리할 작업을 추가하세요
-      console.log('채팅방 생성 완료:', data);
-
-       // 생성된 채팅방으로 리다이렉트
-       const navigate = useNavigate();
-       navigate(`/chatdetails/${data.roomId}`); // 채팅방의 URL로 이동
+      console.log('채팅방 생성 완료:', requestData);
     })
     .catch((error) => {
-      console.log('Request Data:', requestData);
-      console.log('Request URL:', apiurl);
-      
       console.error('채팅방 생성 중 오류 발생:', error);
     });
 }

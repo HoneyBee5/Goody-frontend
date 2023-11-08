@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import  { CollectionTag }  from '../Collection/CollectionTag';
 
 const actionBarName = "컬렉션 작성";
 
@@ -10,6 +11,7 @@ const CollectionWrite = () => {
     const [story, setStory] = useState('');
     const [images, setImages] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [collectionTags, setCollectionTags] = useState([]); // 필드 데이터를 관리
 
     useEffect(() => {
         // 사용자 로그인 상태를 확인하는 로직을 구현
@@ -39,6 +41,9 @@ const CollectionWrite = () => {
         const newImages = Array.from(files);
         setImages([...images, ...newImages]);
     };
+    const handleTagsChange = (newTags) => {
+        setCollectionTags(newTags); // 필드 데이터 업데이트
+      };
 
     const handleMiniRegisterClick = async () => {
         try {
@@ -52,16 +57,18 @@ const CollectionWrite = () => {
             // 나머지 글 작성 로직
             const formData = new FormData();
             formData.append('title', title); // 제목을 추가
-            formData.append('content', story); // 내용을 추가
+            formData.append('explain', story); // 내용을 추가
+            formData.append('hashTags', collectionTags);
+            
             if (images && images.length > 0) {
                 images.forEach((image, index) => {
-                    formData.append(`images[${index}]`, image);
+                    formData.append(`filePath[${index}]`, image);
                 });
             }
 
             console.log([...formData.entries()]);
 
-            const response = await fetch('https://www.honeybee-goody.site/goody/collection/create', {
+            const response = await fetch('http://27.96.134.23:4001/goody/collection/create', {
                 method: 'POST',
                 body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
                 headers: {
@@ -76,6 +83,7 @@ const CollectionWrite = () => {
             } else {
                 // 여기서 오류를 처리합니다.
                 console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
+                console.error();
             }
         } catch (error) {
             console.error('오류가 발생했습니다:', error);
@@ -110,16 +118,24 @@ const CollectionWrite = () => {
                         placeholder=' 내용'
                         maxLength={400}
                         rows={story.split('\n').length}
-                        className='py-2 pl-2 shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[380px] h-[350px]'
+                        className='py-2 pl-2 shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[380px] h-[300px]'
                         style={{ resize: 'none' }}
                     />
                 </div>
+
+            
+            <div className=''>
+            <p className="text-3xl text-[#FFD52B] font-serif flex justify-center my-5 font-bold">HASHTAGE</p>
+            <CollectionTag onTagsChange={handleTagsChange} /> 
+            </div>
+
+
             </div>
             <div>
                 <img src='img/PhotoText.png' className='w-24 ml-5 mt-2'></img>
         <div className='relative inline-block'>
           {images.map((image, index) => (
-            <div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+            <div key={index} style={{ position: 'relative', display: 'inline-block'}}>
               <img src={URL.createObjectURL(image)} className='m-4 rounded-xl object-cover w-[100px] h-[100px]' alt="SelectedImage" />
               <button
               onClick={() => handleDeleteImage(index)} style={{ position: 'absolute',top: '0',right: '0',padding: '20px', zIndex: '1',cursor: 'pointer',}}>
@@ -145,7 +161,7 @@ const CollectionWrite = () => {
                     </Link>
                 </button>
             </div>
-
+            <div className='pb-20'/>
         </div>
     );
 }

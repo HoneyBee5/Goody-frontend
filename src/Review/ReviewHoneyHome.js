@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import React, { useState} from 'react';
 
 import { Link } from 'react-router-dom';
+
+
 const MySlider = ({ value, handleChange }) => {
   return (
     <div>
@@ -16,10 +18,10 @@ const MySlider = ({ value, handleChange }) => {
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"
-          step={0.5}
+          step={10}
           marks
           min={0}
-          max={5}
+          max={100}
 
         sx={{
           '& .MuiSlider-thumb': {
@@ -42,18 +44,53 @@ MySlider.propTypes = {
 };
 
 
-     
 
 
 
 
 const ReviewHoneyHome = () => {
-    const [value, setValue] = useState(2.5);
-
+    const [value, setValue] = useState(0);
+  
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
     
+    const getHoneyImage = (value) => {
+      if (value >= 100) {
+        return 'img/honeyhome.png'; // 슬라이더 값이 10 이상일 때 다른 이미지
+      }
+      else if(value >= 90){
+        return 'img/honeyhome.png';
+      } 
+      else if(value >= 80){
+        return 'img/honeyhome.png';
+      } 
+      else if(value >= 70){
+        return 'img/honeyhome.png';
+      } 
+      else if(value >= 60){
+        return 'img/honeyhome.png';
+      } 
+      else if(value >= 50){
+        return 'img/honeyhome.png';
+      } 
+      else if(value >= 40){
+        return 'img/honeyhome.png';
+      } 
+      else if(value >= 30){
+        return 'img/honeyhome.png';
+      } 
+      else if(value >= 20){
+        return 'img/honeyhome.png';
+      } 
+      else if(value >= 10){
+        return 'img/honeyhome.png';
+      } 
+      else {
+        return 'img/honeyhome.png'; // 슬라이더 값이 10 미만일 때 기본 이미지
+      }
+    };
+ 
     const divStyle = {
         position: 'fixed',
         top: 0,
@@ -77,11 +114,13 @@ const ReviewHoneyHome = () => {
                     꿀단지를 채워주세요
                 </p>
 
-          <img className='pl-7' src='img/honeyhome.png' style={{ width: '20rem', height: '25rem' }}></img>
+          <img className='pl-7'  src={getHoneyImage(value)}  style={{ width: '20rem', height: '25rem' }}></img>
 
                 <MySlider value={value} handleChange={handleChange} />
         
-            <Link to='/reviewperfect'>
+                <Link to={'/reviewperfect'}
+                  state = {{ value }}
+                >
               <Button_honey>다음</Button_honey>
             </Link>
           </div>
