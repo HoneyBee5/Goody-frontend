@@ -156,8 +156,8 @@ const AddWrite = () => {
       if (response.ok) {
           // 데이터가 성공적으로 API로 전송되었습니다.
           console.log('데이터가 성공적으로 전송되었습니다.');
-          const data = await response.json();
-          window.location.href =`/WriteDetail/${data.contentsId}`; 
+          const data = await response.text();
+          window.location.href =`/WriteDetail/${data}`; 
       } else {
           // 여기서 오류를 처리합니다.
           console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
