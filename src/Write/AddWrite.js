@@ -67,7 +67,6 @@ for (let i = 1; i <= 10; i++) {
 
 const AddWrite = () => {
 
-  // const [loggedIn, setLoggedIn] = useState(false);//로그인여부 확인
   const [selectedImage, setSelectedImage] = useState([]);//첨부한 이미지
   const [selectedOption1, setSelectedOption1] = useState(OPTIONS1[0]);
   const [selectedOption2, setSelectedOption2] = useState(OPTIONS2[0]);
@@ -91,13 +90,6 @@ const AddWrite = () => {
         setLoggedIn(true); // 토큰이 있다면 로그인 상태로 설정
       }
   }, []);
-
-  useEffect(() => {
-    console.log('selectedNumOfPeople 값이 변경됨:', selectedNumOfPeople);
-    // selectedNumOfPeople가 변경될 때 실행되는 로직
-    // 예를 들어, 다른 함수에서 selectedNumOfPeople를 변경하면
-    // 여기서 NumberInput의 값을 업데이트
-  }, [selectedNumOfPeople]);
 
   const handleUpload = async () => {//글작성 버튼 클릭시
     try {
@@ -147,28 +139,28 @@ const AddWrite = () => {
       } else {
         formData.append('category', selectedOption2.value);//카테고리
       }
-
-
       console.log([...formData.entries()]);
-
-      // const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
-      //     method: 'POST',
-      //     body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
-      //     headers: {
-      //         // 토큰을 사용하여 사용자 인증
-      //         Authorization: `${localStorage.getItem('token')}`,
-      //     },
-      // });
-
-      // if (response.ok) {
-      //     // 데이터가 성공적으로 API로 전송되었습니다.
-      //     console.log('데이터가 성공적으로 전송되었습니다.');
-      //     const data = await response.text();
-      //     window.location.href =`/WriteDetail/${data}`; 
-      // } else {
-      //     // 여기서 오류를 처리합니다.
-      //     console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-      // }
+      
+      if(formData.get('category'!=null)&&formData.get('grade'!=null)&&formData.get('transType'!=null)){
+        console.log([...formData.entries()]);
+        const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
+            method: 'POST',
+            body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
+            headers: {
+                // 토큰을 사용하여 사용자 인증
+                Authorization: `${localStorage.getItem('token')}`,
+            },
+        });
+  
+        if (response.ok) {
+            // 데이터가 성공적으로 API로 전송되었습니다.
+            console.log('데이터가 성공적으로 전송되었습니다.');
+            const data = await response.text();
+            window.location.href =`/WriteDetail/${data}`; 
+        } else {
+            // 여기서 오류를 처리합니다.
+            console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
+        }}
     } catch (error) {
       console.error('오류가 발생했습니다:', error);
     }
