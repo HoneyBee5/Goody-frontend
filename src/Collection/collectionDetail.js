@@ -199,9 +199,8 @@ function CollectionDetail() {
 
             <div className="mt-[2.2rem] p-5 justify-center">
               <div className='flex'>
-                <img src="../img/Calendar.png" className="h-6 w-10" alt="calendar" />
                 <p>
-                  {collectionData ? new Date(collectionData.createdDate).toLocaleString() : 'Loading...'}
+                  {collectionData ? new Date(collectionData.createdDate).toLocaleDateString() : 'Loading...'}
                 </p>
               </div>
 

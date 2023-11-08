@@ -8,8 +8,6 @@ const Button = () => {
     return (
 
         <>
-
-
             <div className='flex  border relative'
                 style={{
                     width: '25rem', height: '4em', borderRadius: '50px 0 10px 50px',
@@ -30,11 +28,7 @@ const Button = () => {
                     </button>
                 </Link>
             </div>
-
-
         </>
-
-
     );
 };
 

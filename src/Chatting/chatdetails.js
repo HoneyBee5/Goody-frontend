@@ -39,10 +39,8 @@ const Chatdetails = () => {
         const response = await fetch(`https://www.honeybee-goody.site/goody/messages?roomId=${roomId}`);
         if (response.ok) {
           const data = await response.json();
-
-
           setMessages(data);
-          console.log(roomId);
+          console.log(data);
         } else {
           console.error('서버에서 오류 응답을 받았습니다.', response.status);
         }

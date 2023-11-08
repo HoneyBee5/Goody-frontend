@@ -56,7 +56,7 @@ const chatting = () => {
         {chatData.map(chatItem => (
           <Link key={chatItem.roomId} to={`/chatdetails/${chatItem.roomId}`}>
             <ChatListItem
-              chat_id={chatItem.roomId}
+              chat_id={chatItem.roomName}
               chat_explain={chatItem.enterUsers.join(', ')}
             />
           </Link>
