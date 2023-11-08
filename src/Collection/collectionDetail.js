@@ -1,40 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import './collectionDetail.css';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Dropdown, Space } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
+const token = localStorage.getItem('token');
+
+
+
 
 function CollectionDetail() {
-  const [isSliding, setIsSliding] = useState(false);
-  const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
-  const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
-  const [marginTop, setMarginTop] = useState(0);
-  const [collectionData, setCollectionData] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const { collectionId } = useParams();
-  const token = localStorage.getItem('token');
+const [isSliding, setIsSliding] = useState(false);
+const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
+const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
+const [marginTop, setMarginTop] = useState(0);
+const [collectionData, setCollectionData] = useState(null);
+const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const navigate = useNavigate();
 
-  const fetchData = async () => {
-    try {
-      const headers = {
-        Authorization: `${token}`,
-      };
 
-      const response = await fetch(`http://27.96.134.23:4001/goody/collection/detail?collectionId=${collectionId}`, {
-        method: 'GET',
-        headers,
-      });
+const { collectionId } = useParams();
+let apiURL = `http://27.96.134.23:4001/goody/collection/detail?collectionId=${collectionId}`;
 
-      if (response.ok) {
-        const data = await response.json();
-        setCollectionData(data);
-        setCurrentImageIndex(0); 
-      } else {
-        console.error('An error occurred while fetching collection item list.');
-      }
-    } catch (error) {
-      console.error('An error occurred:', error);
+
+const fetchData = async () => {
+  try {
+    const headers = {
+      Authorization: `${token}`,
+    };
+
+    const response = await fetch(apiURL, {
+      method: 'GET',
+      headers,
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setCollectionData(data);
+      setCurrentImageIndex(0);
+    } else {
+      console.error('An error occurred while fetching collection item list.');
     }
-  };
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+};
+
+const handleDeleteClick = async () => {
+  try {
+    const responseDel = await fetch(
+      `http://27.96.134.23:4001/goody/collection/delete?collectionId=${collectionId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `${token}`,
+        },
+      }
+    );
+
+    if (responseDel.ok) {
+      console.log('삭제 성공');
+      navigate(-1);
+    } else {
+      console.error('삭제 실패');
+    }
+  } catch (error) {
+    console.error('오류 발생:', error);
+  }
+};
 
   const handleImageClick = () => {
     const newMarginTop = marginTop === 0 ? -225 : 0;
@@ -44,20 +77,57 @@ function CollectionDetail() {
     setIsDescriptionVisible1(isDescriptionVisible);
     setIsDescriptionVisible(!isDescriptionVisible);
     
- 
+  
   };
-
+  
   const showPreviousImage = () => {
     if (currentImageIndex > 0) {
       setCurrentImageIndex(currentImageIndex - 1);
     }
   };
-
+  
   const showNextImage = () => {
-    if (currentImageIndex < collectionData.images.length - 1) {
+    if (currentImageIndex < collectionData.filePath.length - 1) {
       setCurrentImageIndex(currentImageIndex + 1);
     }
   };
+
+  const handleLinkClick = () => {
+    
+    navigate('/addWrite'); // '/collectionWrite'로 이동하도록 설정
+  };
+
+  const handleBack = () => {
+    navigate(-1);
+  }
+  
+  const items = [
+    
+   
+
+    ...(collectionData && collectionData.myCollection === true
+      ? [
+          {
+            label: '삭제',
+            key: '1',
+            
+          },
+        ]
+      : []),
+      
+    {
+      type: 'divider',
+    },
+
+    ...(collectionData && collectionData.myCollection === true  
+    ? [
+    {
+      label: '판매하기',
+      key: '3',
+    },] : []),
+
+  ];
+
 
   useEffect(() => {
     fetchData();
@@ -81,58 +151,88 @@ function CollectionDetail() {
         {/*이미지*/}
           <img   
           
-            src={collectionData && collectionData.images[currentImageIndex]}
+            src={collectionData && collectionData.filePath[currentImageIndex]}
             alt={`Image ${currentImageIndex}`}
-            className='relative w-full h-[700px] bg-background-image -z-40 '/>
+            className='relative w-full h-[700px] bg-background-image -z-40 object-cover'/>
         
 
         <div className='flex'>
-        <Link to="/collection">
-          <button>
-            <img src="../img/blackClose.png" className='absolute top-5 right-5' style={{ width: '22px', height: '22px' }} />
+       
+          <button onClick={handleBack}>
+            <img src="../img/blackClose.png" className='absolute top-5 right-4' style={{ width: '22px', height: '22px' }} />
           </button>
-        </Link>
+     
 
-        <button className='absolute top-5 left-3 border p-1 rounded-2xl bg-white'>
-          수정
-        </button>
-        <button className='absolute top-5 left-14 border p-1 rounded-2xl bg-white'>
-          삭제
-        </button>
-      
-        </div> 
+  
+        <Dropdown
+    menu={{
+    items: items.map((item) => {
+      if (item.key === '1') {
+        return { ...item, onClick: handleDeleteClick }; // key가 1인 경우 핸들러 1 연결
+      } 
+      if (item.key === '3'){
+        return { ...item, onClick: handleLinkClick};
+      }
+      return item;
+    }),
+  }}
+    trigger={['click']}
+    style={{ border: '1px solid #000', width: '23px' ,height: '23px' }}
+    className='absolute top-4 right-14'
+  >
+
+
+    <a onClick={(e) => e.preventDefault()}>
+      <Space>
+        <img src='../img/Icon_info.png ' style={{ width:'30px', height : '30px'}} />
+        
+      </Space>
+    </a>
+  </Dropdown>
         
 
+      
+        </div> 
+    
         <div className="relative" style={{ marginTop: `${marginTop}px` }}> {/*아래 상세설명*/}
         <button className={`overflow-hidden absolute  -bottom-[33rem] w-full h-[600px] bg-white rounded-3xl justify-center flex z-50 
                ${isSliding ? 'transition duration-200 ease-in-out sliding ' : ''}`}
           style={{ marginTop: `${marginTop}px` }}
           onClick={handleImageClick}>
+          
+          
           <p className="text-3xl p-3  absolute text-center">
             {collectionData ? collectionData.title : 'Loading...'}
           </p>
 
 
-          <div className="flex mt-[2.2rem] p-5 justify-center">
+          <div className="mt-[2.2rem] p-5 justify-center">
+            <div className='flex'>
               <img src="../img/Calendar.png" className="h-6 w-10" alt="calendar" />
-          <div>
           <p>
             {collectionData ? new Date(collectionData.createdDate).toLocaleString() : 'Loading...'}
           </p>
           </div>
+
+          <div>
+          <p className=' text-center flex items-center justify-center '>해시태그</p>
           </div>
 
+          </div>
+
+          
+         
+
           {isDescriptionVisible1 && (
-            <p className="left-[1rem] mt-[5rem] absolute whitespace-pre-line text-[#888]" onClick={handleImageClick}>
-              더보기
-            </p>
+            <p onClick={handleImageClick}/>
           )}
           {isDescriptionVisible && (
                           <div>
-                          <p className="left-[1.25rem] mt-[5.5rem] mr-[1.25rem] absolute whitespace-pre-line">
-                          {collectionData ? collectionData.content : 'Loading...'}
+                          
+                          <p className="left-[1.25rem] mt-[8rem] mr-[1.25rem] absolute whitespace-pre-line">
+                          {collectionData ? collectionData.explain : 'Loading...'}
                           </p>
-                    
+                        
                           </div>
 
                  

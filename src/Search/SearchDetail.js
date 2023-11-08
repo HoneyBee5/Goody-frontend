@@ -185,12 +185,7 @@ const SearchDetail = () => {
 
 
 
-      <div className='flex pr-3' >
-        <div className='ml-auto flex'>
-        <img src='../img\Arrange.png' className='h-5 w-5' />
-        <span>정렬</span>
-      </div>
-      </div>
+   
 
       
       <div className='flex flex-wrap mb-24'>
@@ -207,6 +202,7 @@ const SearchDetail = () => {
               createdDate={item.createdDate}
               thumbnailImg={item.thumbnailImg}
               documentId = {item.documentId}
+              transType = {item.transType}
             />
            
           ))

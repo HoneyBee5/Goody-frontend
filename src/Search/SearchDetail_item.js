@@ -1,23 +1,11 @@
-import React, { useState} from 'react';
+import React from 'react';
 import './SearchDatail_Item.css'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 const SearchDatail_Item = (props) => {
 
-const { title, price, createdDate,thumbnailImg,documentId } = props;
+const { title, price, createdDate,thumbnailImg,documentId,transType } = props;
 
-
-
-    const [liked, setLiked] = useState([false, false, false, false]);
-
-
-    const handleLikeClick = (index) => {
-        const updatedLiked = [...liked];
-        updatedLiked[index] = !updatedLiked[index];
-        setLiked(updatedLiked);
-      };
 
 
 
@@ -25,7 +13,7 @@ const { title, price, createdDate,thumbnailImg,documentId } = props;
      <>
               <div width={'150px'} height={'150px'}>
 
-              <FontAwesomeIcon onClick={() => handleLikeClick(0)} icon={faHeartRegular} className={`absolute mt-[1.5rem] ml-[6.3rem] ${liked[0] ? 'text-color' : 'fa-heart-regular'}`} size="lg" />
+             
 
               <Link to={`/WriteDetail/${documentId}`}>
                 <div width={'150px'} height={'150px'}>
@@ -50,7 +38,7 @@ const { title, price, createdDate,thumbnailImg,documentId } = props;
                 
                     </div>
                     
-                    <div className='border rounded-[0.6rem] text-[0.85rem] border-[#B4B4B4] p-[0.08rem] px-[0.4rem] inline-block ml-[1.6rem] mt-[0.5rem]'>거래상태</div>
+                    <div className='border rounded-[0.6rem] text-[0.85rem] border-[#B4B4B4] p-[0.08rem] px-[0.4rem] inline-block ml-5 text-center w-20'>{transType}</div>
                 </div>
               </Link>
               </div>
@@ -64,6 +52,7 @@ SearchDatail_Item.propTypes = {
   createdDate: PropTypes.string.isRequired,
   thumbnailImg: PropTypes.string.isRequired,
   documentId:PropTypes.string.isRequired,
+  transType:PropTypes.string.isRequired,
 };
 
 
