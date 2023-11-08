@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 
-const iconStyle = { width: 25, margintop: '2px' }; // Adjust the size of your icons
+const iconStyle = { width: 25 }; // Adjust the size of your icons
 
 const Nav = () => {
   const location = useLocation();
