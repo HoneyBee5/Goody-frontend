@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Plus_btn from './Component/plus_btn';
 import { CSSTransition } from 'react-transition-group';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,17 @@ const Chatdetails = () => {
   const [stompClient, setStompClient] = useState(null); // STOMP 클라이언트
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredY, setIsHoveredY] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]); // 메시지 배열이 업데이트될 때마다 스크롤을 아래로 이동
 
   useEffect(() => {
     const socket = new SockJS(`https://www.honeybee-goody.site/goody/ws-stomp`);
@@ -151,6 +162,7 @@ const Chatdetails = () => {
                 {message.message}
               </div>
             ))}
+            <div ref={messagesEndRef} /> { /* 스크롤을 항상 하단에 위치시키기 위한 ref */}
         </div>
 
 
