@@ -206,7 +206,17 @@ const navigate = useNavigate();
               </div>
 
           <div>
-          <p className=' text-center flex items-center justify-center '>해시태그</p>
+          {collectionData && collectionData.hashTags ? (
+            <div className='text-center flex items-center justify-center '>
+              {collectionData.hashTags.map((tag, index) => (
+                    <p className='px-3' key={index}>
+                    # {tag}
+              </p>
+              ))}
+              </div>
+              ) : (
+              <p/>
+              )}
           </div>
 
             </div>

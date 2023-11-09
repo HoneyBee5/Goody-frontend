@@ -26,9 +26,9 @@ const review = () => {
 
  // 클릭한 버튼 정보를 서버에 보냄
  const selectedReviewData = {
-  reviewerId: 'nrSKnzYzcYL0EHkuuMDQ', // 수정 필요
+  reviewerId: localStorage.getItem('userId'), //수정 필요
   reviewKeywords: selectedButtons,
-  contentId: 'VrPbR8GX7djxcex58PbK', // 수정 필요
+  contentId: '4ra8NSpdxUGMQfmMm00A', // 수정 필요
 };
 
 
@@ -36,7 +36,7 @@ const review = () => {
     const handleReviewClick = async() => {
 
 
-      fetch(`http://27.96.134.23:4001/goody/review/keywords?receiveId=nrSKnzYzcYL0EHkuuMDQ`, { //수정해야댐
+      fetch(`http://27.96.134.23:4001/goody/review/keywords?receiveId=${localStorage.getItem('userId')}`, { //수정해야댐
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
