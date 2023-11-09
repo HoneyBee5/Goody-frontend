@@ -32,11 +32,16 @@ const Chatdetails = () => {
       client.subscribe(`/sub/chat/room/${roomId}`, (message) => {
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
+        console.log(message);
       });
 
       // 이전 채팅 내용 불러오는 API 호출
       try {
-        const response = await fetch(`https://www.honeybee-goody.site/goody/messages?roomId=${roomId}`);
+        const response = await fetch(`https://www.honeybee-goody.site/goody/messages?roomId=${roomId}`, {
+          headers: {
+            Authorization: `${localStorage.getItem('token')}`, // Bearer 토큰 형식을 따릅니다.
+          } 
+        });
         if (response.ok) {
           const data = await response.json();
           setMessages(data);
@@ -68,6 +73,7 @@ const Chatdetails = () => {
       };
       stompClient.send(`/pub/chat/message`, {}, JSON.stringify(message));
       setMessageInput('');
+
     }
   };
 
