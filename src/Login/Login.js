@@ -34,6 +34,7 @@ const Login = () => {
         if (accessToken) {
           // 토큰을 localStorage에 저장
           localStorage.setItem('token', accessToken);
+          localStorage.setItem('userId', userId);
   
           // 로그인 성공 시 홈페이지로 이동
           window.location.href = '/home';
