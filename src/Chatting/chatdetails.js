@@ -8,6 +8,7 @@ import "./transition.css";
 import Chat_btn1 from './Component/chat_profile_btn';
 import Chat_btn2 from './Component/chat_profile_btn2';
 import { useParams } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
 
 const Chatdetails = () => {
   const { roomId } = useParams();
@@ -110,12 +111,13 @@ const Chatdetails = () => {
   return (
     <>
       <div className="w-full h-16 relative">
+      <AppBar component="nav" className='fixed top-0 w-full'>
         <img src='../img/ActionBar.png' className='absolute' alt="ActionBar"></img>
-        <div className='flex justify-between items-center h-full'>
+        {/* <div className='flex justify-between items-center h-full'> */}
           <p id="actionBar_name" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] font-bold text-white p-6 ml-2 text-xl absolute '>채팅</p>
-        </div>
-
-        <div className="pb-5 absolute flex justify-center items-center w-full h-full "
+        {/* </div> */}
+        <div>
+        <div className="pb-5 top-20 absolute flex justify-center items-center w-full h-full "
           onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}
         >
           <CSSTransition
@@ -126,30 +128,29 @@ const Chatdetails = () => {
             {isHovered ? <Chat_btn2 /> : <Chat_btn1 />}
           </CSSTransition>
         </div>
-
-        <div>
-          <button className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] absolute top-0 right-4 h-full' onClick={handleBack}>
+          <button className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] absolute top-5 right-4 h-full' onClick={handleBack}>
             <img src="../img/close.png" alt='닫기' width={'30px'} height={'30px'} />
           </button>
         </div>
+      </AppBar>
+
+        
+
+        
       </div>
 
 
       {/* 채팅방 출력 */}
-      <div className='pt-16 w-full' style={{ height: '45rem' }}>
-
-        <div className=' w-full' style={{ height: '45rem' }}>
-          <div className='pl-3 pb-3 flex flex-col items-end'>
+      <div className='pt-16 w-full' style={{ height: '50rem'}}>
+          <div className='pl-3 pb-3 flex flex-col items-end' style={{ height: '45rem' , overflowY: 'auto'}}>
             {messages.map((message, index) => (
               <div
                 key={index}
-                style={{ fontSize: '1rem', height: '3rem', width: '16rem' }}
+                style={{ fontSize: '1rem', width: '16rem' }}
                 className={`flex justify-start border p-2 m-1 items-center rounded-lg w-100 h-100 shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'}`}>
                 {message.message}
               </div>
             ))}
-          </div>
-
         </div>
 
 
