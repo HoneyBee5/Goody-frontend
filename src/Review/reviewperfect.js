@@ -4,6 +4,41 @@ import Button_honey from './Reviewhoneybtn';
 import Button_honey_2 from './Reviewhoneybtn2';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+const getHoneyImage = (value) => {
+  if (value >= 100) {
+    return 'img/honeybox11.png'; // 슬라이더 값이 10 이상일 때 다른 이미지
+  }
+  else if(value >= 90){
+    return 'img/honeybox10.png';
+  } 
+  else if(value >= 80){
+    return 'img/honeybox9.png';
+  } 
+  else if(value >= 70){
+    return 'img/honeybox8.png';
+  } 
+  else if(value >= 60){
+    return 'img/honeybox7.png';
+  } 
+  else if(value >= 50){
+    return 'img/honeybox6.png';
+  } 
+  else if(value >= 40){
+    return 'img/honeybox5.png';
+  } 
+  else if(value >= 30){
+    return 'img/honeybox4.png';
+  } 
+  else if(value >= 20){
+    return 'img/honeybox3.png';
+  } 
+  else if(value >= 10){
+    return 'img/honeybox2.png';
+  } 
+  else {
+    return 'img/honeybox1.png'; // 슬라이더 값이 10 미만일 때 기본 이미지
+  }
+};
 
 const reviewperfect = () => {
   const location = useLocation();
@@ -25,7 +60,7 @@ const reviewperfect = () => {
 
       <div className='fixed inset-0 flex items-center justify-center flex-col'>
         <p className='font p-3'  style={{fontSize:'2rem',color:'white'}}> { value } / 100 꿀을 드렸어요 ! </p>
-        <img className='pl-7' src='img/honeyhome.png' style={{ width: '20rem', height: '25rem' }}></img>
+        <img className='pl-7' src={getHoneyImage(value)} style={{ width: '20rem', height: '25rem' }}></img>
 
 
         <div className='pt-10 pb-5 text-center'>

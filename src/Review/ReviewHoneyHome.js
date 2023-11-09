@@ -57,37 +57,37 @@ const ReviewHoneyHome = () => {
     
     const getHoneyImage = (value) => {
       if (value >= 100) {
-        return 'img/honeyhome.png'; // 슬라이더 값이 10 이상일 때 다른 이미지
+        return 'img/honeybox11.png'; // 슬라이더 값이 10 이상일 때 다른 이미지
       }
       else if(value >= 90){
-        return 'img/honeyhome.png';
+        return 'img/honeybox10.png';
       } 
       else if(value >= 80){
-        return 'img/honeyhome.png';
+        return 'img/honeybox9.png';
       } 
       else if(value >= 70){
-        return 'img/honeyhome.png';
+        return 'img/honeybox8.png';
       } 
       else if(value >= 60){
-        return 'img/honeyhome.png';
+        return 'img/honeybox7.png';
       } 
       else if(value >= 50){
-        return 'img/honeyhome.png';
+        return 'img/honeybox6.png';
       } 
       else if(value >= 40){
-        return 'img/honeyhome.png';
+        return 'img/honeybox5.png';
       } 
       else if(value >= 30){
-        return 'img/honeyhome.png';
+        return 'img/honeybox4.png';
       } 
       else if(value >= 20){
-        return 'img/honeyhome.png';
+        return 'img/honeybox3.png';
       } 
       else if(value >= 10){
-        return 'img/honeyhome.png';
+        return 'img/honeybox2.png';
       } 
       else {
-        return 'img/honeyhome.png'; // 슬라이더 값이 10 미만일 때 기본 이미지
+        return 'img/honeybox1.png'; // 슬라이더 값이 10 미만일 때 기본 이미지
       }
     };
  
@@ -119,7 +119,7 @@ const ReviewHoneyHome = () => {
                 <MySlider value={value} handleChange={handleChange} />
         
                 <Link to={'/reviewperfect'}
-                  state = {{ value }}
+                  state = {{ value}}
                 >
               <Button_honey>다음</Button_honey>
             </Link>

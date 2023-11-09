@@ -142,7 +142,7 @@ const review = () => {
         style={{ width:'25rem', height:'3rem',
         borderRadius: '10px 0 10px 10px',
         backgroundColor:'#5F3300', color: '#FFFFFF'}}> 
-      꿀단지 채우러 가기
+        꿀단지 채우러 가기
       </button>
         </Link>
 

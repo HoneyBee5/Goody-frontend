@@ -3,7 +3,7 @@ import './collectionDetail.css';
 import { useParams } from 'react-router-dom';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
+import '../Review/font.css';
 const token = localStorage.getItem('token');
 
 
@@ -16,6 +16,7 @@ const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
 const [marginTop, setMarginTop] = useState(0);
 const [collectionData, setCollectionData] = useState(null);
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
 const navigate = useNavigate();
 
 
@@ -201,7 +202,7 @@ const handleDeleteClick = async () => {
           onClick={handleImageClick}>
           
           
-          <p className="text-3xl p-3  absolute text-center">
+          <p className="text-3xl p-3  absolute text-center fontbig">
             {collectionData ? collectionData.title : 'Loading...'}
           </p>
 
@@ -215,8 +216,18 @@ const handleDeleteClick = async () => {
           </div>
 
           <div>
-          <p className=' text-center flex items-center justify-center '>해시태그</p>
-          </div>
+          {collectionData && collectionData.hashTags ? (
+            <div className='text-center flex items-center justify-center '>
+              {collectionData.hashTags.map((tag, index) => (
+                    <p className='px-3' key={index}>
+                    # {tag}
+              </p>
+              ))}
+              </div>
+              ) : (
+              <p/>
+              )}
+            </div>
 
           </div>
 
