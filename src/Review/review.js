@@ -24,19 +24,16 @@ const review = () => {
       }
     };
 
- // 클릭한 버튼 정보를 서버에 보냄
- const selectedReviewData = {
-  reviewerId: localStorage.getItem('userId'), //수정 필요
-  reviewKeywords: selectedButtons,
-  contentId: '4ra8NSpdxUGMQfmMm00A', // 수정 필요
-};
-
-
+    // 클릭한 버튼 정보를 서버에 보냄
+    const selectedReviewData = {
+      reviewerId: localStorage.getItem('userId'), //수정 필요
+      reviewKeywords: selectedButtons,
+      contentId: '4ra8NSpdxUGMQfmMm00A', // 수정 필요
+    };
 
     const handleReviewClick = async() => {
 
-
-      fetch(`http://27.96.134.23:4001/goody/review/keywords?receiveId=${localStorage.getItem('userId')}`, { //수정해야댐
+      fetch(`https://www.honeybee-goody.site/goody/review/keywords?receiveId=${localStorage.getItem('userId')}`, { //수정해야댐
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -62,13 +59,9 @@ const review = () => {
 
   return (
     <>
-
-  
     <ActionBarClose actionBarName={actionBarName} />
-  
 
-
-    <div className=' flex justify-center items-center  flex-col pt-32'>
+    <div className=' flex justify-center items-center flex-col pt-32'>
       
         <div className='fontsmall'>
             이런 점이 가장 좋았어요

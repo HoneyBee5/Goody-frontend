@@ -97,6 +97,7 @@ const TabView = () => {
         <Tab label={<Typography variant="body1" sx={{ minWidth: 80, fontWeight: 'bold' }}>같이해요</Typography>} />
       </Tabs>
 
+      <div style={{ overflowY: 'auto', height: '500px' }}>
       {/* 데이터 로딩 중 또는 데이터가 비어 있는 경우 처리 */}
       {loading && <div>Loading...</div>}
 
@@ -109,6 +110,7 @@ const TabView = () => {
           </Link>
         </div>
       ))}
+      </div>
     </Box>
   );
 };
