@@ -7,6 +7,7 @@ import '../Review/font.css';
 const token = localStorage.getItem('token');
 
 function CollectionDetail() {
+
 const [isSliding, setIsSliding] = useState(false);
 const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
 const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
@@ -189,6 +190,7 @@ const navigate = useNavigate();
         <div className="relative" style={{ marginTop: `${marginTop}px` }}> {/*아래 상세설명*/}
           <button className={`overflow-hidden absolute  -bottom-[33rem] w-full h-[600px] bg-white rounded-3xl justify-center flex z-50 
                ${isSliding ? 'transition duration-200 ease-in-out sliding ' : ''}`}
+
           style={{ marginTop: `${marginTop}px` }}
           onClick={handleImageClick}>
           
@@ -205,6 +207,7 @@ const navigate = useNavigate();
                 </p>
               </div>
 
+
           <div>
           {collectionData && collectionData.hashTags ? (
             <div className='text-center flex items-center justify-center '>
@@ -220,8 +223,6 @@ const navigate = useNavigate();
           </div>
 
             </div>
-
-
 
 
             {isDescriptionVisible1 && (
