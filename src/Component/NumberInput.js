@@ -14,6 +14,7 @@ export default function NumberInputBasic({ placeholder, value, onChange }){
         value={inputValue} // 내부 상태 사용
         placeholder={placeholder}
         onChange={handleValueChange} // 내부 핸들러 사용
+        min = {0}
     />
   );
 }

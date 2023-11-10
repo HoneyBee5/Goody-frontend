@@ -39,7 +39,7 @@ Item_width.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    createdDate: PropTypes.string.isRequired,
+    createdDate: PropTypes.string,
     transType: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     thumbnailImg: PropTypes.string.isRequired,

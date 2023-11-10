@@ -3,8 +3,8 @@ import { Nav } from '../Component/Nav';
 import PropTypes from 'prop-types';
 import { SearchDatail_Item } from './SearchDetail_item';
 import SearchSelectbox from './SearchSelectbox';
-import { useNavigate  } from 'react-router-dom';
-import { useParams  } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -36,11 +36,11 @@ const OPTIONS3 = [
 
 
 const SearchDetail = () => {
-  const navigate = useNavigate();
-  const { Searchtext } = useParams();
+  const navigate = useNavigate(); //네비게이션
+  const { Searchtext } = useParams(); //게시글 파라미터 추출
   
-  const [text, setText] = useState(Searchtext);
-  const [category,setCategory] = useState('');
+  const [text, setText] = useState(Searchtext); //입력한 값
+  const [category,setCategory] = useState(''); //
 
   const [transtype,setTransType] = useState('');
   const [sold,setSold] = useState('');
@@ -51,9 +51,7 @@ const SearchDetail = () => {
 
   const queryParameters = [];
 
-  let apiUrl = 'http://27.96.134.23:4001/goody/contents/search';
-  
-  
+  let apiUrl = 'https://www.honeybee-goody.site/goody/contents/search';
  
    if (text) {
       apiUrl += `?search=${text}`;
@@ -185,12 +183,7 @@ const SearchDetail = () => {
 
 
 
-      <div className='flex pr-3' >
-        <div className='ml-auto flex'>
-        <img src='../img\Arrange.png' className='h-5 w-5' />
-        <span>정렬</span>
-      </div>
-      </div>
+   
 
       
       <div className='flex flex-wrap mb-24'>
@@ -207,6 +200,7 @@ const SearchDetail = () => {
               createdDate={item.createdDate}
               thumbnailImg={item.thumbnailImg}
               documentId = {item.documentId}
+              transType = {item.transType}
             />
            
           ))

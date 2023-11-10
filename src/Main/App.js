@@ -16,12 +16,13 @@ import Categories from './Categories';
 import CollectionDetail from '../Collection/collectionDetail';
 import SearchDetail from '../Search/SearchDetail';
 import CollectionWrtie from '../Collection/collectionWrite';
+import CollectionSearch from '../Collection/collectionSearch';
 import Search from '../Search/Search';
 import WriteDetail from '../Write/WriteDetail';
 import Home from './Home';
 import Login from '../Login/Login';
 import Join from '../Login/Join';
-import Chatting from '../Chatting/Chatting';
+import Chatting from '../Chatting/chatting';
 import TabView from './TabView';
 import MainCategories from './MainCategories';
 
@@ -31,7 +32,7 @@ const App = () => {
         <Routes>
         <Route path="/chatting" element={<Chatting />} />
           <Route path="/address" element={<Address />} />
-          <Route path="/chatdetails" element={<Chatdetails />} />
+          <Route path="/chatdetails/:roomId" element={<Chatdetails />} />
           <Route path="/review" element={<Review />} />
           <Route path="/honeyhome" element={<Honeyhome />} />
           <Route path="/reviewperfect" element={<Reviewperfect />} />
@@ -48,6 +49,7 @@ const App = () => {
           <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
           <Route path="/SearchDetail/" element={<SearchDetail />} />
           <Route path="/SearchDetail/:Searchtext" element={<SearchDetail />} />
+          <Route path="/collectionSearch" element={<CollectionSearch />} />
           <Route path="/home" element={<Home />} />
           <Route path="/join" element={<Join />} />
           <Route path="/tabview" element={<TabView />} />

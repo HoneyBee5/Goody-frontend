@@ -1,10 +1,12 @@
 
-import Button_honey from './Reviewhoneybtn';
+import './font.css'
 import Slider from '@mui/material/Slider';
 import PropTypes from 'prop-types';
 import React, { useState} from 'react';
 
 import { Link } from 'react-router-dom';
+
+
 const MySlider = ({ value, handleChange }) => {
   return (
     <div>
@@ -16,10 +18,10 @@ const MySlider = ({ value, handleChange }) => {
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"
-          step={0.5}
+          step={10}
           marks
           min={0}
-          max={5}
+          max={100}
 
         sx={{
           '& .MuiSlider-thumb': {
@@ -42,18 +44,85 @@ MySlider.propTypes = {
 };
 
 
-     
 
 
 
 
 const ReviewHoneyHome = () => {
-    const [value, setValue] = useState(2.5);
-
+    const [value, setValue] = useState(0);
+  
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
     
+     
+
+
+
+    const handleReviewClick = async() => {
+
+
+      fetch(`http://27.96.134.23:4001/goody/review/rate?reviewDocumentId=4ra8NSpdxUGMQfmMm00A&receiveId=${localStorage.getItem('userId')}&rate=${value}`, { //수정해야댐
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${localStorage.getItem('token')}`,
+        },
+      
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('서버에서 오류가 발생했습니다.');
+          }
+          console.log('데이터가 성공적으로 전송되었습니다.');
+          return response.json(); // 서버에서의 응답을 JSON으로 파싱
+
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.error('HTTP 상태 코드:', error.response.status);
+          }
+          
+        });
+    };
+
+
+    const getHoneyImage = (value) => {
+      if (value >= 100) {
+        return 'img/honeybox11.png'; // 슬라이더 값이 10 이상일 때 다른 이미지
+      }
+      else if(value >= 90){
+        return 'img/honeybox10.png';
+      } 
+      else if(value >= 80){
+        return 'img/honeybox9.png';
+      } 
+      else if(value >= 70){
+        return 'img/honeybox8.png';
+      } 
+      else if(value >= 60){
+        return 'img/honeybox7.png';
+      } 
+      else if(value >= 50){
+        return 'img/honeybox6.png';
+      } 
+      else if(value >= 40){
+        return 'img/honeybox5.png';
+      } 
+      else if(value >= 30){
+        return 'img/honeybox4.png';
+      } 
+      else if(value >= 20){
+        return 'img/honeybox3.png';
+      } 
+      else if(value >= 10){
+        return 'img/honeybox2.png';
+      } 
+      else {
+        return 'img/honeybox1.png'; // 슬라이더 값이 10 미만일 때 기본 이미지
+      }
+    };
+ 
     const divStyle = {
         position: 'fixed',
         top: 0,
@@ -61,7 +130,7 @@ const ReviewHoneyHome = () => {
         width: '100%',
         height: '100%',
         zIndex: -1,
-        backgroundImage: `url('img/honeyhome_back.png')`,
+        backgroundImage: `url('img/BackGround.png')`,
         backgroundSize: 'cover', // 이미지가 div를 덮도록 설정
       };
     
@@ -77,12 +146,19 @@ const ReviewHoneyHome = () => {
                     꿀단지를 채워주세요
                 </p>
 
-          <img className='pl-7' src='img/honeyhome.png' style={{ width: '20rem', height: '25rem' }}></img>
+          <img className='pl-7'  src={getHoneyImage(value)}  style={{ width: '20rem', height: '25rem' }}></img>
 
                 <MySlider value={value} handleChange={handleChange} />
         
-            <Link to='/reviewperfect'>
-              <Button_honey>다음</Button_honey>
+                <Link to={'/reviewperfect'}
+                  state = {{ value}}
+                >
+                <button 
+                onClick={handleReviewClick}
+                className='fontsmall font-bold mt-2' 
+                style={{ width:'25rem', height:'3rem',borderRadius: '10px 0 10px 10px',backgroundColor:'#5F3300', color: '#FFFFFF'}}> 
+                다음
+                </button>
             </Link>
           </div>
         

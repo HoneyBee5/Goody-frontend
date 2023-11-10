@@ -39,7 +39,7 @@ function Join()  {
 
 
     try {
-      const response = await fetch('http://27.96.134.23:4001/goody/user/join', {
+      const response = await fetch('https://www.honeybee-goody.site/goody/user/join', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
