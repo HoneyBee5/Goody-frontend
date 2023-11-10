@@ -1,16 +1,28 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
+
+import 'moment/locale/ko';
+import { useInterval } from 'react-use';
+
 function Join()  {
-  
+
+  const [realTime, setRealTime] = useState(Date.now());
+
+  useInterval(() => {
+    setRealTime(Date.now());
+  }, 1000);
+
+
   const [formData, setFormData] = useState({
-   userId:'',
-   userPw:'',
-   birth: '2023-09-19T10:53:41.299Z',
-   userName:'',
-   userPhoneNum:'',
+    userId: '',
+    userPw: '',
+    birth: realTime,
+    userName: '',
+    userPhoneNum: '',
+    nickname: ''
   });
-  
+
 
 
   const handleChange = (e) => {
@@ -66,8 +78,9 @@ function Join()  {
             <p className='text-left ml-8 font-bold p-2' > 이름 </p>
             <input type={'text'} name='userName' className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[22rem] h-12 pl-4' placeholder='홍길동' value={formData.userName} onChange={handleChange}></input>
             <p className='text-left ml-8 font-bold p-2' > 전화번호 </p>
-            <input type={'text'} name='userPhoneNum' className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[22rem] h-12 pl-4' placeholder='010-0000-0000' value={formData.userPhoneNum} onChange={handleChange}></input>
-            
+            <input type={'text'} name='userPhoneNum' className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[22rem] h-12 pl-4' placeholder='010-0000-0000'  value={formData.userPhoneNum} onChange={handleChange}></input>
+            <p className='text-left ml-8 font-bold p-2' > 닉네임 </p>
+            <input type={'text'} name='nickname' className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[22rem] h-12 pl-4' placeholder='gildong'  value={formData.nickname} onChange={handleChange}></input>
           </div>
     
           <div className='flex justify-center'> 
@@ -77,7 +90,7 @@ function Join()  {
           </div>
           </form>
 
-          <div className='text-center mt-5'>
+          <div className='text-center mt-5 mb-5'>
         <div className='flex justify-center space-x-2'>
           <Link to="/"><p> 로그인 </p></Link>
         </div>

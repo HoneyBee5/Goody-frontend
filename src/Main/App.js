@@ -12,6 +12,7 @@ import Mypage from '../MyPage/mypage';
 import ReviewList from '../MyPage/ReviewList';
 import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
+import Categories from './Categories';
 import CollectionDetail from '../Collection/collectionDetail';
 import SearchDetail from '../Search/SearchDetail';
 import CollectionWrtie from '../Collection/collectionWrite';
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/favoritelist" element={<FavoriteList />} />
           <Route path="/purchaselist" element={<PurchaseList />} />
+          <Route path="/categories" element={<Categories />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/collectionDetail/:collectionId" element={<CollectionDetail />} />
           <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
