@@ -37,38 +37,33 @@ const Chatdetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch messages
-        const response1 = await fetch(`https://www.honeybee-goody.site/goody/messages?roomId=${roomId}`, {
+        const fetchOptions = {
           headers: {
             Authorization: `${localStorage.getItem('token')}`, // Bearer 토큰 형식을 따릅니다.
           }
-        });
-
+        };
+      
+        const response1 = await fetch(`https://www.honeybee-goody.site/goody/messages?roomId=${roomId}`, fetchOptions);
+        const response2 = await fetch(`https://www.honeybee-goody.site/goody/itemInfo?contentId=${contentsId}`, fetchOptions);
+      
         if (response1.ok) {
-          const data = await response1.json();
-          setMessages(data);
-          console.log(data);
+          const data1 = await response1.json();
+          setMessages(data1);
+          console.log(data1);
         } else {
           console.error('서버에서 오류 응답을 받았습니다.', response1.status);
         }
-
-        // Fetch item information
-        const response2 = await fetch(`https://www.honeybee-goody.site/goody/itemInfo?contentId=${contentsId}`, {
-          headers: {
-            Authorization: `${localStorage.getItem('token')}`, // Bearer 토큰 형식을 따릅니다.
-          }
-        });
-
+      
         if (response2.ok) {
-          const itemInfoData = await response2.json();
-          setItemInfo(itemInfoData);
-          console.log(itemInfoData);
+          const data2 = await response2.json();
+          setItemInfo(data2);
+          console.log(data2);
         } else {
           console.error('서버에서 오류 응답을 받았습니다.', response2.status);
         }
       } catch (error) {
         console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
-      }
+      }      
     };
 
     fetchData();
