@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 import { Drawer } from 'antd';
 import Categories from './Categories'; 
-import AppBar from '@mui/material/AppBar';
 
 // 액션바
 const HomeActionBar = ({ children, imageSrc }) => {
 
   const [visible, setVisible] = useState(false);
+
 
   useEffect(() => {
     const defaultOpenElement = document.getElementById('defaultOpen');
@@ -33,7 +33,7 @@ const HomeActionBar = ({ children, imageSrc }) => {
 
   
   return (
-    <div className='flex' style={{ zIndex: '10' }}>
+    <div className='flex'>
       <img className='relative' src={imageSrc} alt='구디' />
       <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
       <Link to="/Search">
@@ -79,6 +79,7 @@ const theme = createTheme({
 const Home = () => {
   const [thisIndex, setThisIndex] = useState(0);
 
+  const [pageNumber, setPageNumber] = useState(1); //페이지 번호 상태
 
 
   // 이미지를 자동으로 넘기는 함수
@@ -102,16 +103,34 @@ const Home = () => {
     }
   };
 
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollPosition = window.scrollY;
+
+    // 스크롤이 화면 맨 아래로 도달하면 페이지 번호를 변경
+    if (scrollPosition + windowHeight === documentHeight) {
+      console.log('스크롤이 화면 맨 아래로 도달함')
+      setPageNumber(pageNumber + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [pageNumber]);
 
   return (
-    <div className="App w-full">
-    <ThemeProvider theme={theme}> 
+    <ThemeProvider theme={theme}>
       {/* 액션바 */}
-      <AppBar component="nav" className='fixed top-0 w-full' style={{ zIndex: '-1' }}>
       <HomeActionBar imageSrc="img\HomeActionBar.png">
         <div className='left-0 absolute w-full flex justify-center items-center mt-24'>
           <div className="all">
-          <div id="con" style={{ transform: `translateX(-${thisIndex * (window.innerWidth <= 390 ? 315 : 335)}px)` }}>
+          <div id="con" style={{ transform: `translateX(-${thisIndex * (window.innerWidth <= 390 ? 305 : 335)}px)` }}>
               <a href="#"><img className="main_img" src="img/EventImg1.png" alt="event_img" /></a>
               <a href="#"><img className="main_img" src="img/EventImg2.png" alt="event_img2" /></a>
               <a href="#"><img className="main_img" src="img/EventImg3.png" alt="event_img3"/></a>
@@ -138,11 +157,10 @@ const Home = () => {
           </div>
         </div>
       </HomeActionBar>
-      </AppBar>
 
-      
+
+
       {/* 메인 카테고리 */}
-      <div className='rounded-3xl pt-5 mt-[210px] h-[700px]' style={{backgroundColor:'white',zIndex:'10',overflow:'hidden'}}> 
       <div className='flex justify-center'>
         <div className="mb-2">
           <Link to="/maincategories?category=MOV&name=영화"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Movie.png' className='shadow-md rounded-2xl mb-2' alt='MOV'></img>영화</button></Link>
@@ -161,10 +179,7 @@ const Home = () => {
       {/* 탭 뷰 */}
       <TabView />
       <Nav />
-      </div>
-      
     </ThemeProvider>
-    </div>
   );
 };
 
