@@ -33,7 +33,6 @@ const CollectionItem = ({ item }) => {
   );
 };
 
-
 function Collection() {
   const [collectionItems, setCollectionItems] = useState(null);
 
@@ -116,6 +115,5 @@ CollectionItem.propTypes = {
     thumbnailPath: PropTypes.string.isRequired,
   }).isRequired,
 };
-
 
 export default Collection;

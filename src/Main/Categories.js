@@ -27,7 +27,7 @@ const Categories = () => {
       <div className='flex'>
         <img src="img/categories_bar.png" className='relative' />
         <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' onClick={handleBack}>
-          <img src="img/Close.png" alt='닫기' width={'30px'} height={'30px'} />
+          <img src="img/close.png" alt='닫기' width={'30px'} height={'30px'} />
         </button>
       </div>
 

@@ -60,17 +60,17 @@ const Login = () => {
 
       <form onSubmit={handleSubmit} method="POST" action="/login">
         <div className='text-center'>
-        <p className='text-left ml-8 font-bold p-2' > 이름 </p>
-              <input type={'text'} className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[22rem] h-12 pl-4'
+        <p className='text-left ml-14 font-bold p-2' > 이름 </p>
+              <input type={'text'} className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)] rounded-lg w-[18rem] h-12 pl-4'
               placeholder='hongildong' name='userId' onChange={(e) => setUserId(e.target.value)}></input>
-              <p className='text-left ml-8 font-bold p-2' > 비밀번호 </p>
-              <input type={'password'} className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)]  rounded-lg w-[22rem] h-12 pl-4'
+              <p className='text-left ml-14 font-bold p-2' > 비밀번호 </p>
+              <input type={'password'} className='shadow-[0_0_4px_0_rgba(174,174,174,0.7)]  rounded-lg w-[18rem] h-12 pl-4'
               placeholder='********' name='userPw' onChange={(e) => setUserPw(e.target.value)}></input>
         
         </div>
 
         <div className='flex justify-center'>
-          <button type={'submit'} className='mt-5 w-[22rem] mb-5'>
+          <button type={'submit'} className='mt-5 w-[18rem] mb-5'>
               <img src='img/LoginButton.png' alt='Login' />
           </button>
         </div>

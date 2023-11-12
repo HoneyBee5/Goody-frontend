@@ -58,6 +58,7 @@ const FavoriteList = () => {
           <div key={index}>
             <Link to={`/WriteDetail/${item.documentId}`}>
               <Item_width data={item} />
+              {index === productData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
             </Link>
           </div>
         ))
