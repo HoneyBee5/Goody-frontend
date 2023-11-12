@@ -169,21 +169,22 @@ const Chatdetails = () => {
         </AppBar>
       </div>
 
-     {/* 채팅방 출력 */}
-<div className='pt-16 w-full' style={{ overflowY: 'hidden' }}>
-  <div>
-    {messages.map((message, index) => (
-      <div key={index} className={`m-2 flex flex-col ${message.sender === localStorage.getItem('userId') ? 'items-end' : 'items-start'}`} style={{ overflowY: 'auto' }}>
-        <div
-          style={{ fontSize: '1rem' }}
-          className={`flex border p-2 m-1 items-center rounded-lg shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'} ${message.message.length > 20 ? 'w-72' : ''}`}
-          dangerouslySetInnerHTML={{ __html: message.message }}
-        />
-      </div>
-    ))}
-    <div style={{ marginBottom: '3rem' }} />
-  </div>
-  <div ref={messagesEndRef} />
+      {/* 채팅방 출력 */}
+      <div className='pt-16 w-full' style={{ overflowY: 'hidden' }}>
+        <div>
+          {messages.map((message, index) => (
+            <div key={index} className={`m-2 flex flex-col ${message.sender === localStorage.getItem('userId') ? 'items-end' : 'items-start'}`} style={{ overflowY: 'auto' }}>
+              <p className='text-xs p-2'>{message.sender}</p>
+              <div
+                style={{ fontSize: '1rem' }}
+                className={`flex border p-2 m-1 items-center rounded-lg shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'} ${message.message.length > 20 ? 'w-72' : ''}`}
+                dangerouslySetInnerHTML={{ __html: message.message }}
+              />
+            </div>
+          ))}
+          <div style={{ marginBottom: '3rem' }} />
+        </div>
+        <div ref={messagesEndRef} />
 
 
         {/* 채팅 입력창 */}
@@ -208,9 +209,9 @@ const Chatdetails = () => {
                   <textarea
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
-                    style={{ borderRadius: '4px', width: '20rem', minHeight: '30px' }}
+                    style={{ borderRadius: '4px', width: '20rem', height: '30px', resize: 'none' }}
                   />
-                  <button onClick={sendMessage} style={{ padding: '8px' }}> 전송</button>
+                  <button onClick={sendMessage} style={{ padding: '10px' }}> 전송</button>
                 </div>
               </div>
             </div>

@@ -6,12 +6,12 @@ const Button = ({ children , onClick ,active }) => {
 
   return (
     <button
-      className={`fontsmallb border rounded-xl shadow-lg m-1 `}
+      className={` border rounded-xl shadow-lg m-1 text-sm`}
       style={{
-        width: '12rem',
+        margin: '0.5rem',
+        width: '10rem',
         height: '2.5rem',
-        fontSize: '18px',
-        background: active ? '#FFE479' : 'conic-gradient(from 180deg at 50% 50.00%, #FFF2C6 0deg, #FFE479 360deg)',
+        background: active ? '#F9C807' : 'conic-gradient(from 180deg at 50% 50.00%, #FFF2C6 0deg, #FFE479 360deg)',
       
       }}
       onClick={onClick} // 버튼 클릭 시 handleClick 함수 실행
