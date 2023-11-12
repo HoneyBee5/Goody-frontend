@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import addChattingRoom from '../Chatting/addChattingRoom';
+import { Dropdown, Space } from 'antd';
 
 const theme = createTheme({
   palette: {
@@ -18,6 +19,7 @@ const theme = createTheme({
   },
 });
 
+
 function WriteDetail() {
   const [writeDetailData, setWriteDetailData] = useState({});
   const { documentId } = useParams();
@@ -26,6 +28,7 @@ function WriteDetail() {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [myContents, setMyContents] = useState(false); 
 
   const dataToSend = {
     documentId: documentId,
@@ -75,13 +78,45 @@ function WriteDetail() {
     }
   };
 
+  const items = [
+    ...(myContents === true
+      ? [
+        {
+          label: '삭제',
+          key: '1',
+        },
+      ]
+      : []),
+  ];
+  const handleDeleteClick = async () => {
+    try {
+      const responseDel = await fetch(
+        `https://www.honeybee-goody.site/goody/contents/delete?documentId=${documentId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      if (responseDel.ok) {
+        console.log('삭제 성공');
+        navigate(-1);
+      } else {
+        console.error('삭제 실패');
+      }
+    } catch (error) {
+      console.error('오류 발생:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const headers = {
           Authorization: token,
         };
-  
         const response = await fetch(
           `https://www.honeybee-goody.site/goody/contents/detail?documentId=${documentId}`,
           {
@@ -89,23 +124,22 @@ function WriteDetail() {
             headers,
           }
         );
-  
+
         if (!response.ok) {
           throw Error('HTTP 오류 ' + response.status);
         }
-  
+
         const data = await response.json();
         setWriteDetailData(data);
-        // Initialize the liked state based on the 'like' property from the server
-        setLiked(data.like || false); // Assuming data.like is a boolean
+        setLiked(data.like || false);
+        setMyContents(data.myContents || false);
       } catch (error) {
         console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
       }
     };
-  
+
     fetchData();
   }, [documentId]);
-  
 
   const isFirstImage = currentImageIndex === 0;
   const isLastImage = writeDetailData.imgPath && currentImageIndex === writeDetailData.imgPath.length - 1;
@@ -120,6 +154,28 @@ function WriteDetail() {
                 <img src="/img/close.png" alt="닫기" className="w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
               </button>
             </div>
+
+            {writeDetailData.myContents && (
+              <Dropdown
+                menu={{
+                  items: items.map((item) => {
+                    if (item.key === '1') {
+                      return { ...item, onClick: handleDeleteClick }; // key가 1인 경우 핸들러 1 연결
+                    }
+                    return item;
+                  }),
+                }}
+                trigger={['click']}
+                style={{ border: '1px solid #000', width: '23px', height: '23px' }}
+                className='absolute top-4 right-14'
+              >
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    <img src='../img/Icon_Info_White.png' className="w-[1.8rem] h-[1.8rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
+                  </Space>
+                </a>
+              </Dropdown>
+            )}
 
             {writeDetailData.imgPath.length > 1 && (
               <>
@@ -209,8 +265,7 @@ function WriteDetail() {
                 icon={faHeartSolid}
                 className={`heart-icon ${liked ? 'text-color' : ''} p-3`}
                 size="lg"
-                onClick={handleLikeClick}
-              />
+                onClick={handleLikeClick}/>
 
               <div className='p-3 pl-5 font-semibold text-sm'>
                 <label>{writeDetailData.price}원</label>
@@ -226,8 +281,7 @@ function WriteDetail() {
                       title: writeDetailData.title
                     });
                   }}
-                  className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'
-                >
+                  className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'>
                   구매하기
                 </button>
               </div>
