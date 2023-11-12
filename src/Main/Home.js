@@ -5,12 +5,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Home.css';
-
+import AppBar from '@mui/material/AppBar';
 // 액션바
 const HomeActionBar = ({ children, imageSrc }) => {
 
   return (
-    <div className='flex'>
+    <div className='flex' style={{ zIndex: '10' }}>
       <img className='relative' src={imageSrc} alt='구디' />
       <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
       <Link to="/Search">
@@ -65,8 +65,10 @@ const Home = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <div className="App w-full">
+    <ThemeProvider theme={theme}> 
       {/* 액션바 */}
+      <AppBar component="nav" className='fixed top-0 w-full' style={{ zIndex: '-1' }}>
       <HomeActionBar imageSrc="img\HomeActionBar.png">
         <div className='left-0 absolute w-full flex justify-center items-center mt-24'>
           <div className="all">
@@ -97,10 +99,11 @@ const Home = () => {
           </div>
         </div>
       </HomeActionBar>
+      </AppBar>
 
-
-
+      
       {/* 메인 카테고리 */}
+      <div className='rounded-3xl pt-5 mt-[210px] h-[700px]' style={{backgroundColor:'white',zIndex:'10',overflow:'hidden'}}> 
       <div className='flex justify-center'>
         <div className="mb-2">
           <Link to="/maincategories?category=MOV&name=영화"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Movie.png' className='shadow-md rounded-2xl mb-2' alt='MOV'></img>영화</button></Link>
@@ -119,7 +122,10 @@ const Home = () => {
       {/* 탭 뷰 */}
       <TabView />
       <Nav />
+      </div>
+      
     </ThemeProvider>
+    </div>
   );
 };
 

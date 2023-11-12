@@ -42,7 +42,6 @@ const chatting = () => {
     }
   };
 
-
   /*fetch api 연결*/
   useEffect(() => {
     fetchData();
@@ -54,7 +53,7 @@ const chatting = () => {
   
       <div className='mt-20'>
         {chatData.map((chatItem, index) => (
-          <Link key={chatItem.roomId} to={`/chatdetails/${chatItem.roomId}`}>
+          <Link key={chatItem.roomId} to={`/chatdetails/${chatItem.roomId}?contentsId=${chatItem.contentsId}`}>
             <ChatListItem
               chat_id={chatItem.roomName}
               chat_explain={chatItem.enterUsers.join(', ')}

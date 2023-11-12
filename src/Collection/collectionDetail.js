@@ -3,17 +3,19 @@ import './collectionDetail.css';
 import { useParams } from 'react-router-dom';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
+import '../Review/font.css';
 const token = localStorage.getItem('token');
 
 function CollectionDetail() {
-  const [isSliding, setIsSliding] = useState(false);
-  const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
-  const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
-  const [marginTop, setMarginTop] = useState(0);
-  const [collectionData, setCollectionData] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const navigate = useNavigate();
+
+const [isSliding, setIsSliding] = useState(false);
+const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
+const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
+const [marginTop, setMarginTop] = useState(0);
+const [collectionData, setCollectionData] = useState(null);
+const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const navigate = useNavigate();
+
 
   const { collectionId } = useParams();
   let apiURL = `https://www.honeybee-goody.site/goody/collection/detail?collectionId=${collectionId}`;
@@ -175,7 +177,7 @@ function CollectionDetail() {
 
             <a onClick={(e) => e.preventDefault()}>
               <Space>
-                <img src='../img/Icon_info.png ' style={{ width: '30px', height: '30px' }} />
+                <img src='../img/Icon_Info.png ' style={{ width: '30px', height: '30px' }} />
 
               </Space>
             </a>
@@ -188,13 +190,14 @@ function CollectionDetail() {
         <div className="relative" style={{ marginTop: `${marginTop}px` }}> {/*아래 상세설명*/}
           <button className={`overflow-hidden absolute  -bottom-[33rem] w-full h-[600px] bg-white rounded-3xl justify-center flex z-50 
                ${isSliding ? 'transition duration-200 ease-in-out sliding ' : ''}`}
-            style={{ marginTop: `${marginTop}px` }}
-            onClick={handleImageClick}>
 
-
-            <p className="text-3xl p-3  absolute text-center">
-              {collectionData ? collectionData.title : 'Loading...'}
-            </p>
+          style={{ marginTop: `${marginTop}px` }}
+          onClick={handleImageClick}>
+          
+          
+          <p className="text-3xl p-3  absolute text-center">
+            {collectionData ? collectionData.title : 'Loading...'}
+          </p>
 
 
             <div className="mt-[2.2rem] p-5 justify-center">
@@ -204,13 +207,22 @@ function CollectionDetail() {
                 </p>
               </div>
 
-              <div>
-                <p className=' text-center flex items-center justify-center '>해시태그</p>
+
+          <div>
+          {collectionData && collectionData.hashTags ? (
+            <div className='text-center flex items-center justify-center '>
+              {collectionData.hashTags.map((tag, index) => (
+                    <p className='px-3' key={index}>
+                    # {tag}
+              </p>
+              ))}
               </div>
+              ) : (
+              <p/>
+              )}
+          </div>
 
             </div>
-
-
 
 
             {isDescriptionVisible1 && (

@@ -1,5 +1,5 @@
 
-import Button_honey from './Reviewhoneybtn';
+import './font.css'
 import Slider from '@mui/material/Slider';
 import PropTypes from 'prop-types';
 import React, { useState} from 'react';
@@ -44,10 +44,6 @@ MySlider.propTypes = {
 };
 
 
-
-
-
-
 const ReviewHoneyHome = () => {
     const [value, setValue] = useState(0);
   
@@ -55,39 +51,68 @@ const ReviewHoneyHome = () => {
       setValue(newValue);
     };
     
+    
+    const handleReviewClick = async() => {
+
+
+      fetch(`http://27.96.134.23:4001/goody/review/rate?reviewDocumentId=4ra8NSpdxUGMQfmMm00A&receiveId=${localStorage.getItem('userId')}&rate=${value}`, { //수정해야댐
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${localStorage.getItem('token')}`,
+        },
+      
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('서버에서 오류가 발생했습니다.');
+          }
+          console.log('데이터가 성공적으로 전송되었습니다.');
+          return response.json(); // 서버에서의 응답을 JSON으로 파싱
+
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.error('HTTP 상태 코드:', error.response.status);
+          }
+          
+        });
+    };
+
+
     const getHoneyImage = (value) => {
       if (value >= 100) {
-        return 'img/honeyhome.png'; // 슬라이더 값이 10 이상일 때 다른 이미지
+        return 'img/honeybox11.png'; // 슬라이더 값이 10 이상일 때 다른 이미지
       }
       else if(value >= 90){
-        return 'img/honeyhome.png';
+        return 'img/honeybox10.png';
       } 
       else if(value >= 80){
-        return 'img/honeyhome.png';
+        return 'img/honeybox9.png';
       } 
       else if(value >= 70){
-        return 'img/honeyhome.png';
+        return 'img/honeybox8.png';
       } 
       else if(value >= 60){
-        return 'img/honeyhome.png';
+        return 'img/honeybox7.png';
       } 
       else if(value >= 50){
-        return 'img/honeyhome.png';
+        return 'img/honeybox6.png';
       } 
       else if(value >= 40){
-        return 'img/honeyhome.png';
+        return 'img/honeybox5.png';
       } 
       else if(value >= 30){
-        return 'img/honeyhome.png';
+        return 'img/honeybox4.png';
       } 
       else if(value >= 20){
-        return 'img/honeyhome.png';
+        return 'img/honeybox3.png';
       } 
       else if(value >= 10){
-        return 'img/honeyhome.png';
+        return 'img/honeybox2.png';
       } 
       else {
-        return 'img/honeyhome.png'; // 슬라이더 값이 10 미만일 때 기본 이미지
+        return 'img/honeybox1.png'; // 슬라이더 값이 10 미만일 때 기본 이미지
       }
     };
  
@@ -114,14 +139,19 @@ const ReviewHoneyHome = () => {
                     꿀단지를 채워주세요
                 </p>
 
-          <img className='pl-7'  src={getHoneyImage(value)}  style={{ width: '20rem', height: '25rem' }}></img>
+          <img src={getHoneyImage(value)}></img>
 
                 <MySlider value={value} handleChange={handleChange} />
         
                 <Link to={'/reviewperfect'}
-                  state = {{ value }}
+                  state = {{ value}}
                 >
-              <Button_honey>다음</Button_honey>
+                <button 
+                onClick={handleReviewClick}
+                className='fontsmall font-bold mt-2' 
+                style={{ width:'25rem', height:'3rem',borderRadius: '10px 0 10px 10px',backgroundColor:'#5F3300', color: '#FFFFFF'}}> 
+                다음
+                </button>
             </Link>
           </div>
         

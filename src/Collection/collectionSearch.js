@@ -29,7 +29,7 @@ const collectionDetail = () => {
     const [text3, setText3] = useState(''); //입력한 값
     const [collectionItems, setCollectionItems] = useState(null);
 
-    let apiUrl = `http://27.96.134.23:4001/goody/collection/search`;
+    let apiUrl = `https://www.honeybee-goody.site/goody/collection/search`;
 
 
     if (text1) {
