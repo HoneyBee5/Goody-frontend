@@ -51,21 +51,23 @@ const chatting = () => {
   return (
     <>
       <ActionBar actionBarName={actionBarName} />
-
+  
       <div className='mt-20'>
-        {chatData.map(chatItem => (
+        {chatData.map((chatItem, index) => (
           <Link key={chatItem.roomId} to={`/chatdetails/${chatItem.roomId}`}>
             <ChatListItem
               chat_id={chatItem.roomName}
               chat_explain={chatItem.enterUsers.join(', ')}
             />
+            {index === chatData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
           </Link>
         ))}
       </div>
-
+  
       <Nav />
     </>
   );
+  
 };
 
 export default chatting;

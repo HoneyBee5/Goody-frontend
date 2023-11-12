@@ -133,6 +133,20 @@ const Chatdetails = () => {
       <div className='pt-16 w-full' style={{ height: '45rem' }}>
 
         <div className=' w-full' style={{ height: '45rem' }}>
+
+        {/* 이전 내용 출력 */}
+        <div className='pl-3 pb-3 flex flex-col items-start'>
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                style={{ fontSize: '1rem', height: '3rem', width: '16rem' }}
+                className={`flex justify-start border p-2 m-1 items-center rounded-lg w-100 h-100 shadow-md ${message.sender !== localStorage.getItem('userId') ? 'bg-gray-400' : 'bg-yellow-400'}`}>
+                {message.message}
+              </div>
+            ))}
+          </div>
+
+          {/*  입력한 내용 출력 */}
           <div className='pl-3 pb-3 flex flex-col items-end'>
             {messages.map((message, index) => (
               <div
