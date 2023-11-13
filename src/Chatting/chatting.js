@@ -31,17 +31,14 @@ const chatting = () => {
       if (data && data.length > 0) {
         setChatData(data);
         console.log(data);
-
       } else {
         console.error('API에서 데이터를 가져오는 중 오류 발생: 데이터가 비어 있습니다.');
       }
-
     } catch (error) {
       console.error('오류 발생:', error);
       throw error; // You can re-throw the error if you want to handle it further in your component.
     }
   };
-
 
   /*fetch api 연결*/
   useEffect(() => {
@@ -51,21 +48,22 @@ const chatting = () => {
   return (
     <>
       <ActionBar actionBarName={actionBarName} />
-
+  
       <div className='mt-20'>
-        {chatData.map(chatItem => (
-          <Link key={chatItem.roomId} to={`/chatdetails/${chatItem.roomId}`}>
+        {chatData.map((chatItem, index) => (
+          <Link key={chatItem.roomId} to={`/chatdetails/${chatItem.roomId}?contentsId=${chatItem.contentsId}`}>
             <ChatListItem
               chat_id={chatItem.roomName}
-              chat_explain={chatItem.enterUsers.join(', ')}
-            />
+              chat_explain={chatItem.enterUsers.join(', ')}/>
+            {index === chatData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
           </Link>
         ))}
       </div>
-
+  
       <Nav />
     </>
   );
+  
 };
 
 export default chatting;

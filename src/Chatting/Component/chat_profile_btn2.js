@@ -1,28 +1,38 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const Button = () => {
-    const name = '짱구는 못말려 분철합니다';
-    const price = '18000';
+const ChatProfileBtn2  = ({ ItemInfo }) => {
+
+
+    const MAX_TITLE_LENGTH = window.innerWidth <= 390 ? 12 : 14;
+
+    const formatPrice = (price) => {
+      return price.toLocaleString(); // 가격에 천 단위 구분 기호(쉼표) 추가
+    };
+  
+    const truncatedTitle = ItemInfo.title.length > MAX_TITLE_LENGTH
+      ? ItemInfo.title.slice(0, MAX_TITLE_LENGTH) + '...'
+      : ItemInfo.title;
+  
+
     return (
-
         <>
-            <div className='flex  border relative'
+            <div className='flex border relative'
                 style={{
                     width: '25rem', height: '4em', borderRadius: '50px 0 10px 50px',
                     backgroundColor: '#FFF2C6'
                 }}>
 
-                <img src="../img/Book.png" alt="프로필사진" className="rounded-full border" style={{ width: '4rem', height: '4rem' }}></img>
+                <img src={ItemInfo. thumbnailImg} alt="프로필사진" className="rounded-full border" style={{ width: '4rem', height: '4rem' }}></img>
 
-                <div className='flex flex-col  justify-center '>
-                    <p className='pl-5 font-semibold '>{name}</p>
-                    <p className='pl-5 '> {price}원</p>
+                <div className='flex flex-col justify-center'>
+                    <p className='pl-5 font-semibold text-black'>{truncatedTitle}</p>
+                    <p className='pl-5 text-black '> {formatPrice(ItemInfo.price)}원</p>
                 </div>
 
                 <Link to='/review'>
-                    <button className='border absolute bottom-4 right-1 mr-2 flex justify-center font-bold text-sm items-center'
+                    <button className='border absolute bottom-4 right-1 mr-2 flex justify-center font-bold text-sm items-center text-black'
                         style={{ borderRadius: '10px 0 10px 10px', width: '6rem', height: '2rem', backgroundColor: '#FFFFFF' }}>
                         리뷰 남기기
                     </button>
@@ -32,9 +42,13 @@ const Button = () => {
     );
 };
 
-
-
-
-
-
-export default Button;
+ChatProfileBtn2.propTypes = {
+    ItemInfo: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      thumbnailImg: PropTypes.string.isRequired,
+      // Add other properties if needed
+    }).isRequired,
+  };
+  
+  export default ChatProfileBtn2;

@@ -9,13 +9,12 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import addChattingRoom from '../Chatting/addChattingRoom';
+import { Dropdown, Space } from 'antd';
 
-
-// 탭뷰 테마 커스텀 테마를 생성
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#FFD52B', // 원하는 색상으로 변경
+      main: '#FFD52B',
     },
   },
 });
@@ -29,75 +28,38 @@ function WriteDetail() {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [myContents, setMyContents] = useState(false); 
+
+  const dataToSend = {
+    documentId: documentId,
+    liked: !liked,
+  };
 
   const handleLikeClick = () => {
-
-    // 좋아요 상태를 토글하고 저장
     setLiked(!liked);
-    const likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
 
+    const headers = {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    };
 
-    if (liked) {
-      // 이미 좋아요한 경우, 아이템을 제거
-      const updatedLikedItems = likedItems.filter((item) => item !== documentId);
-      localStorage.setItem('likedItems', JSON.stringify(updatedLikedItems));
+    const likeEndpoint = liked
+      ? `https://www.honeybee-goody.site/goody/contents/removeLike?documentId=${documentId}`
+      : `https://www.honeybee-goody.site/goody/contents/addlike?documentId=${documentId}`;
 
-
-      // 좋아요 취소 API 호출
-      const headers = {
-        Authorization: token,
-        'Content-Type': 'application/json',
-      };
-
-      const dataToSend = {
-        documentId: documentId,
-      };
-
-      fetch(`https://www.honeybee-goody.site/goody/contents/removeLike?documentId=${documentId}`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(dataToSend),
+    fetch(likeEndpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(dataToSend),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('HTTP 오류 ' + response.status);
+        }
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('HTTP 오류 ' + response.status);
-          }
-        })
-        .catch((error) => {
-          console.error('좋아요 취소 중 오류 발생:', error);
-        });
-
-
-    } else {
-      // 좋아요하지 않은 경우, 아이템을 추가
-      likedItems.push(documentId);
-      localStorage.setItem('likedItems', JSON.stringify(likedItems));
-
-
-      const headers = {
-        Authorization: token,
-        'Content-Type': 'application/json',
-      };
-
-      const dataToSend = {
-        documentId: documentId,
-        liked: true, // 현재 상태를 토글
-      };
-
-      fetch(`https://www.honeybee-goody.site/goody/contents/addlike?documentId=${documentId}`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(dataToSend),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('HTTP 오류 ' + response.status);
-          }
-        })
-        .catch((error) => {
-          console.error('좋아요 정보 업데이트 중 오류 발생:', error);
-        });
-    }
+      .catch((error) => {
+        console.error('좋아요 처리 중 오류 발생:', error);
+      });
   };
 
   const handleBack = () => {
@@ -105,51 +67,79 @@ function WriteDetail() {
   };
 
   const nextImage = () => {
-    if (writeDetailData.imgPath.length > 0) {
+    if (writeDetailData.imgPath && writeDetailData.imgPath.length > 0) {
       setCurrentImageIndex((currentImageIndex + 1) % writeDetailData.imgPath.length);
     }
   };
 
   const prevImage = () => {
-    if (writeDetailData.imgPath.length > 0) {
+    if (writeDetailData.imgPath && writeDetailData.imgPath.length > 0) {
       setCurrentImageIndex((currentImageIndex - 1 + writeDetailData.imgPath.length) % writeDetailData.imgPath.length);
     }
   };
 
-  const fetchData = async () => {
-    try {
-      const headers = {
-        Authorization: token,
-      };
-
-      const response = await fetch(
-        `https://www.honeybee-goody.site/goody/contents/detail?documentId=${documentId}`,
+  const items = [
+    ...(myContents === true
+      ? [
         {
-          method: 'GET',
-          headers,
+          label: '삭제',
+          key: '1',
+        },
+      ]
+      : []),
+  ];
+  const handleDeleteClick = async () => {
+    try {
+      const responseDel = await fetch(
+        `https://www.honeybee-goody.site/goody/contents/delete?documentId=${documentId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `${token}`,
+          },
         }
       );
 
-      if (!response.ok) {
-        throw Error('HTTP 오류 ' + response.status);
+      if (responseDel.ok) {
+        console.log('삭제 성공');
+        navigate(-1);
+      } else {
+        console.error('삭제 실패');
       }
-
-      const data = await response.json();
-      setWriteDetailData(data);
     } catch (error) {
-      console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
+      console.error('오류 발생:', error);
     }
   };
 
   useEffect(() => {
-    fetchData();
-    // 로컬 스토리지에서 좋아요한 아이템 목록을 가져옴
-    const likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
-    // likedItems 배열을 사용하여 해당 아이템의 좋아요 상태를 설정
-    const isLiked = likedItems.includes(documentId);
-    setLiked(isLiked);
-  }, [documentId]);
+    const fetchData = async () => {
+      try {
+        const headers = {
+          Authorization: token,
+        };
+        const response = await fetch(
+          `https://www.honeybee-goody.site/goody/contents/detail?documentId=${documentId}`,
+          {
+            method: 'GET',
+            headers,
+          }
+        );
 
+        if (!response.ok) {
+          throw Error('HTTP 오류 ' + response.status);
+        }
+
+        const data = await response.json();
+        setWriteDetailData(data);
+        setLiked(data.like || false);
+        setMyContents(data.myContents || false);
+      } catch (error) {
+        console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchData();
+  }, [documentId]);
 
   const isFirstImage = currentImageIndex === 0;
   const isLastImage = writeDetailData.imgPath && currentImageIndex === writeDetailData.imgPath.length - 1;
@@ -157,30 +147,52 @@ function WriteDetail() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        {writeDetailData && writeDetailData.imgPath && writeDetailData.imgPath.length > 0 ? (
+        {writeDetailData.imgPath && writeDetailData.imgPath.length > 0 && (
           <div className='relative w-full'>
             <div className='absolute right-0 p-4'>
-              <button onClick={handleBack} className=''>
-                <img src="/img/close.png" alt="닫기" className=" w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
+              <button onClick={handleBack}>
+                <img src="/img/close.png" alt="닫기" className="w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
               </button>
             </div>
+
+            {writeDetailData.myContents && (
+              <Dropdown
+                menu={{
+                  items: items.map((item) => {
+                    if (item.key === '1') {
+                      return { ...item, onClick: handleDeleteClick }; // key가 1인 경우 핸들러 1 연결
+                    }
+                    return item;
+                  }),
+                }}
+                trigger={['click']}
+                style={{ border: '1px solid #000', width: '23px', height: '23px' }}
+                className='absolute top-4 right-14'
+              >
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    <img src='../img/Icon_Info_White.png' className="w-[1.8rem] h-[1.8rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
+                  </Space>
+                </a>
+              </Dropdown>
+            )}
 
             {writeDetailData.imgPath.length > 1 && (
               <>
                 <div className="flex absolute top-56 left-0 pl-3">
-                  {!isFirstImage && <button onClick={prevImage} className='nav_button'>&lt;</button>}</div>
+                  {!isFirstImage && <button onClick={prevImage} className='nav_button'>&lt;</button>}
+                </div>
                 <div className="flex absolute top-56 right-0 pr-3">
-                  {!isLastImage && <button onClick={nextImage} className='nav_button'>&gt;</button>}</div>
+                  {!isLastImage && <button onClick={nextImage} className='nav_button'>&gt;</button>}
+                </div>
               </>
             )}
 
             <div>
               <img src={writeDetailData.imgPath[currentImageIndex]} alt="상세 이미지" className="sliding-image" />
             </div>
-
           </div>
-        ) : null}
-
+        )}
 
         {/* 아이디 부분 */}
         <div>
@@ -227,7 +239,7 @@ function WriteDetail() {
             <label className='ml-[0.5rem] text-[#565656]'>{writeDetailData?.explain}</label>
           </div>
 
-          <br></br>
+          <br />
 
           {writeDetailData?.transType === '같이해요' && writeDetailData?.people && (
             <div className="m-4">
@@ -246,41 +258,39 @@ function WriteDetail() {
             </div>
           )}
 
-
-
           {/* 가격 및 구매하기 */}
           <div className='bottom-0 fixed w-full'>
             <div className='flex justify-center bg-[#f8f8f8] h-15 p-2'>
+              <FontAwesomeIcon
+                icon={faHeartSolid}
+                className={`heart-icon ${liked ? 'text-color' : ''} p-3`}
+                size="lg"
+                onClick={handleLikeClick}/>
 
-              <FontAwesomeIcon icon={faHeartSolid} className={`heart-icon ${liked ? 'text-color' : ''} p-3`} size="lg" onClick={handleLikeClick} />
               <div className='p-3 pl-5 font-semibold text-sm'>
                 <label>{writeDetailData.price}원</label>
               </div>
-              <div className='flex ml-auto mr-[0.5rem]' >
-                  <button
-                    onClick={() => {
-                      addChattingRoom({ 
-                        writerId: writeDetailData.writerId, // Assuming 'writerId' is the correct key
-                        documentId: documentId,
-                        token: token,
-                        userId: userId,
-                        title: writeDetailData.title
-                      });
-                    }}
-                    className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'
-                  >
-                    구매하기
-                  </button>
+              <div className='flex ml-auto mr-[0.5rem]'>
+                <button
+                  onClick={() => {
+                    addChattingRoom({
+                      writerId: writeDetailData.writerId,
+                      documentId: documentId,
+                      token: token,
+                      userId: userId,
+                      title: writeDetailData.title
+                    });
+                  }}
+                  className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'>
+                  구매하기
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </ThemeProvider >
+    </ThemeProvider>
   );
 }
-
-
-
 
 export default WriteDetail;

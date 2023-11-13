@@ -8,13 +8,13 @@ const token = localStorage.getItem('token');
 
 function CollectionDetail() {
 
-const [isSliding, setIsSliding] = useState(false);
-const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
-const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
-const [marginTop, setMarginTop] = useState(0);
-const [collectionData, setCollectionData] = useState(null);
-const [currentImageIndex, setCurrentImageIndex] = useState(0);
-const navigate = useNavigate();
+  const [isSliding, setIsSliding] = useState(false);
+  const [isDescriptionVisible1, setIsDescriptionVisible1] = useState(true);
+  const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
+  const [marginTop, setMarginTop] = useState(0);
+  const [collectionData, setCollectionData] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const navigate = useNavigate();
 
 
   const { collectionId } = useParams();
@@ -74,8 +74,6 @@ const navigate = useNavigate();
     setIsSliding(true);
     setIsDescriptionVisible1(isDescriptionVisible);
     setIsDescriptionVisible(!isDescriptionVisible);
-
-
   };
 
   const showPreviousImage = () => {
@@ -100,30 +98,23 @@ const navigate = useNavigate();
   }
 
   const items = [
-
-
-
     ...(collectionData && collectionData.myCollection === true
       ? [
         {
           label: '삭제',
           key: '1',
-
         },
       ]
       : []),
-
     {
       type: 'divider',
     },
-
     ...(collectionData && collectionData.myCollection === true
       ? [
         {
           label: '판매하기',
           key: '3',
         },] : []),
-
   ];
 
 
@@ -131,7 +122,6 @@ const navigate = useNavigate();
     fetchData();
     // 페이지 로드 시 스크롤 비활성화
     document.body.style.overflow = 'hidden';
-
     // 컴포넌트가 언마운트 될 때 스크롤 다시 활성화
     return () => {
       document.body.style.overflow = 'auto';
@@ -150,12 +140,9 @@ const navigate = useNavigate();
           className='relative w-full h-[700px] bg-background-image -z-40 object-cover' />
 
         <div className='flex'>
-
           <button onClick={handleBack}>
-            <img src="../img/blackClose.png" className='absolute top-5 right-4' style={{ width: '22px', height: '22px' }} />
+            <img src="../img/close.png" className='absolute top-4 right-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' />
           </button>
-
-
 
           <Dropdown
             menu={{
@@ -173,17 +160,12 @@ const navigate = useNavigate();
             style={{ border: '1px solid #000', width: '23px', height: '23px' }}
             className='absolute top-4 right-14'
           >
-
-
             <a onClick={(e) => e.preventDefault()}>
               <Space>
-                <img src='../img/Icon_info.png ' style={{ width: '30px', height: '30px' }} />
-
+                <img src='../img/Icon_Info_White.png ' className="w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
               </Space>
             </a>
           </Dropdown>
-
-
 
         </div>
 
@@ -191,14 +173,12 @@ const navigate = useNavigate();
           <button className={`overflow-hidden absolute  -bottom-[33rem] w-full h-[600px] bg-white rounded-3xl justify-center flex z-50 
                ${isSliding ? 'transition duration-200 ease-in-out sliding ' : ''}`}
 
-          style={{ marginTop: `${marginTop}px` }}
-          onClick={handleImageClick}>
-          
-          
-          <p className="text-3xl p-3  absolute text-center">
-            {collectionData ? collectionData.title : 'Loading...'}
-          </p>
+            style={{ marginTop: `${marginTop}px` }}
+            onClick={handleImageClick}>
 
+            <p className="text-3xl p-3  absolute text-center">
+              {collectionData ? collectionData.title : 'Loading...'}
+            </p>
 
             <div className="mt-[2.2rem] p-5 justify-center">
               <div className='flex'>
@@ -207,40 +187,32 @@ const navigate = useNavigate();
                 </p>
               </div>
 
-
-          <div>
-          {collectionData && collectionData.hashTags ? (
-            <div className='text-center flex items-center justify-center '>
-              {collectionData.hashTags.map((tag, index) => (
-                    <p className='px-3' key={index}>
-                    # {tag}
-              </p>
-              ))}
+              <div>
+                {collectionData && collectionData.hashTags ? (
+                  <div className='text-center flex items-center justify-center '>
+                    {collectionData.hashTags.map((tag, index) => (
+                      <p className='px-3' key={index}>
+                        # {tag}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <p />
+                )}
               </div>
-              ) : (
-              <p/>
-              )}
-          </div>
 
             </div>
-
-
             {isDescriptionVisible1 && (
               <p onClick={handleImageClick} />
             )}
             {isDescriptionVisible && (
               <div>
-
                 <p className="left-[1.25rem] mt-[8rem] mr-[1.25rem] absolute whitespace-pre-line">
                   {collectionData ? collectionData.explain : 'Loading...'}
                 </p>
 
               </div>
-
-
             )}
-
-
           </button>
         </div> {/*아래 상세 설명 끝*/}
       </div>

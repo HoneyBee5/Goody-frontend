@@ -58,11 +58,8 @@ function Join()  {
       console.error('회원가입 실패:', error);
     }
   };
-  
-  
+
     return (
-
-
         <div>
           <img className='relative' src='img/LoginActionBar.png' alt='구디' />
           <p className='font-bold text-center text-xl mb-10'> 회원가입</p>
@@ -84,7 +81,7 @@ function Join()  {
           </div>
     
           <div className='flex justify-center'> 
-            <button type='submit' className='mt-10 w-[22rem]'>
+            <button type='submit' className='mt-10 w-[18rem]'>
                 <img src='img/JoinButton.png' alt='Join' />
             </button>
           </div>

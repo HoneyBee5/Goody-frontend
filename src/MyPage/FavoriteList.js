@@ -50,22 +50,23 @@ const FavoriteList = () => {
     fetchData();
   }, [actionBarName]);
 
-    return (
-        <>
-        <ActionBarClose actionBarName={actionBarName} />
-        {loading ? (
-                <div>Loading...</div>
-            ) : (
-              productData.map((item, index) => (
-                    <div key={index}>
-                         <Link to={`/WriteDetail/${item.documentId}`}>
-                        <Item_width data={item} key={index} />
-                        {index === productData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}</Link>
-                    </div>
-                ))
-            )}
-        </>
-    );
+  return (
+    <>
+      <ActionBarClose actionBarName={actionBarName} />
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        productData.map((item, index) => (
+          <div key={index}>
+            <Link to={`/WriteDetail/${item.documentId}`}>
+              <Item_width data={item} />
+              {index === productData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
+            </Link>
+          </div>
+        ))
+        )}
+    </>
+  );
 };
 
 export default FavoriteList;
