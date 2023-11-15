@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { Dropdown, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import '../Review/font.css';
+
+
 const token = localStorage.getItem('token');
 
 function CollectionDetail() {
@@ -14,18 +16,22 @@ function CollectionDetail() {
   const [marginTop, setMarginTop] = useState(0);
   const [collectionData, setCollectionData] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [liked, setLiked] = useState(null);
+  const [likesCount, setLikesCount] = useState(0);
+
   const navigate = useNavigate();
 
 
   const { collectionId } = useParams();
+  
   let apiURL = `https://www.honeybee-goody.site/goody/collection/detail?collectionId=${collectionId}`;
 
-
-  const fetchData = async () => {
-    try {
-      const headers = {
+  const headers = {
         Authorization: `${token}`,
       };
+  const fetchData = async () => {
+    try {
+      
 
       const response = await fetch(apiURL, {
         method: 'GET',
@@ -36,6 +42,8 @@ function CollectionDetail() {
         const data = await response.json();
         setCollectionData(data);
         setCurrentImageIndex(0);
+        setLikesCount(data ? data.likeCount : 0); 
+        setLiked(data ? data.liked : 0);
       } else {
         console.error('An error occurred while fetching collection item list.');
       }
@@ -50,9 +58,7 @@ function CollectionDetail() {
         `https://www.honeybee-goody.site/goody/collection/delete?collectionId=${collectionId}`,
         {
           method: 'DELETE',
-          headers: {
-            Authorization: `${token}`,
-          },
+          headers,
         }
       );
 
@@ -90,13 +96,20 @@ function CollectionDetail() {
 
   const handleLinkClick = () => {
 
-    navigate('/addWrite'); // '/collectionWrite'로 이동하도록 설정
+    navigate('/addWrite', 
+    { state: { datatitle: collectionData.title , dataexplain : collectionData.explain } }); // '/collectionWrite'로 이동하도록 설정
   };
 
   const handleBack = () => {
     navigate(-1);
   }
 
+  const handleModifyClick = () => {
+    navigate('/collectionmodify', 
+    { state: { 
+      datatitle: collectionData.title , dataexplain : collectionData.explain , 
+      datahashtag : collectionData.hashTags, datadocumentid : collectionData.documentId  } });
+  }
   const items = [
     ...(collectionData && collectionData.myCollection === true
       ? [
@@ -106,9 +119,20 @@ function CollectionDetail() {
         },
       ]
       : []),
+
+      ...(collectionData && collectionData.myCollection === true
+        ? [
+          {
+            label: '수정',
+            key: '2',
+          },
+        ]
+        : []),
+
     {
       type: 'divider',
     },
+
     ...(collectionData && collectionData.myCollection === true
       ? [
         {
@@ -116,6 +140,43 @@ function CollectionDetail() {
           key: '3',
         },] : []),
   ];
+
+ 
+  const handleLike = async () => {
+    try {
+      const response = await fetch(`http://27.96.134.23:4001/goody/collection/addLike?documentId=${collectionId}`, {
+        method: 'POST',
+        headers,
+      });
+      
+      
+      if (response.ok) {
+      setLiked(true);
+      setLikesCount(await response.text());
+      }
+
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
+  };
+
+  const handledeleteLike = async () => {
+    try {
+      const response = await fetch(`http://27.96.134.23:4001/goody/collection/removeLike?documentId=${collectionId}`, {
+        method: 'POST',
+        headers,
+      });
+      
+      
+      if (response.ok) {
+      setLiked(false);
+      setLikesCount(await response.text());
+      }
+
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
+  };
 
 
   useEffect(() => {
@@ -133,6 +194,7 @@ function CollectionDetail() {
       <div> {/*전체*/}
         <button className='absolute left-0 w-[10rem] h-[50rem]' onClick={showPreviousImage}></button> {/*이미지*/}
         <button className='absolute right-0 w-[10rem] h-[50rem]' onClick={showNextImage}> </button>{/*이미지*/}
+        
         {/*이미지*/}
         <img
           src={collectionData && collectionData.filePath[currentImageIndex]}
@@ -140,15 +202,29 @@ function CollectionDetail() {
           className='relative w-full h-[700px] bg-background-image -z-40 object-cover' />
 
         <div className='flex'>
+        
+        <p  className='absolute top-6 left-14 w-[2rem] h-[2rem] '> {likesCount} </p>
+
+        {liked ? 
+          <button className='absolute top-4 left-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'
+          onClick={handledeleteLike} >하트 꽉</button> : 
+          <button className='absolute top-4 left-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'
+          onClick={handleLike} >하트 안꽉</button> }
+          
+
+
           <button onClick={handleBack}>
             <img src="../img/close.png" className='absolute top-4 right-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' />
           </button>
-
+          
           <Dropdown
             menu={{
               items: items.map((item) => {
                 if (item.key === '1') {
                   return { ...item, onClick: handleDeleteClick }; // key가 1인 경우 핸들러 1 연결
+                }
+                if (item.key === '2') {
+                  return { ...item, onClick: handleModifyClick }; // key가 1인 경우 핸들러 1 연결
                 }
                 if (item.key === '3') {
                   return { ...item, onClick: handleLinkClick };
@@ -179,29 +255,31 @@ function CollectionDetail() {
             <p className="text-3xl p-3  absolute text-center">
               {collectionData ? collectionData.title : 'Loading...'}
             </p>
+           
 
-            <div className="mt-[2.2rem] p-5 justify-center">
-              <div className='flex'>
-                <p>
-                  {collectionData ? new Date(collectionData.createdDate).toLocaleDateString() : 'Loading...'}
-                </p>
-              </div>
+            <div className="mt-[2.2rem] flex flex-col items-center p-5">
+  <div className="mb-3">
+    <p>
+      {collectionData ? new Date(collectionData.createdDate).toLocaleDateString() : 'Loading...'}
+    </p>
+  </div>
 
-              <div>
-                {collectionData && collectionData.hashTags ? (
-                  <div className='text-center flex items-center justify-center '>
-                    {collectionData.hashTags.map((tag, index) => (
-                      <p className='px-3' key={index}>
-                        # {tag}
-                      </p>
-                    ))}
-                  </div>
-                ) : (
-                  <p />
-                )}
-              </div>
+  <div>
+    {collectionData && collectionData.hashTags ? (
+      <div className='text-center flex items-center justify-center '>
+        {collectionData.hashTags.map((tag, index) => (
+          <p className='px-3' key={index}>
+            # {tag}
+          </p>
+        ))}
+      </div>
+    ) : (
+      <p />
+    )}
+  </div>
+</div>
 
-            </div>
+          
             {isDescriptionVisible1 && (
               <p onClick={handleImageClick} />
             )}
@@ -213,6 +291,8 @@ function CollectionDetail() {
 
               </div>
             )}
+
+
           </button>
         </div> {/*아래 상세 설명 끝*/}
       </div>
