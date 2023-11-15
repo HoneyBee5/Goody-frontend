@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Nav } from '../Component/Nav';
 import './Collection.css';
 import PropTypes from 'prop-types';
+import { Drawer } from 'antd';
+import Categories from '../Main/Categories'; 
+
 
 // 플로팅 버튼
 const PlusBtn = () => {
@@ -35,7 +38,19 @@ const CollectionItem = ({ item }) => {
 
 function Collection() {
   const [collectionItems, setCollectionItems] = useState(null);
-
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const defaultOpenElement = document.getElementById('defaultOpen');
+    if (defaultOpenElement) {
+      defaultOpenElement.click();
+    }
+  }, []);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
   // 토큰 가져오기
   const token = localStorage.getItem('token');
 
@@ -82,6 +97,9 @@ function Collection() {
   
   return (
     <div style={back}>
+
+
+
       <div className='flex'>
         <div className='w-full flex justify-center mb-20'>
           <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
@@ -89,8 +107,20 @@ function Collection() {
         <Link to="/collectionSearch">
           <button className='absolute right-14 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><img src="img/Search.png" alt='검색' width={'25px'} height={'25px'} /></button>
         </Link>
-        <button className='absolute right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'><Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link></button>
+        <button onClick={showDrawer} className='absolute right-0 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
+        <img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} />
+      </button>
       </div>
+
+      <Drawer
+        placement="right"
+        closable={false}
+        open={visible}
+        onClose={onClose}
+      >
+        {/* Categories 컴포넌트를 렌더링 */}
+        <Categories onClose={onClose} />
+      </Drawer>
 
       <div className='flex flex-col items-center'> {/* 부모 요소 */}
         <div className='grid grid-cols-3 gap-1'> {/* 그리드 컨테이너, 3개의 열과 간격 설정 */}

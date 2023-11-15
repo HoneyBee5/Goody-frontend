@@ -1,85 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Nav } from '../Component/Nav';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { grey } from '@mui/material/colors';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { HomeActionBar } from '../Main/Home';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
-const ExpandMore = styled((props) => {
-  const { ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme }) => ({
-  transform: 'rotate(0deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
-const RecipeReviewCard = ({ userData }) => {
-  const [expanded, setExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  return (
-    <div className='flex justify-center'>
-      <Card style={{ width: 355, backgroundColor: grey[100], borderRadius: 16 }}>
-
-        <CardHeader
-          avatar={<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">  {userData ?userData.nickname.charAt(0) : ''} </Avatar>}
-          action={<IconButton aria-label="settings"></IconButton>}
-          title={<Typography variant="h7" style={{ fontWeight: 'bold' }}>{userData ? userData.nickname : ''}</Typography>}
-          subheader={<Typography variant="subtitle1" style={{ fontWeight: '' }}>{userData ? userData.grade : ''}</Typography>}
-        />
-
-        <CardActions disableSpacing>
-          <ExpandMore
-            {...(expanded ? { expand: "true" } : {})}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>대표계좌: {userData ? userData.accountNum : ''}</Typography>
-            <Typography paragraph></Typography>
-            <Typography paragraph>주소 : {userData ? userData.address : ''} </Typography>
-            <Typography paragraph></Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
-    </div>
-  );
-}
-
-
-RecipeReviewCard.propTypes = {
-  userData: PropTypes.shape({
-    nickname: PropTypes.string,
-    grade: PropTypes.string,
-    accountNum: PropTypes.string,
-    address: PropTypes.string,
-  }),
-};
+import { EditOutlined, EllipsisOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Card, Input, Button } from 'antd';
+const { Meta } = Card;
 
 const Mypage = () => {
   const [userData, setUserData] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [editedData, setEditedData] = useState({
+    nickname: '',
+    grade: '',
+    daysSinceJoin: '',
+    accountBank: '',
+    accountNum: '',
+    address: '',
+    userPhoneNum: '',
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,6 +36,15 @@ const Mypage = () => {
         if (response.ok) {
           const data = await response.json();
           setUserData(data);
+          setEditedData({
+            nickname: data.nickname,
+            grade: data.grade,
+            daysSinceJoin: data.daysSinceJoin,
+            accountBank: data.accountBank,
+            accountNum: data.accountNum,
+            address: data.address,
+            userPhoneNum: data.userPhoneNum,
+          });
           console.log(data);
         } else {
           console.error('API 요청 중 오류 발생: ', response.status);
@@ -113,10 +61,161 @@ const Mypage = () => {
     localStorage.clear();
   };
 
+  const handleEllipsisClick = () => {
+    setShowDetails(!showDetails);
+  };
+
+  const handleEditClick = () => {
+    setEditMode(!editMode);
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const headers = {
+        Authorization: `${token}`,
+        'Content-Type': 'application/json',
+      };
+
+      const response = await fetch('https://www.honeybee-goody.site/goody/myPage/updateUser', {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify(editedData),
+      });
+
+      if (response.ok) {
+        setUserData(editedData);
+        setEditMode(false);
+      } else {
+        console.error('API 요청 중 오류 발생: ', response.status);
+      }
+    } catch (error) {
+      console.error('API 요청 중 오류 발생: ', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === 'birth') {
+      // 'birth' 필드의 경우, 입력값을 Date 객체로 변환하여 저장
+      setEditedData((prevData) => ({
+        ...prevData,
+        [name]: value ? new Date(value).toISOString().split('T')[0] : '',
+      }));
+    } else {
+      // 다른 필드의 경우, 그냥 저장
+      setEditedData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
   return (
     <>
       <HomeActionBar imageSrc="img/ActionBar.png" />
-      <RecipeReviewCard userData={userData} />
+      <div className='flex justify-center'>
+        <Card
+          style={{
+            width: 350,
+          }}
+          actions={[
+            <EditOutlined key="edit" onClick={handleEditClick} />,
+            <EllipsisOutlined key="ellipsis" onClick={handleEllipsisClick} />,
+          ]}
+        >
+          <Meta
+            avatar={
+              <Avatar
+                style={{
+                  backgroundColor: '#87d068',
+                }}
+                icon={<UserOutlined />}
+              />
+            }
+            title={editMode ? (
+              <Input
+                name="nickname"
+                value={editedData.nickname}
+                onChange={handleInputChange}
+                placeholder="Nickname"
+              />
+            ) : (
+              userData ? userData.nickname : 'Loading...'
+            )}
+            description={editMode ? (
+              <>
+                <Input
+                  name="grade"
+                  value={editedData.grade}
+                  placeholder="Grade"
+                />
+              </>
+            ) : (
+              <>
+                <div>Grade: {userData ? userData.grade : 'Loading...'}</div>
+                <div>함께한지 {userData ? userData.daysSinceJoin : 'Loading...'} 일 째</div>
+              </>
+            )}
+          />
+          {showDetails && (
+            <div className="pr-5 pl-5 pt-7">
+              {/* Additional information display */}
+              <p>
+                은행 : {editMode ? (
+                  <Input
+                    name="accountBank"
+                    value={editedData.accountBank}
+                    onChange={handleInputChange}
+                    placeholder="Account Bank"
+                  />
+                ) : (
+                  userData ? userData.accountBank : ''
+                )} 계좌: {editMode ? (
+                  <Input
+                    name="accountNum"
+                    value={editedData.accountNum}
+                    onChange={handleInputChange}
+                    placeholder="Account Number"
+                  />
+                ) : (
+                  userData ? userData.accountNum : ''
+                )}
+              </p>
+              <p >
+                주소: {editMode ? (
+                  <Input
+                    name="address"
+                    value={editedData.address}
+                    onChange={handleInputChange}
+                    placeholder="Address"
+                  />
+                ) : (
+                  userData ? userData.address : ''
+                )}
+              </p>
+              <p>
+                전화번호: {editMode ? (
+                  <Input
+                    name="userPhoneNum"
+                    value={editedData.userPhoneNum}
+                    placeholder="User Phone Number"
+                  />
+                ) : (
+                  userData ? userData.userPhoneNum : ''
+                )}
+              </p>
+              {editMode && (
+                <Button type="primary" onClick={handleSaveClick}>
+                  Save
+                </Button>
+              )}
+            </div>
+          )}
+        </Card>
+      </div>
+
 
       <div className=" pr-5 pl-5 pt-7 pb-7">
         <span className="font-extrabold p-2 text-gray-400 text-sm">사용이력</span>
@@ -141,6 +240,22 @@ const Mypage = () => {
             <button className="flex p-2 items-center">
               <img src="img/Icon_Favorite.png" alt="찜 목록" className="h-5 w-5 mr-5" />
               <span className="font-extrabold text-sm">찜 목록</span>
+            </button>
+          </Link>
+        </div>
+        <div className="flex pb-2">
+          <Link to="/myContentsList">
+            <button className="flex p-2 items-center">
+              <img src="img/Icon_List.png" alt="내 글 목록" className="h-5 w-5 mr-5" />
+              <span className="font-extrabold text-sm">내 글 목록</span>
+            </button>
+          </Link>
+        </div>
+        <div className="flex pb-2">
+          <Link to="/favoritelist">
+            <button className="flex p-2 items-center">
+              <img src="img/Icon_Favorite.png" alt="팔아주세요 목록" className="h-5 w-5 mr-5" />
+              <span className="font-extrabold text-sm">팔아주세요 목록</span>
             </button>
           </Link>
         </div>

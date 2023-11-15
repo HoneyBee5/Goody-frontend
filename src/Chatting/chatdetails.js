@@ -43,7 +43,9 @@ const Chatdetails = () => {
           }
         };
       
+        // 이전 채팅 출력 api
         const response1 = await fetch(`https://www.honeybee-goody.site/goody/messages?roomId=${roomId}`, fetchOptions);
+        // 거래물품 연결 api
         const response2 = await fetch(`https://www.honeybee-goody.site/goody/itemInfo?contentId=${contentsId}`, fetchOptions);
       
         if (response1.ok) {
