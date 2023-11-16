@@ -94,7 +94,7 @@ const AddWrite = () => {
     messageApi.open({
       type: 'warning',
       content: content,
-      duration: 3,
+      duration: 2,
       style: {
         marginTop: '72vh',
       },
