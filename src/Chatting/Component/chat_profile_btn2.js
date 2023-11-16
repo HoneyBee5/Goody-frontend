@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ChatProfileBtn2  = ({ ItemInfo }) => {
+const ChatProfileBtn2  = ({ ItemInfo, chattingEnteruser }) => {
 
 
     const MAX_TITLE_LENGTH = window.innerWidth <= 390 ? 12 : 14;
 
+    
     const formatPrice = (price) => {
       return price.toLocaleString(); // 가격에 천 단위 구분 기호(쉼표) 추가
     };
@@ -33,7 +34,7 @@ const ChatProfileBtn2  = ({ ItemInfo }) => {
 
                 <Link 
                     to = {'/review'}
-                    state = { {itemInfoDocumentId : ItemInfo.documentId} }
+                    state = { { itemInfoDocumentId : ItemInfo.documentId, itemInforeceiveId : ItemInfo.writerId ,chattingEnteruser: chattingEnteruser } }
                 >
            
                     <button className='border absolute bottom-4 right-1 mr-2 flex justify-center font-bold text-sm items-center text-black'
@@ -52,8 +53,12 @@ ChatProfileBtn2.propTypes = {
       price: PropTypes.number.isRequired,
       thumbnailImg: PropTypes.string.isRequired,
       documentId : PropTypes.string.isRequired,
+      writerId : PropTypes.string.isRequired,
+      
       // Add other properties if needed
     }).isRequired,
+
+    chattingEnteruser: PropTypes.array.isRequired,
   };
   
   export default ChatProfileBtn2;
