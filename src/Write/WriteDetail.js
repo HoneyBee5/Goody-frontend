@@ -28,6 +28,7 @@ function WriteDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [liked, setLiked] = useState(false);
   const [myContents, setMyContents] = useState(false);
+  const [nickname, setNickname] = useState(false);
 
   const fetchOptions = {
     headers: {
@@ -130,6 +131,7 @@ function WriteDetail() {
         setWriteDetailData(data);
         setLiked(data.like || false);
         setMyContents(data.myContents || false);
+        setNickname(data.nickname);
       } catch (error) {
         console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
       }
@@ -197,7 +199,7 @@ function WriteDetail() {
             <div className='flex mt-5 ml-5'>
               {documentId && (
                 <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
-                  {nickname.charAt(0)} {/* 첫 글자만 표시 */}
+                  {/* {nickname.charAt(0)} 첫 글자만 표시 */}
                 </Avatar>
               )}
               <div className='ml-2'>
@@ -262,25 +264,32 @@ function WriteDetail() {
                 icon={faHeartSolid}
                 className={`heart-icon ${liked ? 'text-color' : ''} p-3`}
                 size="lg"
-                onClick={handleLikeClick}/>
+                onClick={handleLikeClick} />
 
               <div className='p-3 pl-5 font-semibold text-sm'>
                 <label>{writeDetailData.price}원</label>
               </div>
               <div className='flex ml-auto mr-[0.5rem]'>
-                <button
-                  onClick={() => {
-                    addChattingRoom({
-                      writerId: writeDetailData.writerId,
-                      documentId: documentId,
-                      token: token,
-                      userId: userId,
-                      title: writeDetailData.title
-                    });
-                  }}
-                  className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'>
-                  구매하기
-                </button>
+                <div className='flex ml-auto mr-[0.5rem]'>
+                  <button
+                    onClick={() => {
+                      if (writeDetailData.writerId === userId) {
+                        alert("내 글입니다.");
+                      } else {
+                        addChattingRoom({
+                          writerId: writeDetailData.writerId,
+                          documentId: documentId,
+                          token: token,
+                          userId: userId,
+                          title: writeDetailData.title
+                        });
+                      }
+                    }}
+                    className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'>
+                    구매하기
+                  </button>
+                </div>
+
               </div>
             </div>
           </div>
