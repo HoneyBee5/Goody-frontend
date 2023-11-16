@@ -22,6 +22,7 @@ import { styled } from '@mui/system'
 import NumberInput from '../Component/NumberInput'
 import { useLocation } from 'react-router-dom';
 import  { CollectionTag }  from '../Collection/CollectionTag';
+import { message } from 'antd';
 
 // 액션바 이름
 const actionBarName = "글 작성";
@@ -87,7 +88,18 @@ const AddWrite = () => {
   const [hashTags, setHashTags] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   
+  const [messageApi, contextHolder] = message.useMessage();
 
+  const warning = (content) => {
+    messageApi.open({
+      type: 'warning',
+      content: content,
+      duration: 2,
+      style: {
+        marginTop: '72vh',
+      },
+    });
+  };
   //토큰 저장 후 로그인 상태 설정
   useEffect(() => {
     // 사용자 로그인 상태를 확인하는 로직을 구현
@@ -102,13 +114,14 @@ const AddWrite = () => {
       //사용자 인증 여부 확인
       if (!loggedIn) {
           // 로그인되지 않은 경우 처리
-          alert('로그인 후에 글을 작성할 수 있습니다.');
+          warning('로그인 후에 글을 작성할 수 있습니다.');
           return;
       }
 
       const formData = new FormData();// 해당 필드에 원하는 값을 설정
       if (selectedOption2.value === "거래종류") {
-        alert('거래종류를 선택해주세요');
+        warning('거래종류를 선택해주세요');
+        return;
       } else {
         formData.append('transType', selectedOption2.value); //거래종류
       }
@@ -137,43 +150,46 @@ const AddWrite = () => {
       }
       formData.append('explain', explainText);//설명
       if (selectedOption3.value === "상태등급") {
-        alert('상태등급을 선택해주세요');
+        warning('상태등급을 선택해주세요');
+        return;
       } else {
         formData.append('grade', selectedOption3.value);//등급
       }
       formData.append('title', title);//제목
       if (selectedOption1.value === "카테고리") {
-        alert('카테고리를 선택해주세요');
+        warning('카테고리를 선택해주세요');
+        return;
       } else {
         formData.append('category', selectedOption1.value);//카테고리
       }
       if(hashTags != ''){
         formData.append('hashTags',hashTags);
       }else{
-        alert('해시태그를 입력해주세요');
+        warning('해시태그를 입력해주세요');
+        return;
       }
       console.log([...formData.entries()]);
       
       if(formData.get('category')!=null&&formData.get('grade')!=null&&formData.get('transType')!=null&&formData.get('hashTags')!=null){
         console.log('전송');
-        const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
-            method: 'POST',
-            body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
-            headers: {
-                // 토큰을 사용하여 사용자 인증
-                Authorization: `${localStorage.getItem('token')}`,
-            },
-        });
+        // const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
+        //     method: 'POST',
+        //     body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
+        //     headers: {
+        //         // 토큰을 사용하여 사용자 인증
+        //         Authorization: `${localStorage.getItem('token')}`,
+        //     },
+        // });
   
-        if (response.ok) {
-            // 데이터가 성공적으로 API로 전송되었습니다.
-            console.log('데이터가 성공적으로 전송되었습니다.');
-            const data = await response.text();
-            window.location.href =`/WriteDetail/${data}`; 
-        } else {
-            // 여기서 오류를 처리합니다.
-            console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-        }
+        // if (response.ok) {
+        //     // 데이터가 성공적으로 API로 전송되었습니다.
+        //     console.log('데이터가 성공적으로 전송되었습니다.');
+        //     const data = await response.text();
+        //     window.location.href =`/WriteDetail/${data}`; 
+        // } else {
+        //     // 여기서 오류를 처리합니다.
+        //     console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
+        // }
       }
     } catch (error) {
       console.error('오류가 발생했습니다:', error);
@@ -264,7 +280,7 @@ const AddWrite = () => {
   };
 
   return (
-    <div className="App w-full h-full mt-18">
+    <div className="App w-full h-full mt-18">      
       <ActionBar actionBarName={actionBarName} className='fixed top-0 w-full' />
 
       {/*return 구문에서 PHOTO 컴포넌트 화면에 렌더링*/}
@@ -451,7 +467,7 @@ const AddWrite = () => {
         </div>
 
         <CollectionTag onTagsChange={handleTagsChange} /> 
-
+        
         {/* 등록 버튼 */}
         <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: '80px', marginLeft: '20px', marginRight: '20px' }}>
           <button onClick={handleUpload}>
@@ -459,7 +475,12 @@ const AddWrite = () => {
           </button>
         </div>
       </div>
+      
       <Nav />
+      {/* 알림창 */}
+      <div >
+        {contextHolder}
+      </div>
     </div>
   );
 }
