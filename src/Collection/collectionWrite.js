@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import  { CollectionTag }  from '../Collection/CollectionTag';
@@ -12,6 +12,7 @@ const CollectionWrite = () => {
     const [images, setImages] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
     const [collectionTags, setCollectionTags] = useState([]); // 필드 데이터를 관리
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         // 사용자 로그인 상태를 확인하는 로직을 구현
@@ -80,6 +81,7 @@ const CollectionWrite = () => {
             if (response.ok) {
                 // 데이터가 성공적으로 API로 전송되었습니다.
                 console.log('데이터가 성공적으로 전송되었습니다.');
+                navigate('/collection');
             } else {
                 // 여기서 오류를 처리합니다.
                 console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');

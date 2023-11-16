@@ -19,7 +19,7 @@ const CollectionItem = ({ item }) => {
   // 컬렉션 아이템 정보를 받아와서 렌더링
   return (
     <div className='inline-flex'>
-      <Link to={`/collectionDetail/${item.collectionId}`}>
+      <Link to={`/collectionDetail/${item.documentId}`}>
         <button>
           <div>
             <img
@@ -111,7 +111,7 @@ function Collection() {
 // CollectionItem 컴포넌트 내에서 아래와 같이 PropTypes 설정
 CollectionItem.propTypes = {
   item: PropTypes.shape({
-    collectionId: PropTypes.string.isRequired,
+    documentId: PropTypes.string.isRequired,
     thumbnailPath: PropTypes.string.isRequired,
   }).isRequired,
 };

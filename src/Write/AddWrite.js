@@ -20,6 +20,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { styled } from '@mui/system'
 import NumberInput from '../Component/NumberInput'
+import { useLocation } from 'react-router-dom';
 import  { CollectionTag }  from '../Collection/CollectionTag';
 
 // 액션바 이름
@@ -67,12 +68,14 @@ for (let i = 1; i <= 10; i++) {
 
 
 const AddWrite = () => {
+  const location = useLocation();
+  const { datatitle, dataexplain } = location.state || {}; // null인 경우에 빈 객체를 할당
 
   const [selectedImage, setSelectedImage] = useState([]);//첨부한 이미지
   const [selectedOption1, setSelectedOption1] = useState(OPTIONS1[0]);
   const [selectedOption2, setSelectedOption2] = useState(OPTIONS2[0]);
   const [selectedOption3, setSelectedOption3] = useState(OPTIONS3[0]);
-  const [title, setTitle] = useState(''); // 제목
+  const [title, setTitle] = useState(dataexplain ? datatitle : '');
   const [price, setPrice] = useState('');// 가격
   const [isFreeChecked, setIsFreeChecked] = useState(false);//나눔여부
   const [showTogetherTypeCheckboxes, setShowTogetherTypeCheckboxes] = useState(false);
@@ -80,9 +83,10 @@ const AddWrite = () => {
   const [selectedNumOfPeople, setSelectedNumOfPeople] = useState(null);
   const [inputPeopleField, setInputPeopleField] = useState('');
   const [chipPeople, setChipPeople] = useState([]);
+  const [explainText, setExplainText] = useState(dataexplain ? dataexplain : '');
   const [hashTags, setHashTags] = useState([]);
-  const [explainText, setExplainText] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
+  
 
   //토큰 저장 후 로그인 상태 설정
   useEffect(() => {
@@ -395,7 +399,7 @@ const AddWrite = () => {
         <div className='flex p-2 h-10 m-2 mr-4 ml-4 items-center'>
           <TextField fullWidth
             sx={{ "& .MuiOutlinedInput-root": { "& > fieldset": { border: "none" } } }}//테두리제거
-            value={title}
+            value= {title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder='글 제목' />
         </div>

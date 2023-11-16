@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 
 const MySlider = ({ value, handleChange }) => {
   return (
@@ -42,6 +44,8 @@ MySlider.propTypes = {
 
 const ReviewHoneyHome = () => {
   const [value, setValue] = useState(0);
+  const location = useLocation();
+  const itemInfoDocumentId = location.state?.itemInfoDocumentId;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -55,7 +59,7 @@ const ReviewHoneyHome = () => {
   const handleReviewClick = async () => {
 
 
-    fetch(`http://27.96.134.23:4001/goody/review/rate?reviewDocumentId=4ra8NSpdxUGMQfmMm00A&receiveId=${localStorage.getItem('userId')}&rate=${value}`, { //수정해야댐
+    fetch(`http://27.96.134.23:4001/goody/review/rate?reviewDocumentId=${itemInfoDocumentId}&receiveId=${localStorage.getItem('userId')}&rate=${value}`, { //수정해야댐
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

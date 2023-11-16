@@ -12,11 +12,13 @@ import Mypage from '../MyPage/mypage';
 import ReviewList from '../MyPage/ReviewList';
 import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
+import CollectionList from '../MyPage/CollectionList';
 import Categories from './Categories';
 import CollectionDetail from '../Collection/collectionDetail';
 import SearchDetail from '../Search/SearchDetail';
 import CollectionWrtie from '../Collection/collectionWrite';
 import CollectionSearch from '../Collection/collectionSearch';
+import CollectionModify from '../Collection/collectionModify';
 import Search from '../Search/Search';
 import WriteDetail from '../Write/WriteDetail';
 import Home from './Home';
@@ -41,10 +43,12 @@ const App = () => {
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/favoritelist" element={<FavoriteList />} />
           <Route path="/purchaselist" element={<PurchaseList />} />
+          <Route path="/collectionlist" element={<CollectionList />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/collectionDetail/:collectionId" element={<CollectionDetail />} />
           <Route  path="/collectionWrite" element={<CollectionWrtie/>} />
+          <Route path="/collectionmodify" element={<CollectionModify />} />
           <Route exact path="/Search" element={<Search />} />
           <Route exact path="/WriteDetail/:documentId"  element={<WriteDetail />} />
           <Route path="/SearchDetail/" element={<SearchDetail />} />
