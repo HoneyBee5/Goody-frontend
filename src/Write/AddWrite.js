@@ -20,6 +20,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { styled } from '@mui/system'
 import NumberInput from '../Component/NumberInput'
+import  { CollectionTag }  from '../Collection/CollectionTag';
 
 // 액션바 이름
 const actionBarName = "글 작성";
@@ -79,6 +80,7 @@ const AddWrite = () => {
   const [selectedNumOfPeople, setSelectedNumOfPeople] = useState(null);
   const [inputPeopleField, setInputPeopleField] = useState('');
   const [chipPeople, setChipPeople] = useState([]);
+  const [hashTags, setHashTags] = useState([]);
   const [explainText, setExplainText] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -101,10 +103,10 @@ const AddWrite = () => {
       }
 
       const formData = new FormData();// 해당 필드에 원하는 값을 설정
-      if (selectedOption1.value === "거래종류") {
+      if (selectedOption2.value === "거래종류") {
         alert('거래종류를 선택해주세요');
       } else {
-        formData.append('transType', selectedOption1.value); //거래종류
+        formData.append('transType', selectedOption2.value); //거래종류
       }
 
       if (selectedImage && selectedImage.length > 0) {
@@ -116,6 +118,8 @@ const AddWrite = () => {
         const stringWithoutCommas = price.replace(/,/g, '');
         const numberAsInt = parseInt(stringWithoutCommas, 10);//콤마제외하고 String->int 변환
         formData.append('price', numberAsInt);//가격
+      }else{
+        formData.append('price',0);
       }
       
       if (selectedNumOfPeople !== null) {
@@ -134,15 +138,20 @@ const AddWrite = () => {
         formData.append('grade', selectedOption3.value);//등급
       }
       formData.append('title', title);//제목
-      if (selectedOption2.value === "카테고리") {
+      if (selectedOption1.value === "카테고리") {
         alert('카테고리를 선택해주세요');
       } else {
-        formData.append('category', selectedOption2.value);//카테고리
+        formData.append('category', selectedOption1.value);//카테고리
+      }
+      if(hashTags != ''){
+        formData.append('hashTags',hashTags);
+      }else{
+        alert('해시태그를 입력해주세요');
       }
       console.log([...formData.entries()]);
       
-      if(formData.get('category'!=null)&&formData.get('grade'!=null)&&formData.get('transType'!=null)){
-        console.log([...formData.entries()]);
+      if(formData.get('category')!=null&&formData.get('grade')!=null&&formData.get('transType')!=null&&formData.get('hashTags')!=null){
+        console.log('전송');
         const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
             method: 'POST',
             body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
@@ -160,7 +169,8 @@ const AddWrite = () => {
         } else {
             // 여기서 오류를 처리합니다.
             console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-        }}
+        }
+      }
     } catch (error) {
       console.error('오류가 발생했습니다:', error);
     }
@@ -243,6 +253,10 @@ const AddWrite = () => {
       setChipPeople([...chipPeople, newPerson]);
       setInputPeopleField(''); // 입력 필드 비우기
     }
+  };
+
+  const handleTagsChange = (newTags) => {
+    setHashTags(newTags); // 필드 데이터 업데이트
   };
 
   return (
@@ -428,9 +442,11 @@ const AddWrite = () => {
             value={explainText}
             onChange={(e) => setExplainText(e.target.value)}
             multiline
-            rows={10}
+            rows={8}
             placeholder='내용' />
         </div>
+
+        <CollectionTag onTagsChange={handleTagsChange} /> 
 
         {/* 등록 버튼 */}
         <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: '80px', marginLeft: '20px', marginRight: '20px' }}>
