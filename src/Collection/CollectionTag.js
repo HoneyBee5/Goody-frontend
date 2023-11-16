@@ -3,6 +3,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { TweenOneGroup } from 'rc-tween-one';
 import { Input, Tag, theme } from 'antd';
 import PropTypes from 'prop-types';
+import TagIcon from '@mui/icons-material/Tag';
 
 const CollectionTag = ({ onTagsChange, defaultTags }) => {
   const { token } = theme.useToken();
@@ -57,6 +58,7 @@ const CollectionTag = ({ onTagsChange, defaultTags }) => {
           handleClose(tag);
         }}
       >
+        <TagIcon style={{ fontSize: 16 }} />
         {tag}
       </Tag>
     );
