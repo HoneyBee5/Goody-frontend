@@ -21,7 +21,7 @@ const CollectionList = () => {
         };
 
         const response = await fetch(
-          `http://27.96.134.23:4001/goody/myPage/collectionLikeList`,
+          `https://www.honeybee-goody.site/goody/myPage/collectionLikeList`,
           {
             method: 'GET',
             headers,

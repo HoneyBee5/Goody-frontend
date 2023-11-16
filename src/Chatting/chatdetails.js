@@ -200,18 +200,10 @@ const location = useLocation();
           <div style={{ marginBottom: '3rem' }} />
         </div>
         <div ref={messagesEndRef} />
+      </div>{/*채팅방 출력끝 */}
 
-
-        {/* 채팅 입력창 */}
-        <div>
-          <div className='w-full h-5 '>
-            {isHoveredY && <Plus_btn />}
-          </div>
-
-          <div className="flex justify-center ">
-            <div className="items-center flex fixed justify-between bottom-3 p-3 ">
-              <div className="flex justify-center">
-                <div className="items-center flex fixed justify-between bottom-3 w-full rounded-full bg-gray-200">
+      {/* 채팅 입력창 */}
+      <div className="items-center flex fixed justify-between bottom-3 w-full rounded-full bg-gray-200">
                   <div onMouseEnter={handleMouseEnterY} onMouseLeave={handleMouseLeaveY} onClick={handleClickY}>
                     <CSSTransition
                       in={isHoveredY}
@@ -227,11 +219,9 @@ const location = useLocation();
                     style={{ borderRadius: '4px', width: '20rem', height: '30px', resize: 'none' }}
                   />
                   <button onClick={sendMessage} style={{ padding: '10px' }}> 전송</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+      <div className='items-center flex fixed bottom-[60px] left-1/2 transform -translate-x-1/2'>
+      {isHoveredY && <Plus_btn />}
       </div>
     </>
   );
