@@ -197,12 +197,12 @@ function WriteDetail() {
             <div className='flex mt-5 ml-5'>
               {documentId && (
                 <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
-                  {documentId.charAt(0)} {/* 첫 글자만 표시 */}
+                  {nickname.charAt(0)} {/* 첫 글자만 표시 */}
                 </Avatar>
               )}
               <div className='ml-2'>
                 <div className=''>
-                  <label className='font-bold'> {documentId} </label>
+                  <label className='font-bold'> {nickname} </label>
                 </div>
                 <div>
                   <label className='text-xs'>등급</label>
