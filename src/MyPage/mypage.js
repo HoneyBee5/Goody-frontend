@@ -235,14 +235,14 @@ const Mypage = () => {
             </button>
           </Link>
         </div>
-        <div className="flex">
+        {/* <div className="flex">
           <Link to="/purchaselist">
             <button className="flex p-2 items-center">
               <img src="img/Icon_Purchase.png" alt="구매 참여 목록" className="h-5 w-5 mr-5" />
               <span className="font-extrabold text-sm">구매 & 참여 목록</span>
             </button>
           </Link>
-        </div>
+        </div> */}
         <div className="flex pb-2">
           <Link to="/favoritelist">
             <button className="flex p-2 items-center">
