@@ -160,7 +160,7 @@ const Mypage = () => {
             )}
           />
           {showDetails && (
-            <div className="pr-5 pl-5 pt-7">
+            <div className="pr-5 pl-12 pt-7" >
               {/* Additional information display */}
               <p>
                 은행 : {editMode ? (
@@ -206,10 +206,18 @@ const Mypage = () => {
                   userData ? userData.userPhoneNum : ''
                 )}
               </p>
-              {editMode && (
-                <Button type="primary" onClick={handleSaveClick}>
+              
+              { editMode && (
+                <div className='flex justify-end'>
+                <Button
+                  type="primary"
+                  style={{ backgroundColor: '#FFD52B', color: 'black'}}
+                  className='flex items-end'
+                  onClick={handleSaveClick}
+                >
                   Save
                 </Button>
+                </div>
               )}
             </div>
           )}

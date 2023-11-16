@@ -52,7 +52,9 @@ const MyContentsList = () => {
     <>
       <ActionBarClose actionBarName={actionBarName} />
       {loading ? (
-        <div>Loading...</div>
+        <div className='flex justify-center items-center h-[50rem]'>
+          <img src='img/테이터가 비었습니다.png' className='w-64' alt='데이터가 비었습니다.' />
+        </div>
       ) : (
         productData.map((item, index) => (
           <div key={index}>
@@ -62,7 +64,7 @@ const MyContentsList = () => {
             </Link>
           </div>
         ))
-        )}
+      )}
     </>
   );
 };
