@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Button = () => {
     return (
 
-        <div className='items-center flex justify-center'>
+        <div className='items-center flex justify-center relative'>
             <button
                 className="border w-14 h-14 z-10  flex justify-center items-center m-2 rounded-tl-2xl rounded-bl-2xl rounded-br-2xl"
                 style={{ backgroundColor: '#FFF2C6' }}>
