@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import  { CollectionTag }  from '../Collection/CollectionTag';
@@ -150,17 +150,17 @@ const CollectionWrite = () => {
             <div style={{ position: 'fixed', bottom: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center', background: 'white' }}>
                 <button>
                     <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileChange} />
-                    <label htmlFor="fileInput"> <img src='img\CollectionCamera.png' className=' w-15 h-14 mx-5' id="selectedImage" alt="Selected"></img></label>            </button>
+                    <label htmlFor="fileInput"> <img src='img\CollectionCamera.PNG' className=' w-15 h-14 mx-5' id="selectedImage" alt="Selected"></img></label>            </button>
 
                 <button>
                     <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
-                    <label htmlFor="fileInput"> <img src='img\Gallery.png' className=' w-15 h-14 mr-5'></img></label>
+                    <label htmlFor="fileInput"> <img src='img\Gallery.PNG' className=' w-15 h-14 mr-5'></img></label>
                 </button>
 
                 <button onClick={handleMiniRegisterClick}>
-                    <Link to="/collection">
-                        <img src='img\addBtn.png' className='w-48 h-11' alt="Mini Register"></img>
-                    </Link>
+                    
+                        <img src='img\AddBtn.png' className='w-48 h-11' alt="Mini Register"></img>
+                   
                 </button>
             </div>
             <div className='pb-20'/>

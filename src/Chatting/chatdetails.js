@@ -9,6 +9,8 @@ import Chat_btn1 from './Component/chat_profile_btn';
 import Chat_btn2 from './Component/chat_profile_btn2';
 import { useParams } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
+import { useLocation } from 'react-router-dom';
+
 
 const Chatdetails = () => {
   const { roomId } = useParams();
@@ -19,10 +21,11 @@ const Chatdetails = () => {
   const [isHoveredY, setIsHoveredY] = useState(false);
   const [ItemInfo, setItemInfo] = useState(false);
   const messagesEndRef = useRef(null);
-
+  const [chattingEnteruser, setChattingEnteruser] = useState([]);
 
   const lastHyphenIndex = roomId.lastIndexOf('-');
   const contentsId = lastHyphenIndex !== -1 ? roomId.substring(lastHyphenIndex + 1) : null;
+  
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
@@ -32,7 +35,20 @@ const Chatdetails = () => {
 
   useEffect(() => {
     scrollToBottom();
+    
   }, [messages]); // 메시지 배열이 업데이트될 때마다 스크롤을 아래로 이동
+
+
+  
+const location = useLocation();
+    
+
+  useEffect(() => {
+    
+    if (location.state && Array.isArray(location.state.chattingEnteruser)) {
+      setChattingEnteruser(location.state.chattingEnteruser);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +67,7 @@ const Chatdetails = () => {
         if (response1.ok) {
           const data1 = await response1.json();
           setMessages(data1);
-          console.log(data1);
+          
         } else {
           console.error('서버에서 오류 응답을 받았습니다.', response1.status);
         }
@@ -59,7 +75,8 @@ const Chatdetails = () => {
         if (response2.ok) {
           const data2 = await response2.json();
           setItemInfo(data2);
-          console.log(data2);
+          
+
         } else {
           console.error('서버에서 오류 응답을 받았습니다.', response2.status);
         }
@@ -69,6 +86,7 @@ const Chatdetails = () => {
     };
 
     fetchData();
+
 
     const socket = new SockJS(`https://www.honeybee-goody.site/goody/ws-stomp`);
     const client = Stomp.over(socket);
@@ -156,7 +174,7 @@ const Chatdetails = () => {
                 timeout={300}
                 classNames="transition"
               >
-                {isHovered ? <Chat_btn2 ItemInfo={ItemInfo} /> : <Chat_btn1 ItemInfo={ItemInfo} />}
+                {isHovered ? <Chat_btn2 ItemInfo={ItemInfo} chattingEnteruser={chattingEnteruser} /> : <Chat_btn1 ItemInfo={ItemInfo} />}
               </CSSTransition>
             </div>
             <button className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] absolute top-5 right-4 h-full' onClick={handleBack}>

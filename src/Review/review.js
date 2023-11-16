@@ -5,14 +5,22 @@ import Button_g from './reviewbtn_gray';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
+
 const review = () => {
   const actionBarName = "리뷰";
   const location = useLocation();
   const itemInfoDocumentId = location.state? location.state.itemInfoDocumentId : '';
+  const chattingEnteruser =  location.state? location.state.chattingEnteruser : '';
+  const uniqueChattingEnteruser = Array.from(new Set(chattingEnteruser));
   const maxSelectedButtons = 4; // 최대 선택 가능한 버튼 수
   const [selectedButtons, setSelectedButtons] = useState([]);
   const [isClicked, setIsClicked] = useState(false); // 버튼 클릭 상태를 저장하는 상태
 
+
+  console.log(uniqueChattingEnteruser);
+  
+
+  
   // 버튼 클릭 핸들러
   const handleButtonClick = (buttonName) => {
     setIsClicked(!isClicked); // 클릭 상태를 반전시킴
@@ -31,11 +39,12 @@ const review = () => {
     reviewerId: localStorage.getItem('userId'), 
     reviewKeywords: selectedButtons,
     contentId: itemInfoDocumentId, 
+    documentId : itemInfoDocumentId
   };
 
   const handleReviewClick = async () => {
 
-    fetch(`https://www.honeybee-goody.site/goody/review/keywords?receiveId=${localStorage.getItem('userId')}`, { //수정해야댐
+    fetch(`https://www.honeybee-goody.site/goody/review/keywords?receiveId=${uniqueChattingEnteruser}&contentsDocumentId=${itemInfoDocumentId}`, { //수정해야댐
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -125,7 +134,7 @@ const review = () => {
 
           <Link 
                     to = {'/honeyhome'}
-                    state = { {itemInfoDocumentId} }
+                    state = { {itemInfoDocumentId, uniqueChattingEnteruser} }
                 >
             <button
               className='font-bold mt-2 text-lg'
