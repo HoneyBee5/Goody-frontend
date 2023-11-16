@@ -6,24 +6,54 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import AppBar from '@mui/material/AppBar';
+import { Drawer } from 'antd';
+import Categories from './Categories'; 
+
 // 액션바
 const HomeActionBar = ({ children, imageSrc }) => {
 
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const defaultOpenElement = document.getElementById('defaultOpen');
+    if (defaultOpenElement) {
+      defaultOpenElement.click();
+    }
+  }, []);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
+
   return (
-    <div className='flex' style={{ zIndex: '10' }}>
+    <div className='flex'>
       <img className='relative' src={imageSrc} alt='구디' />
       <img className='absolute mt-7 left-7' src="img/SmallLogo.png" alt='구디' width={'130px'} />
       <Link to="/Search">
         <button className='absolute right-12 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
           <img src="img/Search.png" alt='검색' width={'25px'} height={'25px'} />
         </button></Link>
-      <button className='absolute right-0 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
-        <Link to="/categories"><img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} /></Link>
+      <button onClick={showDrawer} className='absolute right-0 h-20 p-4  drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
+        <img src="img/Hamburger.png" alt='햄버거' width={'25px'} height={'25px'} />
       </button>
 
       <div>
         {children && (<div className=''>{children}</div>
-        )}</div></div>
+        )}
+      </div>
+    
+      <Drawer
+        placement="right"
+        closable={false}
+        open={visible}
+        onClose={onClose}
+      >
+        {/* Categories 컴포넌트를 렌더링 */}
+        <Categories onClose={onClose} />
+      </Drawer>
+      
+    </div>
   );
 };
 
@@ -42,6 +72,7 @@ const theme = createTheme({
 
 const Home = () => {
   const [thisIndex, setThisIndex] = useState(0);
+  //const [pageNumber, setPageNumber] = useState(1); //페이지 번호 상태
 
   // 이미지를 자동으로 넘기는 함수
   const autoNextImage = () => {
@@ -106,12 +137,12 @@ const Home = () => {
       <div className='rounded-3xl pt-5 mt-[210px] h-[700px]' style={{backgroundColor:'white',zIndex:'10',overflow:'hidden'}}> 
       <div className='flex justify-center'>
         <div className="mb-2">
-          <Link to="/maincategories?category=MOV&name=영화"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Movie.png' className='shadow-md rounded-2xl mb-2' alt='MOV'></img>영화</button></Link>
-          <Link to="/maincategories?category=GAME&name=게임"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Games.png' className='shadow-md rounded-2xl mb-2' alt='GAME'></img>게임</button></Link>
-          <Link to="/maincategories?category=ENT&name=연예인"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Mic.png' className='shadow-md rounded-2xl mb-2' alt='ENT'></img>연예인</button></Link>
-          <Link to="/maincategories?category=CHA&name=캐릭터"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Bear.png' className='shadow-md rounded-2xl mb-2' alt='CHA'></img>캐릭터</button></Link>
-          <Link to="/maincategories?category=SPO&name=스포츠"> <button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Ball.png' className='shadow-md rounded-2xl mb-2' alt='SPO'></img>스포츠</button></Link>
-          <Link to="/maincategories?category=ANI&name=만화"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Book.png' className='shadow-md rounded-2xl mb-2' alt='ANI'></img>만화</button></Link>
+          <Link to="/maincategories?category=MOV&name=영화"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Movie.png' className='shadow-lg rounded-xl mb-2 w-9' alt='MOV'></img>영화</button></Link>
+          <Link to="/maincategories?category=GAME&name=게임"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Games.png' className='shadow-lg rounded-xl mb-2 w-9' alt='GAME'></img>게임</button></Link>
+          <Link to="/maincategories?category=ENT&name=연예인"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Mic.png' className='shadow-lg rounded-xl mb-2 w-9' alt='ENT'></img>연예인</button></Link>
+          <Link to="/maincategories?category=CHA&name=캐릭터"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Bear.png' className='shadow-lg rounded-xl mb-2 w-9' alt='CHA'></img>캐릭터</button></Link>
+          <Link to="/maincategories?category=SPO&name=스포츠"> <button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Ball.png' className='shadow-lg rounded-xl mb-2 w-9' alt='SPO'></img>스포츠</button></Link>
+          <Link to="/maincategories?category=ANI&name=만화"><button className='w-9 mx-2.5 my-5 font-bold text-gray-600 text-xs cate'> <img src='img\Book.png' className='shadow-lg rounded-xl mb-2 w-9' alt='ANI'></img>만화</button></Link>
         </div>
       </div>
       <hr />

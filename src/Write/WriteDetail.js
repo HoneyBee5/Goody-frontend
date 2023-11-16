@@ -19,7 +19,6 @@ const theme = createTheme({
   },
 });
 
-
 function WriteDetail() {
   const [writeDetailData, setWriteDetailData] = useState({});
   const { documentId } = useParams();
@@ -28,7 +27,14 @@ function WriteDetail() {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [liked, setLiked] = useState(false);
-  const [myContents, setMyContents] = useState(false); 
+  const [myContents, setMyContents] = useState(false);
+
+  const fetchOptions = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+  };
 
   const dataToSend = {
     documentId: documentId,
@@ -38,18 +44,13 @@ function WriteDetail() {
   const handleLikeClick = () => {
     setLiked(!liked);
 
-    const headers = {
-      Authorization: token,
-      'Content-Type': 'application/json',
-    };
-
     const likeEndpoint = liked
       ? `https://www.honeybee-goody.site/goody/contents/removeLike?documentId=${documentId}`
       : `https://www.honeybee-goody.site/goody/contents/addlike?documentId=${documentId}`;
 
     fetch(likeEndpoint, {
       method: 'POST',
-      headers,
+      headers: fetchOptions.headers,
       body: JSON.stringify(dataToSend),
     })
       .then((response) => {
@@ -88,15 +89,14 @@ function WriteDetail() {
       ]
       : []),
   ];
+
   const handleDeleteClick = async () => {
     try {
       const responseDel = await fetch(
         `https://www.honeybee-goody.site/goody/contents/delete?documentId=${documentId}`,
         {
           method: 'DELETE',
-          headers: {
-            Authorization: `${token}`,
-          },
+          headers: fetchOptions.headers,
         }
       );
 
@@ -114,14 +114,11 @@ function WriteDetail() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const headers = {
-          Authorization: token,
-        };
         const response = await fetch(
           `https://www.honeybee-goody.site/goody/contents/detail?documentId=${documentId}`,
           {
             method: 'GET',
-            headers,
+            headers: fetchOptions.headers,
           }
         );
 

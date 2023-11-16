@@ -3,11 +3,11 @@ import { ActionBarClose } from '../Component/ActionBarClose';
 import Item_width from '../Component/Item_width';
 import { Link } from 'react-router-dom';
 
-const FavoriteList = () => {
+const MyContentsList = () => {
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const actionBarName = "찜목록";
+  const actionBarName = "내 글 목록";
 
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const FavoriteList = () => {
         };
 
         const response = await fetch(
-          `https://www.honeybee-goody.site/goody/myPage/contentsLikeList`,
+          `https://www.honeybee-goody.site/goody/myPage/myContentsList`,
           {
             method: 'GET',
             headers,
@@ -67,4 +67,4 @@ const FavoriteList = () => {
   );
 };
 
-export default FavoriteList;
+export default MyContentsList;

@@ -38,6 +38,7 @@ function addChattingRoom({ writerId, documentId, token, userId, title }) {
     .then((requestData) => {
       // 채팅방 생성이 성공하면 처리할 작업을 추가하세요
       console.log('채팅방 생성 완료:', requestData);
+      window.location.href = `/chatdetails/${userId}-${documentId}?contentsId=${contentsId}`;
     })
     .catch((error) => {
       console.error('채팅방 생성 중 오류 발생:', error);

@@ -10,6 +10,7 @@ const TabView = () => {
   const [tabValue, setTabValue] = useState(0);
   const [postPreviewInfo, setPostPreviewInfo] = useState([]);
   const [loading, setLoading] = useState(true); // 데이터 로딩 상태를 관리
+  const [pageNumber, setPageNumber] = useState(1);
 
   // 토큰 가져오기
   const token = localStorage.getItem('token');
@@ -79,6 +80,27 @@ const TabView = () => {
         break;
     }
   };
+
+   // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollPosition = window.scrollY;
+
+    // 스크롤이 화면 맨 아래로 도달하면 페이지 번호를 변경
+    if (scrollPosition + windowHeight === documentHeight) {
+      console.log('스크롤이 화면 맨 아래로 도달함')
+      setPageNumber(pageNumber + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [pageNumber]);
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper', marginTop: '1rem' }}>
