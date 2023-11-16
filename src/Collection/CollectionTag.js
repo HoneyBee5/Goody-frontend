@@ -51,7 +51,7 @@ const CollectionTag = ({onTagsChange}) => {
           handleClose(tag);
         }}
       >
-        <TagIcon style={{ marginRight: 8 }} />
+        <TagIcon style={{ fontSize: 16 }} />
         {tag}
       </Tag>
     );
