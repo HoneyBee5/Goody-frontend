@@ -71,7 +71,7 @@ const ReviewList = () => {
       ) : (
         <div className='p-5'>
           <CardHeader
-            avatar={<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe"> {userInfo.nickname.charAt} </Avatar>}
+            avatar={<Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe"> {userInfo.nickname.charAt(0)} </Avatar>}
             action={<IconButton aria-label="settings"></IconButton>}
             title={<Typography variant="h7" style={{ fontWeight: 'bold' }}>{userInfo.nickname}</Typography>}
             subheader={<Typography variant="subtitle1" style={{ fontWeight: '' }}>{userInfo2.grade}</Typography>}
