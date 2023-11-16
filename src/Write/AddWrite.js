@@ -172,24 +172,24 @@ const AddWrite = () => {
       
       if(formData.get('category')!=null&&formData.get('grade')!=null&&formData.get('transType')!=null&&formData.get('hashTags')!=null){
         console.log('전송');
-        // const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
-        //     method: 'POST',
-        //     body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
-        //     headers: {
-        //         // 토큰을 사용하여 사용자 인증
-        //         Authorization: `${localStorage.getItem('token')}`,
-        //     },
-        // });
+        const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
+            method: 'POST',
+            body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
+            headers: {
+                // 토큰을 사용하여 사용자 인증
+                Authorization: `${localStorage.getItem('token')}`,
+            },
+        });
   
-        // if (response.ok) {
-        //     // 데이터가 성공적으로 API로 전송되었습니다.
-        //     console.log('데이터가 성공적으로 전송되었습니다.');
-        //     const data = await response.text();
-        //     window.location.href =`/WriteDetail/${data}`; 
-        // } else {
-        //     // 여기서 오류를 처리합니다.
-        //     console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-        // }
+        if (response.ok) {
+            // 데이터가 성공적으로 API로 전송되었습니다.
+            console.log('데이터가 성공적으로 전송되었습니다.');
+            const data = await response.text();
+            window.location.href =`/WriteDetail/${data}`; 
+        } else {
+            // 여기서 오류를 처리합니다.
+            console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
+        }
       }
     } catch (error) {
       console.error('오류가 발생했습니다:', error);
