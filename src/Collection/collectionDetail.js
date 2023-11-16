@@ -144,7 +144,7 @@ function CollectionDetail() {
  
   const handleLike = async () => {
     try {
-      const response = await fetch(`http://27.96.134.23:4001/goody/collection/addLike?documentId=${collectionId}`, {
+      const response = await fetch(`https://www.honeybee-goody.site/goody/collection/addLike?documentId=${collectionId}`, {
         method: 'POST',
         headers,
       });
@@ -162,7 +162,7 @@ function CollectionDetail() {
 
   const handledeleteLike = async () => {
     try {
-      const response = await fetch(`http://27.96.134.23:4001/goody/collection/removeLike?documentId=${collectionId}`, {
+      const response = await fetch(`https://www.honeybee-goody.site/goody/collection/removeLike?documentId=${collectionId}`, {
         method: 'POST',
         headers,
       });
