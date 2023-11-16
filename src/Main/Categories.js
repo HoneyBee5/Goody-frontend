@@ -22,7 +22,7 @@ const Categories = ({ onClose }) => {
     <div className='ml-[-1.5rem] mt-[-1rem]'>
       <div className='flex'>
         <button onClick={onClose} className='absolute mt-[-1.3rem] mr-[-0.5rem] right-0 h-20 p-4 drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'>
-          <img src="img/Close.png" alt='닫기' width={'30px'} height={'30px'} />
+          <img src="img/close.png" alt='닫기' width={'30px'} height={'30px'} />
         </button>
       </div>
 
