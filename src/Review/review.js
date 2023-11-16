@@ -3,9 +3,12 @@ import { ActionBarClose } from '../Component/ActionBarClose';
 import Button_y from './reviewbtn';
 import Button_g from './reviewbtn_gray';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const review = () => {
   const actionBarName = "리뷰";
+  const location = useLocation();
+  const itemInfoDocumentId = location.state? location.state.itemInfoDocumentId : '';
   const maxSelectedButtons = 4; // 최대 선택 가능한 버튼 수
   const [selectedButtons, setSelectedButtons] = useState([]);
   const [isClicked, setIsClicked] = useState(false); // 버튼 클릭 상태를 저장하는 상태
@@ -25,9 +28,9 @@ const review = () => {
 
   // 클릭한 버튼 정보를 서버에 보냄
   const selectedReviewData = {
-    reviewerId: localStorage.getItem('userId'), //수정 필요
+    reviewerId: localStorage.getItem('userId'), 
     reviewKeywords: selectedButtons,
-    contentId: '4ra8NSpdxUGMQfmMm00A', // 수정 필요
+    contentId: itemInfoDocumentId, 
   };
 
   const handleReviewClick = async () => {
@@ -120,7 +123,10 @@ const review = () => {
         <div className='fixed bottom-0 p-2'>
           <img className='rounded-2xl mb-2' src="img/review.png" alt="안내문" style={{ width: '25rem', height: '4rem' }} />
 
-          <Link to='/honeyhome'>
+          <Link 
+                    to = {'/honeyhome'}
+                    state = { {itemInfoDocumentId} }
+                >
             <button
               className='font-bold mt-2 text-lg'
               onClick={handleReviewClick}

@@ -20,6 +20,8 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { styled } from '@mui/system'
 import NumberInput from '../Component/NumberInput'
+import { useLocation } from 'react-router-dom';
+import  { CollectionTag }  from '../Collection/CollectionTag';
 
 // 액션바 이름
 const actionBarName = "글 작성";
@@ -66,12 +68,14 @@ for (let i = 1; i <= 10; i++) {
 
 
 const AddWrite = () => {
+  const location = useLocation();
+  const { datatitle, dataexplain } = location.state || {}; // null인 경우에 빈 객체를 할당
 
   const [selectedImage, setSelectedImage] = useState([]);//첨부한 이미지
   const [selectedOption1, setSelectedOption1] = useState(OPTIONS1[0]);
   const [selectedOption2, setSelectedOption2] = useState(OPTIONS2[0]);
   const [selectedOption3, setSelectedOption3] = useState(OPTIONS3[0]);
-  const [title, setTitle] = useState(''); // 제목
+  const [title, setTitle] = useState(dataexplain ? datatitle : '');
   const [price, setPrice] = useState('');// 가격
   const [isFreeChecked, setIsFreeChecked] = useState(false);//나눔여부
   const [showTogetherTypeCheckboxes, setShowTogetherTypeCheckboxes] = useState(false);
@@ -79,8 +83,10 @@ const AddWrite = () => {
   const [selectedNumOfPeople, setSelectedNumOfPeople] = useState(null);
   const [inputPeopleField, setInputPeopleField] = useState('');
   const [chipPeople, setChipPeople] = useState([]);
-  const [explainText, setExplainText] = useState('');
+  const [explainText, setExplainText] = useState(dataexplain ? dataexplain : '');
+  const [hashTags, setHashTags] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  
 
   //토큰 저장 후 로그인 상태 설정
   useEffect(() => {
@@ -101,10 +107,10 @@ const AddWrite = () => {
       }
 
       const formData = new FormData();// 해당 필드에 원하는 값을 설정
-      if (selectedOption1.value === "거래종류") {
+      if (selectedOption2.value === "거래종류") {
         alert('거래종류를 선택해주세요');
       } else {
-        formData.append('transType', selectedOption1.value); //거래종류
+        formData.append('transType', selectedOption2.value); //거래종류
       }
 
       if (selectedImage && selectedImage.length > 0) {
@@ -116,6 +122,8 @@ const AddWrite = () => {
         const stringWithoutCommas = price.replace(/,/g, '');
         const numberAsInt = parseInt(stringWithoutCommas, 10);//콤마제외하고 String->int 변환
         formData.append('price', numberAsInt);//가격
+      }else{
+        formData.append('price',0);
       }
       
       if (selectedNumOfPeople !== null) {
@@ -134,15 +142,20 @@ const AddWrite = () => {
         formData.append('grade', selectedOption3.value);//등급
       }
       formData.append('title', title);//제목
-      if (selectedOption2.value === "카테고리") {
+      if (selectedOption1.value === "카테고리") {
         alert('카테고리를 선택해주세요');
       } else {
-        formData.append('category', selectedOption2.value);//카테고리
+        formData.append('category', selectedOption1.value);//카테고리
+      }
+      if(hashTags != ''){
+        formData.append('hashTags',hashTags);
+      }else{
+        alert('해시태그를 입력해주세요');
       }
       console.log([...formData.entries()]);
       
-      if(formData.get('category'!=null)&&formData.get('grade'!=null)&&formData.get('transType'!=null)){
-        console.log([...formData.entries()]);
+      if(formData.get('category')!=null&&formData.get('grade')!=null&&formData.get('transType')!=null&&formData.get('hashTags')!=null){
+        console.log('전송');
         const response = await fetch('https://www.honeybee-goody.site/goody/contents/', {
             method: 'POST',
             body: formData, // 멀티파트(form-data) 형식으로 데이터를 보냅니다.
@@ -160,7 +173,8 @@ const AddWrite = () => {
         } else {
             // 여기서 오류를 처리합니다.
             console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-        }}
+        }
+      }
     } catch (error) {
       console.error('오류가 발생했습니다:', error);
     }
@@ -243,6 +257,10 @@ const AddWrite = () => {
       setChipPeople([...chipPeople, newPerson]);
       setInputPeopleField(''); // 입력 필드 비우기
     }
+  };
+
+  const handleTagsChange = (newTags) => {
+    setHashTags(newTags); // 필드 데이터 업데이트
   };
 
   return (
@@ -381,7 +399,7 @@ const AddWrite = () => {
         <div className='flex p-2 h-10 m-2 mr-4 ml-4 items-center'>
           <TextField fullWidth
             sx={{ "& .MuiOutlinedInput-root": { "& > fieldset": { border: "none" } } }}//테두리제거
-            value={title}
+            value= {title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder='글 제목' />
         </div>
@@ -428,9 +446,11 @@ const AddWrite = () => {
             value={explainText}
             onChange={(e) => setExplainText(e.target.value)}
             multiline
-            rows={10}
+            rows={8}
             placeholder='내용' />
         </div>
+
+        <CollectionTag onTagsChange={handleTagsChange} /> 
 
         {/* 등록 버튼 */}
         <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: '80px', marginLeft: '20px', marginRight: '20px' }}>

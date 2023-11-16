@@ -31,7 +31,11 @@ const ChatProfileBtn2  = ({ ItemInfo }) => {
                     <p className='pl-5 text-black '> {formatPrice(ItemInfo.price)}원</p>
                 </div>
 
-                <Link to='/review'>
+                <Link 
+                    to = {'/review'}
+                    state = { {itemInfoDocumentId : ItemInfo.documentId} }
+                >
+           
                     <button className='border absolute bottom-4 right-1 mr-2 flex justify-center font-bold text-sm items-center text-black'
                         style={{ borderRadius: '10px 0 10px 10px', width: '6rem', height: '2rem', backgroundColor: '#FFFFFF' }}>
                         리뷰 남기기
@@ -47,6 +51,7 @@ ChatProfileBtn2.propTypes = {
       title: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       thumbnailImg: PropTypes.string.isRequired,
+      documentId : PropTypes.string.isRequired,
       // Add other properties if needed
     }).isRequired,
   };

@@ -3,10 +3,11 @@ import { PlusOutlined } from '@ant-design/icons';
 import { TweenOneGroup } from 'rc-tween-one';
 import { Input, Tag, theme } from 'antd';
 import PropTypes from 'prop-types';
+import TagIcon from '@mui/icons-material/Tag';
 
-const CollectionTag = ({onTagsChange}) => {
+const CollectionTag = ({ onTagsChange, defaultTags }) => {
   const { token } = theme.useToken();
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(defaultTags || []);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef(null);
@@ -19,22 +20,29 @@ const CollectionTag = ({onTagsChange}) => {
     }
   }, [inputVisible]);
 
+  useEffect(() => {
+    if (defaultTags && defaultTags.length > 0) {
+      setTags(defaultTags);
+    }
+  }, [defaultTags]);
+
   const handleClose = (removedTag) => {
     const newTags = tags.filter((tag) => tag !== removedTag);
-    console.log(newTags);
     setTags(newTags);
     onTagsChange(newTags);
   };
+
   const showInput = () => {
     setInputVisible(true);
   };
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
+
   const handleInputConfirm = () => {
     if (inputValue && tags.indexOf(inputValue) === -1 && tags.length < maxLength) {
       setTags([...tags, inputValue]);
-      // onTagsChange 함수를 호출하여 변경된 태그 배열을 부모 컴포넌트에 전달
       onTagsChange([...tags, inputValue]);
     }
     setInputVisible(false);
@@ -50,6 +58,7 @@ const CollectionTag = ({onTagsChange}) => {
           handleClose(tag);
         }}
       >
+        <TagIcon style={{ fontSize: 16 }} />
         {tag}
       </Tag>
     );
@@ -64,25 +73,24 @@ const CollectionTag = ({onTagsChange}) => {
       </span>
     );
   };
+
   const tagChild = tags.map(forMap);
+
   const tagPlusStyle = {
-    
-    display: tags.length >= 3 ? 'none' : 'flex',
-    // 중앙 정렬을 위해 추가 스타일
+    display: tags.length >= maxLength ? 'none' : 'flex',
     alignItems: 'center',
     background: token.colorBgContainer,
     borderStyle: 'dashed',
-    justifyContent: 'center', // 수평 중앙 정렬을 위해 추가
+    justifyContent: 'center',
   };
-  
+
   return (
     <div
       style={{
         display: 'flex',
         alignItems: 'center',
         marginBottom: 16,
-        justifyContent: 'center', // 수평 중앙 정렬을 위해 추가
-        
+        justifyContent: 'center',
       }}
     >
       <Tag onClick={showInput} style={tagPlusStyle}>
@@ -126,12 +134,11 @@ const CollectionTag = ({onTagsChange}) => {
       ) : null}
     </div>
   );
-  
-
 };
 
 CollectionTag.propTypes = {
-  onTagsChange: PropTypes.func, // onTagsChange의 prop 타입을 함수로 정의
+  onTagsChange: PropTypes.func,
+  defaultTags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export { CollectionTag };

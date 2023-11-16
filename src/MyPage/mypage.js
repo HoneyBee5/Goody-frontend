@@ -252,10 +252,10 @@ const Mypage = () => {
           </Link>
         </div>
         <div className="flex pb-2">
-          <Link to="/favoritelist">
+          <Link to="/collectionlist">
             <button className="flex p-2 items-center">
-              <img src="img/Icon_Favorite.png" alt="팔아주세요 목록" className="h-5 w-5 mr-5" />
-              <span className="font-extrabold text-sm">팔아주세요 목록</span>
+              <img src="img/Icon_Favorite.png" alt="찜 목록" className="h-5 w-5 mr-5" />
+              <span className="font-extrabold text-sm">컬렉션 찜 목록</span>
             </button>
           </Link>
         </div>
