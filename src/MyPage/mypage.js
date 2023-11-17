@@ -160,7 +160,7 @@ const Mypage = () => {
             )}
           />
           {showDetails && (
-            <div className="pr-5 pl-5 pt-7">
+            <div className="pr-5 pl-12 pt-7" >
               {/* Additional information display */}
               <p>
                 은행 : {editMode ? (
@@ -206,10 +206,18 @@ const Mypage = () => {
                   userData ? userData.userPhoneNum : ''
                 )}
               </p>
-              {editMode && (
-                <Button type="primary" onClick={handleSaveClick}>
+              
+              { editMode && (
+                <div className='flex justify-end'>
+                <Button
+                  type="primary"
+                  style={{ backgroundColor: '#FFD52B', color: 'black'}}
+                  className='flex items-end'
+                  onClick={handleSaveClick}
+                >
                   Save
                 </Button>
+                </div>
               )}
             </div>
           )}
@@ -227,14 +235,14 @@ const Mypage = () => {
             </button>
           </Link>
         </div>
-        <div className="flex">
+        {/* <div className="flex">
           <Link to="/purchaselist">
             <button className="flex p-2 items-center">
               <img src="img/Icon_Purchase.png" alt="구매 참여 목록" className="h-5 w-5 mr-5" />
               <span className="font-extrabold text-sm">구매 & 참여 목록</span>
             </button>
           </Link>
-        </div>
+        </div> */}
         <div className="flex pb-2">
           <Link to="/favoritelist">
             <button className="flex p-2 items-center">

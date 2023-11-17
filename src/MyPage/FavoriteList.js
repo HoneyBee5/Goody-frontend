@@ -35,8 +35,10 @@ const FavoriteList = () => {
         const data = await response.json();
         console.log(data);
 
-        if (data.dto && data.dto.length > 0) {
+        if (data.dto && Array.isArray(data.dto) && data.dto.length > 0) {
           setProductData(data.dto);
+          setLoading(false);
+        } else {
           setLoading(false);
         }
       } catch (error) {
@@ -52,7 +54,9 @@ const FavoriteList = () => {
     <>
       <ActionBarClose actionBarName={actionBarName} />
       {loading ? (
-        <div>Loading...</div>
+        <div className='flex justify-center items-center h-[50rem]'>
+          <img src='img/테이터가 비었습니다.png' className='w-64' alt='데이터가 비었습니다.' />
+        </div>
       ) : (
         productData.map((item, index) => (
           <div key={index}>
@@ -62,7 +66,7 @@ const FavoriteList = () => {
             </Link>
           </div>
         ))
-        )}
+      )}
     </>
   );
 };

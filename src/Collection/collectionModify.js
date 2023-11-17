@@ -5,7 +5,7 @@ import { CollectionTag } from '../Collection/CollectionTag';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const actionBarName = "컬렉션 작성";
+const actionBarName = "컬렉션 수정";
 
 const CollectionModify = () => {
   const location = useLocation();

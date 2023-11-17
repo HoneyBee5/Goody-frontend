@@ -45,10 +45,10 @@ const Item_KeywordReview = () => {
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">친절해요</p>
+                <p className="font-bold text-gray-600">저렴해요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="친절해요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">1</p>
+                    <img src="img/Icon_Person.png" alt="저렴해요"  className="h-4 w-4" />
+                    <p className="font-bold text-gray-600">0</p>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@ const Item_KeywordReview = () => {
                 <p className="font-bold text-gray-600">시간 약속을 잘 지켜요</p>
                 <div className='flex items-center'>
                     <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">1</p>
+                    <p className="font-bold text-gray-600">0</p>
                 </div>
             </div>
             <hr />
