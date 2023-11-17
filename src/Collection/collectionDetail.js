@@ -203,13 +203,19 @@ function CollectionDetail() {
 
         <div className='flex'>
         
-        <p  className='absolute top-6 left-14 w-[2rem] h-[2rem] '> {likesCount} </p>
-
+        <div className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)'>
+        <p  className='absolute top-5 left-14 w-[5rem] h-[5rem] font-size text-xl text-yellow-500 text-extrabold 
+        '> {likesCount} </p>
+        </div>
         {liked ? 
+          <button className='absolute top-4 left-4 w-[2rem] h-[2rem]'
+          onClick={handledeleteLike} >
+            <img src='../img/yellowheart.png' alt='하트 꽉' />
+          </button> : 
           <button className='absolute top-4 left-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'
-          onClick={handledeleteLike} >하트 꽉</button> : 
-          <button className='absolute top-4 left-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'
-          onClick={handleLike} >하트 안꽉</button> }
+          onClick={handleLike} >
+            <img src='../img/heart.png' alt='하트 안꽉' />
+          </button> }
           
 
 
