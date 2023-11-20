@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import './font.css';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import TextField from '@mui/material/TextField';
@@ -10,10 +10,9 @@ const token = localStorage.getItem('token');
 
 const Chatting = () => {
  
-  // const { chatRoomId } = useParams();
+  const { roomId } = useParams();
   const [ info, setInfo ] = useState(null);
-  const chatRoomId = 'mjc456-4ra8NSpdxUGMQfmMm00A';
-  let apiURL = `https://www.honeybee-goody.site/goody/addressInfo?roomId=${chatRoomId}`;
+  let apiURL = `https://www.honeybee-goody.site/goody/addressInfo?roomId=${roomId}`;
   const headers = {
     Authorization: `${token}`,
   };
@@ -195,69 +194,6 @@ const Chatting = () => {
     </div>
   </div>
 </div>
-
-      {/* <div className="flex justify-center pl-5 pr-5">
-      <div className="flex flex-col">
-        <div style={{ width: '400px' }} className="flex border pt-5 pb-5 rounded-lg shadow-lg">
-          <div className='pr-3 pb-7 w-2/10'>
-            <div className='flex flex-col items-center ml-3 my-3'>
-              {/* <img src="img/profile.png" alt="프로필사진" style={{ height: '4rem', width: '4rem' }} className="rounded-full border" /> */}
-              {/* <p className='pt-1 fontsmall font-semibold'>{info.role === 'buyer' ? '판매자 계좌' : '내 계좌'}</p>
-            </div>
-          </div>
-
-          <div className='flex flex-col items-center'>
-             <TextField
-                value={info.role === 'buyer' ? info.sellerAccountBank : info.myAccountBank}
-                placeholder='주소를 입력해주세요'
-                sx={{ m: 1, width: '30ch' }}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                value={info.role === 'buyer' ? info.sellerAccountNum : info.myAccountBank}
-                placeholder='주소를 입력해주세요'
-                sx={{ m: 1, width: '30ch' }}
-                InputProps={{
-                  readOnly: info.role === 'buyer',
-                }}
-              />
-            {info.role === 'buyer' ? null : ( // info.role이 'buyer'이면 null 반환 (확인 버튼을 표시하지 않음)
-              <button className='mt-1 mb-1 border fontsmall text-gray-500 pl-1 ' style={{ height: '2rem', width: '17rem', fontSize: '18px', borderRadius: '10px 0 10px 10px', backgroundColor: '#FFF2C6' }}>
-                확인
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div style={{ width: '400px' }} className="flex border pt-5 rounded-lg shadow-lg">
-          <div className='pr-3 pb-7 w-2/10'>
-            <div className='flex flex-col items-center ml-3 my-3'> */}
-              {/* <img src="img/profile.png" alt="프로필사진" style={{ height: '4rem', width: '4rem' }} className="rounded-full border" /> */}
-              {/* <p className='pt-1 fontsmall font-semibold'>구매자 주소</p>
-            </div>
-          </div>
-
-          <div className='flex flex-col items-center'>
-              <TextField
-                value={info.role === 'buyer' ? info.MyAddress : null}
-                placeholder='주소를 입력해주세요'
-                sx={{ m: 1, width: '30ch' }}
-                // onChange={(e) => setTitle(e.target.value)}
-                InputProps={{
-                  readOnly: info.role === 'seller'
-                }}
-              />
-            {info.role === 'buyer' ? (
-              <button className='mt-1 mb-1 border fontsmall text-gray-500 pl-1 ' style={{ height: '2rem', width: '17rem', fontSize: '18px', borderRadius: '10px 0 10px 10px', backgroundColor: '#FFF2C6' }}>
-                확인
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    </div> */}
      
     </>
   );

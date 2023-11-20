@@ -209,8 +209,9 @@ const location = useLocation();
                       in={isHoveredY}
                       timeout={300}
                       classNames="mount">
-                      {isHoveredY ? <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button> :
-                        <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>}
+                        <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>
+                      {/* {isHoveredY ? <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button> :
+                        <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>} */}
                     </CSSTransition>
                   </div>
                   <textarea
@@ -221,7 +222,7 @@ const location = useLocation();
                   <button onClick={sendMessage} style={{ padding: '10px' }}> 전송</button>
       </div>
       <div className='items-center flex fixed bottom-[60px] left-1/2 transform -translate-x-1/2'>
-      {isHoveredY && <Plus_btn />}
+      {isHoveredY && <Plus_btn roomId={roomId}/>}
       </div>
     </>
   );
