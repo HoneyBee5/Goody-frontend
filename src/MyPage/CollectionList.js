@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Empty } from 'antd';
+
 const CollectionItem = ({ item }) => {
   // 컬렉션 아이템 정보를 받아와서 렌더링
   return (
@@ -28,7 +30,10 @@ const CollectionList = () => {
 
   // collectionItems가 null일 때 처리
   if (collectionItems === null) {
-    return <div>Loading...</div>;
+    return (
+      <div className='flex justify-center items-center h-[50rem]'>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+      </div>)
   }
 
   useEffect(() => {

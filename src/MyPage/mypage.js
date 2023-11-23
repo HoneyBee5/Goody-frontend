@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import { EditOutlined, EllipsisOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Card, Input, Button } from 'antd';
 const { Meta } = Card;
+import { Modal } from 'antd';
 
 const Mypage = () => {
+
   const [userData, setUserData] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -58,9 +60,22 @@ const Mypage = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.clear();
+    Modal.confirm({
+      title: '로그아웃',
+      content: '로그아웃 하시겠습니까?',
+      okButtonProps: {
+        type: "primary",
+        style: { backgroundColor: '#FFD52B', color: 'black' },
+      },
+      onOk: () => {
+        localStorage.clear();
+        window.location.href = '/';
+      },
+      onCancel: () => {
+        // 취소 버튼 눌렀을 때 수행할 작업
+      },
+    });
   };
-
   const handleEllipsisClick = () => {
     setShowDetails(!showDetails);
   };
@@ -96,22 +111,13 @@ const Mypage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === 'birth') {
-      // 'birth' 필드의 경우, 입력값을 Date 객체로 변환하여 저장
-      setEditedData((prevData) => ({
-        ...prevData,
-        [name]: value ? new Date(value).toISOString().split('T')[0] : '',
-      }));
-    } else {
-      // 다른 필드의 경우, 그냥 저장
-      setEditedData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+  
+    setEditedData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-
+  
   return (
     <>
       <HomeActionBar imageSrc="img/ActionBar.png" />
@@ -276,15 +282,15 @@ const Mypage = () => {
           </button>
         </div>
         <div className="flex pb-2 mb-10">
-          <Link to='/'>
             <button className="flex p-2 items-center" onClick={handleLogout}>
               <img src="img/Icon_Settings.png" alt="로그아웃" className="h-5 w-5 mr-5" />
               <span className="font-extrabold text-sm">로그아웃</span>
             </button>
-          </Link>
         </div>
       </div>
       <Nav />
+
+
     </>
   );
 }

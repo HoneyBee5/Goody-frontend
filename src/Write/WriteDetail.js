@@ -9,7 +9,8 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import addChattingRoom from '../Chatting/addChattingRoom';
-import { Dropdown, Space } from 'antd';
+import { Dropdown, Space, message } from 'antd';
+import { Modal } from 'antd';
 
 const theme = createTheme({
   palette: {
@@ -29,6 +30,8 @@ function WriteDetail() {
   const [liked, setLiked] = useState(false);
   const [myContents, setMyContents] = useState(false);
   const [nickname, setNickname] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const [isChatEntered, setIsChatEntered] = useState(false);
 
   const fetchOptions = {
     headers: {
@@ -63,6 +66,36 @@ function WriteDetail() {
         console.error('좋아요 처리 중 오류 발생:', error);
       });
   };
+
+  const handleAddChat = () => {
+    Modal.confirm({
+      title: '구매하기',
+      content: '구매하시겠습니까? 채팅방으로 연결 됩니다.',
+      okButtonProps: {
+        type: "primary",
+        style: { backgroundColor: '#FFD52B', color: 'black' },
+      },
+
+      onCancel: () => {
+        // 취소 버튼 눌렀을 때 수행할 작업
+      },
+      onOk: async () => {
+        try {
+          await addChattingRoom({
+            writerId: writeDetailData.writerId,
+            documentId: documentId,
+            token: token,
+            userId: userId,
+            title: writeDetailData.title
+          });
+
+        } catch (error) {
+          console.error('Error adding chatting room:', error);
+        }
+      },
+    });
+  };
+
 
   const handleBack = () => {
     navigate(-1);
@@ -112,6 +145,18 @@ function WriteDetail() {
     }
   };
 
+  const warning = (content) => {
+    messageApi.open({
+      type: 'warning',
+      content: content,
+      duration: 2,
+      style: {
+        marginTop: '72vh',
+      },
+    });
+  };
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -132,6 +177,8 @@ function WriteDetail() {
         setLiked(data.like || false);
         setMyContents(data.myContents || false);
         setNickname(data.nickname);
+        setIsChatEntered(data.isChatEntered || false); // Assuming there's a property isChatEntered in your API response
+        console.log(data);
       } catch (error) {
         console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
       }
@@ -274,19 +321,15 @@ function WriteDetail() {
                   <button
                     onClick={() => {
                       if (writeDetailData.writerId === userId) {
-                        alert("내 글입니다.");
+                        warning("내 글입니다.");
+                      } else if (isChatEntered) {
+                        window.location.href = `/chatdetails/${userId}-${documentId}?contentsId=${documentId}`;
                       } else {
-                        addChattingRoom({
-                          writerId: writeDetailData.writerId,
-                          documentId: documentId,
-                          token: token,
-                          userId: userId,
-                          title: writeDetailData.title
-                        });
+                        handleAddChat();
                       }
                     }}
-                    className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'>
-                    구매하기
+                    className={`bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center `}>
+                    {isChatEntered ? '채팅방가기' : '구매하기'}
                   </button>
                 </div>
 
@@ -294,6 +337,10 @@ function WriteDetail() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div >
+        {contextHolder}
       </div>
     </ThemeProvider>
   );

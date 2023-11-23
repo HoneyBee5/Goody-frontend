@@ -1,7 +1,7 @@
 
 export function addChattingRoom({ writerId, documentId, token, userId, title }) {
   // 여기에서 채팅방 ID를 생성 (글 작성자 ID와 글 ID 조합)
-  const roomId = userId + '-' + documentId; // 예: '작성자ID-글ID'
+  const roomId = userId + '-' + documentId; // 예: 'userIdID-글ID'
   const roomName = title; // document title
   const contentsId = documentId; // 채팅방과 연결된 콘텐츠 ID (여기서는 글 ID 사용)
   const sellerId = writerId; // 판매자 ID 설정
