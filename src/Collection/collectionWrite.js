@@ -3,8 +3,12 @@ import {  useNavigate } from 'react-router-dom';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import  { CollectionTag }  from '../Collection/CollectionTag';
+import { message } from 'antd';
 
 const actionBarName = "컬렉션 작성";
+  
+
+
 
 const CollectionWrite = () => {
     const [title, setTitle] = useState('');
@@ -13,6 +17,20 @@ const CollectionWrite = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [collectionTags, setCollectionTags] = useState([]); // 필드 데이터를 관리
     const navigate = useNavigate(); 
+
+
+    const [messageApi, contextHolder] = message.useMessage();
+
+const warning = (content) => {
+  messageApi.open({
+    type: 'warning',
+    content: content,
+    duration: 2,
+    style: {
+      marginTop: '72vh',
+    },
+  });
+};
 
     useEffect(() => {
         // 사용자 로그인 상태를 확인하는 로직을 구현
@@ -54,10 +72,35 @@ const CollectionWrite = () => {
                 alert('로그인 후에 글을 작성할 수 있습니다.');
                 return;
             }
+    
+            // 필수 필드 값 체크
+            if (!title) {
+                warning('제목을 입력해주세요');
+                return;
+            }
+    
+            if (!story) {
+                warning('내용을 입력해주세요');
+                return;
+            }
+    
+            if (collectionTags.length === 0) {
+                warning('해시태그를 입력해주세요');
+                return;
+            }
+    
+            if (images.length === 0) {
+                warning('사진을 등록해주세요');
+                return;
+            }
 
             // 나머지 글 작성 로직
             const formData = new FormData();
+        
+        
+           
             formData.append('title', title); // 제목을 추가
+            
             formData.append('explain', story); // 내용을 추가
             formData.append('hashTags', collectionTags);
             
@@ -83,12 +126,16 @@ const CollectionWrite = () => {
                 console.log('데이터가 성공적으로 전송되었습니다.');
                 navigate('/collection');
             } else {
-                // 여기서 오류를 처리합니다.
-                console.error('API로 데이터를 전송하는 중 오류가 발생했습니다.');
-                console.error();
+                
+            
+                console.error('오류가 발생했습니다:');
             }
+                       
+            
         } catch (error) {
             console.error('오류가 발생했습니다:', error);
+            
+                
         }
 
     };
@@ -162,9 +209,17 @@ const CollectionWrite = () => {
                         <img src='img\AddBtn.png' className='w-48 h-11' alt="Mini Register"></img>
                    
                 </button>
+
+          
+                <div>
+        {contextHolder}
+            </div>
             </div>
             <div className='pb-20'/>
+           
         </div>
+        
+        
     );
 }
 

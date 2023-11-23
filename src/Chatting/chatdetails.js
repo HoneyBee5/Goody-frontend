@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import { useLocation } from 'react-router-dom';
 import { Modal } from 'antd';
-// import { Dropdown, Space } from 'antd';
+import { Space } from 'antd';
 
 const Chatdetails = () => {
   const { roomId } = useParams();
@@ -39,11 +39,15 @@ const Chatdetails = () => {
   const imgmodal = (imageURL) => {
     Modal.confirm({
       content: (
-        <div className="">
-          <img src={imageURL} className='w-full' alt="이미지" style={{ display: 'block', margin: 'auto' }} />
+        <div style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', width: '36vh' }}>
+          <img
+            src={imageURL}
+            className="w-full"
+            alt="이미지"
+            style={{ display: 'block', margin: 'auto' }}
+          />
         </div>
       ),
-      className: 'custom-modal-content',
       icon: null,
       okButtonProps: {
         type: 'primary',
@@ -54,6 +58,31 @@ const Chatdetails = () => {
       },
     });
   };
+
+  // 채팅방 모달
+  const chatmodal = () => {
+    Modal.confirm({
+      title: '채팅방 삭제',
+      content: (
+        <div>
+          채팅방 삭제 하시겠습니까?
+          <br />
+          삭제 후 복구 불가능 합니다.
+        </div>
+      ),
+      okButtonProps: {
+        type: "primary",
+        style: { backgroundColor: '#FFD52B', color: 'black' },
+      },
+      onOk: () => {
+        handleDeleteClick();
+      },
+      onCancel: () => {
+        // 취소 버튼 눌렀을 때 수행할 작업
+      },
+    });
+  }
+
 
 
   const handleApiResult = (data) => {
@@ -111,7 +140,7 @@ const Chatdetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-          // 이전 채팅 출력 api
+        // 이전 채팅 출력 api
         const response1 = await fetch(`https://www.honeybee-goody.site/goody/messages?roomId=${roomId}`, fetchOptions);
         // 거래물품 연결 api
         const response2 = await fetch(`https://www.honeybee-goody.site/goody/itemInfo?contentId=${contentsId}`, fetchOptions);
@@ -212,66 +241,35 @@ const Chatdetails = () => {
   };
 
 
-  // // 채팅방 삭제
-  // const items = [
-  
-  //   {
-  //     label: '삭제',
-  //     key: '1',
-  //   },
-  // ]
-  //   ;
+  const handleDeleteClick = async () => {
+    try {
+      const responseDel = await fetch(
 
-  // const handleDeleteClick = async () => {
-  //   try {
-  //     const responseDel = await fetch(
+        `https://www.honeybee-goody.site/goody/chatroom/delete?roomId=${roomId}`,
+        {
+          method: 'DELETE',
+          headers: fetchOptions.headers,
+        }
+      );
 
-  //       `https://www.honeybee-goody.site/goody/chatroom/delete?roomId=${roomId}&enterUsers=${chattingEnteruser}`,
-  //       {
-  //         method: 'DELETE',
-  //         headers: fetchOptions.headers,
-  //       }
-  //     );
-
-  //     if (responseDel.ok) {
-  //       console.log('삭제 성공');
-  //       navigate(-1);
-  //     } else {
-  //       console.error('삭제 실패');
-  //     }
-  //   } catch (error) {
-  //     console.error('오류 발생:', error);
-  //   }
-  // };
+      if (responseDel.ok) {
+        console.log('삭제 성공');
+        navigate(-1);
+      } else {
+        console.error('삭제 실패');
+      }
+    } catch (error) {
+      console.error('오류 발생:', error);
+    }
+  };
 
   return (
     <>
-      <div className="w-full h-16 relative">
+      <div className=" relative">
 
-        <AppBar component="nav" className='fixed top-0 w-full'>
+      <AppBar component="nav" className='fixed top-0 w-full'>
           <img src='../img/ActionBar.png' className='absolute' alt="ActionBar"></img>
           <p id="actionBar_name" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] font-bold text-white p-6 ml-2 text-xl absolute '>채팅</p>
-
-          {/* <Dropdown
-          menu={{
-            items: items.map((item) => {
-              if (item.key === '1') {
-                return { ...item, onClick: handleDeleteClick }; // key가 1인 경우 핸들러 1 연결
-              }
-              return item;
-            }),
-          }}
-          trigger={['click']}
-          style={{ border: '1px solid #000', width: '23px', height: '23px' }}
-          className='absolute top-4 right-14'
-        >
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              <img src='../img/Icon_Info_White.png' className="w-[1.8rem] h-[1.8rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
-            </Space>
-          </a>
-        </Dropdown> */}
-
 
           <div>
             <div className="pb-5 top-20 absolute flex justify-center items-center w-full h-full "
@@ -285,6 +283,13 @@ const Chatdetails = () => {
               >
                 {isHovered ? <Chat_btn2 ItemInfo={ItemInfo} chattingEnteruser={chattingEnteruser} /> : <Chat_btn1 ItemInfo={ItemInfo} />}
               </CSSTransition>
+            </div>
+            <div className='absolute top-5 right-14'>
+              <a onClick={chatmodal}>
+                <Space>
+                  <img src='../img/Icon_Info_White.png' className=" r-0 w-[1.8rem] h-[1.8rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
+                </Space>
+              </a>
             </div>
             <button className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] absolute top-5 right-4 h-full' onClick={handleBack}>
               <img src="../img/close.png" alt='닫기' width={'30px'} height={'30px'} />

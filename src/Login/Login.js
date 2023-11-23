@@ -1,10 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
   const [formError, setFormError] = useState('');
+
+
+  useEffect(() => {
+    // 스택 추가
+    history.pushState(null, null, location.href);
+
+    // 뒤로가기 이벤트 감지 -> 현재 페이지로 이동
+    const handleBack = () => {
+      history.go(1);
+    };
+
+    // popstate 이벤트 리스너(뒤로가기 버튼)를 연결합니다
+    window.onpopstate = handleBack;
+
+    // 정리: 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다
+    return () => {
+      window.removeEventListener('popstate', handleBack);
+    };
+  }, []);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();

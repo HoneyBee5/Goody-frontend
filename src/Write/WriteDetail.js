@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import './WriteDetail.css';
 import { useNavigate } from 'react-router-dom';
-import { grey } from '@mui/material/colors';
-import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import addChattingRoom from '../Chatting/addChattingRoom';
@@ -26,12 +24,15 @@ function WriteDetail() {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [liked, setLiked] = useState(false);
   const [myContents, setMyContents] = useState(false);
   const [nickname, setNickname] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [isChatEntered, setIsChatEntered] = useState(false);
+  const [grade, setGrade] = useState(false);
+  const [profile, setProfile] = useState(false);
 
   const fetchOptions = {
     headers: {
@@ -67,6 +68,19 @@ function WriteDetail() {
       });
   };
 
+
+  const handleHome = () => {
+
+    const addWriteURL = document.referrer;
+    if (addWriteURL.includes('addWrite')) {
+      navigate('/home');
+    }
+    else {
+      navigate(-1);
+    }
+  };
+
+
   const handleAddChat = () => {
     Modal.confirm({
       title: '구매하기',
@@ -96,10 +110,6 @@ function WriteDetail() {
     });
   };
 
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const nextImage = () => {
     if (writeDetailData.imgPath && writeDetailData.imgPath.length > 0) {
@@ -177,6 +187,8 @@ function WriteDetail() {
         setLiked(data.like || false);
         setMyContents(data.myContents || false);
         setNickname(data.nickname);
+        setGrade(data.writerGrade);
+        setProfile(data.profileImg);
         setIsChatEntered(data.isChatEntered || false); // Assuming there's a property isChatEntered in your API response
         console.log(data);
       } catch (error) {
@@ -196,7 +208,7 @@ function WriteDetail() {
         {writeDetailData.imgPath && writeDetailData.imgPath.length > 0 && (
           <div className='relative w-full'>
             <div className='absolute right-0 p-4'>
-              <button onClick={handleBack}>
+              <button onClick={handleHome}>
                 <img src="/img/close.png" alt="닫기" className="w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
               </button>
             </div>
@@ -244,18 +256,16 @@ function WriteDetail() {
         <div className=''>
           <div className='flex'>
             <div className='flex mt-5 ml-5'>
-              {documentId && (
-                <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
-                  {/* {nickname.charAt(0)} 첫 글자만 표시 */}
-                </Avatar>
-              )}
+              <div className='flex w-full'>
+                <img src={profile} className="rounded-full border" style={{ width: '3rem', height: '3rem' }}></img>
+             
               <div className='ml-2'>
                 <div className=''>
                   <label className='font-bold'> {nickname} </label>
                 </div>
                 <div>
-                  <label className='text-xs'>등급</label>
-                </div>
+                  <label className='text-xs'>{grade}</label>
+                </div> </div>
               </div>
             </div>
           </div>
@@ -345,5 +355,6 @@ function WriteDetail() {
     </ThemeProvider>
   );
 }
+
 
 export default WriteDetail;
