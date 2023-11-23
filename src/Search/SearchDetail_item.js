@@ -5,28 +5,17 @@ import { Link } from 'react-router-dom';
 const SearchDatail_Item = (props) => {
 
 const { title, price, createdDate,thumbnailImg,documentId,transType } = props;
-
-
-
-
     return (
      <>
               <div width={'150px'} height={'150px'}>
-
-             
-
               <Link to={`/WriteDetail/${documentId}`}>
                 <div width={'150px'} height={'150px'}>
-
-
-                    
-
-                    
-                    <button style={{ width: '115px', height: '115px' }} className='mt-[1rem] ml-[1rem] border rounded-[1rem] flex items-center overflow-hidden'>
+ 
+                    <button style={{ width: '115px', height: '115px' }} className='mt-[1rem] border rounded-[1rem] flex items-center overflow-hidden m-2'>
                     <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={thumbnailImg} alt='아이템' />
                     </button>
           
-                    <div className='mt-2 ml-[1.6rem] text-[0.9rem]'>
+                    <div className='mt-2 text-[0.9rem] ml-2'>
              
                     <button style={{ textAlign: 'left' }}>
 
@@ -38,7 +27,7 @@ const { title, price, createdDate,thumbnailImg,documentId,transType } = props;
                 
                     </div>
                     
-                    <div className='border rounded-[0.6rem] text-[0.85rem] border-[#B4B4B4] p-[0.08rem] px-[0.4rem] inline-block ml-5 text-center w-20'>{transType}</div>
+                    <div className='border rounded-[0.6rem] text-[0.85rem] border-[#B4B4B4] p-[0.08rem] px-[0.4rem] inline-block ml-10 text-center w-20'>{transType}</div>
                 </div>
               </Link>
               </div>

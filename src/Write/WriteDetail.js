@@ -33,6 +33,7 @@ function WriteDetail() {
   const [isChatEntered, setIsChatEntered] = useState(false);
   const [grade, setGrade] = useState(false);
   const [profile, setProfile] = useState(false);
+  const [sold, setSold] = useState(false);
 
   const fetchOptions = {
     headers: {
@@ -189,6 +190,7 @@ function WriteDetail() {
         setNickname(data.nickname);
         setGrade(data.writerGrade);
         setProfile(data.profileImg);
+        setSold(data.sold);
         setIsChatEntered(data.isChatEntered || false); // Assuming there's a property isChatEntered in your API response
         console.log(data);
       } catch (error) {
@@ -334,12 +336,20 @@ function WriteDetail() {
                         warning("내 글입니다.");
                       } else if (isChatEntered) {
                         window.location.href = `/chatdetails/${userId}-${documentId}?contentsId=${documentId}`;
-                      } else {
+                      } else if (sold) {
+                        warning("판매 되었습니다.");
+                      }
+                        else {
                         handleAddChat();
                       }
                     }}
-                    className={`bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center `}>
-                    {isChatEntered ? '채팅방가기' : '구매하기'}
+                    className={`${
+                      sold
+                        ? 'bg-gray-400 w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center text-white'
+                        : 'bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'
+                    }`}
+                    >
+                      {sold ? '판매완료' : isChatEntered ? '채팅방가기' : '구매하기'}
                   </button>
                 </div>
 

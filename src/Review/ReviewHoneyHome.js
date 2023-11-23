@@ -46,7 +46,7 @@ const ReviewHoneyHome = () => {
   const [value, setValue] = useState(0);
   const location = useLocation();
   const itemInfoDocumentId = location.state?.itemInfoDocumentId;
-  const uniqueChattingEnteruser = location.state? location.state.uniqueChattingEnteruser : '';
+  const receiveId = location.state? location.state.receiveId : '';
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,7 +60,7 @@ const ReviewHoneyHome = () => {
   const handleReviewClick = async () => {
 
 
-    fetch(`http://27.96.134.23:4001/goody/review/rate?reviewDocumentId=${itemInfoDocumentId}&receiveId=${uniqueChattingEnteruser}&rate=${value}`, { //수정해야댐
+    fetch(`http://27.96.134.23:4001/goody/review/rate?reviewDocumentId=${itemInfoDocumentId}&receiveId=${receiveId}&rate=${value}`, { //수정해야댐
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -16,9 +16,10 @@ const review = () => {
   const [selectedButtons, setSelectedButtons] = useState([]);
   const [isClicked, setIsClicked] = useState(false); // 버튼 클릭 상태를 저장하는 상태
 
+  const receiveId = uniqueChattingEnteruser.filter(userId => userId !== localStorage.getItem('userId'));
 
   console.log(uniqueChattingEnteruser);
-  
+  console.log(receiveId);
 
   
   // 버튼 클릭 핸들러
@@ -44,7 +45,7 @@ const review = () => {
 
   const handleReviewClick = async () => {
 
-    fetch(`https://www.honeybee-goody.site/goody/review/keywords?receiveId=${uniqueChattingEnteruser}&contentsDocumentId=${itemInfoDocumentId}`, { //수정해야댐
+    fetch(`https://www.honeybee-goody.site/goody/review/keywords?receiveId=${receiveId}&contentsDocumentId=${itemInfoDocumentId}`, { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +135,7 @@ const review = () => {
 
           <Link 
                     to = {'/honeyhome'}
-                    state = { {itemInfoDocumentId, uniqueChattingEnteruser} }
+                    state = { {itemInfoDocumentId, receiveId} }
                 >
             <button
               className='font-bold mt-2 text-lg'

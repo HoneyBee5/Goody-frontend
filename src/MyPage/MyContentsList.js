@@ -56,6 +56,10 @@ const MyContentsList = () => {
         <div className='flex justify-center items-center h-[50rem]'>
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       </div>
+      ) : productData.length === 0 ? (
+        <div className='flex justify-center items-center h-[50rem]'>
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        </div>
       ) : (
         productData.map((item, index) => (
           <div key={index}>

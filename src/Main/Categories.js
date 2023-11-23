@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './Categories.css';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
+ import { message } from 'antd';
 
 const Categories = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState('영화');
+  const [messageApi, contextHolder] = message.useMessage();
 
+  const warning = (content) => {
+    messageApi.open({
+      type: 'warning',
+      content: content,
+      duration: 2,
+      style: {
+        marginTop: '72vh',
+      },
+    });
+  };
+  
   const openCity = (cityName) => {
     setActiveTab(cityName);
   };
@@ -15,7 +28,13 @@ const Categories = ({ onClose }) => {
 
   // 링크 클릭 시 얼럿 창을 띄우는 핸들러
   const handleLinkClick = () => {
-    alert(`이 카테고리는 미구현된 기능입니다. 조금만 기다려 주세요 !`);
+    warning(
+      <div>
+        이 기능은 미구현된 기능입니다!
+        <br />
+        조금만 기다려 주세요 ~
+      </div>
+    )
   };
 
   return (
@@ -110,6 +129,10 @@ const Categories = ({ onClose }) => {
           <li className="my-5"><a href="#" onClick={() => handleLinkClick('산리오')}>· 산리오</a></li>
           <li className="my-5"><a href="#" onClick={() => handleLinkClick('기타')}>· 기타</a></li>
         </ul>
+      </div>
+
+      <div >
+        {contextHolder}
       </div>
     </div>
   );
