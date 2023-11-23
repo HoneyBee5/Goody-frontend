@@ -26,7 +26,39 @@ const Chatdetails = () => {
   const lastHyphenIndex = roomId.lastIndexOf('-');
   const contentsId = lastHyphenIndex !== -1 ? roomId.substring(lastHyphenIndex + 1) : null;
   
+  const [apiResult, setApiResult] = useState(null); // API 결과 상태
 
+  const handleApiResult = (data) => {
+    console.log('API Result in chatdetails:', data);
+    setApiResult(data);
+    console.log(apiResult);
+  };
+  const resetApiResult = () => {
+    setApiResult(null);
+  };
+  useEffect(() => {
+    // apiResult 상태가 변경될 때마다 로그 출력
+    console.log('변경됨:', apiResult);
+    if (stompClient && apiResult !== null) {
+      console.log('연결됨');
+      // const messageWithNewlines = messageInput.replace(/\n/g, '<br/>');
+      const message = {
+        type: 'IMG', // 메시지 타입
+        roomId,
+        sender: localStorage.getItem('userId'), // 사용자 이름 또는 ID
+        message: apiResult,
+        time: new Date(), // 시간 설정
+      };
+      stompClient.send(`/pub/chat/message`, {}, JSON.stringify(message));
+      setMessageInput('');
+      resetApiResult();
+      
+    }else{
+      console.log('연결안됨');
+    }
+  }, [apiResult]); // useEffect를 사용하여 의존성 배열에 apiResult를 추가
+
+ //스크롤 아래로 이동시키는 함수
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -38,10 +70,7 @@ const Chatdetails = () => {
     
   }, [messages]); // 메시지 배열이 업데이트될 때마다 스크롤을 아래로 이동
 
-
-  
-const location = useLocation();
-    
+  const location = useLocation();
 
   useEffect(() => {
     
@@ -156,6 +185,7 @@ const location = useLocation();
   };
 
   const handleClickY = () => {
+    console.log('click');
     setIsHoveredY(!isHoveredY);
   };
 
@@ -167,7 +197,8 @@ const location = useLocation();
           <p id="actionBar_name" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] font-bold text-white p-6 ml-2 text-xl absolute '>채팅</p>
           <div>
             <div className="pb-5 top-20 absolute flex justify-center items-center w-full h-full "
-              onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}
+              onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} 
+              onClick={handleClick}
             >
               <CSSTransition
                 in={isHovered}
@@ -190,39 +221,53 @@ const location = useLocation();
           {messages.map((message, index) => (
             <div key={index} className={`m-2 flex flex-col ${message.sender === localStorage.getItem('userId') ? 'items-end' : 'items-start'}`} style={{ overflowY: 'auto' }}>
               <p className='text-xs p-2'>{message.sender}</p>
-              <div
-                style={{ fontSize: '1rem' }}
-                className={`flex border p-2 m-1 items-center rounded-lg shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'} ${message.message.length > 20 ? 'w-72' : ''}`}
-                dangerouslySetInnerHTML={{ __html: message.message }}
-              />
+              {message.type === 'IMG' ? (
+                <img
+                  src={message.message} // 여기서 message.message는 이미지 URL일 것으로 가정합니다.
+                  alt="이미지"
+                  className={`flex border p-2 m-1 items-center rounded-lg shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'} ${message.message.length > 20 ? 'w-72' : ''}`}
+                />
+              ) : (
+                <div
+                  style={{ fontSize: '1rem' }}
+                  className={`flex border p-2 m-1 items-center rounded-lg shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'} ${message.message.length > 20 ? 'w-72' : ''}`}
+                  dangerouslySetInnerHTML={{ __html: message.message }}
+                />
+              )}
             </div>
           ))}
-          <div style={{ marginBottom: '3rem' }} />
+          <div style={{ marginBottom: '4rem' }} />
         </div>
         <div ref={messagesEndRef} />
       </div>{/*채팅방 출력끝 */}
 
       {/* 채팅 입력창 */}
       <div className="items-center flex fixed justify-between bottom-3 w-full rounded-full bg-gray-200">
-                  <div onMouseEnter={handleMouseEnterY} onMouseLeave={handleMouseLeaveY} onClick={handleClickY}>
-                    <CSSTransition
-                      in={isHoveredY}
-                      timeout={300}
-                      classNames="mount">
-                      {isHoveredY ? <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button> :
-                        <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>}
-                    </CSSTransition>
-                  </div>
-                  <textarea
-                    value={messageInput}
-                    onChange={(e) => setMessageInput(e.target.value)}
-                    style={{ borderRadius: '4px', width: '20rem', height: '30px', resize: 'none' }}
-                  />
-                  <button onClick={sendMessage} style={{ padding: '10px' }}> 전송</button>
+          <div
+            onMouseEnter={handleMouseEnterY} 
+            onMouseLeave={handleMouseLeaveY} 
+            onClick={handleClickY}>
+            <CSSTransition
+              in={isHoveredY}
+              timeout={300}
+              classNames="mount">
+                <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>
+              {/* {isHoveredY ? <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button> :
+                <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>} */}
+            </CSSTransition>
+            <div onClick={(e) => e.stopPropagation()} className='items-center flex fixed bottom-[60px] left-1/2 transform -translate-x-1/2'>
+              {isHoveredY && <Plus_btn roomId={roomId} imgPath={handleApiResult}/>}
+            </div>
+          </div>
+          
+          <textarea
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+            style={{ borderRadius: '4px', width: '20rem', height: '30px', resize: 'none' }}
+          />
+          <button onClick={sendMessage} style={{ padding: '10px' }}> 전송</button> 
       </div>
-      <div className='items-center flex fixed bottom-[60px] left-1/2 transform -translate-x-1/2'>
-      {isHoveredY && <Plus_btn />}
-      </div>
+      
     </>
   );
 };
