@@ -241,7 +241,7 @@ function WriteDetail() {
         )}
 
         {/* 아이디 부분 */}
-        <div>
+        <div className=''>
           <div className='flex'>
             <div className='flex mt-5 ml-5'>
               {documentId && (
@@ -281,7 +281,7 @@ function WriteDetail() {
           </div>
 
           {/* 설명 */}
-          <div className='m-10 mt-[1.5rem] ml-[1rem]'>
+          <div className='m-10 mt-[1.5rem] ml-[1rem] mb-32'>
             <label className='ml-[0.5rem] text-[#565656]'>{writeDetailData?.explain}</label>
           </div>
 
