@@ -56,6 +56,7 @@ const chatting = () => {
             state = {{ chattingEnteruser : chatItem.enterUsers }} >
               
             <ChatListItem
+            chat_img = {chatItem.roomImg}
               chat_id={chatItem.roomName}
               chat_explain={chatItem.enterUsers.join(', ')}/>
             {index === chatData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}

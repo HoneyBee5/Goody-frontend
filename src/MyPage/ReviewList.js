@@ -80,10 +80,10 @@ const ReviewList = () => {
           
           {/* 키워드 리뷰 */}
           <div className="p-2">
-            <button className="flex pl-5 items-center">
+            <p className="mt-6 flex pl-5 items-center">
               <img src="img/Icon_List.png" alt="키워드 리뷰" className="h-6 w-6 mr-5" />
               <span className="font-extrabold">키워드 리뷰</span>
-            </button>
+            </p>
             <div className='p-4'>
               <Item_KeywordReview />
             </div>
