@@ -26,6 +26,7 @@ function WriteDetail() {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [liked, setLiked] = useState(false);
   const [myContents, setMyContents] = useState(false);
@@ -67,6 +68,18 @@ function WriteDetail() {
       });
   };
 
+
+  const handleHome = () => {
+   
+   const addWriteURL = document.referrer;
+   if(addWriteURL.includes('addWrite')){
+    navigate('/home');
+   }
+   else{
+    const handleBack = () => {
+    navigate(-1);
+   }
+ };
   const handleAddChat = () => {
     Modal.confirm({
       title: '구매하기',
@@ -96,10 +109,6 @@ function WriteDetail() {
     });
   };
 
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const nextImage = () => {
     if (writeDetailData.imgPath && writeDetailData.imgPath.length > 0) {
@@ -196,7 +205,7 @@ function WriteDetail() {
         {writeDetailData.imgPath && writeDetailData.imgPath.length > 0 && (
           <div className='relative w-full'>
             <div className='absolute right-0 p-4'>
-              <button onClick={handleBack}>
+              <button onClick={handleHome}>
                 <img src="/img/close.png" alt="닫기" className="w-[1.9rem] h-[1.9rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
               </button>
             </div>

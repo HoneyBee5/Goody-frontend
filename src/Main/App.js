@@ -9,6 +9,8 @@ import Reviewperfect from '../Review/reviewperfect';
 import Collection from '../Collection/collection';
 import AddWrite from '../Write/AddWrite';
 import Mypage from '../MyPage/mypage';
+import NoticeList from '../MyPage/NoticeList';
+import NoticeDetails from '../MyPage/NoticeDetails';
 import ReviewList from '../MyPage/ReviewList';
 import FavoriteList from '../MyPage/FavoriteList';
 import PurchaseList from '../MyPage/PurchaseList';
@@ -41,6 +43,8 @@ const App = () => {
           <Route path="/reviewperfect" element={<Reviewperfect />} />
           <Route path="/addWrite" element={<AddWrite />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/noticelist" element={<NoticeList />} />
+          <Route path="/noticeDetails" element={<NoticeDetails />} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/favoritelist" element={<FavoriteList />} />
           <Route path="/purchaselist" element={<PurchaseList />} />

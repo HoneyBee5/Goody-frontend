@@ -13,8 +13,11 @@ const actionBarName = "리뷰 목록";
 const ReviewList = () => {
   const [userInfo, setUserInfo] = useState({ nickname: '', grade: '' });
   const [userInfo2, setUserInfo2] = useState({ nickname: '', grade: '' });
+  const [userInfo3, setUserInfo3] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -47,6 +50,7 @@ const ReviewList = () => {
         if (data && data.nickname && data.grade) {
             setUserInfo({ nickname: data.nickname });
             setUserInfo2({ grade: data.grade });
+            setUserInfo3(data.keywords);
             setLoading(false);
           } else {
             console.error('API 응답에서 유효한 데이터가 없습니다.');
@@ -86,7 +90,7 @@ const ReviewList = () => {
               <span className="font-extrabold">키워드 리뷰</span>
             </p>
             <div className='p-4'>
-              <Item_KeywordReview />
+              <Item_KeywordReview keywords = {userInfo3}/>
             </div>
           </div> <br />
         </div>
