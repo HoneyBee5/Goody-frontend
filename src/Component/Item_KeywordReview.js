@@ -21,20 +21,20 @@ const Item_KeywordReview = ({ keywords }) => {
     return (
         <>
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">친절해요</p>
+                <p className="font-bold text-gray-600 text-sm">친절해요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="친절해요" className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{good1Keyword.good1}</p>
+                    <img src="img/Icon_Person.png" alt="친절해요" className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm ">{good1Keyword.good1}</p>
                 </div>
             </div>
 
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">응답이 빨라요</p>
+                <p className="font-bold text-gray-600  text-sm">응답이 빨라요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="응답이 빨라요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{good2Keyword.good2}</p>
+                    <img src="img/Icon_Person.png" alt="응답이 빨라요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{good2Keyword.good2}</p>
                 </div>
             </div>
 
@@ -42,40 +42,40 @@ const Item_KeywordReview = ({ keywords }) => {
 
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">믿어도 돼요</p>
+                <p className="font-bold text-gray-600  text-sm">믿어도 돼요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="믿어도 돼요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{good3Keyword.good3}</p>
+                    <img src="img/Icon_Person.png" alt="믿어도 돼요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{good3Keyword.good3}</p>
                 </div>
             </div>
 
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">상품 상태가 좋아요</p>
+                <p className="font-bold text-gray-600  text-sm">상품 상태가 좋아요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="상품 상태가 좋아요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{good4Keyword.good4}</p>
+                    <img src="img/Icon_Person.png" alt="상품 상태가 좋아요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{good4Keyword.good4}</p>
                 </div>
             </div>
 
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">저렴해요</p>
+                <p className="font-bold text-gray-600  text-sm">저렴해요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="저렴해요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{good5Keyword.good5}</p>
+                    <img src="img/Icon_Person.png" alt="저렴해요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{good5Keyword.good5}</p>
                 </div>
             </div>
 
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">시간약속을 잘지켜요</p>
+                <p className="font-bold text-gray-600  text-sm">시간약속을 잘지켜요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="저렴해요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{good6Keyword.good6}</p>
+                    <img src="img/Icon_Person.png" alt="저렴해요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{good6Keyword.good6}</p>
                 </div>
             </div>
 
@@ -83,55 +83,55 @@ const Item_KeywordReview = ({ keywords }) => {
 
             <hr />
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">불친절해요</p>
+                <p className="font-bold text-gray-600  text-sm">불친절해요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{bad1Keyword.bad1}</p>
+                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{bad1Keyword.bad1}</p>
                 </div>
             </div>
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">응답이 느려요</p>
+                <p className="font-bold text-gray-600  text-sm">응답이 느려요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{bad2Keyword.bad2}</p>
+                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{bad2Keyword.bad2}</p>
                 </div>
             </div>
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">믿지 못하겠어요</p>
+                <p className="font-bold text-gray-600  text-sm">믿지 못하겠어요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{bad3Keyword.bad3}</p>
+                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{bad3Keyword.bad3}</p>
                 </div>
             </div>
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">상품상태가 안좋아요</p>
+                <p className="font-bold text-gray-600  text-sm">상품상태가 안좋아요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{bad4Keyword.bad4}</p>
+                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{bad4Keyword.bad4}</p>
                 </div>
             </div>
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">비싸요</p>
+                <p className="font-bold text-gray-600  text-sm">비싸요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{bad5Keyword.bad5}</p>
+                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{bad5Keyword.bad5}</p>
                 </div>
             </div>
             <hr />
 
             <div className="flex pb-2 mb-2 mt-4 justify-between">
-                <p className="font-bold text-gray-600">시간 약속을 못지켜요</p>
+                <p className="font-bold text-gray-600  text-sm">시간 약속을 못지켜요</p>
                 <div className='flex items-center'>
-                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"  className="h-4 w-4" />
-                    <p className="font-bold text-gray-600">{bad6Keyword.bad6}</p>
+                    <img src="img/Icon_Person.png" alt="시간 약속을 잘 지켜요"   className="h-3.5 w-3.5 mr-2" />
+                    <p className="font-bold text-gray-600 text-sm">{bad6Keyword.bad6}</p>
                 </div>
             </div>
             <hr />

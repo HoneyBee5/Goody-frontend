@@ -4,15 +4,46 @@ import { HomeActionBar } from '../Main/Home';
 import { Link } from 'react-router-dom';
 import { EditOutlined, EllipsisOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Card, Input, Button } from 'antd';
+import PropTypes from 'prop-types'; // prop-types를 import
+
+import { Avatar as AntAvatar } from 'antd';
+
 const { Meta } = Card;
-import { Modal } from 'antd';
+
+
+
+const AvatarComponent = ({ profileImg }) => {
+  const [avatarStyle, setAvatarStyle] = useState({
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    cursor: 'pointer',
+  });
+
+  useEffect(() => {
+    if (profileImg) {
+      setAvatarStyle((prevStyle) => ({
+        ...prevStyle,
+        backgroundImage: `url(${profileImg})`,
+      }));
+    } else {
+      setAvatarStyle((prevStyle) => ({
+        ...prevStyle,
+        backgroundImage: 'none',
+      }));
+    }
+
+  }, [profileImg]);
+
+  return <AntAvatar style={avatarStyle} />;
+};
+
 
 const Mypage = () => {
-
   const [userData, setUserData] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [editedData, setEditedData] = useState({
+    profileImg: '',
     nickname: '',
     grade: '',
     daysSinceJoin: '',
@@ -21,6 +52,8 @@ const Mypage = () => {
     address: '',
     userPhoneNum: '',
   });
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +79,7 @@ const Mypage = () => {
             accountNum: data.accountNum,
             address: data.address,
             userPhoneNum: data.userPhoneNum,
+            profileImg: data.profileImg,
           });
           console.log(data);
         } else {
@@ -60,22 +94,9 @@ const Mypage = () => {
   }, []);
 
   const handleLogout = () => {
-    Modal.confirm({
-      title: '로그아웃',
-      content: '로그아웃 하시겠습니까?',
-      okButtonProps: {
-        type: "primary",
-        style: { backgroundColor: '#FFD52B', color: 'black' },
-      },
-      onOk: () => {
-        localStorage.clear();
-        window.location.href = '/';
-      },
-      onCancel: () => {
-        // 취소 버튼 눌렀을 때 수행할 작업
-      },
-    });
+    localStorage.clear();
   };
+
   const handleEllipsisClick = () => {
     setShowDetails(!showDetails);
   };
@@ -89,17 +110,35 @@ const Mypage = () => {
       const token = localStorage.getItem('token');
       const headers = {
         Authorization: `${token}`,
-        'Content-Type': 'application/json',
       };
+
+      const formData = new FormData();
+
+      // 이미지 파일이 있다면 추가
+      if (editedData.profileImg) {
+        formData.append('profileImg', editedData.profileImg);
+      }
+
+      // 나머지 데이터 추가
+      Object.entries(editedData).forEach(([key, value]) => {
+        if (key !== 'profileImg') {
+          formData.append(key, value);
+        }
+      });
 
       const response = await fetch('https://www.honeybee-goody.site/goody/myPage/updateUser', {
         method: 'PATCH',
         headers,
-        body: JSON.stringify(editedData),
+        body: formData,
       });
 
       if (response.ok) {
-        setUserData(editedData);
+        setUserData({
+          ...editedData,
+          profileImg: editMode
+            ? editedData.profileImg
+            : URL.createObjectURL(new Blob([editedData.profileImg], { type: editedData.profileImg.type })),
+        });
         setEditMode(false);
       } else {
         console.error('API 요청 중 오류 발생: ', response.status);
@@ -109,15 +148,36 @@ const Mypage = () => {
     }
   };
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-  
-    setEditedData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+
+    if (name === 'birth') {
+      // 'birth' 필드의 경우, 입력값을 Date 객체로 변환하여 저장
+      setEditedData((prevData) => ({
+        ...prevData,
+        [name]: value ? new Date(value).toISOString().split('T')[0] : '',
+      }));
+    } else {
+      // 다른 필드의 경우, 그냥 저장
+      setEditedData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
-  
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      setEditedData((prevData) => ({
+        ...prevData,
+        profileImg: file,
+      }));
+    }
+  };
+
   return (
     <>
       <HomeActionBar imageSrc="img/ActionBar.png" />
@@ -133,12 +193,28 @@ const Mypage = () => {
         >
           <Meta
             avatar={
-              <Avatar
-                style={{
-                  backgroundColor: '#87d068',
-                }}
-                icon={<UserOutlined />}
-              />
+              editMode ? (
+                <label htmlFor="fileInput">
+                  <input
+                    id="fileInput"
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                  <AvatarComponent profileImg={editedData.profileImg} />
+                </label>
+              ) : (
+                userData ?
+                  <AvatarComponent profileImg={userData.profileImg} /> :
+                  <Avatar
+                    style={{
+                      backgroundColor: '#87d068'
+                    }}
+                    icon={<UserOutlined />}
+                  />
+              )
             }
             title={editMode ? (
               <Input
@@ -165,6 +241,8 @@ const Mypage = () => {
               </>
             )}
           />
+
+
           {showDetails && (
             <div className="pr-5 pl-12 pt-7" >
               {/* Additional information display */}
@@ -189,6 +267,7 @@ const Mypage = () => {
                   userData ? userData.accountNum : ''
                 )}
               </p>
+
               <p >
                 주소: {editMode ? (
                   <Input
@@ -201,6 +280,7 @@ const Mypage = () => {
                   userData ? userData.address : ''
                 )}
               </p>
+
               <p>
                 전화번호: {editMode ? (
                   <Input
@@ -212,17 +292,17 @@ const Mypage = () => {
                   userData ? userData.userPhoneNum : ''
                 )}
               </p>
-              
-              { editMode && (
+
+              {editMode && (
                 <div className='flex justify-end'>
-                <Button
-                  type="primary"
-                  style={{ backgroundColor: '#FFD52B', color: 'black'}}
-                  className='flex items-end'
-                  onClick={handleSaveClick}
-                >
-                  Save
-                </Button>
+                  <Button
+                    type="primary"
+                    style={{ backgroundColor: '#FFD52B', color: 'black' }}
+                    className='flex items-end'
+                    onClick={handleSaveClick}
+                  >
+                    Save
+                  </Button>
                 </div>
               )}
             </div>
@@ -277,24 +357,30 @@ const Mypage = () => {
         <span className="font-extrabold p-2 text-gray-400 text-sm">서비스</span>
         <div className="flex pb-2 mt-2">
           <Link to='/noticelist'>
-          <button className="flex p-2 items-center">
-            <img src="img/Icon_Info.png" alt="공지사항" className="h-5 w-5 mr-5" />
-            <span className="font-extrabold text-sm">공지사항</span>
-          </button>
+            <button className="flex p-2 items-center">
+              <img src="img/Icon_Info.png" alt="공지사항" className="h-5 w-5 mr-5" />
+              <span className="font-extrabold text-sm">공지사항</span>
+            </button>
           </Link>
         </div>
         <div className="flex pb-2 mb-10">
+          <Link to='/'>
             <button className="flex p-2 items-center" onClick={handleLogout}>
               <img src="img/Icon_Settings.png" alt="로그아웃" className="h-5 w-5 mr-5" />
               <span className="font-extrabold text-sm">로그아웃</span>
             </button>
+          </Link>
         </div>
       </div>
       <Nav />
-
-
     </>
   );
 }
 
+
+AvatarComponent.propTypes = {
+  profileImg: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+  }),
+};
 export default Mypage;

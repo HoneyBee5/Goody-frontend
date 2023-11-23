@@ -5,6 +5,7 @@ import { SearchDatail_Item } from './SearchDetail_item';
 import SearchSelectbox from './SearchSelectbox';
 import { useNavigate} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { Empty } from 'antd';
 
 
 
@@ -181,28 +182,26 @@ const SearchDetail = () => {
       <SearchSelectbox OPTIONS={OPTIONS3}  OPTIONNAME='품절유무' onChange={handleSoldChange}/>
       </div>
 
-
-
-   
-
-      
-      <div className='flex flex-wrap mb-24'>
-        {loading ? ( // 로딩 중인 경우
-          <div className="loader">로딩 중...</div>
+      <div className='flex flex-wrap justify-center items-center'>
+        {loading ? (
+          <div className='flex justify-center items-center h-[30rem]'>
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          </div>
+        ) : data.length === 0 ? (
+          <div className='flex justify-center items-center h-[30rem]'>
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          </div>
         ) : (
-
           data.map((item, index) => (
-           
             <SearchDatail_Item
               key={index}
               title={item.title}
               price={item.price}
               createdDate={item.createdDate}
               thumbnailImg={item.thumbnailImg}
-              documentId = {item.documentId}
-              transType = {item.transType}
+              documentId={item.documentId}
+              transType={item.transType}
             />
-           
           ))
         )}
       </div>

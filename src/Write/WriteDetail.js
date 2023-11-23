@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import './WriteDetail.css';
 import { useNavigate } from 'react-router-dom';
-import { grey } from '@mui/material/colors';
-import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import addChattingRoom from '../Chatting/addChattingRoom';
@@ -33,6 +31,9 @@ function WriteDetail() {
   const [nickname, setNickname] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [isChatEntered, setIsChatEntered] = useState(false);
+  const [grade, setGrade] = useState(false);
+  const [profile, setProfile] = useState(false);
+  const [sold, setSold] = useState(false);
 
   const fetchOptions = {
     headers: {
@@ -70,16 +71,17 @@ function WriteDetail() {
 
 
   const handleHome = () => {
-   
-   const addWriteURL = document.referrer;
-   if(addWriteURL.includes('addWrite')){
-    navigate('/home');
-   }
-   else{
-    const handleBack = () => {
-    navigate(-1);
-   }
- };
+
+    const addWriteURL = document.referrer;
+    if (addWriteURL.includes('addWrite')) {
+      navigate('/home');
+    }
+    else {
+      navigate(-1);
+    }
+  };
+
+
   const handleAddChat = () => {
     Modal.confirm({
       title: '구매하기',
@@ -186,6 +188,9 @@ function WriteDetail() {
         setLiked(data.like || false);
         setMyContents(data.myContents || false);
         setNickname(data.nickname);
+        setGrade(data.writerGrade);
+        setProfile(data.profileImg);
+        setSold(data.sold);
         setIsChatEntered(data.isChatEntered || false); // Assuming there's a property isChatEntered in your API response
         console.log(data);
       } catch (error) {
@@ -250,21 +255,19 @@ function WriteDetail() {
         )}
 
         {/* 아이디 부분 */}
-        <div>
+        <div className=''>
           <div className='flex'>
             <div className='flex mt-5 ml-5'>
-              {documentId && (
-                <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
-                  {/* {nickname.charAt(0)} 첫 글자만 표시 */}
-                </Avatar>
-              )}
+              <div className='flex w-full'>
+                <img src={profile} className="rounded-full border" style={{ width: '3rem', height: '3rem' }}></img>
+             
               <div className='ml-2'>
                 <div className=''>
                   <label className='font-bold'> {nickname} </label>
                 </div>
                 <div>
-                  <label className='text-xs'>등급</label>
-                </div>
+                  <label className='text-xs'>{grade}</label>
+                </div> </div>
               </div>
             </div>
           </div>
@@ -290,7 +293,7 @@ function WriteDetail() {
           </div>
 
           {/* 설명 */}
-          <div className='m-10 mt-[1.5rem] ml-[1rem]'>
+          <div className='m-10 mt-[1.5rem] ml-[1rem] mb-32'>
             <label className='ml-[0.5rem] text-[#565656]'>{writeDetailData?.explain}</label>
           </div>
 
@@ -333,12 +336,20 @@ function WriteDetail() {
                         warning("내 글입니다.");
                       } else if (isChatEntered) {
                         window.location.href = `/chatdetails/${userId}-${documentId}?contentsId=${documentId}`;
-                      } else {
+                      } else if (sold) {
+                        warning("판매 되었습니다.");
+                      }
+                        else {
                         handleAddChat();
                       }
                     }}
-                    className={`bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center `}>
-                    {isChatEntered ? '채팅방가기' : '구매하기'}
+                    className={`${
+                      sold
+                        ? 'bg-gray-400 w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center text-white'
+                        : 'bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'
+                    }`}
+                    >
+                      {sold ? '판매완료' : isChatEntered ? '채팅방가기' : '구매하기'}
                   </button>
                 </div>
 
@@ -354,5 +365,6 @@ function WriteDetail() {
     </ThemeProvider>
   );
 }
+
 
 export default WriteDetail;
