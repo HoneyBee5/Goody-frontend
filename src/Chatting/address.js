@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // import './font.css';
-import { ActionBarClose } from '../Component/ActionBarClose';
+import AppBar from '@mui/material/AppBar';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
-// 액션바 이름
-const actionBarName = "채팅";
+
 const token = localStorage.getItem('token');
 
 const Chatting = () => {
  
   const { roomId } = useParams();
   const [ info, setInfo ] = useState(null);
+  const navigate = useNavigate();
+
   let apiURL = `https://www.honeybee-goody.site/goody/addressInfo?roomId=${roomId}`;
   const headers = {
     Authorization: `${token}`,
   };
 
+  const handleBack = () => {
+    navigate(-1); // 이전 페이지로 이동하는 함수
+  };
+  
   const handleChange = (e, fieldName) => {
     const updatedInfo = { ...info };
     updatedInfo[fieldName] = e.target.value;
@@ -73,14 +79,14 @@ const Chatting = () => {
 
   return (
     <>
-    
-    <ActionBarClose actionBarName={actionBarName} />
-      <div className='pb-10'/>
-
-      
-      <div className='flex justify-center font-bold mb-5' style={{ fontSize: '25px'}}>
-        주소 & 계좌번호
-      </div>
+     <AppBar component="nav" className='fixed top-0 w-full'>
+          <img src='../../img/ActionBar.png' className='absolute' alt="ActionBar"></img>
+          <p id="actionBar_name" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] font-bold text-white p-6 ml-2 text-xl absolute '>주소 & 계좌번호</p>
+          <button className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] absolute top-5 right-4 h-full' onClick={handleBack}>
+              <img src="../../img/close.png" alt='닫기' width={'30px'} height={'30px'} />
+            </button>
+      </AppBar>
+      <div className='pb-20 pt-10'/>
 
       <div className="flex justify-center pl-5 pr-5">
   <div className="flex flex-col">
