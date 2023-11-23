@@ -3,18 +3,18 @@ import { Nav } from '../Component/Nav';
 import { ActionBar } from '../Component/ActionBar';
 import ChatListItem from './Component/ChatListItem';
 import { Link } from 'react-router-dom';
+import { Empty } from 'antd';
 
-const chatting = () => {
+const Chatting = () => {
   const [chatData, setChatData] = useState([]);
   const actionBarName = "채팅목록";
   const apiurl = "https://www.honeybee-goody.site/goody/chatroom/list";
-  // 토큰 가져오기
   const token = localStorage.getItem('token');
 
   const fetchData = async () => {
     try {
       const headers = {
-        Authorization: `${token}`, // Assuming 'token' is a variable that holds your authorization token
+        Authorization: `${token}`,
       };
 
       const response = await fetch(apiurl, {
@@ -36,11 +36,10 @@ const chatting = () => {
       }
     } catch (error) {
       console.error('오류 발생:', error);
-      throw error; // You can re-throw the error if you want to handle it further in your component.
+      throw error;
     }
   };
 
-  /*fetch api 연결*/
   useEffect(() => {
     fetchData();
   }, []);
@@ -50,24 +49,30 @@ const chatting = () => {
       <ActionBar actionBarName={actionBarName} />
   
       <div className='mt-20'>
-        {chatData.map((chatItem, index) => (
-          <Link key={chatItem.roomId} 
-            to={`/chatdetails/${chatItem.roomId}?contentsId=${chatItem.contentsId}`}
-            state = {{ chattingEnteruser : chatItem.enterUsers }} >
-              
-            <ChatListItem
-            chat_img = {chatItem.roomImg}
-              chat_id={chatItem.roomName}
-              chat_explain={chatItem.enterUsers.join(', ')}/>
-            {index === chatData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
-          </Link>
-        ))}
+        {chatData.length > 0 ? (
+          chatData.map((chatItem, index) => (
+            <Link key={chatItem.roomId} 
+              to={`/chatdetails/${chatItem.roomId}?contentsId=${chatItem.contentsId}`}
+              state={{ chattingEnteruser: chatItem.enterUsers }}
+            >
+              <ChatListItem
+                chat_img={chatItem.roomImg}
+                chat_id={chatItem.roomName}
+                chat_explain={chatItem.enterUsers.join(', ')}
+              />
+              {index === chatData.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}
+            </Link>
+          ))
+        ) : (
+          <div className='flex justify-center items-center h-[50rem]'>
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          </div>
+        )}
       </div>
   
       <Nav />
     </>
   );
-  
 };
 
-export default chatting;
+export default Chatting;

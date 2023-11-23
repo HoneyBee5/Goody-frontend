@@ -3,14 +3,15 @@ import { ActionBarClose } from '../Component/ActionBarClose';
 import Item_width from '../Component/Item_width';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { Empty } from 'antd';
 
 const MainCategories = () => {
-    
+
     const [postPreviewInfo, setPostPreviewInfo] = useState([]);
     const [loading, setLoading] = useState(true);
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-  
+
     const categoryId = queryParams.get('category');
     const categoryName = queryParams.get('name');
 
@@ -58,17 +59,17 @@ const MainCategories = () => {
         <>
             <ActionBarClose actionBarName={categoryName} />
             {loading ? (
-            //   <div className='flex justify-center items-center h-[50rem]'>
-            //   <img src='img/테이터가 비었습니다.png' className='w-64' alt='데이터가 비었습니다.' />
-            // </div>
-            <></>
-             
+                <div className='flex justify-center items-center h-[50rem]'>
+                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+                </div>
+
+
             ) : (
                 postPreviewInfo.map((item, index) => (
                     <div key={index}>
-                         <Link to={`/WriteDetail/${item.documentId}`}>
-                        <Item_width data={item} />
-                        {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}</Link>
+                        <Link to={`/WriteDetail/${item.documentId}`}>
+                            <Item_width data={item} />
+                            {index === postPreviewInfo.length - 1 && <div style={{ marginBottom: '6rem' }}></div>}</Link>
                     </div>
                 ))
             )}

@@ -110,7 +110,7 @@ const Home = () => {
             </div>
             <button
               id="prev"
-              className={thisIndex === 0 ? 'hidden' : ''}
+              className={`w-20 ${thisIndex === 0 ? 'hidden' : ''}`}
               onClick={() => navigateTo(-1)}
             >
               <img src="img/gray_left.png" alt="Previous" width={'10px'} />

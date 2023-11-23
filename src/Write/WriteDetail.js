@@ -31,6 +31,7 @@ function WriteDetail() {
   const [myContents, setMyContents] = useState(false);
   const [nickname, setNickname] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const [isChatEntered, setIsChatEntered] = useState(false);
 
   const fetchOptions = {
     headers: {
@@ -74,11 +75,11 @@ function WriteDetail() {
         type: "primary",
         style: { backgroundColor: '#FFD52B', color: 'black' },
       },
-    
+
       onCancel: () => {
         // 취소 버튼 눌렀을 때 수행할 작업
       },
-       onOk: async () => {
+      onOk: async () => {
         try {
           await addChattingRoom({
             writerId: writeDetailData.writerId,
@@ -94,7 +95,7 @@ function WriteDetail() {
       },
     });
   };
-  
+
 
   const handleBack = () => {
     navigate(-1);
@@ -157,8 +158,6 @@ function WriteDetail() {
 
 
   useEffect(() => {
-
-  
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -178,6 +177,8 @@ function WriteDetail() {
         setLiked(data.like || false);
         setMyContents(data.myContents || false);
         setNickname(data.nickname);
+        setIsChatEntered(data.isChatEntered || false); // Assuming there's a property isChatEntered in your API response
+        console.log(data);
       } catch (error) {
         console.error('API에서 데이터를 가져오는 중 오류 발생:', error);
       }
@@ -319,15 +320,16 @@ function WriteDetail() {
                 <div className='flex ml-auto mr-[0.5rem]'>
                   <button
                     onClick={() => {
-
                       if (writeDetailData.writerId === userId) {
                         warning("내 글입니다.");
+                      } else if (isChatEntered) {
+                        window.location.href = `/chatdetails/${userId}-${documentId}?contentsId=${documentId}`;
                       } else {
                         handleAddChat();
                       }
                     }}
-                    className='bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center'>
-                    구매하기
+                    className={`bg-[#FFD52B] w-[6.5rem] h-[2.2rem] right-0 mt-[0rem] font-bold rounded-xl content-center `}>
+                    {isChatEntered ? '채팅방가기' : '구매하기'}
                   </button>
                 </div>
 

@@ -10,7 +10,8 @@ import Chat_btn2 from './Component/chat_profile_btn2';
 import { useParams } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import { useLocation } from 'react-router-dom';
-
+import { Modal } from 'antd';
+// import { Dropdown, Space } from 'antd';
 
 const Chatdetails = () => {
   const { roomId } = useParams();
@@ -22,11 +23,38 @@ const Chatdetails = () => {
   const [ItemInfo, setItemInfo] = useState(false);
   const messagesEndRef = useRef(null);
   const [chattingEnteruser, setChattingEnteruser] = useState([]);
-
   const lastHyphenIndex = roomId.lastIndexOf('-');
   const contentsId = lastHyphenIndex !== -1 ? roomId.substring(lastHyphenIndex + 1) : null;
-  
   const [apiResult, setApiResult] = useState(null); // API 결과 상태
+  const navigate = useNavigate();
+
+  const fetchOptions = {
+    headers: {
+      Authorization: `${localStorage.getItem('token')}`, // Bearer 토큰 형식을 따릅니다.
+    }
+  };
+
+
+  // 이미지 모달
+  const imgmodal = (imageURL) => {
+    Modal.confirm({
+      content: (
+        <div className="">
+          <img src={imageURL} className='w-full' alt="이미지" style={{ display: 'block', margin: 'auto' }} />
+        </div>
+      ),
+      className: 'custom-modal-content',
+      icon: null,
+      okButtonProps: {
+        type: 'primary',
+        style: { backgroundColor: '#FFD52B', color: 'black' },
+      },
+      cancelButtonProps: {
+        style: { display: 'none' },
+      },
+    });
+  };
+
 
   const handleApiResult = (data) => {
     console.log('API Result in chatdetails:', data);
@@ -36,6 +64,7 @@ const Chatdetails = () => {
   const resetApiResult = () => {
     setApiResult(null);
   };
+
   useEffect(() => {
     // apiResult 상태가 변경될 때마다 로그 출력
     console.log('변경됨:', apiResult);
@@ -52,13 +81,13 @@ const Chatdetails = () => {
       stompClient.send(`/pub/chat/message`, {}, JSON.stringify(message));
       setMessageInput('');
       resetApiResult();
-      
-    }else{
+
+    } else {
       console.log('연결안됨');
     }
   }, [apiResult]); // useEffect를 사용하여 의존성 배열에 apiResult를 추가
 
- //스크롤 아래로 이동시키는 함수
+  //스크롤 아래로 이동시키는 함수
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -67,13 +96,13 @@ const Chatdetails = () => {
 
   useEffect(() => {
     scrollToBottom();
-    
+
   }, [messages]); // 메시지 배열이 업데이트될 때마다 스크롤을 아래로 이동
 
   const location = useLocation();
 
   useEffect(() => {
-    
+
     if (location.state && Array.isArray(location.state.chattingEnteruser)) {
       setChattingEnteruser(location.state.chattingEnteruser);
     }
@@ -82,36 +111,30 @@ const Chatdetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchOptions = {
-          headers: {
-            Authorization: `${localStorage.getItem('token')}`, // Bearer 토큰 형식을 따릅니다.
-          }
-        };
-      
-        // 이전 채팅 출력 api
+          // 이전 채팅 출력 api
         const response1 = await fetch(`https://www.honeybee-goody.site/goody/messages?roomId=${roomId}`, fetchOptions);
         // 거래물품 연결 api
         const response2 = await fetch(`https://www.honeybee-goody.site/goody/itemInfo?contentId=${contentsId}`, fetchOptions);
-      
+
         if (response1.ok) {
           const data1 = await response1.json();
           setMessages(data1);
-          
+
         } else {
           console.error('서버에서 오류 응답을 받았습니다.', response1.status);
         }
-      
+
         if (response2.ok) {
           const data2 = await response2.json();
           setItemInfo(data2);
-          
+
 
         } else {
           console.error('서버에서 오류 응답을 받았습니다.', response2.status);
         }
       } catch (error) {
         console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
-      }      
+      }
     };
 
     fetchData();
@@ -159,7 +182,6 @@ const Chatdetails = () => {
   };
 
 
-  const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1); // 이전 페이지로 이동하는 함수
   };
@@ -189,15 +211,71 @@ const Chatdetails = () => {
     setIsHoveredY(!isHoveredY);
   };
 
+
+  // // 채팅방 삭제
+  // const items = [
+  
+  //   {
+  //     label: '삭제',
+  //     key: '1',
+  //   },
+  // ]
+  //   ;
+
+  // const handleDeleteClick = async () => {
+  //   try {
+  //     const responseDel = await fetch(
+
+  //       `https://www.honeybee-goody.site/goody/chatroom/delete?roomId=${roomId}&enterUsers=${chattingEnteruser}`,
+  //       {
+  //         method: 'DELETE',
+  //         headers: fetchOptions.headers,
+  //       }
+  //     );
+
+  //     if (responseDel.ok) {
+  //       console.log('삭제 성공');
+  //       navigate(-1);
+  //     } else {
+  //       console.error('삭제 실패');
+  //     }
+  //   } catch (error) {
+  //     console.error('오류 발생:', error);
+  //   }
+  // };
+
   return (
     <>
       <div className="w-full h-16 relative">
+
         <AppBar component="nav" className='fixed top-0 w-full'>
           <img src='../img/ActionBar.png' className='absolute' alt="ActionBar"></img>
           <p id="actionBar_name" className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)] font-bold text-white p-6 ml-2 text-xl absolute '>채팅</p>
+
+          {/* <Dropdown
+          menu={{
+            items: items.map((item) => {
+              if (item.key === '1') {
+                return { ...item, onClick: handleDeleteClick }; // key가 1인 경우 핸들러 1 연결
+              }
+              return item;
+            }),
+          }}
+          trigger={['click']}
+          style={{ border: '1px solid #000', width: '23px', height: '23px' }}
+          className='absolute top-4 right-14'
+        >
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              <img src='../img/Icon_Info_White.png' className="w-[1.8rem] h-[1.8rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]" />
+            </Space>
+          </a>
+        </Dropdown> */}
+
+
           <div>
             <div className="pb-5 top-20 absolute flex justify-center items-center w-full h-full "
-              onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} 
+              onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
               onClick={handleClick}
             >
               <CSSTransition
@@ -223,8 +301,9 @@ const Chatdetails = () => {
               <p className='text-xs p-2'>{message.sender}</p>
               {message.type === 'IMG' ? (
                 <img
-                  src={message.message} // 여기서 message.message는 이미지 URL일 것으로 가정합니다.
+                  src={message.message}
                   alt="이미지"
+                  onClick={() => imgmodal(message.message)} // Pass the image URL here
                   className={`flex border p-2 m-1 items-center rounded-lg shadow-md ${message.sender === localStorage.getItem('userId') ? 'bg-yellow-400' : 'bg-gray-400'} ${message.message.length > 20 ? 'w-72' : ''}`}
                 />
               ) : (
@@ -236,6 +315,7 @@ const Chatdetails = () => {
               )}
             </div>
           ))}
+
           <div style={{ marginBottom: '4rem' }} />
         </div>
         <div ref={messagesEndRef} />
@@ -243,31 +323,29 @@ const Chatdetails = () => {
 
       {/* 채팅 입력창 */}
       <div className="items-center flex fixed justify-between bottom-3 w-full rounded-full bg-gray-200">
-          <div
-            onMouseEnter={handleMouseEnterY} 
-            onMouseLeave={handleMouseLeaveY} 
-            onClick={handleClickY}>
-            <CSSTransition
-              in={isHoveredY}
-              timeout={300}
-              classNames="mount">
-                <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>
-              {/* {isHoveredY ? <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button> :
-                <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>} */}
-            </CSSTransition>
-            <div onClick={(e) => e.stopPropagation()} className='items-center flex fixed bottom-[60px] left-1/2 transform -translate-x-1/2'>
-              {isHoveredY && <Plus_btn roomId={roomId} imgPath={handleApiResult}/>}
-            </div>
+        <div
+          onMouseEnter={handleMouseEnterY}
+          onMouseLeave={handleMouseLeaveY}
+          onClick={handleClickY}>
+          <CSSTransition
+            in={isHoveredY}
+            timeout={300}
+            classNames="mount">
+            <button className="font-bold text-xl text-black flex justify-start  " ><img src='../img/Plus.png' className='w-5 ml-3' /></button>
+          </CSSTransition>
+          <div onClick={(e) => e.stopPropagation()} className='items-center flex fixed bottom-[60px] left-1/2 transform -translate-x-1/2'>
+            {isHoveredY && <Plus_btn roomId={roomId} imgPath={handleApiResult} />}
           </div>
-          
-          <textarea
-            value={messageInput}
-            onChange={(e) => setMessageInput(e.target.value)}
-            style={{ borderRadius: '4px', width: '20rem', height: '30px', resize: 'none' }}
-          />
-          <button onClick={sendMessage} style={{ padding: '10px' }}> 전송</button> 
+        </div>
+
+        <textarea
+          value={messageInput}
+          onChange={(e) => setMessageInput(e.target.value)}
+          style={{ borderRadius: '4px', width: '20rem', height: '30px', resize: 'none' }}
+        />
+        <button onClick={sendMessage} style={{ padding: '10px' }}> 전송</button>
       </div>
-      
+
     </>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import Item_width from '../Component/Item_width';
 import { Link } from 'react-router-dom';
+import { Empty } from 'antd';
 
 const MyContentsList = () => {
   const [productData, setProductData] = useState([]);
@@ -53,8 +54,8 @@ const MyContentsList = () => {
       <ActionBarClose actionBarName={actionBarName} />
       {loading ? (
         <div className='flex justify-center items-center h-[50rem]'>
-          <img src='img/테이터가 비었습니다.png' className='w-64' alt='데이터가 비었습니다.' />
-        </div>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      </div>
       ) : (
         productData.map((item, index) => (
           <div key={index}>
