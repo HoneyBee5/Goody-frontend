@@ -270,10 +270,12 @@ const Mypage = () => {
         <hr className="my-5" />
         <span className="font-extrabold p-2 text-gray-400 text-sm">서비스</span>
         <div className="flex pb-2 mt-2">
+          <Link to='/noticelist'>
           <button className="flex p-2 items-center">
             <img src="img/Icon_Info.png" alt="공지사항" className="h-5 w-5 mr-5" />
             <span className="font-extrabold text-sm">공지사항</span>
           </button>
+          </Link>
         </div>
         <div className="flex pb-2 mb-10">
           <Link to='/'>

@@ -105,8 +105,12 @@ const Home = () => {
           <div className="all">
           <div id="con" style={{ transform: `translateX(-${thisIndex * (window.innerWidth <= 390 ? 315 : 335)}px)` }}>
               <a href="#"><img className="main_img" src="img/EventImg1.png" alt="event_img" /></a>
-              <a href="#"><img className="main_img" src="img/EventImg2.png" alt="event_img2" /></a>
-              <a href="#"><img className="main_img" src="img/EventImg3.png" alt="event_img3"/></a>
+              <Link to={`/NoticeDetails`} state={{ img : "../img/notice_grade.png"}}>
+                <a><img className="main_img" src="img/EventImg2.png" alt="event_img2" /></a>
+                </Link>
+                <Link to={`/NoticeDetails`} state={{ img : "../img/notice_collection.png"}}>
+              <a><img className="main_img" src="img/EventImg3.png" alt="event_img3"/></a>
+              </Link>
             </div>
             <button
               id="prev"
