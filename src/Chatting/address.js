@@ -52,7 +52,7 @@ const Chatting = () => {
   console.log(info);
 
   const handleAccountButtonClick = async () => {
-    const response = await fetch(`https://www.honeybee-goody.site/goody/updateAccount?account=${info.MyAccountNum}`, {
+    const response = await fetch(`https://www.honeybee-goody.site/goody/updateAccount?accountNum=${info.MyAccountNum}&accountBank=${info.MyAccountBank}`, {
       method: 'POST',
       headers,
     });
