@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
 import { ActionBarClose } from '../Component/ActionBarClose';
 import { Item_KeywordReview } from '../Component/Item_KeywordReview';
+import { Empty } from 'antd';
 
 const actionBarName = "리뷰 목록";
 
@@ -70,8 +71,8 @@ const ReviewList = () => {
 
       {loading ? (
         <div className='flex justify-center items-center h-[50rem]'>
-          <img src='img/테이터가 비었습니다.png' className='w-64' alt='데이터가 비었습니다.' />
-        </div>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+      </div>
       ) : (
         <div className='p-5'>
           <CardHeader
