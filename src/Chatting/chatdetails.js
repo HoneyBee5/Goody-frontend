@@ -28,6 +28,8 @@ const Chatdetails = () => {
   const [apiResult, setApiResult] = useState(null); // API 결과 상태
   const navigate = useNavigate();
 
+
+  console.log(chattingEnteruser)
   const fetchOptions = {
     headers: {
       Authorization: `${localStorage.getItem('token')}`, // Bearer 토큰 형식을 따릅니다.

@@ -60,7 +60,7 @@ const ReviewHoneyHome = () => {
   const handleReviewClick = async () => {
 
 
-    fetch(`http://27.96.134.23:4001/goody/review/rate?reviewDocumentId=${itemInfoDocumentId}&receiveId=${receiveId}&rate=${value}`, { //수정해야댐
+    fetch(`https://www.honeybee-goody.site/goody/review/rate?reviewDocumentId=${itemInfoDocumentId}&receiveId=${receiveId}&rate=${value}`, { //수정해야댐
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

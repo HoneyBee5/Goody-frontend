@@ -23,16 +23,14 @@ function CollectionDetail() {
 
 
   const { collectionId } = useParams();
-  
+
   let apiURL = `https://www.honeybee-goody.site/goody/collection/detail?collectionId=${collectionId}`;
 
   const headers = {
-        Authorization: `${token}`,
-      };
+    Authorization: `${token}`,
+  };
   const fetchData = async () => {
     try {
-      
-
       const response = await fetch(apiURL, {
         method: 'GET',
         headers,
@@ -42,8 +40,9 @@ function CollectionDetail() {
         const data = await response.json();
         setCollectionData(data);
         setCurrentImageIndex(0);
-        setLikesCount(data ? data.likeCount : 0); 
+        setLikesCount(data ? data.likeCount : 0);
         setLiked(data ? data.liked : 0);
+        console.log(data);
       } else {
         console.error('An error occurred while fetching collection item list.');
       }
@@ -96,8 +95,8 @@ function CollectionDetail() {
 
   const handleLinkClick = () => {
 
-    navigate('/addWrite', 
-    { state: { datatitle: collectionData.title , dataexplain : collectionData.explain } }); // '/collectionWrite'로 이동하도록 설정
+    navigate('/addWrite',
+      { state: { datatitle: collectionData.title, dataexplain: collectionData.explain } }); // '/collectionWrite'로 이동하도록 설정
   };
 
   const handleBack = () => {
@@ -105,10 +104,13 @@ function CollectionDetail() {
   }
 
   const handleModifyClick = () => {
-    navigate('/collectionmodify', 
-    { state: { 
-      datatitle: collectionData.title , dataexplain : collectionData.explain , 
-      datahashtag : collectionData.hashTags, datadocumentid : collectionData.documentId  } });
+    navigate('/collectionmodify',
+      {
+        state: {
+          datatitle: collectionData.title, dataexplain: collectionData.explain,
+          datahashtag: collectionData.hashTags, datadocumentid: collectionData.documentId
+        }
+      });
   }
   const items = [
     ...(collectionData && collectionData.myCollection === true
@@ -120,14 +122,14 @@ function CollectionDetail() {
       ]
       : []),
 
-      ...(collectionData && collectionData.myCollection === true
-        ? [
-          {
-            label: '수정',
-            key: '2',
-          },
-        ]
-        : []),
+    ...(collectionData && collectionData.myCollection === true
+      ? [
+        {
+          label: '수정',
+          key: '2',
+        },
+      ]
+      : []),
 
     {
       type: 'divider',
@@ -141,18 +143,18 @@ function CollectionDetail() {
         },] : []),
   ];
 
- 
+
   const handleLike = async () => {
     try {
       const response = await fetch(`https://www.honeybee-goody.site/goody/collection/addLike?documentId=${collectionId}`, {
         method: 'POST',
         headers,
       });
-      
-      
+
+
       if (response.ok) {
-      setLiked(true);
-      setLikesCount(await response.text());
+        setLiked(true);
+        setLikesCount(await response.text());
       }
 
     } catch (error) {
@@ -166,11 +168,11 @@ function CollectionDetail() {
         method: 'POST',
         headers,
       });
-      
-      
+
+
       if (response.ok) {
-      setLiked(false);
-      setLikesCount(await response.text());
+        setLiked(false);
+        setLikesCount(await response.text());
       }
 
     } catch (error) {
@@ -194,7 +196,7 @@ function CollectionDetail() {
       <div> {/*전체*/}
         <button className='absolute left-0 w-[10rem] h-[50rem]' onClick={showPreviousImage}></button> {/*이미지*/}
         <button className='absolute right-0 w-[10rem] h-[50rem]' onClick={showNextImage}> </button>{/*이미지*/}
-        
+
         {/*이미지*/}
         <img
           src={collectionData && collectionData.filePath[currentImageIndex]}
@@ -202,27 +204,27 @@ function CollectionDetail() {
           className='relative w-full h-[700px] bg-background-image -z-40 object-cover' />
 
         <div className='flex'>
-        
-        <div className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)'>
-        <p  className='absolute top-5 left-14 w-[5rem] h-[5rem] font-size text-xl text-yellow-500 text-extrabold 
+
+          <div className='drop-shadow-[0_2px_1px_rgba(220,166,19,100)'>
+            <p className='absolute top-5 left-14 w-[5rem] h-[5rem] font-size text-xl text-yellow-500 text-extrabold 
         '> {likesCount} </p>
-        </div>
-        {liked ? 
-          <button className='absolute top-4 left-4 w-[2rem] h-[2rem]'
-          onClick={handledeleteLike} >
-            <img src='../img/yellowheart.png' alt='하트 꽉' />
-          </button> : 
-          <button className='absolute top-4 left-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'
-          onClick={handleLike} >
-            <img src='../img/heart.png' alt='하트 안꽉' />
-          </button> }
-          
+          </div>
+          {liked ?
+            <button className='absolute top-4 left-4 w-[2rem] h-[2rem]'
+              onClick={handledeleteLike} >
+              <img src='../img/yellowheart.png' alt='하트 꽉' />
+            </button> :
+            <button className='absolute top-4 left-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]'
+              onClick={handleLike} >
+              <img src='../img/heart.png' alt='하트 안꽉' />
+            </button>}
+
 
 
           <button onClick={handleBack}>
             <img src="../img/close.png" className='absolute top-4 right-4 w-[2rem] h-[2rem] drop-shadow-[0_2px_1px_rgba(220,166,19,100)]' />
           </button>
-          
+
           <Dropdown
             menu={{
               items: items.map((item) => {
@@ -261,31 +263,31 @@ function CollectionDetail() {
             <p className="text-3xl p-3  absolute text-center">
               {collectionData ? collectionData.title : 'Loading...'}
             </p>
-           
+
 
             <div className="mt-[2.2rem] flex flex-col items-center p-5">
-  <div className="mb-3">
-    <p>
-      {collectionData ? new Date(collectionData.createdDate).toLocaleDateString() : 'Loading...'}
-    </p>
-  </div>
+              <div className="mb-3">
+                <p>
+                  {collectionData ? new Date(collectionData.createdDate).toLocaleDateString() : 'Loading...'}
+                </p>
+              </div>
 
-  <div>
-    {collectionData && collectionData.hashTags ? (
-      <div className='text-center flex items-center justify-center '>
-        {collectionData.hashTags.map((tag, index) => (
-          <p className='px-3' key={index}>
-            # {tag}
-          </p>
-        ))}
-      </div>
-    ) : (
-      <p />
-    )}
-  </div>
-</div>
+              <div>
+                {collectionData && collectionData.hashTags ? (
+                  <div className='text-center flex items-center justify-center '>
+                    {collectionData.hashTags.map((tag, index) => (
+                      <p className='px-3' key={index}>
+                        # {tag}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <p />
+                )}
+              </div>
+            </div>
 
-          
+
             {isDescriptionVisible1 && (
               <p onClick={handleImageClick} />
             )}

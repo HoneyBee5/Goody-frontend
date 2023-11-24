@@ -8,7 +8,7 @@ const actionBarName = "리뷰 목록";
 const ReviewList = () => {
   const [userInfo3, setUserInfo3] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState(false);
+  const [profile, setProfile] = useState('');
   const [nickname, setNickname] = useState(false);
   const [grade, setGrade] = useState(false);
 
@@ -72,7 +72,7 @@ const ReviewList = () => {
         <div className='p-5'>
           <div>
             <div className='flex m-4'>
-              <img src={profile} className="rounded-full border" style={{ width: '2.75rem', height: '2.75rem' }} alt="Profile" />
+            <img src={`https://firebasestorage.googleapis.com/v0/b/goody-4b16e.appspot.com/o/${profile}?alt=media&token=`} className="rounded-full border" style={{ width: '2.75rem', height: '2.75rem' }} alt="Profile" />
 
               <div className='ml-2'>
                 <div className=''>
