@@ -7,59 +7,51 @@ import { Empty } from 'antd';
 
 const Chatting = () => {
   const [chatData, setChatData] = useState([]);
-  const [loading, setLoading] = useState(true);
   const actionBarName = "채팅목록";
   const apiurl = "https://www.honeybee-goody.site/goody/chatroom/list";
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const headers = {
-          Authorization: `${token}`,
-        };
-    
-        const response = await fetch(apiurl, {
-          method: 'GET',
-          headers,
-        });
-    
-        if (!response.ok) {
-          throw new Error(`HTTP 오류 ${response.status}`);
-        }
-    
-        const data = await response.json();
-    
-        if (data && data.length > 0) {
-          setChatData(data);
-          console.log(data);
-        } else {
-          console.error('API에서 데이터를 가져오는 중 오류 발생: 데이터가 비어 있습니다.');
-        }
-      } catch (error) {
-        console.error('오류 발생:', error);
-        setLoading(false); // Set loading to false in case of an error
-        // Handle the error here (e.g., display an error message to the user)
+  const fetchData = async () => {
+    try {
+      const headers = {
+        Authorization: `${token}`,
+      };
+
+      const response = await fetch(apiurl, {
+        method: 'GET',
+        headers,
+      });
+
+      if (!response.ok) {
+        throw Error('네트워크 오류');
       }
-    };
-    
-  
+
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        setChatData(data);
+        console.log(data);
+      } else {
+        console.error('API에서 데이터를 가져오는 중 오류 발생: 데이터가 비어 있습니다.');
+      }
+    } catch (error) {
+      console.error('오류 발생:', error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <>
       <ActionBar actionBarName={actionBarName} />
-    
+  
       <div className='mt-20'>
-        {loading ? (
-          <div className='flex justify-center items-center h-[50rem]'>
-            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-          </div>
-        ) : chatData.length > 0 ? (
+        {chatData.length > 0 ? (
           chatData.map((chatItem, index) => (
-            <Link
-              key={chatItem.roomId} 
+            <Link key={chatItem.roomId} 
               to={`/chatdetails/${chatItem.roomId}?contentsId=${chatItem.contentsId}`}
               state={{ chattingEnteruser: chatItem.enterUsers }}
             >
@@ -77,7 +69,7 @@ const Chatting = () => {
           </div>
         )}
       </div>
-    
+  
       <Nav />
     </>
   );

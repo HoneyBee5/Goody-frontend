@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { EditOutlined, EllipsisOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Card, Input, Button } from 'antd';
 import PropTypes from 'prop-types'; // prop-types를 import
-
+import { Modal } from 'antd';
 import { Avatar as AntAvatar } from 'antd';
 
 const { Meta } = Card;
@@ -94,7 +94,21 @@ const Mypage = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.clear();
+    Modal.confirm({
+      title: '로그아웃',
+      content: '로그아웃 하시겠습니까?',
+      okButtonProps: {
+        type: "primary",
+        style: { backgroundColor: '#FFD52B', color: 'black' },
+      },
+      onOk: () => {
+        localStorage.clear();
+        window.location.href = '/';
+      },
+      onCancel: () => {
+        // 취소 버튼 눌렀을 때 수행할 작업
+      },
+    });
   };
 
   const handleEllipsisClick = () => {
@@ -364,12 +378,12 @@ const Mypage = () => {
           </Link>
         </div>
         <div className="flex pb-2 mb-10">
-          <Link to='/'>
+
             <button className="flex p-2 items-center" onClick={handleLogout}>
               <img src="img/Icon_Settings.png" alt="로그아웃" className="h-5 w-5 mr-5" />
               <span className="font-extrabold text-sm">로그아웃</span>
             </button>
-          </Link>
+
         </div>
       </div>
       <Nav />
